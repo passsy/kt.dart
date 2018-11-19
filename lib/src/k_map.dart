@@ -38,6 +38,12 @@ abstract class KMap<K, V> {
   V get(K key);
 
   /**
+   * Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
+   */
+  // TODO add nullable annotation
+  V operator [](K key);
+
+  /**
    * Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
    *
    * @since JDK 1.8

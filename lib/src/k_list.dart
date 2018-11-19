@@ -15,6 +15,11 @@ abstract class KList<E> implements KCollection<E> {
    */
   E get(int index);
 
+  /**
+   * Returns the element at the specified index in the list.
+   */
+  E operator [](int index) => get(index);
+
   // Search Operations
   /**
    * Returns the index of the first occurrence of the specified element in the list, or -1 if the specified

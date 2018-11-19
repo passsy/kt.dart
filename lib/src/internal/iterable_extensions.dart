@@ -13,16 +13,26 @@ abstract class KIterableExtensionsMixin<T> implements KIterable<T>, KIterableExt
   }
 
   @override
-  bool any([bool Function(T element) test = null]) {
-    if (test == null) {
+  bool any([bool Function(T element) predicate = null]) {
+    if (predicate == null) {
       if (this is KCollection) return !(this as KCollection).isEmpty();
       return iterator().hasNext();
     }
     if (this is KCollection && (this as KCollection).isEmpty()) return false;
     for (var element in iter) {
-      if (test(element)) return true;
+      if (predicate(element)) return true;
     }
     return false;
+  }
+
+  bool all([bool Function(T element) predicate = null]) {
+    if (this is KCollection && (this as KCollection).isEmpty()) return true;
+    for (var element in iter) {
+      if (!predicate(element)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 

@@ -35,7 +35,7 @@ void main() {
       expect(list.isEmpty(), isFalse);
     });
 
-    test("returns elements", () {
+    test("get returns elements", () {
       final list = listOf(["a", "b", "c"]);
 
       expect(list.get(0), equals("a"));
@@ -44,6 +44,17 @@ void main() {
       expect(() => list.get(3), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(-1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(null), throwsA(TypeMatcher<ArgumentError>()));
+    });
+
+    test("[] returns elements", () {
+      final list = listOf(["a", "b", "c"]);
+
+      expect(list[0], equals("a"));
+      expect(list[1], equals("b"));
+      expect(list[2], equals("c"));
+      expect(() => list[3], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[-1], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[null], throwsA(TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf return element or -1", () {
@@ -83,13 +94,6 @@ void main() {
       expect(() => list.subList(-1, -1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.subList(3, 1), throwsA(TypeMatcher<ArgumentError>()));
       expect(() => list.subList(2, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-    });
-
-    test("list any", () {
-      final list = listOf(["abc", "bcd", "cde"]);
-
-      expect(list.any((e) => e.contains("a")), isTrue);
-      expect(list.any((e) => e.contains("f")), isFalse);
     });
   });
 }

@@ -2,6 +2,9 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/iterable_extensions.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
+/**
+ * [KList] based on a dart [List]
+ */
 class DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
   final List<E> _list;
   int _hashCode;
@@ -29,6 +32,7 @@ class DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
     return _list[index];
   }
 
+  @override
   E operator [](int index) => get(index);
 
   @override
@@ -86,6 +90,7 @@ class DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
   }
 }
 
+// TODO replace with _DartToKIterator?
 class _DartListIterator<T> implements KIterator<T> {
   int cursor; // index of next element to return
   int lastRet = -1; // index of last element returned; -1 if no such

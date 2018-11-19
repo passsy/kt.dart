@@ -21,7 +21,12 @@ abstract class KIterableExtensions<T> {
   /**
    * Returns `true` if at least one element matches the given [predicate].
    */
-  bool any([bool Function(T element) test = null]);
+  bool any([bool Function(T element) predicate = null]);
+
+  /**
+   * Returns `true` if all elements match the given [predicate].
+   */
+  bool all([bool Function(T element) predicate = null]);
 
   /**
    * Performs the given [action] on each element.

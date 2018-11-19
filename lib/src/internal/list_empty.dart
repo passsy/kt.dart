@@ -36,10 +36,16 @@ class _EmptyList with KIterableExtensionsMixin<Object> implements KList<Object> 
   bool contains(Object element) => false;
 
   @override
-  bool containsAll(KCollection<Object> elements) => false;
+  bool containsAll(KCollection<Object> elements) => elements.isEmpty();
 
   @override
   Object get(int index) {
+    if (index == null) throw ArgumentError("index can't be null");
+    throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
+  }
+
+  @override
+  Object operator [](int index) {
     if (index == null) throw ArgumentError("index can't be null");
     throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
   }
@@ -51,7 +57,7 @@ class _EmptyList with KIterableExtensionsMixin<Object> implements KList<Object> 
   bool isEmpty() => true;
 
   @override
-  iterator() => _kEmptyIterator;
+  KIterator<Object> iterator() => _kEmptyIterator;
 
   @override
   int lastIndexOf(Object element) => -1;

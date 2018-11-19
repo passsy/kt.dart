@@ -3,6 +3,7 @@
  * Allows to sequentially access the elements.
  */
 abstract class KIterator<T> {
+  const KIterator();
   /**
    * Returns the next element in the iteration.
    */
