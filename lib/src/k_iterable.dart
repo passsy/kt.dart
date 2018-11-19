@@ -41,7 +41,7 @@ abstract class KIterableExtensions<T> {
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KMap<K, V> associate<T, K, V>(KPair<K, V> Function(T) transform);
+  KMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform);
 
   /**
    * Returns a [Map] containing the elements from the given collection indexed by the key
@@ -51,7 +51,7 @@ abstract class KIterableExtensions<T> {
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KMap<K, V> associateBy<T, K, V>(K Function(T) keySelector, [V Function(T) valueTransform]);
+  KMap<K, V> associateBy<K, V>(K Function(T) keySelector, [V Function(T) valueTransform]);
 
   /**
    * Populates and returns the [destination] mutable map with key-value pairs,
@@ -60,8 +60,8 @@ abstract class KIterableExtensions<T> {
    *
    * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
    */
-  M associateByTo<T, K, V, M extends KMutableMap<K, V>>(
-      M destination, K Function(T) keySelector, V Function(T) valueTransform);
+  M associateByTo<K, V, M extends KMutableMap<K, V>>(M destination, K Function(T) keySelector,
+      [V Function(T) valueTransform]);
 
   /**
    * Populates and returns the [destination] mutable map with key-value pairs
@@ -69,7 +69,7 @@ abstract class KIterableExtensions<T> {
    *
    * If any of two pairs would have the same key the last one gets added to the map.
    */
-  M associateTo<T, K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform);
+  M associateTo<K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform);
 
   /**
    * Returns a [Map] where keys are elements from the given collection and values are
@@ -79,7 +79,7 @@ abstract class KIterableExtensions<T> {
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KMap<K, V> associateWith<K, V>(V Function(K) valueSelector);
+  KMap<T, V> associateWith<V>(V Function(T) valueSelector);
 
   /**
    * Populates and returns the [destination] mutable map with key-value pairs for each element of the given collection,
@@ -87,7 +87,7 @@ abstract class KIterableExtensions<T> {
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
    */
-  M associateWithTo<K, V, M extends KMutableMap<K, V>>(M destination, V Function(K) valueSelector);
+  M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
 
   /**
    * Performs the given [action] on each element.

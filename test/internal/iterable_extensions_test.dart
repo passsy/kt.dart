@@ -16,4 +16,18 @@ void main() {
       expect(list.any((e) => e.contains("x")), isFalse);
     });
   });
+
+  group('associateWith', () {
+    test("associateWith", () {
+      final list = listOf(["a", "b", "c"]);
+      var result = list.associateWith((it) => it.toUpperCase());
+      var expected = mapOf({"a": "A", "b": "B", "c": "C"});
+      expect(result, equals(expected));
+    });
+    test("associateWith on empty map", () {
+      final list = emptyList<String>();
+      var result = list.associateWith((it) => it.toUpperCase());
+      expect(result, equals(emptyMap()));
+    });
+  });
 }
