@@ -1,20 +1,14 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/internal/iterable_extensions.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-part 'empty_list.dart';
-
-KList<T> listOf<T>([Iterable<T> elements = const []]) {
-  if (elements.length == 0) return emptyList();
-  return _DartList(elements);
-}
-
-class _DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
+class DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
   final List<E> _list;
   int _hashCode;
 
-  _DartList([Iterable<E> iterable = const []])
+  DartList([Iterable<E> iterable = const []])
       :
-        // copy list to prevent external modification
+// copy list to prevent external modification
         _list = List.from(iterable, growable: false),
         super();
 
@@ -68,7 +62,7 @@ class _DartList<E> with KIterableExtensionsMixin<E> implements KList<E> {
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
-    return _DartList(_list.sublist(fromIndex, toIndex));
+    return DartList(_list.sublist(fromIndex, toIndex));
   }
 
   @override
@@ -137,14 +131,3 @@ class _DartListListIterator<T> extends _DartListIterator<T> implements KListIter
   @override
   int previousIndex() => cursor - 1;
 }
-
-class IndexOutOfBoundsException implements Exception {
-  final String message;
-
-  IndexOutOfBoundsException(this.message);
-
-  @override
-  String toString() => 'IndexOutOfBoundsException: $message';
-}
-
-class NoSuchElementException implements Exception {}

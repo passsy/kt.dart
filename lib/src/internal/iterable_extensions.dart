@@ -1,17 +1,5 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
-abstract class KIterableExtensions<T> {
-  /**
-   * Returns `true` if at least one element matches the given [predicate].
-   */
-  bool any([bool Function(T element) test = null]);
-
-  /**
-   * Performs the given [action] on each element.
-   */
-  void forEach(void action(T element));
-}
-
 abstract class KIterableExtensionsMixin<T> implements KIterable<T>, KIterableExtensions<T> {
   Iterable<T> get iter => _DartInteropIterable(this);
 

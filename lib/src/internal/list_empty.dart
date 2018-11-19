@@ -1,7 +1,5 @@
-part of 'klist.dart';
-
-// ignore: unnecessary_cast
-KList<T> emptyList<T>() => _kEmptyList as KList<Object>;
+import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/internal/iterable_extensions.dart';
 
 const _kEmptyIterator = const _EmptyIterator();
 
@@ -31,7 +29,7 @@ class _EmptyIterator extends KListIterator<Object> {
   int previousIndex() => -1;
 }
 
-final _kEmptyList = new _EmptyList();
+final kEmptyList = new _EmptyList();
 
 class _EmptyList with KIterableExtensionsMixin<Object> implements KList<Object> {
   @override
