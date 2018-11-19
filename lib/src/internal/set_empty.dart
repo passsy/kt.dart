@@ -2,7 +2,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 
 import 'iterable_extensions.dart';
 
-final kEmptySet = new _EmptySet();
+final KSet<Object> kEmptySet = new _EmptySet();
 
 class _EmptySet with KIterableExtensionsMixin<Object> implements KSet<Object> {
   @override
@@ -19,6 +19,15 @@ class _EmptySet with KIterableExtensionsMixin<Object> implements KSet<Object> {
 
   @override
   int get size => 0;
+
+  @override
+  bool operator ==(Object other) => other is KSet && other.isEmpty();
+
+  @override
+  int get hashCode => 0;
+
+  @override
+  String toString() => "[]";
 }
 
 const _kEmptyIterator = const _EmptyIterator();

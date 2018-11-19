@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/list.dart';
 import 'package:dart_kollection/src/internal/list_empty.dart';
+import 'package:dart_kollection/src/internal/map.dart';
+import 'package:dart_kollection/src/internal/map_empty.dart';
 import 'package:dart_kollection/src/internal/set.dart';
 import 'package:dart_kollection/src/internal/set_empty.dart';
 
@@ -15,19 +17,18 @@ KList<T> listOf<T>([Iterable<T> elements = const []]) {
 /**
  * Returns an empty read-only list.
  */
-// ignore: unnecessary_cast
-KList<T> emptyList<T>() => kEmptyList as KList<Object>;
+KList<T> emptyList<T>() => kEmptyList;
 
 /**
  *  Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
-KMap<K, V> mapOf<K, V>(Map<K, V> map) => throw "TODO";
+KMap<K, V> mapOf<K, V>([Map<K, V> map = const {}]) => DartMap(map);
 
 /**
  * Returns an empty read-only map of specified type.
  */
-KMap<K, V> emptyMap<K, V>() => throw "TODO";
+KMap<K, V> emptyMap<K, V>() => kEmptyMap;
 
 /**
  * Returns a new read-only set with the given elements.
@@ -41,5 +42,4 @@ KSet<T> setOf<T>([Iterable<T> elements = const []]) {
 /**
  * Returns an empty read-only set.
  */
-// ignore: unnecessary_cast
-KSet<T> emptySet<T>() => kEmptySet as KSet<Object>;
+KSet<T> emptySet<T>() => kEmptySet;

@@ -29,7 +29,7 @@ class _EmptyIterator extends KListIterator<Object> {
   int previousIndex() => -1;
 }
 
-final kEmptyList = new _EmptyList();
+final KList<Object> kEmptyList = new _EmptyList();
 
 class _EmptyList with KIterableExtensionsMixin<Object> implements KList<Object> {
   @override
