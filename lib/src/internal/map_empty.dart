@@ -2,38 +2,36 @@ import 'package:dart_kollection/dart_kollection.dart';
 
 import 'iterable_extensions.dart';
 
-final KMap<Object, Object> kEmptyMap = new _EmptyMap();
-
-class _EmptyMap implements KMap<Object, Object> {
+class EmptyMap<K, V> implements KMap<K, V> {
   @override
-  operator [](Object key) => null;
+  operator [](K key) => null;
 
   @override
-  bool containsKey(Object key) => false;
+  bool containsKey(K key) => false;
 
   @override
-  bool containsValue(Object value) => false;
+  bool containsValue(V value) => false;
 
   @override
-  KSet<KMapEntry<Object, Object>> get entries => emptySet();
+  KSet<KMapEntry<K, V>> get entries => emptySet();
 
   @override
-  Object get(Object key) => null;
+  V get(K key) => null;
 
   @override
-  Object getOrDefault(Object key, Object defaultValue) => defaultValue;
+  V getOrDefault(K key, V defaultValue) => defaultValue;
 
   @override
   bool isEmpty() => true;
 
   @override
-  KSet<Object> get keys => emptySet();
+  KSet<K> get keys => emptySet();
 
   @override
   int get size => 0;
 
   @override
-  KCollection<Object> get values => emptySet();
+  KCollection<V> get values => emptySet();
 
   @override
   bool operator ==(Object other) => other is KMap && other.isEmpty();

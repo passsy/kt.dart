@@ -2,6 +2,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/list.dart';
 import 'package:dart_kollection/src/internal/list_empty.dart';
 import 'package:dart_kollection/src/internal/map.dart';
+import 'package:dart_kollection/src/internal/map_mutable.dart';
 import 'package:dart_kollection/src/internal/map_empty.dart';
 import 'package:dart_kollection/src/internal/set.dart';
 import 'package:dart_kollection/src/internal/set_empty.dart';
@@ -17,7 +18,7 @@ KList<T> listOf<T>([Iterable<T> elements = const []]) {
 /**
  * Returns an empty read-only list.
  */
-KList<T> emptyList<T>() => kEmptyList;
+KList<T> emptyList<T>() => EmptyList<T>();
 
 /**
  *  Returns an immutable map, mapping only the specified key to the
@@ -28,7 +29,7 @@ KMap<K, V> mapOf<K, V>([Map<K, V> map = const {}]) => DartMap(map);
 /**
  * Returns an empty read-only map of specified type.
  */
-KMap<K, V> emptyMap<K, V>() => kEmptyMap;
+KMap<K, V> emptyMap<K, V>() => EmptyMap<K, V>();
 
 /**
  * Returns a new read-only set with the given elements.

@@ -1,9 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/iterable_extensions.dart';
 
-const _kEmptyIterator = const _EmptyIterator();
-
-class _EmptyIterator extends KListIterator<Object> {
+class _EmptyIterator<T> extends KListIterator<T> {
   const _EmptyIterator();
 
   @override
@@ -13,7 +11,7 @@ class _EmptyIterator extends KListIterator<Object> {
   bool hasPrevious() => false;
 
   @override
-  Object next() {
+  T next() {
     throw NoSuchElementException();
   }
 
@@ -21,7 +19,7 @@ class _EmptyIterator extends KListIterator<Object> {
   int nextIndex() => 0;
 
   @override
-  Object previous() {
+  T previous() {
     throw NoSuchElementException();
   }
 
@@ -29,50 +27,48 @@ class _EmptyIterator extends KListIterator<Object> {
   int previousIndex() => -1;
 }
 
-final KList<Object> kEmptyList = new _EmptyList();
-
-class _EmptyList with KIterableExtensionsMixin<Object> implements KList<Object> {
+class EmptyList<T> with KIterableExtensionsMixin<T> implements KList<T> {
   @override
-  bool contains(Object element) => false;
+  bool contains(T element) => false;
 
   @override
-  bool containsAll(KCollection<Object> elements) => elements.isEmpty();
+  bool containsAll(KCollection<T> elements) => elements.isEmpty();
 
   @override
-  Object get(int index) {
+  T get(int index) {
     if (index == null) throw ArgumentError("index can't be null");
     throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
   }
 
   @override
-  Object operator [](int index) {
+  T operator [](int index) {
     if (index == null) throw ArgumentError("index can't be null");
     throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
   }
 
   @override
-  int indexOf(Object element) => -1;
+  int indexOf(T element) => -1;
 
   @override
   bool isEmpty() => true;
 
   @override
-  KIterator<Object> iterator() => _kEmptyIterator;
+  KIterator<T> iterator() => _EmptyIterator();
 
   @override
-  int lastIndexOf(Object element) => -1;
+  int lastIndexOf(T element) => -1;
 
   @override
-  KListIterator<Object> listIterator([int index = 0]) {
+  KListIterator<T> listIterator([int index = 0]) {
     if (index == null) throw ArgumentError("index can't be null");
-    return _kEmptyIterator;
+    return _EmptyIterator();
   }
 
   @override
   int get size => 0;
 
   @override
-  KList<Object> subList(int fromIndex, int toIndex) {
+  KList<T> subList(int fromIndex, int toIndex) {
     if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
     if (toIndex == null) throw ArgumentError("toIndex can't be null");
     if (fromIndex == 0 && toIndex == 0) return this;

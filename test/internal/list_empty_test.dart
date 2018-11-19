@@ -4,15 +4,15 @@ import 'package:test/test.dart';
 void main() {
   group('empty list', () {
     test("has no elements", () {
-      final empty = emptyList();
+      final empty = emptyList<String>();
       expect(empty.size, equals(0));
     });
 
     test("contains nothing", () {
-      expect(emptyList().contains("asdf"), isFalse);
-      expect(emptyList().contains(null), isFalse);
-      expect(emptyList().contains(0), isFalse);
-      expect(emptyList().contains([]), isFalse);
+      expect(emptyList<String>().contains("asdf"), isFalse);
+      expect(emptyList<int>().contains(null), isFalse);
+      expect(emptyList<int>().contains(0), isFalse);
+      expect(emptyList<List>().contains([]), isFalse);
     });
 
     test("iterator has no next", () {
@@ -54,15 +54,23 @@ void main() {
       expect(empty0.hashCode, equals(empty1.hashCode));
     });
 
+    test("empty lists of different type are equal", () {
+      final empty0 = emptyList<int>();
+      final empty1 = emptyList<String>();
+
+      expect(empty0, equals(empty1));
+      expect(empty0.hashCode, equals(empty1.hashCode));
+    });
+
     test("sublist works for index 0 to 0", () {
-      final empty = emptyList();
+      final empty = emptyList<Object>();
       final subList = empty.subList(0, 0);
       expect(subList.size, equals(0));
       expect(subList, equals(empty));
     });
 
     test("sublist throws for all other ranges", () {
-      final empty = emptyList();
+      final empty = emptyList<int>();
 
       expect(() => empty.subList(0, 1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.subList(1, 1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
