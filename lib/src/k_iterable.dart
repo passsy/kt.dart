@@ -19,14 +19,75 @@ abstract class KIterable<T> implements KIterableExtensions<T> {
 
 abstract class KIterableExtensions<T> {
   /**
+   * Returns `true` if all elements match the given [predicate].
+   */
+  bool all([bool Function(T element) predicate = null]);
+
+  /**
    * Returns `true` if at least one element matches the given [predicate].
    */
   bool any([bool Function(T element) predicate = null]);
 
   /**
-   * Returns `true` if all elements match the given [predicate].
+   * Returns this collection as an [Iterable].
    */
-  bool all([bool Function(T element) predicate = null]);
+  KIterable<T> asIterable() => this;
+
+  /**
+   * Returns a [Map] containing key-value pairs provided by [transform] function
+   * applied to elements of the given collection.
+   *
+   * If any of two pairs would have the same key the last one gets added to the map.
+   *
+   * The returned map preserves the entry iteration order of the original collection.
+   */
+  KMap<K, V> associate<T, K, V>(KPair<K, V> Function(T) transform);
+
+  /**
+   * Returns a [Map] containing the elements from the given collection indexed by the key
+   * returned from [keySelector] function applied to each element. The element can be transformed with [valueTransform].
+   *
+   * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
+   *
+   * The returned map preserves the entry iteration order of the original collection.
+   */
+  KMap<K, V> associateBy<T, K, V>(K Function(T) keySelector, [V Function(T) valueTransform]);
+
+  /**
+   * Populates and returns the [destination] mutable map with key-value pairs,
+   * where key is provided by the [keySelector] function and
+   * and value is provided by the [valueTransform] function applied to elements of the given collection.
+   *
+   * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
+   */
+  M associateByTo<T, K, V, M extends KMutableMap<K, V>>(
+      M destination, K Function(T) keySelector, V Function(T) valueTransform);
+
+  /**
+   * Populates and returns the [destination] mutable map with key-value pairs
+   * provided by [transform] function applied to each element of the given collection.
+   *
+   * If any of two pairs would have the same key the last one gets added to the map.
+   */
+  M associateTo<T, K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform);
+
+  /**
+   * Returns a [Map] where keys are elements from the given collection and values are
+   * produced by the [valueSelector] function applied to each element.
+   *
+   * If any two elements are equal, the last one gets added to the map.
+   *
+   * The returned map preserves the entry iteration order of the original collection.
+   */
+  KMap<K, V> associateWith<K, V>(V Function(K) valueSelector);
+
+  /**
+   * Populates and returns the [destination] mutable map with key-value pairs for each element of the given collection,
+   * where key is the element itself and value is provided by the [valueSelector] function applied to that key.
+   *
+   * If any two elements are equal, the last one overwrites the former value in the map.
+   */
+  M associateWithTo<K, V, M extends KMutableMap<K, V>>(M destination, V Function(K) valueSelector);
 
   /**
    * Performs the given [action] on each element.
