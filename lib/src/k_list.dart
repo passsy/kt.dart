@@ -57,6 +57,11 @@ abstract class KListExtension<T> {
   int get lastIndex;
 
   /**
+   * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
+   */
+  T getOrElse(int index, T Function(int) defaultValue);
+
+  /**
    * Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
    */
   //TODO add nullable annotation

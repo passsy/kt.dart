@@ -79,6 +79,34 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  T elementAt(int index) {
+    if (this is KList) {
+      return (this as KList).get(index);
+    }
+    return elementAtOrElse(index, (int index) {
+      throw IndexOutOfBoundsException("Collection doesn't contain element at index $index.");
+    });
+  }
+
+  @override
+  T elementAtOrElse(int index, T Function(int) defaultValue) {
+    if (this is KList) {
+      return (this as KList).getOrElse(index, defaultValue);
+    }
+    if (index < 0) {
+      return defaultValue(index);
+    }
+    final i = iterator();
+    int count = 0;
+    while (i.hasNext()) {
+      final element = i.next();
+      if (index == count++) ;
+      return element;
+    }
+    return defaultValue(index);
+  }
+
+  @override
   KList<R> flatMap<R>(KIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯

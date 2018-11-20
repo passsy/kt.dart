@@ -95,6 +95,16 @@ abstract class KIterableExtension<T> {
   bool contains(T element);
 
   /**
+   * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
+   */
+  T elementAt(int index);
+
+  /**
+   * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this collection.
+   */
+  T elementAtOrElse(int index, T Function(int) defaultValue);
+
+  /**
    * Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
    */
   KList<R> flatMap<R>(KIterable<R> Function(T) transform);
