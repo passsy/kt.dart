@@ -100,10 +100,30 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     int count = 0;
     while (i.hasNext()) {
       final element = i.next();
-      if (index == count++) ;
-      return element;
+      if (index == count++) {
+        return element;
+      }
     }
     return defaultValue(index);
+  }
+
+  @override
+  T elementAtOrNull(int index) {
+    if (this is KList) {
+      return (this as KList).getOrNull(index);
+    }
+    if (index < 0) {
+      return null;
+    }
+    final i = iterator();
+    int count = 0;
+    while (i.hasNext()) {
+      final element = i.next();
+      if (index == count++) {
+        return element;
+      }
+    }
+    return null;
   }
 
   @override

@@ -105,6 +105,11 @@ abstract class KIterableExtension<T> {
   T elementAtOrElse(int index, T Function(int) defaultValue);
 
   /**
+   * Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
+   */
+  T elementAtOrNull(int index);
+
+  /**
    * Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
    */
   KList<R> flatMap<R>(KIterable<R> Function(T) transform);
