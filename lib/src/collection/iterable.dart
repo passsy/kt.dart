@@ -1,8 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
 // TODO create empty version
-class DartIterable<T> extends Iterable<T> {
-  DartIterable(this.kIterable);
+class DartInteropIterable<T> extends Iterable<T> {
+  DartInteropIterable(this.kIterable);
 
   final KIterable<T> kIterable;
 

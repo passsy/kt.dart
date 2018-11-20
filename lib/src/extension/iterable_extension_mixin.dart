@@ -1,8 +1,4 @@
-import 'dart:collection';
-
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/list_mutable.dart';
-import 'package:dart_kollection/src/internal/map_mutable.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
 abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
@@ -35,12 +31,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform) {
-    return associateTo(DartMutableMap(LinkedHashMap<K, V>()), transform);
+    return associateTo(linkedMapOf<K, V>(), transform);
   }
 
   @override
   KMap<K, V> associateBy<K, V>(K Function(T) keySelector, [V Function(T) valueTransform]) {
-    return associateByTo(DartMutableMap(LinkedHashMap<K, V>()), keySelector, valueTransform);
+    return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
   }
 
   @override
@@ -65,7 +61,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
-    return associateWithTo(DartMutableMap(LinkedHashMap<T, V>()), valueSelector);
+    return associateWithTo(linkedMapOf<T, V>(), valueSelector);
   }
 
   @override
@@ -78,7 +74,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KList<T> flatMap<R>(KIterable<R> Function(T) transform) {
-    final KMutableCollection<R> list = DartMutableList<R>(LinkedHashSet<R>());
+    final KMutableCollection<R> list = linkedSetOf<R>();
     return flatMapTo(list, transform);
   }
 

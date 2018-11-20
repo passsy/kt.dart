@@ -1,8 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable.dart';
-import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterable_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/list_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 
 class EmptyList<T>
     with KListExtensionsMixin<T>, KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
@@ -64,7 +64,7 @@ class EmptyList<T>
   bool operator ==(Object other) => other is KList && other.isEmpty();
 
   @override
-  Iterable<T> get iter => DartIterable(this);
+  Iterable<T> get iter => DartInteropIterable(this);
 }
 
 class _EmptyIterator<T> extends KListIterator<T> {

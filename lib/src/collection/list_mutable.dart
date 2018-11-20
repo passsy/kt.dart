@@ -1,12 +1,12 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable.dart';
-import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterable_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterable_mutable_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterator.dart';
-import 'package:dart_kollection/src/internal/list.dart';
-import 'package:dart_kollection/src/internal/list_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/list_mutable_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterator.dart';
+import 'package:dart_kollection/src/collection/list.dart';
+import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/list_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 /**
@@ -29,7 +29,7 @@ class DartMutableList<T>
         _list = List.from(iterable, growable: true),
         super();
 
-  Iterable<T> get iter => DartIterable<T>(this);
+  Iterable<T> get iter => DartInteropIterable<T>(this);
 
   @override
   bool contains(T element) => _list.contains(element);
@@ -123,6 +123,7 @@ class DartMutableList<T>
   @override
   bool retainAll(KCollection<T> elements) {
     _list.removeWhere((it) => !elements.contains(it));
+    return true;
   }
 
   @override

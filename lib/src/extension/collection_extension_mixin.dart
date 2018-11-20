@@ -1,5 +1,5 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/list_mutable.dart';
+import 'package:dart_kollection/src/collection/list_mutable.dart';
 
 abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, KCollection<T> {
   @override

@@ -1,9 +1,9 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable.dart';
-import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterable_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterator.dart';
-import 'package:dart_kollection/src/internal/list_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterator.dart';
+import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 /**
@@ -21,7 +21,7 @@ class DartList<T>
         _list = List.from(iterable, growable: false),
         super();
 
-  Iterable<T> get iter => DartIterable<T>(this);
+  Iterable<T> get iter => DartInteropIterable<T>(this);
 
   @override
   bool contains(T element) => _list.contains(element);

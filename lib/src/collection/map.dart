@@ -1,16 +1,15 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/map_extensions_mixin.dart';
-import 'package:dart_kollection/src/internal/map_mutable_extensions_mixin.dart';
+import 'package:dart_kollection/src/extension/map_extensions_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsMixin<K, V>, KMapExtensionsMixin<K, V> {
+class DartMap<K, V> extends KMap<K, V> with KMapExtensionsMixin<K, V> {
   final Map<K, V> _map;
   int _hashCode;
 
-  DartMutableMap([Map<K, V> map = const {}])
+  DartMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification
-        _map = Map.from(map),
+        _map = Map.unmodifiable(map),
         super();
 
   @override
@@ -42,39 +41,6 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
 
   @override
   KCollection<V> get values => listOf(_map.values);
-
-  @override
-  void clear() => _map.clear();
-
-  @override
-  V put(K key, V value) {
-    final V prev = _map[key];
-    _map[key] = value;
-    return prev;
-  }
-
-  @override
-  void putAll(KMap<K, V> from) {
-    for (var entry in from.entries.iter) {
-      _map[entry.key] = entry.value;
-    }
-  }
-
-  @override
-  V remove(K key) {
-    return _map.remove(key);
-  }
-
-  @override
-  bool removeMapping(K key, V value) {
-    for (var entry in _map.entries) {
-      if (entry.key == key && entry.value == value) {
-        _map.remove(key);
-        return true;
-      }
-    }
-    return false;
-  }
 
   @override
   bool operator ==(dynamic other) {

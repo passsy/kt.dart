@@ -1,8 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable.dart';
-import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
 
-import 'iterable_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 
 class EmptySet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T> implements KSet<T> {
   @override
@@ -30,7 +30,7 @@ class EmptySet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
   String toString() => "[]";
 
   @override
-  Iterable<T> get iter => DartIterable(this);
+  Iterable<T> get iter => DartInteropIterable(this);
 }
 
 class _EmptyIterator<T> extends KIterator<T> {
