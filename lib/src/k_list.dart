@@ -12,13 +12,15 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
 
   // Positional Access Operations
   /**
-   * Returns the element at the specified index in the list.
+   * Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
    */
+  @nullable
   T get(int index);
 
   /**
-   * Returns the element at the specified index in the list.
+   * Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
    */
+  @nullable
   T operator [](int index) => get(index);
 
   // Search Operations
@@ -58,28 +60,35 @@ abstract class KListExtension<T> {
 
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
+   *
+   * returns `null` when [defaultValue] return `null`
    */
+  @nullable
   T getOrElse(int index, T Function(int) defaultValue);
 
   /**
    * Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
    */
-  //TODO add nullable annotation
+  @nullable
   T getOrNull(int index);
 
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this list.
    */
+  @nullable
   T elementAt(int index);
 
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
+   *
+   * returns `null` when [defaultValue] return `null`
    */
+  @nullable
   T elementAtOrElse(int index, T defaultValue(int index));
 
   /**
    * Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
    */
-  //TODO add nullable annotation
+  @nullable
   T elementAtOrNull(int index);
 }

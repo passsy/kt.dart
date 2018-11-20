@@ -21,7 +21,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns `true` if all elements match the given [predicate].
    */
-  bool all([bool Function(T element) predicate = null]);
+  bool all([bool Function(T element) predicate]);
 
   /**
    * Returns `true` if at least one element matches the given [predicate].
@@ -97,16 +97,19 @@ abstract class KIterableExtension<T> {
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
    */
+  @nonNull
   T elementAt(int index);
 
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this collection.
    */
+  @nullable
   T elementAtOrElse(int index, T Function(int) defaultValue);
 
   /**
    * Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
    */
+  @nullable
   T elementAtOrNull(int index);
 
   /**

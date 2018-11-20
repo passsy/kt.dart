@@ -18,6 +18,7 @@ abstract class KMutableList<T> implements KList<T>, KMutableCollection<T>, KMuta
    *
    * @return the element previously at the specified position.
    */
+  @nullable
   T set(int index, T element);
 
   /**
@@ -30,6 +31,7 @@ abstract class KMutableList<T> implements KList<T>, KMutableCollection<T>, KMuta
    *
    * @return the element that has been removed.
    */
+  @nullable
   T removeAt(int index);
 }
 

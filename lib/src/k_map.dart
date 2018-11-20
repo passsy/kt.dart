@@ -34,21 +34,20 @@ abstract class KMap<K, V> implements KMapExtension<K, V> {
   /**
    * Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
    */
-  // TODO add nullable annotation
+  @nullable
   V get(K key);
 
   /**
    * Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
    */
-  // TODO add nullable annotation
+  @nullable
   V operator [](K key);
 
   /**
    * Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
-   *
-   * @since JDK 1.8
    */
-  V getOrDefault(K key, V defaultValue);
+  @nullable
+  V getOrDefault(K key, @nonNull V defaultValue);
 
   // Views
   /**
@@ -79,6 +78,7 @@ abstract class KMapEntry<K, V> {
   /**
    * Returns the value of this key/value pair.
    */
+  @nullable
   V get value;
 }
 

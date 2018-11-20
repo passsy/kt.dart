@@ -13,7 +13,7 @@ abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, 
    *
    * @return the previous value associated with the key, or `null` if the key was not present in the map.
    */
-  // TODO add nullable annotation
+  @nullable
   V put(K key, V value);
 
   /**
@@ -21,7 +21,7 @@ abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, 
    *
    * @return the previous value associated with the key, or `null` if the key was not present in the map.
    */
-  // TODO add nullable annotation
+  @nullable
   V remove(K key);
 
   /**
@@ -52,6 +52,7 @@ abstract class KMutableEntry<K, V> extends KMapEntry<K, V> {
    *
    * @return the previous value corresponding to the key.
    */
+  @nullable
   V setValue(V newValue);
 }
 

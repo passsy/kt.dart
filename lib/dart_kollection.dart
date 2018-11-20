@@ -27,3 +27,4 @@ export 'src/k_set.dart';
 export 'src/k_set_mutable.dart';
 
 export 'src/exceptions.dart';
+export 'src/util/annotations.dart';

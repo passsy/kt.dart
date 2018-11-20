@@ -37,7 +37,9 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   V operator [](K key) => get(key);
 
   @override
-  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
+  V getOrDefault(K key, V defaultValue) {
+    return _map[key] ?? defaultValue ?? ArgumentError.notNull("defaultValue");
+  }
 
   @override
   bool isEmpty() => _map.isEmpty;
