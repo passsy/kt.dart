@@ -28,9 +28,7 @@ class DartMap<K, V> extends KMap<K, V> with KMapExtensionsMixin<K, V> {
   V operator [](K key) => get(key);
 
   @override
-  V getOrDefault(K key, V defaultValue) {
-    return _map[key] ?? defaultValue ?? ArgumentError.notNull("defaultValue");
-  }
+  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
 
   @override
   bool isEmpty() => _map.isEmpty;

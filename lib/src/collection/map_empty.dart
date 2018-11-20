@@ -20,9 +20,7 @@ class EmptyMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   V get(K key) => null;
 
   @override
-  V getOrDefault(K key, V defaultValue) {
-    return defaultValue ?? ArgumentError.notNull("defaultValue");
-  }
+  V getOrDefault(K key, V defaultValue) => defaultValue;
 
   @override
   bool isEmpty() => true;

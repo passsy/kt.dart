@@ -47,7 +47,7 @@ abstract class KMap<K, V> implements KMapExtension<K, V> {
    * Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
    */
   @nullable
-  V getOrDefault(K key, @nonNull V defaultValue);
+  V getOrDefault(K key, V defaultValue);
 
   // Views
   /**
