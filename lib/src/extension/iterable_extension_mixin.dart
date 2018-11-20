@@ -73,6 +73,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  bool contains(T element) {
+    if (this is KCollection) return (this as KCollection).contains(element);
+    return indexOf(element) >= 0;
+  }
+
+  @override
   KList<R> flatMap<R>(KIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
@@ -96,6 +102,25 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       var element = i.next();
       action(element);
     }
+  }
+
+  @override
+  int indexOf(T element) {
+    if (this is KList) return (this as KList).indexOf(element);
+    var index = 0;
+    for (var item in iter) {
+      if (element == item) return index;
+      index++;
+    }
+    return -1;
+  }
+
+  int _checkIndexOverflow(int index) {
+    if (index < 0) {
+      //TODO add type
+      throw "Index overflow has happened.";
+    }
+    return index;
   }
 
   @override

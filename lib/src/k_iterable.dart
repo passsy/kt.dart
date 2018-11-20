@@ -90,9 +90,14 @@ abstract class KIterableExtension<T> {
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
 
   /**
+   * Returns `true` if [element] is found in the collection.
+   */
+  bool contains(T element);
+
+  /**
    * Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
    */
-  KList<T> flatMap<R>(KIterable<R> Function(T) transform);
+  KList<R> flatMap<R>(KIterable<R> Function(T) transform);
 
   /**
    * Appends all elements yielded from results of [transform] function being invoked on each element of original collection, to the given [destination].
@@ -103,6 +108,11 @@ abstract class KIterableExtension<T> {
    * Performs the given [action] on each element.
    */
   void forEach(void Function(T element) action);
+
+  /**
+   * Returns first index of [element], or -1 if the collection does not contain element.
+   */
+  int indexOf(T element);
 
   /**
    * Returns a list containing the results of applying the given [transform] function
