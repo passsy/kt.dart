@@ -9,7 +9,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  *          can accept key as a parameter (of [containsKey] for example) and return it in [keys] set.
  * @param V the type of map values. The map is covariant on its value type.
  */
-abstract class KMap<K, V> {
+abstract class KMap<K, V> implements KMapExtension<K, V> {
   // Query Operations
   /**
    * Returns the number of key/value pairs in the map.
@@ -80,4 +80,15 @@ abstract class KMapEntry<K, V> {
    * Returns the value of this key/value pair.
    */
   V get value;
+}
+
+abstract class KMapExtension<K, V> {
+  /**
+   * Populates the given [destination] map with entries having the keys obtained
+   * by applying the [transform] function to each entry in this [Map] and the values of this map.
+   *
+   * In case if any two entries are mapped to the equal keys, the value of the latter one will overwrite
+   * the value associated with the former one.
+   */
+  M mapKeysTo<R, M extends KMutableMap<R, V>>(M destination, R Function(KMapEntry<K, V> entry) transform);
 }

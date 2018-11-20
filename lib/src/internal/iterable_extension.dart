@@ -4,9 +4,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/map_mutable.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
-abstract class KIterableExtensionsMixin<T> implements KIterableExtensions<T>, KIterable<T> {
-  Iterable<T> get iter => _DartInteropIterable<T>(this);
-
+abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
   @override
   void forEach(void action(T element)) {
     var i = iterator();
@@ -83,40 +81,5 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtensions<T>, KI
       destination.put(element, valueSelector(element));
     }
     return destination;
-  }
-
-  @override
-  KIterator<T> iterator() {
-    // TODO: implement iterator
-  }
-}
-
-class _DartInteropIterable<T> extends Iterable<T> {
-  _DartInteropIterable(this.kIterable);
-
-  final KIterable<T> kIterable;
-
-  @override
-  Iterator<T> get iterator => _DartInteropIterator(kIterable.iterator());
-}
-
-class _DartInteropIterator<T> extends Iterator<T> {
-  _DartInteropIterator(this.kIterator);
-
-  final KIterator<T> kIterator;
-
-  @override
-  T current = null;
-
-  @override
-  bool moveNext() {
-    var hasNext = kIterator.hasNext();
-    if (hasNext) {
-      current = kIterator.next();
-      return true;
-    } else {
-      current = null;
-      return false;
-    }
   }
 }

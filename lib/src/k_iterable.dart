@@ -5,7 +5,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  * be iterated over.
  * @param T the type of element being iterated over. The iterator is covariant on its element type.
  */
-abstract class KIterable<T> implements KIterableExtensions<T> {
+abstract class KIterable<T> implements KIterableExtension<T> {
   /**
    * dart interop iterable for loops
    */
@@ -17,7 +17,7 @@ abstract class KIterable<T> implements KIterableExtensions<T> {
   KIterator<T> iterator();
 }
 
-abstract class KIterableExtensions<T> {
+abstract class KIterableExtension<T> {
   /**
    * Returns `true` if all elements match the given [predicate].
    */

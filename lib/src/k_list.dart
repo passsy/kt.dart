@@ -5,39 +5,40 @@ import 'package:dart_kollection/dart_kollection.dart';
  * read/write access is supported through the [KMutableList] interface.
  * @param E the type of elements contained in the list. The list is covariant on its element type.
  */
-abstract class KList<E> implements KCollection<E> {
+abstract class KList<T> implements KCollection<T>, KListExtension<T> {
   // Query Operations
+  @override
   int get size;
 
   // Positional Access Operations
   /**
    * Returns the element at the specified index in the list.
    */
-  E get(int index);
+  T get(int index);
 
   /**
    * Returns the element at the specified index in the list.
    */
-  E operator [](int index) => get(index);
+  T operator [](int index) => get(index);
 
   // Search Operations
   /**
    * Returns the index of the first occurrence of the specified element in the list, or -1 if the specified
    * element is not contained in the list.
    */
-  int indexOf(E element);
+  int indexOf(T element);
 
   /**
    * Returns the index of the last occurrence of the specified element in the list, or -1 if the specified
    * element is not contained in the list.
    */
-  int lastIndexOf(E element);
+  int lastIndexOf(T element);
 
   // List Iterators
   /**
    * Returns a list iterator over the elements in this list (in proper sequence), starting at the specified [index] or `0` by default.
    */
-  KListIterator<E> listIterator([int index = 0]);
+  KListIterator<T> listIterator([int index = 0]);
 
   // View
   /**
@@ -46,5 +47,34 @@ abstract class KList<E> implements KCollection<E> {
    *
    * Structural changes in the base list make the behavior of the view undefined.
    */
-  KList<E> subList(int fromIndex, int toIndex);
+  KList<T> subList(int fromIndex, int toIndex);
+}
+
+abstract class KListExtension<T> {
+  /**
+   * Returns the index of the last item in the list or -1 if the list is empty.
+   */
+  int get lastIndex;
+
+  /**
+   * Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
+   */
+  //TODO add nullable annotation
+  T getOrNull(int index);
+
+  /**
+   * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this list.
+   */
+  T elementAt(int index);
+
+  /**
+   * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
+   */
+  T elementAtOrElse(int index, T defaultValue(int index));
+
+  /**
+   * Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
+   */
+  //TODO add nullable annotation
+  T elementAtOrNull(int index);
 }

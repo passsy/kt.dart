@@ -1,7 +1,9 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/internal/map_extensions.dart';
+import 'package:dart_kollection/src/internal/map_mutable_extensions.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartMutableMap<K, V> extends KMutableMap<K, V> {
+class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsMixin<K, V>, KMapExtensionsMixin<K, V> {
   final Map<K, V> _map;
   int _hashCode;
 

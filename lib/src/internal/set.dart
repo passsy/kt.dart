@@ -1,14 +1,19 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable_extensions.dart';
+import 'package:dart_kollection/src/internal/Iterable.dart';
+import 'package:dart_kollection/src/internal/collection_extension.dart';
+import 'package:dart_kollection/src/internal/iterable_extension.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartSet<T> with KIterableExtensionsMixin<T> implements KSet<T> {
+class DartSet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T> implements KSet<T> {
   final Set<T> _set;
   int _hashCode;
 
   DartSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
+
+  @override
+  Iterable<T> get iter => DartIterable(this);
 
   @override
   bool contains(T element) => _set.contains(element);

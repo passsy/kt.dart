@@ -5,7 +5,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  * read/write access is supported through the [KMutableCollection] interface.
  * @param E the type of elements contained in the collection. The collection is covariant on its element type.
  */
-abstract class KCollection<E> implements KIterable<E> {
+abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
   const KCollection() : super();
 
   // Query Operations
@@ -22,13 +22,30 @@ abstract class KCollection<E> implements KIterable<E> {
   /**
    * Checks if the specified element is contained in this collection.
    */
-  bool contains(E element);
+  bool contains(T element);
 
-  KIterator<E> iterator();
+  KIterator<T> iterator();
 
   // Bulk Operations
   /**
    * Checks if all elements in the specified collection are contained in this collection.
    */
-  bool containsAll(KCollection<E> elements);
+  bool containsAll(KCollection<T> elements);
+}
+
+abstract class KCollectionExtension<T> {
+  /**
+   * Returns the number of elements in this collection.
+   */
+  int count();
+
+  /**
+   * Returns `true` if the collection is not empty.
+   */
+  bool isNotEmpty();
+
+  /**
+   * Returns a [KMutableList] filled with all elements of this collection.
+   */
+  KMutableList<T> toMutableList();
 }

@@ -1,33 +1,12 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/iterable_extensions.dart';
+import 'package:dart_kollection/src/internal/Iterable.dart';
+import 'package:dart_kollection/src/internal/collection_extension.dart';
+import 'package:dart_kollection/src/internal/iterable_extension.dart';
+import 'package:dart_kollection/src/internal/list_extension.dart';
 
-class _EmptyIterator<T> extends KListIterator<T> {
-  const _EmptyIterator();
-
-  @override
-  bool hasNext() => false;
-
-  @override
-  bool hasPrevious() => false;
-
-  @override
-  T next() {
-    throw NoSuchElementException();
-  }
-
-  @override
-  int nextIndex() => 0;
-
-  @override
-  T previous() {
-    throw NoSuchElementException();
-  }
-
-  @override
-  int previousIndex() => -1;
-}
-
-class EmptyList<T> with KIterableExtensionsMixin<T> implements KList<T> {
+class EmptyList<T>
+    with KListExtensionsMixin<T>, KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
+    implements KList<T> {
   @override
   bool contains(T element) => false;
 
@@ -83,4 +62,33 @@ class EmptyList<T> with KIterableExtensionsMixin<T> implements KList<T> {
 
   @override
   bool operator ==(Object other) => other is KList && other.isEmpty();
+
+  @override
+  Iterable<T> get iter => DartIterable(this);
+}
+
+class _EmptyIterator<T> extends KListIterator<T> {
+  const _EmptyIterator();
+
+  @override
+  bool hasNext() => false;
+
+  @override
+  bool hasPrevious() => false;
+
+  @override
+  T next() {
+    throw NoSuchElementException();
+  }
+
+  @override
+  int nextIndex() => 0;
+
+  @override
+  T previous() {
+    throw NoSuchElementException();
+  }
+
+  @override
+  int previousIndex() => -1;
 }

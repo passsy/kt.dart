@@ -5,9 +5,9 @@ import 'package:dart_kollection/dart_kollection.dart';
  *
  * @param E the type of elements contained in the collection. The mutable collection is invariant on its element type.
  */
-abstract class KMutableCollection<E> implements KCollection<E>, KMutableIterable<E> {
+abstract class KMutableCollection<T> implements KCollection<T>, KMutableIterable<T> {
   // Query Operations
-  KMutableIterator<E> iterator();
+  KMutableIterator<T> iterator();
 
   // Modification Operations
   /**
@@ -16,7 +16,7 @@ abstract class KMutableCollection<E> implements KCollection<E>, KMutableIterable
    * @return `true` if the element has been added, `false` if the collection does not support duplicates
    * and the element is already contained in the collection.
    */
-  bool add(E element);
+  bool add(T element);
 
   /**
    * Removes a single instance of the specified element from this
@@ -24,7 +24,7 @@ abstract class KMutableCollection<E> implements KCollection<E>, KMutableIterable
    *
    * @return `true` if the element has been successfully removed; `false` if it was not present in the collection.
    */
-  bool remove(E element);
+  bool remove(T element);
 
   // Bulk Modification Operations
   /**
@@ -32,21 +32,21 @@ abstract class KMutableCollection<E> implements KCollection<E>, KMutableIterable
    *
    * @return `true` if any of the specified elements was added to the collection, `false` if the collection was not modified.
    */
-  bool addAll(KCollection<E> elements);
+  bool addAll(KCollection<T> elements);
 
   /**
    * Removes all of this collection's elements that are also contained in the specified collection.
    *
    * @return `true` if any of the specified elements was removed from the collection, `false` if the collection was not modified.
    */
-  bool removeAll(KCollection<E> elements);
+  bool removeAll(KCollection<T> elements);
 
   /**
    * Retains only the elements in this collection that are contained in the specified collection.
    *
    * @return `true` if any element was removed from the collection, `false` if the collection was not modified.
    */
-  bool retainAll(KCollection<E> elements);
+  bool retainAll(KCollection<T> elements);
 
   /**
    * Removes all elements from this collection.

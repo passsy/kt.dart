@@ -6,7 +6,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param K the type of map keys. The map is invariant on its key type.
  * @param V the type of map values. The mutable map is invariant on its value type.
  */
-abstract class KMutableMap<K, V> implements KMap<K, V> {
+abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, V> {
   // Modification Operations
   /**
    * Associates the specified [value] with the specified [key] in the map.
@@ -53,4 +53,11 @@ abstract class KMutableEntry<K, V> extends KMapEntry<K, V> {
    * @return the previous value corresponding to the key.
    */
   V setValue(V newValue);
+}
+
+abstract class KMutableMapExtension<K, V> {
+  /**
+   * Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
+   */
+  void putAllPairs(KIterable<KPair<K, V>> pairs);
 }
