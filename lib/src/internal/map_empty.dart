@@ -1,7 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/map_extensions_mixin.dart';
 
-import 'iterable_extension.dart';
+import 'iterable_extension_mixin.dart';
 
 class EmptyMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   @override

@@ -19,6 +19,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return false;
   }
 
+  @override
   bool all([bool Function(T element) predicate = null]) {
     if (this is KCollection && (this as KCollection).isEmpty()) return true;
     for (var element in iter) {
@@ -99,11 +100,13 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     }
   }
 
+  @override
   KIterable<R> map<R>(R Function(T) transform) {
     final KMutableList<R> list = mutableListOf<R>();
     return mapTo(list, transform);
   }
 
+  @override
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
     for (var item in iter) {
       destination.add(transform(item));
@@ -111,6 +114,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return destination;
   }
 
+  @override
   String joinToString(
       {String separator = ", ",
       String prefix = "",

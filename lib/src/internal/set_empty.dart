@@ -2,7 +2,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/iterable.dart';
 import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
 
-import 'iterable_extension.dart';
+import 'iterable_extension_mixin.dart';
 
 class EmptySet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T> implements KSet<T> {
   @override

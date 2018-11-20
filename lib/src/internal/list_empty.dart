@@ -1,7 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/iterable.dart';
 import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
-import 'package:dart_kollection/src/internal/iterable_extension.dart';
+import 'package:dart_kollection/src/internal/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/internal/list_extension_mixin.dart';
 
 class EmptyList<T>
