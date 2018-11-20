@@ -1,8 +1,9 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/Iterable.dart';
+import 'package:dart_kollection/src/internal/iterable.dart';
 import 'package:dart_kollection/src/internal/collection_extension.dart';
 import 'package:dart_kollection/src/internal/iterable_extension.dart';
 import 'package:dart_kollection/src/internal/iterable_mutable_extension.dart';
+import 'package:dart_kollection/src/internal/iterator.dart';
 import 'package:dart_kollection/src/internal/list.dart';
 import 'package:dart_kollection/src/internal/list_extension.dart';
 import 'package:dart_kollection/src/internal/list_mutable_extension.dart';
