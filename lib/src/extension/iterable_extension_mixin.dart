@@ -73,9 +73,11 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<T> flatMap<R>(KIterable<R> Function(T) transform) {
-    final KMutableCollection<R> list = linkedSetOf<R>();
-    return flatMapTo(list, transform);
+  KList<R> flatMap<R>(KIterable<R> Function(T) transform) {
+    final list = flatMapTo(mutableListOf<R>(), transform);
+    // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
+    // TODO ping dort-lang/sdk team to check that bug
+    return list;
   }
 
   @override
