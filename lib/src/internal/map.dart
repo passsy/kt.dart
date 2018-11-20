@@ -1,5 +1,5 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/map_extensions.dart';
+import 'package:dart_kollection/src/internal/map_extensions_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 class DartMap<K, V> extends KMap<K, V> with KMapExtensionsMixin<K, V> {

@@ -1,5 +1,5 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/internal/map_extensions.dart';
+import 'package:dart_kollection/src/internal/map_extensions_mixin.dart';
 
 import 'iterable_extension.dart';
 

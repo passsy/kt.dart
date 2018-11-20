@@ -1,6 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/internal/iterable.dart';
-import 'package:dart_kollection/src/internal/collection_extension.dart';
+import 'package:dart_kollection/src/internal/collection_extension_mixin.dart';
 
 import 'iterable_extension.dart';
 
