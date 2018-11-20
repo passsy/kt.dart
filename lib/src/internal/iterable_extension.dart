@@ -1,19 +1,11 @@
 import 'dart:collection';
 
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/internal/list_mutable.dart';
 import 'package:dart_kollection/src/internal/map_mutable.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
 abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
-  @override
-  void forEach(void action(T element)) {
-    var i = iterator();
-    while (i.hasNext()) {
-      var element = i.next();
-      action(element);
-    }
-  }
-
   @override
   bool any([bool Function(T element) predicate = null]) {
     if (predicate == null) {
@@ -79,6 +71,42 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector) {
     for (var element in iter) {
       destination.put(element, valueSelector(element));
+    }
+    return destination;
+  }
+
+  @override
+  KList<T> flatMap<R>(KIterable<R> Function(T) transform) {
+    final KMutableCollection<R> list = DartMutableList<R>(LinkedHashSet<R>());
+    return flatMapTo(list, transform);
+  }
+
+  @override
+  C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform) {
+    for (var element in iter) {
+      final list = transform(element);
+      destination.addAll(list);
+    }
+    return destination;
+  }
+
+  @override
+  void forEach(void action(T element)) {
+    var i = iterator();
+    while (i.hasNext()) {
+      var element = i.next();
+      action(element);
+    }
+  }
+
+  KIterable<R> map<R>(R Function(T) transform) {
+    final KMutableList<R> list = mutableListOf<R>();
+    return mapTo(list, transform);
+  }
+
+  C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
+    for (var item in iter) {
+      destination.add(transform(item));
     }
     return destination;
   }

@@ -90,7 +90,29 @@ abstract class KIterableExtension<T> {
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
 
   /**
+   * Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
+   */
+  KList<T> flatMap<R>(KIterable<R> Function(T) transform);
+
+  /**
+   * Appends all elements yielded from results of [transform] function being invoked on each element of original collection, to the given [destination].
+   */
+  C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform);
+
+  /**
    * Performs the given [action] on each element.
    */
-  void forEach(void action(T element));
+  void forEach(void Function(T element) action);
+
+  /**
+   * Returns a list containing the results of applying the given [transform] function
+   * to each element in the original collection.
+   */
+  KIterable<R> map<R>(R Function(T) transform);
+
+  /**
+   * Applies the given [transform] function to each element of the original collection
+   * and appends the results to the given [destination].
+   */
+  C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
 }

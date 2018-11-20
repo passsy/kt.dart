@@ -23,10 +23,13 @@ KList<T> listOf<T>([Iterable<T> elements = const []]) {
  */
 KList<T> emptyList<T>() => EmptyList<T>();
 
-KMutableList<T> mutableListOf<T>([Iterable<T> elements = const []]) => DartMutableList<T>();
+/**
+ * Returns an empty new [MutableList].
+ */
+KMutableList<T> mutableListOf<T>([Iterable<T> elements = const []]) => DartMutableList(elements);
 
 /**
- *  Returns an immutable map, mapping only the specified key to the
+ * Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
 KMap<K, V> mapOf<K, V>([Map<K, V> map = const {}]) => DartMap(map);
@@ -44,14 +47,17 @@ KMap<K, V> emptyMap<K, V>() => EmptyMap<K, V>();
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map]) => DartMutableMap(map ?? LinkedHashMap<K, V>());
+KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap(map);
 
 /**
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
-KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map]) => DartMutableMap(map ?? HashMap<K, V>());
+KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap(map);
 
+/**
+ * Returns an empty new [HashMap].
+ */
 KMutableMap<K, V> hashMapFrom<K, V>(KIterable<KPair<K, V>> pairs) {
   return DartMutableMap(HashMap<K, V>())..putAllPairs(pairs);
 }
@@ -64,7 +70,7 @@ KMutableMap<K, V> hashMapFrom<K, V>(KIterable<KPair<K, V>> pairs) {
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map]) => DartMutableMap(map ?? LinkedHashMap<K, V>());
+KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap(map);
 
 /**
  * Returns a new read-only set with the given elements.

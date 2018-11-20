@@ -26,7 +26,7 @@ class DartMutableList<T>
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification
-        _list = List.from(iterable, growable: false),
+        _list = List.from(iterable, growable: true),
         super();
 
   Iterable<T> get iter => DartIterable<T>(this);
@@ -58,7 +58,7 @@ class DartMutableList<T>
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KMutableIterator<T> iterator() => _DartListIterator(_list, 0);
+  KMutableIterator<T> iterator() => DartIterator(_list, 0);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);
@@ -66,7 +66,7 @@ class DartMutableList<T>
   @override
   KListIterator<T> listIterator([int index = 0]) {
     if (index == null) throw ArgumentError("index can't be null");
-    return _DartListListIterator(_list, index);
+    return DartListIterator(_list, index);
   }
 
   @override
@@ -127,6 +127,14 @@ class DartMutableList<T>
 
   @override
   KList<T> subList(int fromIndex, int toIndex) {
+    if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
+    if (toIndex == null) throw ArgumentError("toIndex can't be null");
+    if (fromIndex < 0 || toIndex > size) {
+      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+    }
+    if (fromIndex > toIndex) {
+      throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+    }
     return DartList(_list.sublist(fromIndex, toIndex));
   }
 
@@ -149,55 +157,4 @@ class DartMutableList<T>
     }
     return true;
   }
-}
-
-class _DartListIterator<T> implements KMutableIterator<T> {
-  int cursor; // index of next element to return
-  int lastRet = -1; // index of last element returned; -1 if no such
-  List<T> list;
-
-  _DartListIterator(this.list, int index) : this.cursor = index {
-    if (index < 0 || index >= list.length) {
-      throw IndexOutOfBoundsException("index: $index, size: $list.length");
-    }
-  }
-
-  @override
-  bool hasNext() {
-    return cursor != list.length;
-  }
-
-  @override
-  T next() {
-    int i = cursor;
-    if (i >= list.length) throw new NoSuchElementException();
-    cursor = i + 1;
-    return list[lastRet = i];
-  }
-
-  @override
-  void remove() {
-    list.remove(lastRet);
-  }
-}
-
-class _DartListListIterator<T> extends _DartListIterator<T> implements KListIterator<T> {
-  _DartListListIterator(List<T> list, int index) : super(list, index);
-
-  @override
-  bool hasPrevious() => cursor != 0;
-
-  @override
-  int nextIndex() => cursor;
-
-  @override
-  T previous() {
-    int i = cursor - 1;
-    if (i < 0) throw NoSuchElementException();
-    cursor = i;
-    return list[lastRet = i];
-  }
-
-  @override
-  int previousIndex() => cursor - 1;
 }
