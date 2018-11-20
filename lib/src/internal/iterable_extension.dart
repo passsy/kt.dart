@@ -110,4 +110,33 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     }
     return destination;
   }
+
+  String joinToString(
+      {String separator = ", ",
+      String prefix = "",
+      String postfix = "",
+      int limit = -1,
+      String truncated = "...",
+      String Function(T) transform}) {
+    var buffer = StringBuffer();
+    buffer.write(prefix);
+    var count = 0;
+    for (var element in iter) {
+      if (++count > 1) buffer.write(separator);
+      if (limit >= 0 && count > limit) {
+        break;
+      } else {
+        if (transform == null) {
+          buffer.write(element);
+        } else {
+          buffer.write(transform(element));
+        }
+      }
+    }
+    if (limit >= 0 && count > limit) {
+      buffer.write(truncated);
+    }
+    buffer.write(postfix);
+    return buffer.toString();
+  }
 }

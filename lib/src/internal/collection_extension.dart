@@ -9,5 +9,14 @@ abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, 
   KMutableList<T> toMutableList() => DartMutableList<T>(iter);
 
   @override
-  bool isNotEmpty() {}
+  bool isNotEmpty() => size > 0;
+
+  @override
+  String toString() {
+    return joinToString(
+        separator: ", ",
+        prefix: "[",
+        postfix: "]",
+        transform: (it) => (identical(it, this) ? "(this Collection)" : it.toString()));
+  }
 }

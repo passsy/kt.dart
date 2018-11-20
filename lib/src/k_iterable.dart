@@ -115,4 +115,18 @@ abstract class KIterableExtension<T> {
    * and appends the results to the given [destination].
    */
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
+
+  /**
+   * Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
+   *
+   * If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]
+   * elements will be appended, followed by the [truncated] string (which defaults to "...").
+   */
+  String joinToString(
+      {String separator = ", ",
+      String prefix = "",
+      String postfix = "",
+      int limit = -1,
+      String truncated = "...",
+      String Function(T) transform});
 }

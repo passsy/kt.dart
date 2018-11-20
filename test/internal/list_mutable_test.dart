@@ -102,5 +102,12 @@ void main() {
       expect(list.size, equals(1));
       expect(list[0], equals("Hello"));
     });
+
+    test("addAll add items at the end of the lsit", () {
+      final list = mutableListOf(["a"]);
+      list.addAll(listOf(["b", "c"]));
+      expect(list.size, equals(3));
+      expect(list, equals(listOf(["a", "b", "c"])));
+    });
   });
 }
