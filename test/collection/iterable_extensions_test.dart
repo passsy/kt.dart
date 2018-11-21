@@ -30,4 +30,12 @@ void main() {
       expect(result, equals(emptyMap()));
     });
   });
+
+  group("drop", () {
+    test("drop first value", () {
+      final list = listOf(["a", "b", "c"]);
+      expect(list.drop(1), equals(listOf(["b", "c"])));
+    });
+    // TODO drop on empty
+  });
 }

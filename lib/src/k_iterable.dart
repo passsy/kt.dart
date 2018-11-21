@@ -95,6 +95,11 @@ abstract class KIterableExtension<T> {
   bool contains(T element);
 
   /**
+   * Returns a list containing all elements except first [n] elements.
+   */
+  KList<T> drop(int n);
+
+  /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
    */
   @nonNull

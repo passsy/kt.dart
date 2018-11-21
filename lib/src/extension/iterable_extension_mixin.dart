@@ -83,6 +83,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<T> drop(int n) {
+    if (n < 0) throw ArgumentError("Requested element count $n is less than zero.");
+    return listOf(iter.skip(n));
+  }
+
+  @override
   T elementAt(int index) {
     if (this is KList) {
       return (this as KList).get(index);
