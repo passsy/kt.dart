@@ -250,6 +250,76 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  String joinToString(
+      {String separator = ", ",
+      String prefix = "",
+      String postfix = "",
+      int limit = -1,
+      String truncated = "...",
+      String Function(T) transform}) {
+    var buffer = StringBuffer();
+    buffer.write(prefix);
+    var count = 0;
+    for (var element in iter) {
+      if (++count > 1) buffer.write(separator);
+      if (limit >= 0 && count > limit) {
+        break;
+      } else {
+        if (transform == null) {
+          buffer.write(element);
+        } else {
+          buffer.write(transform(element));
+        }
+      }
+    }
+    if (limit >= 0 && count > limit) {
+      buffer.write(truncated);
+    }
+    buffer.write(postfix);
+    return buffer.toString();
+  }
+
+  @override
+  T last([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) return (this as KList).last();
+      final i = iterator();
+      if (!i.hasNext()) {
+        throw NoSuchElementException("Collection is empty");
+      }
+      var last = i.next();
+      while (i.hasNext()) {
+        last = i.next();
+      }
+      return last;
+    } else {
+      T last = null;
+      var found = false;
+      for (final element in iter) {
+        if (predicate(element)) {
+          last = element;
+          found = true;
+        }
+      }
+      if (!found) throw NoSuchElementException("Collection contains no element matching the predicate.");
+      return last;
+    }
+  }
+
+  int lastIndexOf(T element) {
+    if (this is KList) return (this as KList).lastIndexOf(element);
+    var lastIndex = -1;
+    var index = 0;
+    for (final item in iter) {
+      if (element == item) {
+        lastIndex = index;
+      }
+      index++;
+    }
+    return lastIndex;
+  }
+
+  @override
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
@@ -293,32 +363,59 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  String joinToString(
-      {String separator = ", ",
-      String prefix = "",
-      String postfix = "",
-      int limit = -1,
-      String truncated = "...",
-      String Function(T) transform}) {
-    var buffer = StringBuffer();
-    buffer.write(prefix);
-    var count = 0;
-    for (var element in iter) {
-      if (++count > 1) buffer.write(separator);
-      if (limit >= 0 && count > limit) {
-        break;
-      } else {
-        if (transform == null) {
-          buffer.write(element);
-        } else {
-          buffer.write(transform(element));
+  T single([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) return (this as KList).single();
+      var i = iterator();
+      if (!i.hasNext()) {
+        throw NoSuchElementException("Collection is empty.");
+      }
+      final single = i.next();
+      if (i.hasNext()) {
+        throw ArgumentError("Collection has more than one element.");
+      }
+      return single;
+    } else {
+      T single = null;
+      var found = false;
+      for (final element in iter) {
+        if (predicate(element)) {
+          if (found) throw ArgumentError("Collection contains more than one matching element.");
+          single = element;
+          found = true;
         }
       }
+      if (!found) throw NoSuchElementException("Collection contains no element matching the predicate.");
+      return single;
     }
-    if (limit >= 0 && count > limit) {
-      buffer.write(truncated);
+  }
+
+  T singleOrNull([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) {
+        final list = (this as KList);
+        return list.size == 1 ? list.get(0) : null;
+      } else {
+        final i = iterator();
+        if (!i.hasNext()) return null;
+        final single = i.next();
+        if (i.hasNext()) {
+          return null;
+        }
+        return single;
+      }
+    } else {
+      T single = null;
+      var found = false;
+      for (final element in iter) {
+        if (predicate(element)) {
+          if (found) return null;
+          single = element;
+          found = true;
+        }
+      }
+      if (!found) return null;
+      return single;
     }
-    buffer.write(postfix);
-    return buffer.toString();
   }
 }

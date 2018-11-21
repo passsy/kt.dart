@@ -171,6 +171,32 @@ abstract class KIterableExtension<T> {
   int indexOfLast(bool Function(T) predicate);
 
   /**
+   * Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
+   *
+   * If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]
+   * elements will be appended, followed by the [truncated] string (which defaults to "...").
+   */
+  String joinToString(
+      {String separator = ", ",
+      String prefix = "",
+      String postfix = "",
+      int limit = -1,
+      String truncated = "...",
+      String Function(T) transform});
+
+  /**
+   * Returns the last element matching the given [predicate].
+   * @throws [NoSuchElementException] if no such element is found.
+   */
+  @nullable
+  T last([bool Function(T) predicate]);
+
+  /**
+   * Returns last index of [element], or -1 if the collection does not contain element.
+   */
+  int lastIndexOf(T element);
+
+  /**
    * Returns the last element matching the given [predicate], or `null` if no such element was found.
    */
   @nullable
@@ -189,16 +215,14 @@ abstract class KIterableExtension<T> {
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
 
   /**
-   * Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
-   *
-   * If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]
-   * elements will be appended, followed by the [truncated] string (which defaults to "...").
+   * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
-  String joinToString(
-      {String separator = ", ",
-      String prefix = "",
-      String postfix = "",
-      int limit = -1,
-      String truncated = "...",
-      String Function(T) transform});
+  @nullable
+  T single([bool Function(T) predicate]);
+
+  /**
+   * Returns the single element matching the given [predicate], or `null` if element was not found or more than one element was found.
+   */
+  @nullable
+  T singleOrNull([bool Function(T) predicate]);
 }
