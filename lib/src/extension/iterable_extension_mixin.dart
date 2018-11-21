@@ -211,6 +211,30 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  int indexOfFirst([bool Function(T) predicate]) {
+    var index = 0;
+    for (var item in iter) {
+      if (predicate(item)) {
+        return index;
+      }
+      index++;
+    }
+    return -1;
+  }
+
+  int indexOfLast([bool Function(T) predicate]) {
+    var lastIndex = -1;
+    var index = 0;
+    for (var item in iter) {
+      if (predicate(item)) {
+        lastIndex = index;
+      }
+      index++;
+    }
+    return lastIndex;
+  }
+
+  @override
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {

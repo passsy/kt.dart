@@ -161,6 +161,16 @@ abstract class KIterableExtension<T> {
   int indexOf(T element);
 
   /**
+   * Returns index of the first element matching the given [predicate], or -1 if the collection does not contain such element.
+   */
+  int indexOfFirst([bool Function(T) predicate]);
+
+  /**
+   * Returns index of the last element matching the given [predicate], or -1 if the collection does not contain such element.
+   */
+  int indexOfLast([bool Function(T) predicate]);
+
+  /**
    * Returns the last element matching the given [predicate], or `null` if no such element was found.
    */
   @nullable
