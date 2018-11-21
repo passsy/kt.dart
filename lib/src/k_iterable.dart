@@ -113,6 +113,34 @@ abstract class KIterableExtension<T> {
   T elementAtOrNull(int index);
 
   /**
+   * Returns the first element matching the given [predicate], or `null` if no such element was found.
+   */
+  @nullable
+  T find(bool Function(T) predicate);
+
+  /**
+   * Returns the last element matching the given [predicate], or `null` if no such element was found.
+   */
+  @nullable
+  T findLast(bool Function(T) predicate);
+
+  /**
+   * Returns first element.
+   *
+   * Use [predicate] to return the first element matching the given [predicate]
+   *
+   * @throws [NoSuchElementException] if the collection is empty.
+   */
+  @nullable
+  T first([bool Function(T) predicate]);
+
+  /**
+   * Returns the first element (matching [predicate] when provided), or `null` if the collection is empty.
+   */
+  @nullable
+  T firstOrNull([bool Function(T) predicate]);
+
+  /**
    * Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
    */
   KList<R> flatMap<R>(KIterable<R> Function(T) transform);
@@ -131,6 +159,12 @@ abstract class KIterableExtension<T> {
    * Returns first index of [element], or -1 if the collection does not contain element.
    */
   int indexOf(T element);
+
+  /**
+   * Returns the last element matching the given [predicate], or `null` if no such element was found.
+   */
+  @nullable
+  T lastOrNull([bool Function(T) predicate]);
 
   /**
    * Returns a list containing the results of applying the given [transform] function

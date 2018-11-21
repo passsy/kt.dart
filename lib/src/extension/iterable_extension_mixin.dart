@@ -127,6 +127,53 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  T find(bool Function(T) predicate) => firstOrNull(predicate);
+
+  @override
+  T findLast(bool Function(T) predicate) => lastOrNull(predicate);
+
+  @override
+  T first([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) return (this as KList).first();
+      final i = iterator();
+      if (!i.hasNext()) {
+        throw NoSuchElementException("Collection is empty");
+      }
+      return i.next();
+    } else {
+      for (var element in iter) {
+        if (predicate(element)) return element;
+      }
+      throw NoSuchElementException("Collection contains no element matching the predicate.");
+    }
+  }
+
+  @override
+  T firstOrNull([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) {
+        var list = (this as KList);
+        if (list.isEmpty()) {
+          return null;
+        } else {
+          return list[0];
+        }
+      }
+      final i = iterator();
+      if (!i.hasNext()) {
+        throw NoSuchElementException("Collection is empty");
+      }
+      return i.next();
+    } else {
+      for (var element in iter) {
+        if (predicate(element)) return element;
+      }
+      return null;
+    }
+  }
+
+  @override
   KList<R> flatMap<R>(KIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
@@ -163,12 +210,32 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return -1;
   }
 
-  int _checkIndexOverflow(int index) {
-    if (index < 0) {
-      //TODO add type
-      throw "Index overflow has happened.";
+  @override
+  T lastOrNull([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (this is KList) {
+        var list = (this as KList);
+        return list.isEmpty() ? null : list.get(0);
+      } else {
+        final i = iterator();
+        if (!i.hasNext()) {
+          return null;
+        }
+        var last = i.next();
+        while (i.hasNext()) {
+          last = i.next();
+        }
+        return last;
+      }
+    } else {
+      T last = null;
+      for (var element in iter) {
+        if (predicate(element)) {
+          last = element;
+        }
+      }
+      return last;
     }
-    return index;
   }
 
   @override
