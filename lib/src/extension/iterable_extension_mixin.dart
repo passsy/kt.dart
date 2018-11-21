@@ -3,7 +3,19 @@ import 'package:dart_kollection/src/k_iterable.dart';
 
 abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
   @override
-  bool any([bool Function(T element) predicate = null]) {
+  bool all([bool Function(T element) predicate]) {
+    assert(predicate != null);
+    if (this is KCollection && (this as KCollection).isEmpty()) return true;
+    for (var element in iter) {
+      if (!predicate(element)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  bool any([bool Function(T element) predicate]) {
     if (predicate == null) {
       if (this is KCollection) return !(this as KCollection).isEmpty();
       return iterator().hasNext();
@@ -13,17 +25,6 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       if (predicate(element)) return true;
     }
     return false;
-  }
-
-  @override
-  bool all([bool Function(T element) predicate]) {
-    if (this is KCollection && (this as KCollection).isEmpty()) return true;
-    for (var element in iter) {
-      if (!predicate(element)) {
-        return false;
-      }
-    }
-    return true;
   }
 
   @override
@@ -42,6 +43,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   M associateByTo<K, V, M extends KMutableMap<K, V>>(M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]) {
+    assert(valueTransform != null);
     for (var element in iter) {
       var key = keySelector(element);
       var value = valueTransform == null ? element : valueTransform(element);
@@ -52,6 +54,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   M associateTo<K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform) {
+    assert(transform != null);
     for (var element in iter) {
       var pair = transform(element);
       destination.put(pair.first, pair.second);
@@ -66,6 +69,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector) {
+    assert(valueSelector != null);
     for (var element in iter) {
       destination.put(element, valueSelector(element));
     }
@@ -90,6 +94,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   T elementAtOrElse(int index, T Function(int) defaultValue) {
+    assert(defaultValue != null);
     if (this is KList) {
       return (this as KList).getOrElse(index, defaultValue);
     }
@@ -127,10 +132,16 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  T find(bool Function(T) predicate) => firstOrNull(predicate);
+  T find(bool Function(T) predicate) {
+    assert(predicate != null);
+    return firstOrNull(predicate);
+  }
 
   @override
-  T findLast(bool Function(T) predicate) => lastOrNull(predicate);
+  T findLast(bool Function(T) predicate) {
+    assert(predicate != null);
+    return lastOrNull(predicate);
+  }
 
   @override
   T first([bool Function(T) predicate]) {
@@ -183,6 +194,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform) {
+    assert(transform != null);
     for (var element in iter) {
       final list = transform(element);
       destination.addAll(list);
@@ -192,6 +204,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   void forEach(void action(T element)) {
+    assert(action != null);
     var i = iterator();
     while (i.hasNext()) {
       var element = i.next();
@@ -211,7 +224,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  int indexOfFirst([bool Function(T) predicate]) {
+  int indexOfFirst(bool Function(T) predicate) {
+    assert(predicate != null);
     var index = 0;
     for (var item in iter) {
       if (predicate(item)) {
@@ -222,7 +236,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return -1;
   }
 
-  int indexOfLast([bool Function(T) predicate]) {
+  int indexOfLast(bool Function(T) predicate) {
+    assert(predicate != null);
     var lastIndex = -1;
     var index = 0;
     for (var item in iter) {
@@ -270,6 +285,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
+    assert(transform != null);
     for (var item in iter) {
       destination.add(transform(item));
     }
