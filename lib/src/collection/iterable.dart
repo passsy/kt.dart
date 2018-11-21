@@ -1,32 +1,12 @@
-import 'package:dart_kollection/dart_kollection.dart';
-
-// TODO create empty version
-class DartInteropIterable<T> extends Iterable<T> {
-  DartInteropIterable(this.kIterable);
-
-  final KIterable<T> kIterable;
-
+class DartEmptyIterable<T> extends Iterable<T> {
   @override
-  Iterator<T> get iterator => _DartIterator(kIterable.iterator());
+  Iterator<T> get iterator => DartEmptyIterator();
 }
 
-class _DartIterator<T> extends Iterator<T> {
-  _DartIterator(this.kIterator);
-
-  final KIterator<T> kIterator;
+class DartEmptyIterator<T> extends Iterator<T> {
+  @override
+  T get current => null;
 
   @override
-  T current = null;
-
-  @override
-  bool moveNext() {
-    var hasNext = kIterator.hasNext();
-    if (hasNext) {
-      current = kIterator.next();
-      return true;
-    } else {
-      current = null;
-      return false;
-    }
-  }
+  bool moveNext() => false;
 }

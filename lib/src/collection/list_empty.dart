@@ -64,7 +64,7 @@ class EmptyList<T>
   bool operator ==(Object other) => other is KList && other.isEmpty();
 
   @override
-  Iterable<T> get iter => DartInteropIterable(this);
+  Iterable<T> get iter => DartEmptyIterable();
 }
 
 class _EmptyIterator<T> extends KListIterator<T> {

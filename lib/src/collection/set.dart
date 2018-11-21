@@ -13,7 +13,7 @@ class DartSet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T> 
         super();
 
   @override
-  Iterable<T> get iter => DartInteropIterable(this);
+  Iterable<T> get iter => _set;
 
   @override
   bool contains(T element) => _set.contains(element);

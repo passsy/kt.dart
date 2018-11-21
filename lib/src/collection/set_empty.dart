@@ -30,7 +30,7 @@ class EmptySet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
   String toString() => "[]";
 
   @override
-  Iterable<T> get iter => DartInteropIterable(this);
+  Iterable<T> get iter => DartEmptyIterable();
 }
 
 class _EmptyIterator<T> extends KIterator<T> {

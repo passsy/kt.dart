@@ -21,7 +21,7 @@ class DartList<T>
         _list = List.from(iterable, growable: false),
         super();
 
-  Iterable<T> get iter => DartInteropIterable<T>(this);
+  Iterable<T> get iter => _list;
 
   @override
   bool contains(T element) => _list.contains(element);
