@@ -97,13 +97,8 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   }
 
   @override
-  int get hashCode {
-    if (_hashCode == null) {
-      _hashCode =
-          hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
-    }
-    return _hashCode;
-  }
+  int get hashCode =>
+      hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
 }
 
 class _Entry<K, V> extends KMapEntry<K, V> {

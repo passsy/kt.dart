@@ -62,6 +62,14 @@ void main() {
       expect(empty0.hashCode, equals(empty1.hashCode));
     });
 
+    test("is equals to another list without items", () {
+      final empty0 = emptyList<String>();
+      final empty1 = mutableListOf();
+
+      expect(empty0.hashCode, equals(empty1.hashCode));
+      expect(empty0, equals(empty1));
+    });
+
     test("sublist works for index 0 to 0", () {
       final empty = emptyList<Object>();
       final subList = empty.subList(0, 0);

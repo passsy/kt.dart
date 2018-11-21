@@ -45,12 +45,7 @@ class DartMutableSet<T>
   int get size => _set.length;
 
   @override
-  int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
-    }
-    return _hashCode;
-  }
+  int get hashCode => hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
 
   @override
   bool operator ==(dynamic other) {

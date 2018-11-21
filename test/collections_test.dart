@@ -3,6 +3,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('mutableListOf', () {
+    test("empty ", () {
+      final list = listOf<String>();
+      expect(list.size, 0);
+      expect(list, listOf());
+      expect(list, listOf([]));
+      var emptyMutable = mutableListOf(["a"])..remove("a");
+      expect(list.hashCode, emptyMutable.hashCode);
+      expect(list, emptyMutable);
+    });
+  });
+
+  group('mutableListOf', () {
     test("empty is mutable", () {
       final list = mutableListOf<String>([]);
       list.add("test");

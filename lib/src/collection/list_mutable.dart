@@ -1,10 +1,9 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/collection/iterator.dart';
+import 'package:dart_kollection/src/collection/list.dart';
 import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.dart';
-import 'package:dart_kollection/src/collection/iterator.dart';
-import 'package:dart_kollection/src/collection/list.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/list_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
@@ -21,7 +20,6 @@ class DartMutableList<T>
         KIterableExtensionsMixin<T>
     implements KMutableList<T> {
   final List<T> _list;
-  int _hashCode;
 
   DartMutableList([Iterable<T> iterable = const []])
       :
@@ -140,12 +138,7 @@ class DartMutableList<T>
   }
 
   @override
-  int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = hashObjects(_list);
-    }
-    return _hashCode;
-  }
+  int get hashCode => 1 + hashObjects(_list);
 
   @override
   bool operator ==(dynamic other) {
