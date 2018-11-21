@@ -94,3 +94,7 @@ KSet<T> emptySet<T>() => EmptySet<T>();
 KMutableSet<T> linkedSetOf<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
 }
+
+KMutableSet<T> hashSetOf<T>([Iterable<T> elements = const []]) {
+  return DartMutableSet.noCopy(HashSet<T>.of(elements));
+}

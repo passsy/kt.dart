@@ -461,7 +461,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       }
       list.add(item);
     }
-    return _optimizeReadOnlyList(list);
+    return list.toList();
   }
 
   C toCollection<C extends KMutableCollection<T>>(C destination) {
@@ -472,42 +472,14 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<T> toList() {
-    if (this is KCollection<T>) {
-      final list = (this as KCollection<T>);
-      switch (list.size) {
-        case 0:
-          return emptyList();
-        case 1:
-          if (this is KList<T>) {
-            return listOf([(this as KList<T>).get(0)]);
-          } else {
-            return listOf([list.iterator().next()]);
-          }
-          break;
-        default:
-          return list.toMutableList();
-      }
-    }
-    return _optimizeReadOnlyList(this.toMutableList());
-  }
+  KMutableSet<T> toHashSet() => hashSetOf(iter);
 
   @override
-  KMutableList<T> toMutableList() {
-    if (this is KCollection<T>) {
-      return this.toMutableList();
-    }
-    return toCollection(mutableListOf());
-  }
-}
+  KList<T> toList() => listOf(iter);
 
-KList<T> _optimizeReadOnlyList<T>(KList<T> list) {
-  switch (list.size) {
-    case 0:
-      return emptyList();
-    case 1:
-      return listOf([list[0]]);
-    default:
-      return list;
-  }
+  @override
+  KMutableList<T> toMutableList() => mutableListOf(iter);
+
+  @override
+  KMutableSet<T> toMutableSet() => linkedSetOf(iter);
 }
