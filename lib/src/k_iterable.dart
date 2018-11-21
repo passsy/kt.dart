@@ -252,12 +252,12 @@ abstract class KIterableExtension<T> {
   KMutableSet<T> toHashSet();
 
   /**
-   * Returns a [List] containing all elements.
+   * Returns a [KList] containing all elements.
    */
   KList<T> toList();
 
   /**
-   * Returns a [MutableList] filled with all elements of this collection.
+   * Returns a [KMutableList] filled with all elements of this collection.
    */
   KMutableList<T> toMutableList();
 
@@ -267,4 +267,11 @@ abstract class KIterableExtension<T> {
    * The returned set preserves the element iteration order of the original collection.
    */
   KMutableSet<T> toMutableSet();
+
+  /**
+   * Returns a [KSet] of all elements.
+   *
+   * The returned set preserves the element iteration order of the original collection.
+   */
+  KSet<T> toSet();
 }

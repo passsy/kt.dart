@@ -482,4 +482,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KMutableSet<T> toMutableSet() => linkedSetOf(iter);
+
+  @override
+  KSet<T> toSet() => linkedSetOf(iter);
 }
