@@ -97,7 +97,12 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements except first [n] elements.
    */
-  KList<T> drop(int n);
+  KIterable<T> drop(int n);
+
+  /**
+   * Returns a list containing all elements except first elements that satisfy the given [predicate].
+   */
+  KIterable<T> dropWhile([bool Function(T) predicate]);
 
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
@@ -230,4 +235,24 @@ abstract class KIterableExtension<T> {
    */
   @nullable
   T singleOrNull([bool Function(T) predicate]);
+
+  /**
+   * Returns a list containing first [n] elements.
+   */
+  KList<T> take(int n);
+
+  /**
+   * Appends all elements to the given [destination] collection.
+   */
+  C toCollection<C extends KMutableCollection<T>>(C destination);
+
+  /**
+   * Returns a [List] containing all elements.
+   */
+  KList<T> toList();
+
+  /**
+   * Returns a [MutableList] filled with all elements of this collection.
+   */
+  KMutableList<T> toMutableList();
 }

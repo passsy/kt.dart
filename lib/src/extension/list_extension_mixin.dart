@@ -14,6 +14,28 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   }
 
   @override
+  KList<T> dropLast(int n) {
+    var count = size - n;
+    if (count < 0) {
+      count = 0;
+    }
+    return take(count);
+  }
+
+  @override
+  KList<T> dropLastWhile([bool Function(T) predicate]) {
+    if (!isEmpty()) {
+      final i = listIterator(size);
+      while (i.hasPrevious()) {
+        if (!predicate(i.previous())) {
+          return take(i.nextIndex() + 1);
+        }
+      }
+    }
+    return emptyList<T>();
+  }
+
+  @override
   T elementAt(int index) => get(index);
 
   @override

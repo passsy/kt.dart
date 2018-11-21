@@ -99,6 +99,23 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KIterable<T> dropWhile([bool Function(T) predicate]) {
+    var yielding = false;
+    var list = mutableListOf<T>();
+    for (final item in iter) {
+      if (yielding) {
+        list.add(item);
+      } else {
+        if (!predicate(item)) {
+          list.add(item);
+          yielding = true;
+        }
+      }
+    }
+    return list;
+  }
+
+  @override
   T elementAtOrElse(int index, T Function(int) defaultValue) {
     assert(defaultValue != null);
     if (this is KList) {
@@ -423,5 +440,74 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       if (!found) return null;
       return single;
     }
+  }
+
+  @override
+  KList<T> take(int n) {
+    if (n < 0) {
+      throw ArgumentError("Requested element count $n is less than zero.");
+    }
+    if (n == 0) return emptyList();
+    if (this is KCollection) {
+      final collection = this as KCollection;
+      if (n >= collection.size) return toList();
+      if (n == 1) return listOf([first()]);
+    }
+    var count = 0;
+    final list = mutableListOf<T>();
+    for (final item in iter) {
+      if (count++ == n) {
+        break;
+      }
+      list.add(item);
+    }
+    return _optimizeReadOnlyList(list);
+  }
+
+  C toCollection<C extends KMutableCollection<T>>(C destination) {
+    for (final item in iter) {
+      destination.add(item);
+    }
+    return destination;
+  }
+
+  @override
+  KList<T> toList() {
+    if (this is KCollection<T>) {
+      final list = (this as KCollection<T>);
+      switch (list.size) {
+        case 0:
+          return emptyList();
+        case 1:
+          if (this is KList<T>) {
+            return listOf([(this as KList<T>).get(0)]);
+          } else {
+            return listOf([list.iterator().next()]);
+          }
+          break;
+        default:
+          return list.toMutableList();
+      }
+    }
+    return _optimizeReadOnlyList(this.toMutableList());
+  }
+
+  @override
+  KMutableList<T> toMutableList() {
+    if (this is KCollection<T>) {
+      return this.toMutableList();
+    }
+    return toCollection(mutableListOf());
+  }
+}
+
+KList<T> _optimizeReadOnlyList<T>(KList<T> list) {
+  switch (list.size) {
+    case 0:
+      return emptyList();
+    case 1:
+      return listOf([list[0]]);
+    default:
+      return list;
   }
 }
