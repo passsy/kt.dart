@@ -334,6 +334,13 @@ abstract class KIterableExtension<T> {
   int indexOfLast(bool Function(T) predicate);
 
   /**
+   * Returns a set containing all elements that are contained by both this set and the specified collection.
+   *
+   * The returned set preserves the element iteration order of the original collection.
+   */
+  KSet<T> intersect(KIterable<T> other);
+
+  /**
    * Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
    *
    * If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]

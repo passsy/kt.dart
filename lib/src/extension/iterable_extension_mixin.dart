@@ -476,6 +476,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return lastIndex;
   }
 
+  KSet<T> intersect(KIterable<T> other) {
+    final set = toMutableSet();
+    set.retainAll(other);
+    return set;
+  }
+
   @override
   String joinToString(
       {String separator = ", ",
