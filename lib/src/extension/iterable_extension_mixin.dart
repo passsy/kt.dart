@@ -139,7 +139,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KIterable<T> dropWhile([bool Function(T) predicate]) {
+  KIterable<T> dropWhile(bool Function(T) predicate) {
+    assert(predicate != null);
     var yielding = false;
     var list = mutableListOf<T>();
     for (final item in iter) {

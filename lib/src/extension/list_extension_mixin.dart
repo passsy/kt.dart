@@ -23,7 +23,8 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   }
 
   @override
-  KList<T> dropLastWhile([bool Function(T) predicate]) {
+  KList<T> dropLastWhile(bool Function(T) predicate) {
+    assert(predicate != null);
     if (!isEmpty()) {
       final i = listIterator(size);
       while (i.hasPrevious()) {

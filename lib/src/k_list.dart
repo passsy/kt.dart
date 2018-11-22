@@ -80,7 +80,7 @@ abstract class KListExtension<T> {
   /**
    * Returns a list containing all elements except last elements that satisfy the given [predicate].
    */
-  KList<T> dropLastWhile([bool Function(T) predicate]);
+  KList<T> dropLastWhile(bool Function(T) predicate);
 
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this list.

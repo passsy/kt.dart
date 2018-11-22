@@ -151,7 +151,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements except first elements that satisfy the given [predicate].
    */
-  KIterable<T> dropWhile([bool Function(T) predicate]);
+  KIterable<T> dropWhile(bool Function(T) predicate);
 
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
