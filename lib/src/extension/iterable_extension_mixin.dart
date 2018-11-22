@@ -207,27 +207,16 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KList<T> filter(bool Function(T) predicate) {
-    assert(predicate != null);
-    final destination = mutableListOf<T>();
-    for (final element in iter) {
-      if (predicate(element)) {
-        destination.add(element);
-      }
-    }
-    return destination;
+    final list = filterTo(mutableListOf<T>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return list;
   }
 
   @override
   KList<T> filterIndexed(bool Function(int index, T) predicate) {
-    assert(predicate != null);
-    final destination = mutableListOf<T>();
-    var i = 0;
-    for (final element in iter) {
-      if (predicate(i++, element)) {
-        destination.add(element);
-      }
-    }
-    return destination;
+    final list = filterIndexedTo(mutableListOf<T>(), predicate);
+    return list;
   }
 
   @override
@@ -254,36 +243,19 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C filterIsInstanceTo<R, C extends KMutableCollection<R>>(C destination) {
-    for (final element in iter) {
-      if (element is R) {
-        destination.add(element);
-      }
-    }
-    return destination;
-  }
-
-  @override
   KList<T> filterNot(bool Function(T) predicate) {
-    final destination = mutableListOf<T>();
-    assert(predicate != null);
-    for (final element in iter) {
-      if (!predicate(element)) {
-        destination.add(element);
-      }
-    }
-    return destination;
+    final list = filterNotTo(mutableListOf<T>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return list;
   }
 
   @override
   KList<T> filterNotNull() {
-    var destination = mutableListOf<T>();
-    for (final element in iter) {
-      if (element != null) {
-        destination.add(element);
-      }
-    }
-    return destination;
+    var list = filterNotNullTo(mutableListOf<T>());
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return list;
   }
 
   @override

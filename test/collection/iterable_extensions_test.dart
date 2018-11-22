@@ -36,6 +36,21 @@ void main() {
       final list = listOf(["paul", "peter", "john", "lisa"]);
       expect(list.filter((it) => it.contains("a")), equals(listOf(["paul", "lisa"])));
     });
+
+    test("filterNot", () {
+      final list = listOf(["paul", "peter", "john", "lisa"]);
+      expect(list.filterNot((it) => it.contains("a")), equals(listOf(["peter", "john"])));
+    });
+
+    test("filterNotNull", () {
+      final list = listOf(["paul", null, "john", "lisa"]);
+      expect(list.filterNotNull(), equals(listOf(["paul", "john", "lisa"])));
+    });
+
+    test("filterIsInstance", () {
+      final list = listOf<Object>(["paul", null, "john", 1, "lisa"]);
+      expect(list.filterIsInstance<String>(), equals(listOf(["paul", "john", "lisa"])));
+    });
   });
 
   group("distinct", () {

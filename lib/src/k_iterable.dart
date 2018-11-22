@@ -188,19 +188,12 @@ abstract class KIterableExtension<T> {
    * @param [predicate] function that takes the index of an element and the element itself
    * and returns the result of predicate evaluation on the element.
    */
-  // TODO add when dart fixes generic type problems
-  //C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate);
+  C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate);
 
   /**
    * Returns a list containing all elements that are instances of specified type parameter R.
    */
   KList<R> filterIsInstance<R>();
-
-  /**
-   * Appends all elements that are instances of specified type parameter R to the given [destination].
-   */
-  // TODO add when dart fixes generic type problems
-  //C filterIsInstanceTo<R, C extends KMutableCollection<R>>(C destination);
 
   /**
    * Returns a list containing all elements not matching the given [predicate].
@@ -215,20 +208,17 @@ abstract class KIterableExtension<T> {
   /**
    * Appends all elements that are not `null` to the given [destination].
    */
-  // TODO add when dart fixes generic type problems
-  //C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
+  C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
 
   /**
    * Appends all elements not matching the given [predicate] to the given [destination].
    */
-  // TODO add when dart fixes generic type problems
-  //C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+  C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
 
   /**
    * Appends all elements matching the given [predicate] to the given [destination].
    */
-  // TODO add when dart fixes generic type problems
-  //C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+  C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
 
   /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.
