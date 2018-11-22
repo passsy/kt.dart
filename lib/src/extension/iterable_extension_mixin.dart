@@ -206,6 +206,77 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<T> filter(bool Function(T) predicate) => filterTo(mutableListOf(), predicate);
+
+  @override
+  KList<T> filterIndexed(bool Function(int index, T) predicate) {
+    return filterIndexedTo(mutableListOf(), predicate);
+  }
+
+  @override
+  C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate) {
+    assert(predicate != null);
+    var i = 0;
+    for (final element in iter) {
+      if (predicate(i++, element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  KList<R> filterIsInstance<R>() => filterIsInstanceTo(mutableListOf());
+
+  @override
+  C filterIsInstanceTo<R, C extends KMutableCollection<R>>(C destination) {
+    for (final element in iter) {
+      if (element is R) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  KList<T> filterNot(bool Function(T) predicate) => filterNotTo(mutableListOf<T>(), predicate);
+
+  @override
+  KList<T> filterNotNull() => filterNotNullTo(mutableListOf<T>());
+
+  @override
+  C filterNotNullTo<C extends KMutableCollection<T>>(C destination) {
+    for (final element in iter) {
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate) {
+    assert(predicate != null);
+    for (final element in iter) {
+      if (!predicate(element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate) {
+    assert(predicate != null);
+    for (final element in iter) {
+      if (predicate(element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
   T find(bool Function(T) predicate) {
     assert(predicate != null);
     return firstOrNull(predicate);

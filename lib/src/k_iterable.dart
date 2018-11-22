@@ -172,6 +172,59 @@ abstract class KIterableExtension<T> {
   T elementAtOrNull(int index);
 
   /**
+   * Returns a list containing only elements matching the given [predicate].
+   */
+  KList<T> filter(bool Function(T) predicate);
+
+  /**
+   * Returns a list containing only elements matching the given [predicate].
+   * @param [predicate] function that takes the index of an element and the element itself
+   * and returns the result of predicate evaluation on the element.
+   */
+  KList<T> filterIndexed(bool Function(int index, T) predicate);
+
+  /**
+   * Appends all elements matching the given [predicate] to the given [destination].
+   * @param [predicate] function that takes the index of an element and the element itself
+   * and returns the result of predicate evaluation on the element.
+   */
+  C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate);
+
+  /**
+   * Returns a list containing all elements that are instances of specified type parameter R.
+   */
+  KList<R> filterIsInstance<R>();
+
+  /**
+   * Appends all elements that are instances of specified type parameter R to the given [destination].
+   */
+  C filterIsInstanceTo<R, C extends KMutableCollection<R>>(C destination);
+
+  /**
+   * Returns a list containing all elements not matching the given [predicate].
+   */
+  KList<T> filterNot(bool Function(T) predicate);
+
+  /**
+   * Returns a list containing all elements that are not `null`.
+   */
+  KList<T> filterNotNull();
+
+  /**
+   * Appends all elements that are not `null` to the given [destination].
+   */
+  C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
+
+  /**
+   * Appends all elements not matching the given [predicate] to the given [destination].
+   */
+  C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+
+  /**
+   * Appends all elements matching the given [predicate] to the given [destination].
+   */
+  C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+  /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.
    */
   @nullable
