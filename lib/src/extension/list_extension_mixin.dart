@@ -1,18 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
 abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
-  int get lastIndex => this.size - 1;
-
-  @override
-  T getOrElse(int index, T Function(int) defaultValue) {
-    return (index >= 0 && index <= lastIndex) ? get(index) : defaultValue(index);
-  }
-
-  @override
-  T getOrNull(int index) {
-    return index >= 0 && index <= lastIndex ? get(index) : null;
-  }
-
   @override
   KList<T> dropLast(int n) {
     var count = size - n;
@@ -70,6 +58,19 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
     }
     return accumulator;
   }
+
+  @override
+  T getOrElse(int index, T Function(int) defaultValue) {
+    return (index >= 0 && index <= lastIndex) ? get(index) : defaultValue(index);
+  }
+
+  @override
+  T getOrNull(int index) {
+    return index >= 0 && index <= lastIndex ? get(index) : null;
+  }
+
+  @override
+  int get lastIndex => this.size - 1;
 
   @override
   KList<T> slice(KIterable<int> indices) {

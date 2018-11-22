@@ -54,25 +54,6 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
 
 abstract class KListExtension<T> {
   /**
-   * Returns the index of the last item in the list or -1 if the list is empty.
-   */
-  int get lastIndex;
-
-  /**
-   * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-   *
-   * returns `null` when [defaultValue] return `null`
-   */
-  @nullable
-  T getOrElse(int index, T Function(int) defaultValue);
-
-  /**
-   * Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
-   */
-  @nullable
-  T getOrNull(int index);
-
-  /**
    * Returns a list containing all elements except last [n] elements.
    */
   KList<T> dropLast(int n);
@@ -114,6 +95,25 @@ abstract class KListExtension<T> {
    * and current accumulator value, and calculates the next accumulator value.
    */
   R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation);
+
+  /**
+   * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
+   *
+   * returns `null` when [defaultValue] return `null`
+   */
+  @nullable
+  T getOrElse(int index, T Function(int) defaultValue);
+
+  /**
+   * Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
+   */
+  @nullable
+  T getOrNull(int index);
+
+  /**
+   * Returns the index of the last item in the list or -1 if the list is empty.
+   */
+  int get lastIndex;
 
   /**
    * Returns a list containing elements at specified [indices].

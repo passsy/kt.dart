@@ -10,7 +10,9 @@ main() {
   final map = mapOf({"a": "A", "b": "B", "c": "C"});
   final emptyM = emptyMap();
 
-  list.map((it) => it.runes.first).flatMap(_nextChars3).forEach(print);
+  list.map((it) => it.runes.first)
+      .filter((it)=> it.bitLength < 1);
+      .flatMap(_nextChars3).forEach(print);
 
   KMap<String, String> mapping = list.associateWith((key) => ">$key<");
   print(mapping.get("a"));
