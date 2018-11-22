@@ -206,11 +206,28 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<T> filter(bool Function(T) predicate) => filterTo(mutableListOf(), predicate);
+  KList<T> filter(bool Function(T) predicate) {
+    assert(predicate != null);
+    final destination = mutableListOf<T>();
+    for (final element in iter) {
+      if (predicate(element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
 
   @override
   KList<T> filterIndexed(bool Function(int index, T) predicate) {
-    return filterIndexedTo(mutableListOf(), predicate);
+    assert(predicate != null);
+    final destination = mutableListOf<T>();
+    var i = 0;
+    for (final element in iter) {
+      if (predicate(i++, element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
   }
 
   @override
@@ -226,7 +243,15 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<R> filterIsInstance<R>() => filterIsInstanceTo(mutableListOf());
+  KList<R> filterIsInstance<R>() {
+    final destination = mutableListOf<R>();
+    for (final element in iter) {
+      if (element is R) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
 
   @override
   C filterIsInstanceTo<R, C extends KMutableCollection<R>>(C destination) {
@@ -239,10 +264,27 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<T> filterNot(bool Function(T) predicate) => filterNotTo(mutableListOf<T>(), predicate);
+  KList<T> filterNot(bool Function(T) predicate) {
+    final destination = mutableListOf<T>();
+    assert(predicate != null);
+    for (final element in iter) {
+      if (!predicate(element)) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
 
   @override
-  KList<T> filterNotNull() => filterNotNullTo(mutableListOf<T>());
+  KList<T> filterNotNull() {
+    var destination = mutableListOf<T>();
+    for (final element in iter) {
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
 
   @override
   C filterNotNullTo<C extends KMutableCollection<T>>(C destination) {

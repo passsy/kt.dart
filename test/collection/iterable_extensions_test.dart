@@ -31,6 +31,13 @@ void main() {
     });
   });
 
+  group("filter", () {
+    test("filter", () {
+      final list = listOf(["paul", "peter", "john", "lisa"]);
+      expect(list.filter((it) => it.contains("a")), equals(listOf(["paul", "lisa"])));
+    });
+  });
+
   group("distinct", () {
     test("distinct elements", () {
       final list = listOf(["a", "b", "c", "b"]);
