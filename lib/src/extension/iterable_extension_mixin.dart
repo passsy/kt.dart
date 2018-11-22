@@ -700,6 +700,17 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  bool none([bool Function(T) predicate]) {
+    if (this is KCollection && (this as KCollection).isEmpty()) return true;
+    if (predicate == null) return false;
+    for (final element in iter) {
+      if (predicate(element)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) return (this as KList).single();

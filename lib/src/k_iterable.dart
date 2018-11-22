@@ -423,6 +423,10 @@ abstract class KIterableExtension<T> {
   T minWith(Comparator<T> comparator);
 
   /**
+   * Returns `true` if the collection has no elements or no elements match the given [predicate].
+   */
+  bool none([bool Function(T) predicate]);
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable
