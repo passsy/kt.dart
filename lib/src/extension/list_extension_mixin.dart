@@ -48,6 +48,30 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   T elementAtOrNull(int index) => getOrNull(index);
 
   @override
+  R foldRight<R>(R initial, R Function(T, R acc) operation) {
+    if (isEmpty()) return initial;
+
+    var accumulator = initial;
+    final i = listIterator(size);
+    while (i.hasPrevious()) {
+      accumulator = operation(i.previous(), accumulator);
+    }
+    return accumulator;
+  }
+
+  @override
+  R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation) {
+    if (isEmpty()) return initial;
+
+    var accumulator = initial;
+    final i = listIterator(size);
+    while (i.hasPrevious()) {
+      accumulator = operation(i.previousIndex(), i.previous(), accumulator);
+    }
+    return accumulator;
+  }
+
+  @override
   KList<T> slice(KIterable<int> indices) {
     if (indices.count() == 0) {
       return emptyList<T>();

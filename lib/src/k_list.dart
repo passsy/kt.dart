@@ -103,6 +103,19 @@ abstract class KListExtension<T> {
   T elementAtOrNull(int index);
 
   /**
+   * Accumulates value starting with [initial] value and applying [operation] from right to left to each element and current accumulator value.
+   */
+  R foldRight<R>(R initial, R Function(T, R acc) operation);
+
+  /**
+   * Accumulates value starting with [initial] value and applying [operation] from right to left
+   * to each element with its index in the original list and current accumulator value.
+   * @param [operation] function that takes the index of an element, the element itself
+   * and current accumulator value, and calculates the next accumulator value.
+   */
+  R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation);
+
+  /**
    * Returns a list containing elements at specified [indices].
    */
   KList<T> slice(KIterable<int> indices);

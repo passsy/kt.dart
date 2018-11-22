@@ -259,6 +259,19 @@ abstract class KIterableExtension<T> {
   C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform);
 
   /**
+   * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
+   */
+  R fold<R>(R initial, R Function(R acc, T) operation);
+
+  /**
+   * Accumulates value starting with [initial] value and applying [operation] from left to right
+   * to current accumulator value and each element with its index in the original collection.
+   * @param [operation] function that takes the index of an element, current accumulator value
+   * and the element itself, and calculates the next accumulator value.
+   */
+  R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation);
+
+  /**
    * Performs the given [action] on each element.
    */
   void forEach(void Function(T element) action);

@@ -362,6 +362,27 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  R fold<R>(R initial, R Function(R acc, T) operation) {
+    assert(operation != null);
+    var accumulator = initial;
+    for (final element in iter) {
+      accumulator = operation(accumulator, element);
+    }
+    return accumulator;
+  }
+
+  @override
+  R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation) {
+    assert(operation != null);
+    var index = 0;
+    var accumulator = initial;
+    for (final element in iter) {
+      accumulator = operation(index++, accumulator, element);
+    }
+    return accumulator;
+  }
+
+  @override
   void forEach(void action(T element)) {
     assert(action != null);
     var i = iterator();
