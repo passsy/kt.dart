@@ -467,7 +467,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   num sum() {
-    if (this is KIterable<num>) {
+    if (this is! KIterable<num>) {
       throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
     }
 
