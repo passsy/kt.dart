@@ -393,6 +393,15 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  void forEachIndexed(void Function(int index, T element) action) {
+    assert(action != null);
+    var index = 0;
+    for (final item in iter) {
+      action(index++, item);
+    }
+  }
+
+  @override
   int indexOf(T element) {
     if (this is KList) return (this as KList).indexOf(element);
     var index = 0;

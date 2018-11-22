@@ -277,6 +277,13 @@ abstract class KIterableExtension<T> {
   void forEach(void Function(T element) action);
 
   /**
+   * Performs the given [action] on each element, providing sequential index with the element.
+   * @param [action] function that takes the index of an element and the element itself
+   * and performs the desired action on the element.
+   */
+  void forEachIndexed(void Function(int index, T element) action);
+
+  /**
    * Returns first index of [element], or -1 if the collection does not contain element.
    */
   int indexOf(T element);
