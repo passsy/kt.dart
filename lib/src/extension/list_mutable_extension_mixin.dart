@@ -7,4 +7,12 @@ abstract class KMutableListExtensionsMixin<T> implements KMutableListExtension<T
       set(i, value);
     }
   }
+
+  @override
+  KMutableList<T> onEach(void Function(T) action) {
+    for (final element in iter) {
+      action(element);
+    }
+    return this;
+  }
 }

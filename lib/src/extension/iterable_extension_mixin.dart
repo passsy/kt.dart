@@ -710,6 +710,15 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     }
     return true;
   }
+
+  @override
+  KIterable<T> onEach(void Function(T) action) {
+    for (final element in iter) {
+      action(element);
+    }
+    return this;
+  }
+
   @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
