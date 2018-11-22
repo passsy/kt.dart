@@ -429,6 +429,9 @@ abstract class KIterableExtension<T> {
 
   /**
    * Performs the given [action] on each element and returns the collection itself afterwards.
+   *
+   * Discussion: Dart isn't able to return `this` with the correct type (C extends KIterable<T>). It will always become
+   * a KIterable and KList operators can't be accessed afterwards without a cast.
    */
   KIterable<T> onEach(void Function(T) action);
 
