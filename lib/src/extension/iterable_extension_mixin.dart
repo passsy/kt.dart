@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
@@ -77,9 +79,30 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<KList<T>> chunked(int size) {
+    return windowed(size, step: size, partialWindows: true);
+  }
+
+  @override
+  KList<R> chunkedTransform<R>(int size, R Function(KList<T>) transform) {
+    return windowedTransform(size, transform, step: size, partialWindows: true);
+  }
+
+  @override
   bool contains(T element) {
     if (this is KCollection) return (this as KCollection).contains(element);
     return indexOf(element) >= 0;
+  }
+
+  @override
+  int count() {
+    if (this is KCollection) (this as KCollection).size;
+    var count = 0;
+    Iterator it = iter.iterator;
+    while (it.moveNext()) {
+      count++;
+    }
+    return count;
   }
 
   @override
@@ -443,6 +466,19 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  num sum() {
+    if (this is KIterable<num>) {
+      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+    }
+
+    num sum = 0;
+    for (final element in iter) {
+      sum += element as num;
+    }
+    return sum;
+  }
+
+  @override
   KList<T> take(int n) {
     if (n < 0) {
       throw ArgumentError("Requested element count $n is less than zero.");
@@ -485,4 +521,67 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   KSet<T> toSet() => linkedSetOf(iter);
+
+  @override
+  KSet<T> union(KIterable<T> other) {
+    final set = toMutableSet();
+    set.addAll(other);
+    return set;
+  }
+
+  @override
+  KList<KList<T>> windowed(int size, {int step = 1, bool partialWindows = false}) {
+    final list = this.toList();
+    final thisSize = list.size;
+    final result = mutableListOf<KList<T>>();
+    final window = _MovingSubList(list);
+    var index = 0;
+    while (index < thisSize) {
+      window.move(index, math.min(thisSize, index + size));
+      if (!partialWindows && window.size < size) break;
+      result.add(window.snapshot());
+      index += step;
+    }
+    return result;
+  }
+
+  @override
+  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false}) {
+    assert(transform != null);
+    final list = this.toList();
+    final thisSize = list.size;
+    final result = mutableListOf<R>();
+    final window = _MovingSubList(list);
+    var index = 0;
+    while (index < thisSize) {
+      window.move(index, math.min(thisSize, index + size));
+      if (!partialWindows && window.size < size) break;
+      result.add(transform(window.snapshot()));
+      index += step;
+    }
+    return result;
+  }
+}
+
+class _MovingSubList<T> {
+  _MovingSubList(this.list);
+
+  KList<T> list;
+  var _fromIndex = 0;
+  var _size = 0;
+
+  void move(int fromIndex, int toIndex) {
+    if (fromIndex < 0 || toIndex > list.size) {
+      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: ${list.size}");
+    }
+    if (fromIndex > toIndex) {
+      throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+    }
+    this._fromIndex = fromIndex;
+    this._size = toIndex - fromIndex;
+  }
+
+  KList<T> snapshot() => list.subList(_fromIndex, _fromIndex + _size);
+
+  int get size => _size;
 }

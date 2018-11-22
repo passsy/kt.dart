@@ -90,9 +90,38 @@ abstract class KIterableExtension<T> {
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
 
   /**
+   * Splits this collection into a list of lists each not exceeding the given [size].
+   *
+   * The last list in the resulting list may have less elements than the given [size].
+   *
+   * @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
+   */
+  KList<KList<T>> chunked(int size);
+
+  /**
+   * Splits this collection into several lists each not exceeding the given [size]
+   * and applies the given [transform] function to an each.
+   *
+   * @return list of results of the [transform] applied to an each list.
+   *
+   * Note that the list passed to the [transform] function is ephemeral and is valid only inside that function.
+   * You should not store it or allow it to escape in some way, unless you made a snapshot of it.
+   * The last list may have less elements than the given [size].
+   *
+   * @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
+   *
+   */
+  KList<R> chunkedTransform<R>(int size, R Function(KList<T>) transform);
+
+  /**
    * Returns `true` if [element] is found in the collection.
    */
   bool contains(T element);
+
+  /**
+   * Returns the number of elements in this collection.
+   */
+  int count();
 
   /**
    * Returns a list containing all elements except first [n] elements.
@@ -274,4 +303,48 @@ abstract class KIterableExtension<T> {
    * The returned set preserves the element iteration order of the original collection.
    */
   KSet<T> toSet();
+
+  /**
+   * Returns a set containing all distinct elements from both collections.
+   *
+   * The returned set preserves the element iteration order of the original collection.
+   * Those elements of the [other] collection that are unique are iterated in the end
+   * in the order of the [other] collection.
+   */
+  KSet<T> union(KIterable<T> other);
+
+  /**
+   * Returns a list of snapshots of the window of the given [size]
+   * sliding along this collection with the given [step], where each
+   * snapshot is a list.
+   *
+   * Several last lists may have less elements than the given [size].
+   *
+   * Both [size] and [step] must be positive and can be greater than the number of elements in this collection.
+   * @param [size] the number of elements to take in each window
+   * @param [step] the number of elements to move the window forward by on an each step, by default 1
+   * @param [partialWindows] controls whether or not to keep partial windows in the end if any,
+   * by default `false` which means partial windows won't be preserved
+   */
+  KList<KList<T>> windowed(int size, {int step = 1, bool partialWindows = false});
+
+  /**
+   * Returns a list of results of applying the given [transform] function to
+   * an each list representing a view over the window of the given [size]
+   * sliding along this collection with the given [step].
+   *
+   * Both [size] and [step] must be positive and can be greater than the number of elements in this collection.
+   * @param [size] the number of elements to take in each window
+   * @param [step] the number of elements to move the window forward by on an each step, by default 1
+   * @param [partialWindows] controls whether or not to keep partial windows in the end if any,
+   * by default `false` which means partial windows won't be preserved
+   */
+  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false});
+
+  /**
+   * Returns the sum of all elements in the collection.
+   *
+   * Requires [T] to be [num]
+   */
+  num sum();
 }

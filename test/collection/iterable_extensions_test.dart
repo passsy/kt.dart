@@ -38,4 +38,102 @@ void main() {
     });
     // TODO drop on empty
   });
+
+  group("sum", () {
+    test("sum of ints", () {
+      expect(listOf([1, 2, 3, 4, 5]).sum(), 15);
+    });
+
+    test("sum of doubles", () {
+      var sum = listOf([1.0, 2.1, 3.2]).sum();
+      expect(sum, closeTo(6.3, 0.000000001));
+    });
+
+    test("sum of strings throws", () {
+      expect(() => listOf(["1", "2", "3"]).sum(), throwsArgumentError);
+    });
+  });
+
+  group("windowed", () {
+    test("default step", () {
+      expect(
+          listOf([1, 2, 3, 4, 5]).windowed(3),
+          listOf([
+            listOf([1, 2, 3]),
+            listOf([2, 3, 4]),
+            listOf([3, 4, 5]),
+          ]));
+    });
+
+    test("larger step", () {
+      expect(
+          listOf([1, 2, 3, 4, 5]).windowed(3, step: 2),
+          listOf([
+            listOf([1, 2, 3]),
+            listOf([3, 4, 5]),
+          ]));
+    });
+
+    test("step doesn't fit length", () {
+      expect(
+          listOf([1, 2, 3, 4, 5, 6]).windowed(3, step: 2),
+          listOf([
+            listOf([1, 2, 3]),
+            listOf([3, 4, 5]),
+          ]));
+    });
+
+    test("window can be smaller than length", () {
+      expect(listOf([1]).windowed(3, step: 2), emptyList());
+    });
+
+    test("step doesn't fit length, partial", () {
+      expect(
+          listOf([1, 2, 3, 4, 5, 6]).windowed(3, step: 2, partialWindows: true),
+          listOf([
+            listOf([1, 2, 3]),
+            listOf([3, 4, 5]),
+            listOf([5, 6]),
+          ]));
+    });
+    test("partial doesn't crash on empty list", () {
+      expect(emptyList().windowed(3, step: 2, partialWindows: true), emptyList());
+    });
+    test("window can be smaller than length, emitting partial only", () {
+      expect(
+          listOf([1]).windowed(3, step: 2, partialWindows: true),
+          listOf([
+            listOf([1]),
+          ]));
+    });
+  });
+
+  group("windowedTransform", () {
+    test("default step", () {
+      expect(listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()), listOf([6, 9, 12]));
+    });
+
+    test("larger step", () {
+      expect(listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum(), step: 2), listOf([6, 12]));
+    });
+
+    test("step doesn't fit length", () {
+      expect(listOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(), step: 2), listOf([6, 12]));
+    });
+
+    test("window can be smaller than length", () {
+      expect(listOf([1]).windowed(3, step: 2), emptyList());
+    });
+
+    test("step doesn't fit length, partial", () {
+      expect(listOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true),
+          listOf([6, 12, 11]));
+    });
+    test("partial doesn't crash on empty list", () {
+      expect(emptyList().windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true), emptyList());
+    });
+    test("window can be smaller than length, emitting partial only", () {
+      expect(listOf([1]).windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true), listOf([1]));
+    });
+  });
 }
