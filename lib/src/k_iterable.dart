@@ -266,6 +266,14 @@ abstract class KIterableExtension<T> {
   T singleOrNull([bool Function(T) predicate]);
 
   /**
+   * Returns the sum of all elements in the collection.
+   *
+   * Requires [T] to be [num]
+   */
+  @TooGeneric(type: "KIterable<num>")
+  num sum();
+
+  /**
    * Returns a list containing first [n] elements.
    */
   KList<T> take(int n);
@@ -340,12 +348,4 @@ abstract class KIterableExtension<T> {
    * by default `false` which means partial windows won't be preserved
    */
   KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false});
-
-  /**
-   * Returns the sum of all elements in the collection.
-   *
-   * Requires [T] to be [num]
-   */
-  @TooGeneric(type: "KIterable<num>")
-  num sum();
 }
