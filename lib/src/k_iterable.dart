@@ -346,5 +346,6 @@ abstract class KIterableExtension<T> {
    *
    * Requires [T] to be [num]
    */
+  @TooGeneric(type: "KIterable<num>")
   num sum();
 }

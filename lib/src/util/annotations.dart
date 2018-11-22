@@ -23,3 +23,26 @@ const Object nonNull = const _NonNull();
 class _NonNull {
   const _NonNull();
 }
+
+/**
+ * A method annotated with @tooGeneric is a indicator that the method is defined for a generic type `T` but only works for type `X` where `X extends T`.
+ *
+ * The method will be moved to a more specific type when dart extension methods are implemented.
+ * https://github.com/dart-lang/language/issues/41
+ *
+ * Use `@TooGeneric(type: X)` to define which type should be used
+ */
+const Object tooGeneric = const TooGeneric();
+
+/**
+ * A method annotated with @tooGeneric is a indicator that the method is defined for a generic type `T` but only works for type `X` where `X extends T`.
+ *
+ * The method will be moved to a more specific type when dart extension methods are implemented.
+ * https://github.com/dart-lang/language/issues/41
+ *
+ * Use `@TooGeneric(type: X)` to define which type should be used
+ */
+class TooGeneric {
+  const TooGeneric({this.type});
+  final String type;
+}
