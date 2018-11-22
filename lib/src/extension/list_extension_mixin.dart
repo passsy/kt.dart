@@ -46,4 +46,16 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T elementAtOrNull(int index) => getOrNull(index);
+
+  @override
+  KList<T> slice(KIterable<int> indices) {
+    if (indices.count() == 0) {
+      return emptyList<T>();
+    }
+    final list = mutableListOf<T>();
+    for (final index in indices.iter) {
+      list.add(get(index));
+    }
+    return list;
+  }
 }

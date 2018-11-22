@@ -101,4 +101,9 @@ abstract class KListExtension<T> {
    */
   @nullable
   T elementAtOrNull(int index);
+
+  /**
+   * Returns a list containing elements at specified [indices].
+   */
+  KList<T> slice(KIterable<int> indices);
 }
