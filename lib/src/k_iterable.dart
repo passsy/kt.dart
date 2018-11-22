@@ -274,6 +274,16 @@ abstract class KIterableExtension<T> {
   num sum();
 
   /**
+   * Returns the sum of all values produced by [selector] function applied to each element in the collection.
+   */
+  int sumBy(int Function(T) selector);
+
+  /**
+   * Returns the sum of all values produced by [selector] function applied to each element in the collection.
+   */
+  double sumByDouble(double Function(T) selector);
+
+  /**
    * Returns a list containing first [n] elements.
    */
   KList<T> take(int n);

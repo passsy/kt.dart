@@ -54,6 +54,16 @@ void main() {
     });
   });
 
+  group("sumBy", () {
+    test("double", () {
+      expect(listOf([1, 2, 3]).sumBy((i) => i * 2), 12);
+    });
+
+    test("factor 1.5", () {
+      expect(listOf([1, 2, 3]).sumByDouble((i) => i * 1.5), 9.0);
+    });
+  });
+
   group("windowed", () {
     test("default step", () {
       expect(

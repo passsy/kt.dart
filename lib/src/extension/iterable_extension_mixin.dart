@@ -478,6 +478,22 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return sum;
   }
 
+  int sumBy(int Function(T) selector) {
+    int sum = 0;
+    for (final element in iter) {
+      sum += selector(element);
+    }
+    return sum;
+  }
+
+  double sumByDouble(double Function(T) selector) {
+    double sum = 0.0;
+    for (final element in iter) {
+      sum += selector(element);
+    }
+    return sum;
+  }
+
   @override
   KList<T> take(int n) {
     if (n < 0) {
