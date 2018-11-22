@@ -43,6 +43,8 @@ const Object tooGeneric = const TooGeneric();
  * Use `@TooGeneric(type: X)` to define which type should be used
  */
 class TooGeneric {
-  const TooGeneric({this.type});
-  final String type;
+  const TooGeneric({this.extensionForType});
+
+  /// The type which would be a better fit
+  final String extensionForType;
 }

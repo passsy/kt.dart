@@ -387,7 +387,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns the largest element or `null` if there are no elements.
    */
-  @TooGeneric(type: "KIterable<num>")
+  @TooGeneric(extensionForType: "KIterable<num>")
   @nullable
   num max();
 
@@ -406,7 +406,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns the smallest element or `null` if there are no elements.
    */
-  @TooGeneric(type: "KIterable<num>")
+  @TooGeneric(extensionForType: "KIterable<num>")
   @nullable
   num min();
 
@@ -470,7 +470,7 @@ abstract class KIterableExtension<T> {
    *
    * Requires [T] to be [num]
    */
-  @TooGeneric(type: "KIterable<num>")
+  @TooGeneric(extensionForType: "KIterable<num>")
   num sum();
 
   /**
