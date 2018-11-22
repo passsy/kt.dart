@@ -31,6 +31,18 @@ void main() {
     });
   });
 
+  group("distinct", () {
+    test("distinct elements", () {
+      final list = listOf(["a", "b", "c", "b"]);
+      expect(list.distinct(), equals(listOf(["a", "b", "c"])));
+    });
+
+    test("distinct by", () {
+      final list = listOf(["paul", "peter", "john", "lisa"]);
+      expect(list.distinctBy((it) => it.length), equals(listOf(["paul", "peter"])));
+    });
+  });
+
   group("drop", () {
     test("drop first value", () {
       final list = listOf(["a", "b", "c"]);

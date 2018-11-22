@@ -58,8 +58,7 @@ class DartMutableSet<T>
 
   @override
   bool add(T element) {
-    _set.add(element);
-    return true;
+    return _set.add(element);
   }
 
   @override

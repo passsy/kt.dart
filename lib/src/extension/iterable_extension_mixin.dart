@@ -117,6 +117,21 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return count;
   }
 
+  KList<T> distinct() => toMutableSet().toList();
+
+  KList<T> distinctBy<K>(K Function(T) selector) {
+    assert(selector != null);
+    final set = hashSetOf<K>();
+    final list = mutableListOf<T>();
+    for (final element in iter) {
+      final key = selector(element);
+      if (set.add(key)) {
+        list.add(element);
+      }
+    }
+    return list;
+  }
+
   @override
   KList<T> drop(int n) {
     if (n < 0) throw ArgumentError("Requested element count $n is less than zero.");
