@@ -284,6 +284,41 @@ abstract class KIterableExtension<T> {
   void forEachIndexed(void Function(int index, T element) action);
 
   /**
+   * Groups elements of the original collection by the key returned by the given [keySelector] function
+   * applied to each element and returns a map where each group key is associated with a list of corresponding elements.
+   *
+   * The returned map preserves the entry iteration order of the keys produced from the original collection.
+   */
+  KMap<K, KList<T>> groupBy<K>(K Function(T) keySelector);
+
+  /**
+   * Groups values returned by the [valueTransform] function applied to each element of the original collection
+   * by the key returned by the given [keySelector] function applied to the element
+   * and returns a map where each group key is associated with a list of corresponding values.
+   *
+   * The returned map preserves the entry iteration order of the keys produced from the original collection.
+   */
+  KMap<K, KList<V>> groupByTransform<K, V>(K Function(T) keySelector, V Function(T) valueTransform);
+
+  /**
+   * Groups elements of the original collection by the key returned by the given [keySelector] function
+   * applied to each element and puts to the [destination] map each group key associated with a list of corresponding elements.
+   *
+   * @return The [destination] map.
+   */
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(M destination, K Function(T) keySelector);
+
+  /**
+   * Groups values returned by the [valueTransform] function applied to each element of the original collection
+   * by the key returned by the given [keySelector] function applied to the element
+   * and puts to the [destination] map each group key associated with a list of corresponding values.
+   *
+   * @return The [destination] map.
+   */
+  M groupByToTransform<K, V, M extends KMutableMap<K, KMutableList<V>>>(
+      M destination, K Function(T) keySelector, V Function(T) valueTransform);
+
+  /**
    * Returns first index of [element], or -1 if the collection does not contain element.
    */
   int indexOf(T element);

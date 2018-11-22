@@ -58,6 +58,14 @@ abstract class KMutableEntry<K, V> extends KMapEntry<K, V> {
 
 abstract class KMutableMapExtension<K, V> {
   /**
+   * Returns the value for the given key. If the key is not found in the map, calls the [defaultValue] function,
+   * puts its result into the map under the given key and returns it.
+   *
+   * Note that the operation is not guaranteed to be atomic if the map is being modified concurrently.
+   */
+  V getOrPut(K key, V Function() defaultValue);
+
+  /**
    * Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
    */
   void putAllPairs(KIterable<KPair<K, V>> pairs);

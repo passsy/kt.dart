@@ -402,6 +402,44 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KMap<K, KList<T>> groupBy<K>(K Function(T) keySelector) {
+    final groups = groupByTo(linkedMapOf<K, KMutableList<T>>(), keySelector);
+    return groups;
+  }
+
+  @override
+  KMap<K, KList<V>> groupByTransform<K, V>(K Function(T) keySelector, V Function(T) valueTransform) {
+    final groups = groupByToTransform(linkedMapOf<K, KMutableList<V>>(), keySelector, valueTransform);
+    return groups;
+  }
+
+  @override
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(M destination, K Function(T) keySelector) {
+    assert(destination != null);
+    assert(keySelector != null);
+    for (final element in iter) {
+      final key = keySelector(element);
+      final list = destination.getOrPut(key, () => mutableListOf<T>());
+      list.add(element);
+    }
+    return destination;
+  }
+
+  @override
+  M groupByToTransform<K, V, M extends KMutableMap<K, KMutableList<V>>>(
+      M destination, K Function(T) keySelector, V Function(T) valueTransform) {
+    assert(destination != null);
+    assert(keySelector != null);
+    assert(valueTransform != null);
+    for (final element in iter) {
+      final key = keySelector(element);
+      final list = destination.getOrPut(key, () => mutableListOf<V>());
+      list.add(valueTransform(element));
+    }
+    return destination;
+  }
+
+  @override
   int indexOf(T element) {
     if (this is KList) return (this as KList).indexOf(element);
     var index = 0;

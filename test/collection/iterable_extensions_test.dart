@@ -31,6 +31,26 @@ void main() {
     });
   });
 
+  group("distinct", () {
+    test("distinct elements", () {
+      final list = listOf(["a", "b", "c", "b"]);
+      expect(list.distinct(), equals(listOf(["a", "b", "c"])));
+    });
+
+    test("distinct by", () {
+      final list = listOf(["paul", "peter", "john", "lisa"]);
+      expect(list.distinctBy((it) => it.length), equals(listOf(["paul", "peter"])));
+    });
+  });
+
+  group("drop", () {
+    test("drop first value", () {
+      final list = listOf(["a", "b", "c"]);
+      expect(list.drop(1), equals(listOf(["b", "c"])));
+    });
+    // TODO drop on empty
+  });
+
   group("filter", () {
     test("filter", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
@@ -53,15 +73,25 @@ void main() {
     });
   });
 
-  group("distinct", () {
-    test("distinct elements", () {
-      final list = listOf(["a", "b", "c", "b"]);
-      expect(list.distinct(), equals(listOf(["a", "b", "c"])));
+  group("groupBy", () {
+    test("basic", () {
+      final list = listOf(["paul", "peter", "john", "lisa"]);
+      expect(
+          list.groupBy((it) => it.length),
+          equals(mapOf({
+            4: listOf(["paul", "john", "lisa"]),
+            5: listOf(["peter"]),
+          })));
     });
 
-    test("distinct by", () {
+    test("valuetransform", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
-      expect(list.distinctBy((it) => it.length), equals(listOf(["paul", "peter"])));
+      expect(
+          list.groupByTransform((it) => it.length, (it) => it.toUpperCase()),
+          equals(mapOf({
+            4: listOf(["PAUL", "JOHN", "LISA"]),
+            5: listOf(["PETER"]),
+          })));
     });
   });
 
