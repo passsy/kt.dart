@@ -449,6 +449,11 @@ abstract class KIterableExtension<T> {
   KList<T> plus(KIterable<T> elements);
 
   /**
+   * Returns a list containing all elements of the original collection and then the given [element].
+   */
+  KList<T> plusElement(T element);
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable
