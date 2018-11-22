@@ -385,6 +385,44 @@ abstract class KIterableExtension<T> {
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
 
   /**
+   * Returns the largest element or `null` if there are no elements.
+   */
+  @TooGeneric(type: "KIterable<num>")
+  @nullable
+  num max();
+
+  /**
+   * Returns the first element yielding the largest value of the given function or `null` if there are no elements.
+   */
+  @nullable
+  T maxBy<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Returns the first element having the largest value according to the provided [comparator] or `null` if there are no elements.
+   */
+  @nullable
+  T maxWith(Comparator<T> comparator);
+
+  /**
+   * Returns the smallest element or `null` if there are no elements.
+   */
+  @TooGeneric(type: "KIterable<num>")
+  @nullable
+  num min();
+
+  /**
+   * Returns the first element yielding the smallest value of the given function or `null` if there are no elements.
+   */
+  @nullable
+  T minBy<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Returns the first element having the smallest value according to the provided [comparator] or `null` if there are no elements.
+   */
+  @nullable
+  T minWith(Comparator<T> comparator);
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable

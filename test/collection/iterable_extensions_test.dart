@@ -103,6 +103,36 @@ void main() {
     // TODO drop on empty
   });
 
+  group("max", () {
+    test("gets max value", () {
+      final list = listOf([1, 3, 2]);
+      expect(list.max(), 3);
+    });
+    test("empty list return null", () {
+      final list = emptyList<int>();
+      expect(list.max(), null);
+    });
+
+    test("throws for non nums", () {
+      expect(() => listOf(["1", "2", "3"]).max(), throwsArgumentError);
+    });
+  });
+
+  group("min", () {
+    test("gets min value", () {
+      final list = listOf([1, 3, 2]);
+      expect(list.min(), 1);
+    });
+    test("empty list return null", () {
+      final list = emptyList<int>();
+      expect(list.min(), null);
+    });
+
+    test("throws for non nums", () {
+      expect(() => listOf(["1", "2", "3"]).min(), throwsArgumentError);
+    });
+  });
+
   group("sum", () {
     test("sum of ints", () {
       expect(listOf([1, 2, 3, 4, 5]).sum(), 15);

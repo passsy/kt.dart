@@ -596,6 +596,110 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  num max() {
+    if (this is! KIterable<num>) {
+      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+    }
+
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    num max = i.next() as num;
+    if (max.isNaN) return max;
+    while (i.hasNext()) {
+      final num e = i.next() as num;
+      if (e.isNaN) return e;
+      if (max < e) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  @override
+  T maxBy<R extends Comparable<R>>(R Function(T) selector) {
+    assert(selector != null);
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T maxElement = i.next();
+    R maxValue = selector(maxElement);
+    while (i.hasNext()) {
+      final e = i.next();
+      final v = selector(e);
+      if (maxValue.compareTo(v) < 0) {
+        maxElement = e;
+        maxValue = v;
+      }
+    }
+    return maxElement;
+  }
+
+  @override
+  T maxWith(Comparator<T> comparator) {
+    final i = iterator();
+    if (!i.hasNext()) return null;
+    var max = i.next();
+    while (i.hasNext()) {
+      final e = i.next();
+      if (comparator(max, e) < 0) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  @override
+  num min() {
+    if (this is! KIterable<num>) {
+      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+    }
+
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    num min = i.next() as num;
+    if (min.isNaN) return min;
+    while (i.hasNext()) {
+      final num e = i.next() as num;
+      if (e.isNaN) return e;
+      if (min > e) {
+        min = e;
+      }
+    }
+    return min;
+  }
+
+  @override
+  T minBy<R extends Comparable<R>>(R Function(T) selector) {
+    assert(selector != null);
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T minElement = i.next();
+    R minValue = selector(minElement);
+    while (i.hasNext()) {
+      final e = i.next();
+      final v = selector(e);
+      if (minValue.compareTo(v) > 0) {
+        minElement = e;
+        minValue = v;
+      }
+    }
+    return minElement;
+  }
+
+  @override
+  T minWith(Comparator<T> comparator) {
+    final i = iterator();
+    if (!i.hasNext()) return null;
+    var min = i.next();
+    while (i.hasNext()) {
+      final e = i.next();
+      if (comparator(min, e) < 0) {
+        min = e;
+      }
+    }
+    return min;
+  }
+
+  @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) return (this as KList).single();
