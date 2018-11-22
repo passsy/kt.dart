@@ -73,14 +73,6 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   int get lastIndex => this.size - 1;
 
   @override
-  KList<T> onEach(void Function(T) action) {
-    for (final element in iter) {
-      action(element);
-    }
-    return this;
-  }
-
-  @override
   KList<T> slice(KIterable<int> indices) {
     if (indices.count() == 0) {
       return emptyList<T>();

@@ -2,14 +2,6 @@ import 'package:dart_kollection/dart_kollection.dart';
 
 abstract class KMutableIterableExtensionsMixin<T> implements KMutableIterableExtension<T>, KMutableIterable<T> {
   @override
-  KMutableIterable<T> onEach(void Function(T) action) {
-    for (final element in iter) {
-      action(element);
-    }
-    return this;
-  }
-
-  @override
   bool removeAllWhere(bool Function(T) predicate) => _filterInPlace(predicate, true);
 
   @override

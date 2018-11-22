@@ -12,14 +12,6 @@ abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, 
   bool isNotEmpty() => size > 0;
 
   @override
-  KCollection<T> onEach(void Function(T) action) {
-    for (final element in iter) {
-      action(element);
-    }
-    return this;
-  }
-
-  @override
   String toString() {
     return joinToString(
         separator: ", ",
