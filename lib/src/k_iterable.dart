@@ -444,6 +444,11 @@ abstract class KIterableExtension<T> {
   KPair<KList<T>, KList<T>> partition(bool Function(T) predicate);
 
   /**
+   * Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+   */
+  KList<T> plus(KIterable<T> elements);
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable

@@ -720,6 +720,14 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<T> plus(KIterable<T> elements) {
+    final result = mutableListOf<T>();
+    result.addAll(this.asIterable());
+    result.addAll(elements);
+    return result;
+  }
+
+  @override
   KPair<KList<T>, KList<T>> partition(bool Function(T) predicate) {
     assert(predicate != null);
     final first = mutableListOf<T>();
