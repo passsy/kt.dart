@@ -139,16 +139,6 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  T elementAt(int index) {
-    if (this is KList) {
-      return (this as KList).get(index);
-    }
-    return elementAtOrElse(index, (int index) {
-      throw IndexOutOfBoundsException("Collection doesn't contain element at index $index.");
-    });
-  }
-
-  @override
   KIterable<T> dropWhile([bool Function(T) predicate]) {
     var yielding = false;
     var list = mutableListOf<T>();
@@ -163,6 +153,16 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       }
     }
     return list;
+  }
+
+  @override
+  T elementAt(int index) {
+    if (this is KList) {
+      return (this as KList).get(index);
+    }
+    return elementAtOrElse(index, (int index) {
+      throw IndexOutOfBoundsException("Collection doesn't contain element at index $index.");
+    });
   }
 
   @override
