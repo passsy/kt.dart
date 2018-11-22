@@ -90,6 +90,11 @@ abstract class KIterableExtension<T> {
   M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
 
   /**
+   * Returns an average value produced by [selector] function applied to each element in the collection.
+   */
+  double averageBy(num Function(T) selector);
+
+  /**
    * Splits this collection into a list of lists each not exceeding the given [size].
    *
    * The last list in the resulting list may have less elements than the given [size].

@@ -79,6 +79,18 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  double averageBy(num Function(T) selector) {
+    assert(selector != null);
+    num sum = 0.0;
+    var count = 0;
+    for (final element in iter) {
+      sum += selector(element);
+      ++count;
+    }
+    return count == 0 ? double.nan : sum / count;
+  }
+
+  @override
   KList<KList<T>> chunked(int size) {
     return windowed(size, step: size, partialWindows: true);
   }
