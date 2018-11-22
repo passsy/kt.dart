@@ -432,8 +432,16 @@ abstract class KIterableExtension<T> {
    *
    * Discussion: Dart isn't able to return `this` with the correct type (C extends KIterable<T>). It will always become
    * a KIterable and KList operators can't be accessed afterwards without a cast.
+   * Could be fixed by https://github.com/dart-lang/language/issues/41
    */
   KIterable<T> onEach(void Function(T) action);
+
+  /**
+   * Splits the original collection into pair of lists,
+   * where *first* list contains elements for which [predicate] yielded `true`,
+   * while *second* list contains elements for which [predicate] yielded `false`.
+   */
+  KPair<KList<T>, KList<T>> partition(bool Function(T) predicate);
 
   /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.

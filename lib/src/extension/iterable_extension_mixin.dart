@@ -720,6 +720,21 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KPair<KList<T>, KList<T>> partition(bool Function(T) predicate) {
+    assert(predicate != null);
+    final first = mutableListOf<T>();
+    final second = mutableListOf<T>();
+    for (final element in iter) {
+      if (predicate(element)) {
+        first.add(element);
+      } else {
+        second.add(element);
+      }
+    }
+    return KPair(first, second);
+  }
+
+  @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) return (this as KList).single();
