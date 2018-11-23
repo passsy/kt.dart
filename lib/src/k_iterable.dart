@@ -454,6 +454,19 @@ abstract class KIterableExtension<T> {
   KList<T> plusElement(T element);
 
   /**
+   * Accumulates value starting with the first element and applying [operation] from left to right to current accumulator value and each element.
+   */
+  S reduce<S>(S Function(S acc, T) operation);
+
+  /**
+   * Accumulates value starting with the first element and applying [operation] from left to right
+   * to current accumulator value and each element with its index in the original collection.
+   * @param [operation] function that takes the index of an element, current accumulator value
+   * and the element itself and calculates the next accumulator value.
+   */
+  S reduceIndexed<S>(S Function(int index, S acc, T) operation);
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable

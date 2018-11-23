@@ -133,6 +133,17 @@ void main() {
     });
   });
 
+  group("reduce", () {
+    test("reduce", () {
+      final result = listOf([1, 2, 3, 4]).reduce((int acc, it) => it + acc);
+      expect(result, 10);
+    });
+
+    test("empty throws", () {
+      expect(() => emptyList<int>().reduce((int acc, it) => it + acc), throwsUnsupportedError);
+    });
+  });
+
   group("sum", () {
     test("sum of ints", () {
       expect(listOf([1, 2, 3, 4, 5]).sum(), 15);

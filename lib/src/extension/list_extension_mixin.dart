@@ -73,6 +73,32 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   int get lastIndex => this.size - 1;
 
   @override
+  S reduceRight<S>(S Function(T, S acc) operation) {
+    final i = listIterator(size);
+    if (!i.hasPrevious()) {
+      throw UnimplementedError("Empty list can't be reduced.");
+    }
+    var accumulator = i.previous() as S;
+    while (i.hasPrevious()) {
+      accumulator = operation(i.previous(), accumulator);
+    }
+    return accumulator;
+  }
+
+  @override
+  S reduceRightIndexed<S>(S Function(int index, T, S acc) operation) {
+    final i = listIterator(size);
+    if (!i.hasPrevious()) {
+      throw UnimplementedError("Empty list can't be reduced.");
+    }
+    var accumulator = i.previous() as S;
+    while (i.hasPrevious()) {
+      accumulator = operation(i.previousIndex(), i.previous(), accumulator);
+    }
+    return accumulator;
+  }
+
+  @override
   KList<T> slice(KIterable<int> indices) {
     if (indices.count() == 0) {
       return emptyList<T>();

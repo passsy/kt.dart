@@ -7,7 +7,7 @@ class DartIterator<T> implements KMutableIterator<T> {
   List<T> list;
 
   DartIterator(this.list, int index) : this.cursor = index {
-    if (index < 0 || index >= list.length) {
+    if (index < 0 || index > list.length) {
       throw IndexOutOfBoundsException("index: $index, size: $list.length");
     }
   }
@@ -42,10 +42,8 @@ class DartListIterator<T> extends DartIterator<T> implements KListIterator<T> {
 
   @override
   T previous() {
-    int i = cursor - 1;
-    if (i < 0) throw NoSuchElementException();
-    cursor = i;
-    return list[lastRet = i];
+    if (!hasPrevious()) throw NoSuchElementException();
+    return list[--cursor];
   }
 
   @override

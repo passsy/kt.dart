@@ -751,6 +751,29 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  S reduce<S>(S Function(S acc, T) operation) {
+    final i = iterator();
+    if (!i.hasNext()) throw UnsupportedError("Empty collection can't be reduced.");
+    S accumulator = i.next() as S;
+    while (i.hasNext()) {
+      accumulator = operation(accumulator, i.next());
+    }
+    return accumulator;
+  }
+
+  @override
+  S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
+    final i = iterator();
+    if (!i.hasNext()) throw UnsupportedError("Empty collection can't be reduced.");
+    var index = 1;
+    S accumulator = i.next() as S;
+    while (i.hasNext()) {
+      accumulator = operation(index++, accumulator, i.next());
+    }
+    return accumulator;
+  }
+
+  @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) return (this as KList).single();

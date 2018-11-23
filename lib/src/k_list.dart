@@ -116,6 +116,19 @@ abstract class KListExtension<T> {
   int get lastIndex;
 
   /**
+   * Accumulates value starting with last element and applying [operation] from right to left to each element and current accumulator value.
+   */
+  S reduceRight<S>(S Function(T, S acc) operation);
+
+  /**
+   * Accumulates value starting with last element and applying [operation] from right to left
+   * to each element with its index in the original list and current accumulator value.
+   * @param [operation] function that takes the index of an element, the element itself
+   * and current accumulator value, and calculates the next accumulator value.
+   */
+  S reduceRightIndexed<S>(S Function(int index,  T, S acc) operation);
+
+  /**
    * Returns a list containing elements at specified [indices].
    */
   KList<T> slice(KIterable<int> indices);

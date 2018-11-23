@@ -80,6 +80,17 @@ void main() {
       expect(list0.hashCode, isNot(equals(list2.hashCode)));
     });
 
+    group("reduceRight", () {
+      test("reduce", () {
+        final result = listOf([1, 2, 3, 4]).reduceRight((it, int acc) => it + acc);
+        expect(result, 10);
+      });
+
+      test("empty throws", () {
+        expect(() => emptyList<int>().reduceRight((it, int acc) => it + acc), throwsUnsupportedError);
+      });
+    });
+
     test("sublist works ", () {
       final list = listOf(["a", "b", "c"]);
       final subList = list.subList(1, 3);
