@@ -467,6 +467,11 @@ abstract class KIterableExtension<T> {
   S reduceIndexed<S>(S Function(int index, S acc, T) operation);
 
   /**
+   * Returns an original collection containing all the non-`null` elements, throwing an [IllegalArgumentException] if there are any `null` elements.
+   */
+  KIterable<T> requireNoNulls();
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable

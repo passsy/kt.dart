@@ -773,6 +773,18 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return accumulator;
   }
 
+  /**
+   * Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
+   */
+  KIterable<T> requireNoNulls() {
+    for (final element in iter) {
+      if (element == null) {
+        throw ArgumentError("null element found in $this.");
+      }
+    }
+    return this;
+  }
+
   @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
