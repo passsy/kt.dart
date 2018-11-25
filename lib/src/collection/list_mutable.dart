@@ -105,7 +105,7 @@ class DartMutableList<T>
   @override
   T set(int index, T element) {
     final old = _list[index];
-    _list.insert(index, element);
+    _list[index] = element;
     return old;
   }
 
