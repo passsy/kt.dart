@@ -332,4 +332,20 @@ void main() {
       expect(listOf([1]).windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true), listOf([1]));
     });
   });
+
+  group("zip", () {
+    test("to pair", () {
+      final result = listOf([1, 2, 3, 4, 5]).zip(listOf(["a", "b"]));
+      expect(result, listOf([KPair(1, "a"), KPair(2, "b")]));
+    });
+    test("transform", () {
+      final result = listOf([1, 2, 3, 4, 5]).zipTransform(listOf(["a", "b"]), (a, b) => "$a$b");
+      expect(result, listOf(["1a", "2b"]));
+    });
+
+    test("with next", () {
+      final result = listOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
+      expect(result, listOf([3, 5, 7, 9]));
+    });
+  });
 }

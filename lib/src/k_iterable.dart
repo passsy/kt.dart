@@ -657,4 +657,32 @@ abstract class KIterableExtension<T> {
    * by default `false` which means partial windows won't be preserved
    */
   KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false});
+
+  /**
+   * Returns a list of pairs built from the elements of `this` collection and [other] collection with the same index.
+   * The returned list has length of the shortest collection.
+   */
+  KList<KPair<T, R>> zip<R>(KIterable<R> other);
+
+  /**
+   * Returns a list of values built from the elements of `this` collection and the [other] collection with the same index
+   * using the provided [transform] function applied to each pair of elements.
+   * The returned list has length of the shortest collection.
+   */
+  KList<V> zipTransform<R, V>(KIterable<R> other, V Function(T a, R b) transform);
+
+  /**
+   * Returns a list of pairs of each two adjacent elements in this collection.
+   *
+   * The returned list is empty if this collection contains less than two elements.
+   */
+  KList<KPair<T, T>> zipWithNext<R>();
+
+  /**
+   * Returns a list containing the results of applying the given [transform] function
+   * to an each pair of two adjacent elements in this collection.
+   *
+   * The returned list is empty if this collection contains less than two elements.
+   */
+  KList<R> zipWithNextTransform<R>(R Function(T a, T b) transform);
 }

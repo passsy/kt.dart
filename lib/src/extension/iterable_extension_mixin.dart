@@ -1061,6 +1061,39 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     }
     return result;
   }
+
+  @override
+  KList<KPair<T, R>> zip<R>(KIterable<R> other) => zipTransform(other, (T a, R b) => KPair(a, b));
+
+  @override
+  KList<V> zipTransform<R, V>(KIterable<R> other, V Function(T a, R b) transform) {
+    final first = iterator();
+    final second = other.iterator();
+    final list = mutableListOf<V>();
+    while (first.hasNext() && second.hasNext()) {
+      list.add(transform(first.next(), second.next()));
+    }
+    return list;
+  }
+
+  @override
+  KList<KPair<T, T>> zipWithNext<R>() => zipWithNextTransform((a, b) => KPair(a, b));
+
+  @override
+  KList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      return emptyList();
+    }
+    final list = mutableListOf<R>();
+    var current = i.next();
+    while (i.hasNext()) {
+      final next = i.next();
+      list.add(transform(current, next));
+      current = next;
+    }
+    return list;
+  }
 }
 
 class _MovingSubList<T> {
