@@ -776,6 +776,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   /**
    * Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
    */
+  @override
   KIterable<T> requireNoNulls() {
     for (final element in iter) {
       if (element == null) {
@@ -783,6 +784,14 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       }
     }
     return this;
+  }
+
+  @override
+  KList<T> reversed() {
+    if (this is KCollection && (this as KCollection).size <= 1) return toList();
+    final list = toMutableList();
+    list.reverse();
+    return list;
   }
 
   @override

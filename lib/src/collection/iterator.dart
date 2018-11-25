@@ -31,7 +31,7 @@ class DartIterator<T> implements KMutableIterator<T> {
   }
 }
 
-class DartListIterator<T> extends DartIterator<T> implements KListIterator<T> {
+class DartListIterator<T> extends DartIterator<T> implements KListIterator<T>, KMutableListIterator<T> {
   DartListIterator(List<T> list, int index) : super(list, index);
 
   @override
@@ -48,4 +48,17 @@ class DartListIterator<T> extends DartIterator<T> implements KListIterator<T> {
 
   @override
   int previousIndex() => cursor - 1;
+
+  @override
+  void add(T element) {
+    final i = cursor;
+    list.insert(i, element);
+    lastRet = -1;
+    cursor = i + 1;
+  }
+
+  @override
+  void set(T element) {
+    list.replaceRange(lastRet, lastRet + 1, [element]);
+  }
 }

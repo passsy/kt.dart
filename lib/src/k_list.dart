@@ -10,6 +10,19 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
   @override
   int get size;
 
+  @override
+  bool isEmpty();
+
+  @override
+  bool contains(T element);
+
+  @override
+  KIterator<T> iterator();
+
+  // Bulk Operations
+  @override
+  bool containsAll(KCollection<T> elements);
+
   // Positional Access Operations
   /**
    * Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
@@ -126,7 +139,7 @@ abstract class KListExtension<T> {
    * @param [operation] function that takes the index of an element, the element itself
    * and current accumulator value, and calculates the next accumulator value.
    */
-  S reduceRightIndexed<S>(S Function(int index,  T, S acc) operation);
+  S reduceRightIndexed<S>(S Function(int index, T, S acc) operation);
 
   /**
    * Returns a list containing elements at specified [indices].

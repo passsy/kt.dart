@@ -5,7 +5,6 @@ import 'package:dart_kollection/src/util/hash.dart';
 
 class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsMixin<K, V>, KMapExtensionsMixin<K, V> {
   final Map<K, V> _map;
-  int _hashCode;
 
   DartMutableMap([Map<K, V> map = const {}])
       :
@@ -28,7 +27,7 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KSet<KMapEntry<K, V>> get entries => setOf(_map.entries.map((entry) => _Entry.from(entry)));
+  KMutableSet<KMutableEntry<K, V>> get entries => linkedSetOf(_map.entries.map((entry) => _MutableEntry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -43,13 +42,13 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   bool isEmpty() => _map.isEmpty;
 
   @override
-  KSet<K> get keys => setOf(_map.keys);
+  KMutableSet<K> get keys => setOf(_map.keys);
 
   @override
   int get size => _map.length;
 
   @override
-  KCollection<V> get values => listOf(_map.values);
+  KMutableCollection<V> get values => mutableListOf(_map.values);
 
   @override
   void clear() => _map.clear();
@@ -101,16 +100,40 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
       hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
 }
 
-class _Entry<K, V> extends KMapEntry<K, V> {
-  @override
-  final K key;
-
-  @override
-  final V value;
-
+class _Entry<K, V> implements KMapEntry<K, V> {
   _Entry(this.key, this.value);
 
   _Entry.from(MapEntry<K, V> entry)
       : key = entry.key,
         value = entry.value;
+
+  @override
+  final K key;
+
+  @override
+  final V value;
+}
+
+class _MutableEntry<K, V> implements KMutableEntry<K, V> {
+  _MutableEntry(this._key, this._value);
+
+  _MutableEntry.from(MapEntry<K, V> entry)
+      : _key = entry.key,
+        _value = entry.value;
+
+  K _key;
+  V _value;
+
+  @override
+  K get key => _key;
+
+  @override
+  V get value => _value;
+
+  @override
+  V setValue(V newValue) {
+    final old = _value;
+    _value = value;
+    return old;
+  }
 }

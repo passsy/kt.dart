@@ -41,6 +41,26 @@ abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, 
    * Removes all elements from this map.
    */
   void clear();
+
+  // Views
+
+  /**
+   * Returns a [MutableSet] of all keys in this map.
+   */
+  @override
+  KMutableSet<K> get keys;
+
+  /**
+   * Returns a [MutableCollection] of all values in this map. Note that this collection may contain duplicate values.
+   */
+  @override
+  KMutableCollection<V> get values;
+
+  /**
+   * Returns a [MutableSet] of all key/value pairs in this map.
+   */
+  @override
+  KMutableSet<KMutableEntry<K, V>> get entries;
 }
 
 /**

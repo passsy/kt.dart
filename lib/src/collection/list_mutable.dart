@@ -56,13 +56,13 @@ class DartMutableList<T>
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KMutableIterator<T> iterator() => DartIterator(_list, 0);
+  KMutableIterator<T> iterator() => DartListIterator(_list, 0);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);
 
   @override
-  KListIterator<T> listIterator([int index = 0]) {
+  KMutableListIterator<T> listIterator([int index = 0]) {
     if (index == null) throw ArgumentError("index can't be null");
     return DartListIterator(_list, index);
   }
@@ -125,7 +125,7 @@ class DartMutableList<T>
   }
 
   @override
-  KList<T> subList(int fromIndex, int toIndex) {
+  KMutableList<T> subList(int fromIndex, int toIndex) {
     if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
     if (toIndex == null) throw ArgumentError("toIndex can't be null");
     if (fromIndex < 0 || toIndex > size) {
@@ -134,7 +134,7 @@ class DartMutableList<T>
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
-    return DartList(_list.sublist(fromIndex, toIndex));
+    return DartMutableList(_list.sublist(fromIndex, toIndex));
   }
 
   @override

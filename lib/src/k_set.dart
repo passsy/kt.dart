@@ -6,4 +6,21 @@ import 'package:dart_kollection/dart_kollection.dart';
  * read/write access is supported through the [KMutableSet] interface.
  * @param E the type of elements contained in the set. The set is covariant on its element type.
  */
-abstract class KSet<E> implements KCollection<E> {}
+abstract class KSet<T> implements KCollection<T> {
+  // Query Operations
+  @override
+  int get size;
+
+  @override
+  bool isEmpty();
+
+  @override
+  bool contains(T element);
+
+  @override
+  bool containsAll(KCollection<T> elements);
+
+  // Bulk Operations
+  @override
+  KIterator<T> iterator();
+}

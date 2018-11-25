@@ -7,4 +7,19 @@ abstract class KMutableListExtensionsMixin<T> implements KMutableListExtension<T
       set(i, value);
     }
   }
+
+  @override
+  void reverse() {
+    final fwd = listIterator(0);
+    final rev = listIterator(size);
+    var mid = size >> 1;
+
+    var i = 0;
+    while (i < mid) {
+      i++;
+      final tmp = fwd.next();
+      fwd.set(rev.previous());
+      rev.set(tmp);
+    }
+  }
 }

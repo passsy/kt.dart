@@ -472,6 +472,11 @@ abstract class KIterableExtension<T> {
   KIterable<T> requireNoNulls();
 
   /**
+   * Returns a list with elements in reversed order.
+   */
+  KList<T> reversed();
+
+  /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
   @nullable
