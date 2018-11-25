@@ -83,4 +83,11 @@ abstract class KMutableListExtension<T> {
    * Reverses elements in the list in-place.
    */
   void reverse();
+
+  /**
+   * Swaps the elements at the specified positions in the specified list.
+   * (If the specified positions are equal, invoking this method leaves
+   * the list unchanged.)
+   */
+  void swap(int indexA, int indexB);
 }

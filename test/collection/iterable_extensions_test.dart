@@ -143,6 +143,21 @@ void main() {
     });
   });
 
+  group("reversed", () {
+    test("mutliple", () {
+      final result = listOf([1, 2, 3, 4]).reversed();
+      expect(result, listOf([4, 3, 2, 1]));
+    });
+
+    test("empty", () {
+      expect(emptyList<int>().reversed(), emptyList<int>());
+    });
+
+    test("one", () {
+      expect(listOf<int>([1]).reversed(), listOf<int>([1]));
+    });
+  });
+
   group("sum", () {
     test("sum of ints", () {
       expect(listOf([1, 2, 3, 4, 5]).sum(), 15);
