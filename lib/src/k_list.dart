@@ -6,6 +6,11 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param E the type of elements contained in the list. The list is covariant on its element type.
  */
 abstract class KList<T> implements KCollection<T>, KListExtension<T> {
+  /**
+   * dart interop list for time critical operations such as sorting
+   */
+  List<T> get list;
+
   // Query Operations
   @override
   int get size;
@@ -125,6 +130,12 @@ abstract class KListExtension<T> {
    */
   @nullable
   T getOrNull(int index);
+
+  /**
+   * Returns the last element matching the given [predicate].
+   * @throws [NoSuchElementException] if no such element is found.
+   */
+  T last([bool Function(T) predicate]);
 
   /**
    * Returns the index of the last item in the list or -1 if the list is empty.

@@ -182,6 +182,33 @@ void main() {
     });
   });
 
+  group("sort", () {
+    test("sort", () {
+      final result = listOf([4, 2, 3, 1]).sorted();
+      expect(result, listOf([1, 2, 3, 4]));
+    });
+
+    test("sortedDescending", () {
+      final result = listOf([4, 2, 3, 1]).sortedDescending();
+      expect(result, listOf([4, 3, 2, 1]));
+    });
+
+    var lastChar = (String it) {
+      var last = listOf(it.runes).last();
+      return String.fromCharCode(last);
+    };
+
+    test("sortBy", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).sortedBy(lastChar);
+      expect(result, listOf(["lisa", "paul", "john", "max"]));
+    });
+
+    test("sortByDescending", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).sortedByDescending(lastChar);
+      expect(result, listOf(["max", "john", "paul", "lisa"]));
+    });
+  });
+
   group("sum", () {
     test("sum of ints", () {
       expect(listOf([1, 2, 3, 4, 5]).sum(), 15);

@@ -3,6 +3,7 @@ library dart_kollection;
 // top-level entry points
 export 'src/collections.dart';
 export 'src/tuples.dart';
+export 'src/comparisons.dart';
 
 // Iterable
 export 'src/k_iterable.dart';

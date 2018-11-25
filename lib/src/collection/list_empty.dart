@@ -65,6 +65,9 @@ class EmptyList<T>
 
   @override
   Iterable<T> get iter => DartEmptyIterable();
+
+  @override
+  List<T> get list => <T>[];
 }
 
 class _EmptyIterator<T> extends KListIterator<T> {

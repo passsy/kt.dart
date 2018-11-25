@@ -536,6 +536,31 @@ abstract class KIterableExtension<T> {
   T singleOrNull([bool Function(T) predicate]);
 
   /**
+   * Returns a list of all elements sorted according to their natural sort order.
+   */
+  KList<T> sorted();
+
+  /**
+   * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+   */
+  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
+   */
+  KList<T> sortedByDescending<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Returns a list of all elements sorted descending according to their natural sort order.
+   */
+  KList<T> sortedDescending();
+
+  /**
+   * Returns a list of all elements sorted according to the specified [comparator].
+   */
+  KList<T> sortedWith(Comparator<T> comparator);
+
+  /**
    * Returns the sum of all elements in the collection.
    *
    * Requires [T] to be [num]

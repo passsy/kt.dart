@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/comparisons.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
 abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
@@ -919,6 +920,26 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       if (!found) return null;
       return single;
     }
+  }
+
+  @override
+  KList<T> sorted() => sortedWith(naturalOrder());
+
+  @override
+  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) => sortedWith(compareBy(selector));
+
+  @override
+  KList<T> sortedByDescending<R extends Comparable<R>>(R Function(T) selector) =>
+      sortedWith(compareByDescending(selector));
+
+  @override
+  KList<T> sortedDescending() => sortedWith(reverseOrder());
+
+  @override
+  KList<T> sortedWith(Comparator<T> comparator) {
+    final mutableList = toMutableList();
+    mutableList.list.sort(comparator);
+    return mutableList;
   }
 
   @override

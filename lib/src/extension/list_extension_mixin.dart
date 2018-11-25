@@ -70,6 +70,25 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   }
 
   @override
+  T last([bool Function(T) predicate]) {
+    if (predicate == null) {
+      return get(lastIndex);
+    } else {
+      final i = listIterator(size);
+      if (!i.hasPrevious()) {
+        throw NoSuchElementException("Collection is empty");
+      }
+      while (i.hasPrevious()) {
+        final element = i.previous();
+        if (predicate(element)) {
+          return element;
+        }
+      }
+      throw NoSuchElementException("Collection contains no element matching the predicate.");
+    }
+  }
+
+  @override
   int get lastIndex => this.size - 1;
 
   @override

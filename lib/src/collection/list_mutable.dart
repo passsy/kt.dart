@@ -27,7 +27,11 @@ class DartMutableList<T>
         _list = List.from(iterable, growable: true),
         super();
 
+  @override
   Iterable<T> get iter => _list;
+
+  @override
+  List<T> get list => _list;
 
   @override
   bool contains(T element) => _list.contains(element);
