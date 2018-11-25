@@ -42,7 +42,7 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   bool isEmpty() => _map.isEmpty;
 
   @override
-  KMutableSet<K> get keys => setOf(_map.keys);
+  KMutableSet<K> get keys => linkedSetOf(_map.keys);
 
   @override
   int get size => _map.length;
@@ -98,20 +98,6 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   @override
   int get hashCode =>
       hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
-}
-
-class _Entry<K, V> implements KMapEntry<K, V> {
-  _Entry(this.key, this.value);
-
-  _Entry.from(MapEntry<K, V> entry)
-      : key = entry.key,
-        value = entry.value;
-
-  @override
-  final K key;
-
-  @override
-  final V value;
 }
 
 class _MutableEntry<K, V> implements KMutableEntry<K, V> {
