@@ -43,6 +43,13 @@ abstract class KCollectionExtension<T> {
   bool isNotEmpty();
 
   /**
+   * Returns a random element from this collection.
+   *
+   * @throws NoSuchElementException if this collection is empty.
+   */
+  T random();
+
+  /**
    * Returns a [KMutableList] filled with all elements of this collection.
    */
   KMutableList<T> toMutableList();
