@@ -567,7 +567,7 @@ abstract class KIterableExtension<T> {
    * The returned set preserves the element iteration order of the original collection.
    */
   // TODO add infix override
-  KSet<T> substract(KIterable<T> other);
+  KSet<T> subtract(KIterable<T> other);
 
   /**
    * Returns the sum of all elements in the collection.

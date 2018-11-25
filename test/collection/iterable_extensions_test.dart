@@ -218,9 +218,9 @@ void main() {
     });
   });
 
-  group("subscract", () {
+  group("subtract", () {
     test("remove one item", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).substract(listOf(["max"]));
+      final result = listOf(["paul", "john", "max", "lisa"]).subtract(listOf(["max"]));
       expect(result, setOf(["paul", "john", "lisa"]));
     });
   });

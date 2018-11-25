@@ -943,7 +943,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KSet<T> substract(KIterable<T> other) {
+  KSet<T> subtract(KIterable<T> other) {
     final set = toMutableSet();
     set.removeAll(other);
     return set;
