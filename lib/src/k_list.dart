@@ -68,9 +68,6 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
    * Structural changes in the base list make the behavior of the view undefined.
    */
   KList<T> subList(int fromIndex, int toIndex);
-
-  @override
-  KList<T> drop(int n);
 }
 
 abstract class KListExtension<T> {
