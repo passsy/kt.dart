@@ -3,9 +3,6 @@ import 'package:dart_kollection/src/collection/list_mutable.dart';
 
 abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, KCollection<T> {
   @override
-  int count() => size;
-
-  @override
   KMutableList<T> toMutableList() => DartMutableList<T>(iter);
 
   @override

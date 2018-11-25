@@ -38,11 +38,6 @@ abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
 
 abstract class KCollectionExtension<T> {
   /**
-   * Returns the number of elements in this collection.
-   */
-  int count();
-
-  /**
    * Returns `true` if the collection is not empty.
    */
   bool isNotEmpty();

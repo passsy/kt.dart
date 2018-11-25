@@ -107,12 +107,20 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  int count() {
-    if (this is KCollection) (this as KCollection).size;
+  int count([bool Function(T) predicate]) {
+    if (predicate == null && this is KCollection) {
+      return (this as KCollection).size;
+    }
     var count = 0;
     Iterator it = iter.iterator;
     while (it.moveNext()) {
-      count++;
+      if (predicate == null) {
+        count++;
+      } else {
+        if (predicate(it.current)) {
+          count++;
+        }
+      }
     }
     return count;
   }

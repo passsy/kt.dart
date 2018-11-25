@@ -124,9 +124,9 @@ abstract class KIterableExtension<T> {
   bool contains(T element);
 
   /**
-   * Returns the number of elements in this collection.
+   * Returns the number of elements matching the given [predicate] or the number of elements when `predicate = null`.
    */
-  int count();
+  int count([bool Function(T) predicate]);
 
   /**
    * Returns a list containing only distinct elements from the given collection.

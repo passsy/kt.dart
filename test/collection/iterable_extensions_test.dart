@@ -43,6 +43,16 @@ void main() {
     });
   });
 
+  group("count", () {
+    test("count elements", () {
+      expect(listOf([1, 2, 3, 4, 5]).count(), 5);
+    });
+
+    test("count even", () {
+      expect(listOf([1, 2, 3, 4, 5]).count((it) => it % 2 == 0), 2);
+    });
+  });
+
   group("drop", () {
     test("drop first value", () {
       final list = listOf(["a", "b", "c"]);
