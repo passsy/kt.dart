@@ -4,7 +4,7 @@ import 'package:dart_kollection/src/collection/iterable.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartSet<T> with KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T> implements KSet<T> {
+class DartSet<T> with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T> implements KSet<T> {
   final Set<T> _set;
   int _hashCode;
 

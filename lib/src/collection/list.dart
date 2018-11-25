@@ -10,7 +10,7 @@ import 'package:dart_kollection/src/util/hash.dart';
  * [KList] based on a dart [List]
  */
 class DartList<T>
-    with KListExtensionsMixin<T>, KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
+    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KListExtensionsMixin<T>
     implements KList<T> {
   final List<T> _list;
   int _hashCode;

@@ -2,15 +2,12 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.dart';
-import 'package:dart_kollection/src/collection/iterable.dart';
-import 'package:dart_kollection/src/collection/set.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 class DartMutableSet<T>
-    with KMutableIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
+    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KMutableIterableExtensionsMixin<T>
     implements KMutableSet<T> {
   final Set<T> _set;
-  int _hashCode;
 
   DartMutableSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),

@@ -2,6 +2,12 @@ import 'package:dart_kollection/dart_kollection.dart';
 
 abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   @override
+  KList<T> drop(int n) {
+    if (n < 0) throw ArgumentError("Requested element count $n is less than zero.");
+    return listOf(iter.skip(n));
+  }
+
+  @override
   KList<T> dropLast(int n) {
     var count = size - n;
     if (count < 0) {

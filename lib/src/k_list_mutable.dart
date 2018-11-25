@@ -69,6 +69,9 @@ abstract class KMutableList<T> implements KList<T>, KMutableCollection<T>, KMuta
 
   @override
   KMutableList<T> subList(int fromIndex, int toIndex);
+
+  @override
+  KMutableList<T> drop(int n);
 }
 
 abstract class KMutableListExtension<T> {

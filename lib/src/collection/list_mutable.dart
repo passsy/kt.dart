@@ -13,11 +13,11 @@ import 'package:dart_kollection/src/util/hash.dart';
  */
 class DartMutableList<T>
     with
-        KMutableListExtensionsMixin<T>,
-        KListExtensionsMixin<T>,
-        KMutableIterableExtensionsMixin<T>,
+        KIterableExtensionsMixin<T>,
         KCollectionExtensionMixin<T>,
-        KIterableExtensionsMixin<T>
+        KMutableIterableExtensionsMixin<T>,
+        KListExtensionsMixin<T>,
+        KMutableListExtensionsMixin<T>
     implements KMutableList<T> {
   final List<T> _list;
 

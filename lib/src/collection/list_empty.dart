@@ -5,7 +5,7 @@ import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 
 class EmptyList<T>
-    with KListExtensionsMixin<T>, KCollectionExtensionMixin<T>, KIterableExtensionsMixin<T>
+    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KListExtensionsMixin<T>
     implements KList<T> {
   @override
   bool contains(T element) => false;

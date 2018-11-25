@@ -6,6 +6,12 @@ abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, 
   int count() => size;
 
   @override
+  KCollection<T> drop(int n) {
+    if (n < 0) throw ArgumentError("Requested element count $n is less than zero.");
+    return listOf(iter.skip(n));
+  }
+
+  @override
   KMutableList<T> toMutableList() => DartMutableList<T>(iter);
 
   @override

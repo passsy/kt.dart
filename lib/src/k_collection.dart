@@ -31,6 +31,9 @@ abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
    * Checks if all elements in the specified collection are contained in this collection.
    */
   bool containsAll(KCollection<T> elements);
+
+  @override
+  KCollection<T> drop(int n);
 }
 
 abstract class KCollectionExtension<T> {
