@@ -379,6 +379,50 @@ abstract class KIterableExtension<T> {
   KList<R> map<R>(R Function(T) transform);
 
   /**
+   * Returns a list containing the results of applying the given [transform] function
+   * to each element and its index in the original collection.
+   * @param [transform] function that takes the index of an element and the element itself
+   * and returns the result of the transform applied to the element.
+   */
+  KList<R> mapIndexed<R>(R Function(int index, T) transform);
+
+  /**
+   * Returns a list containing only the non-null results of applying the given [transform] function
+   * to each element and its index in the original collection.
+   * @param [transform] function that takes the index of an element and the element itself
+   * and returns the result of the transform applied to the element.
+   */
+  KList<R> mapIndexedNotNull<R>(R Function(int index, T) transform);
+
+  /**
+   * Applies the given [transform] function to each element and its index in the original collection
+   * and appends only the non-null results to the given [destination].
+   * @param [transform] function that takes the index of an element and the element itself
+   * and returns the result of the transform applied to the element.
+   */
+  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform);
+
+  /**
+   * Applies the given [transform] function to each element and its index in the original collection
+   * and appends the results to the given [destination].
+   * @param [transform] function that takes the index of an element and the element itself
+   * and returns the result of the transform applied to the element.
+   */
+  C mapIndexedTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform);
+
+  /**
+   * Returns a list containing the results of applying the given [transform] function
+   * to each element in the original collection.
+   */
+  KList<R> mapNotNull<R>(R Function(T) transform);
+
+  /**
+   * Applies the given [transform] function to each element in the original collection
+   * and appends only the non-null results to the given [destination].
+   */
+  C mapNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
+
+  /**
    * Applies the given [transform] function to each element of the original collection
    * and appends the results to the given [destination].
    */

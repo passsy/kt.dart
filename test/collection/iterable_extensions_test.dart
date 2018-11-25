@@ -112,6 +112,20 @@ void main() {
     });
   });
 
+  group("map", () {
+    test("map int to string", () {
+      final list = listOf([1, 2, 3]);
+      expect(list.map((it) => it.toString()), listOf(["1", "2", "3"]));
+    });
+  });
+
+  group("mapNotNull", () {
+    test("mapNotNull int to string", () {
+      final list = listOf([1, null, 2, null, 3]);
+      expect(list.mapNotNull((it) => it?.toString()), listOf(["1", "2", "3"]));
+    });
+  });
+
   group("max", () {
     test("gets max value", () {
       final list = listOf([1, 3, 2]);

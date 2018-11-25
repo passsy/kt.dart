@@ -604,6 +604,59 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<R> mapIndexed<R>(R Function(int index, T) transform) {
+    return mapIndexedTo(mutableListOf<T>(), transform);
+  }
+
+  @override
+  KList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
+    return mapIndexedNotNullTo(mutableListOf<T>(), transform);
+  }
+
+  @override
+  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform) {
+    assert(transform != null);
+    var index = 0;
+    for (final item in iter) {
+      var element = transform(index++, item);
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  C mapIndexedTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform) {
+    assert(transform != null);
+    var index = 0;
+    for (final item in iter) {
+      destination.add(transform(index++, item));
+    }
+    return destination;
+  }
+
+  @override
+  KList<R> mapNotNull<R>(R Function(T) transform) {
+    var mapped = mapNotNullTo(mutableListOf<R>(), transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return mapped;
+  }
+
+  @override
+  C mapNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
+    assert(transform != null);
+    for (final item in iter) {
+      var result = transform(item);
+      if (result != null) {
+        destination.add(result);
+      }
+    }
+    return destination;
+  }
+
+  @override
   C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
     assert(transform != null);
     for (var item in iter) {
