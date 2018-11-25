@@ -146,12 +146,12 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements except first [n] elements.
    */
-  KIterable<T> drop(int n);
+  KList<T> drop(int n);
 
   /**
    * Returns a list containing all elements except first elements that satisfy the given [predicate].
    */
-  KIterable<T> dropWhile(bool Function(T) predicate);
+  KList<T> dropWhile(bool Function(T) predicate);
 
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
@@ -376,7 +376,7 @@ abstract class KIterableExtension<T> {
    * Returns a list containing the results of applying the given [transform] function
    * to each element in the original collection.
    */
-  KIterable<R> map<R>(R Function(T) transform);
+  KList<R> map<R>(R Function(T) transform);
 
   /**
    * Applies the given [transform] function to each element of the original collection
@@ -428,13 +428,16 @@ abstract class KIterableExtension<T> {
   bool none([bool Function(T) predicate]);
 
   /**
-   * Performs the given [action] on each element and returns the collection itself afterwards.
+   * Performs the given [action] on each element. Use with cascade syntax to return self.
    *
-   * Discussion: Dart isn't able to return `this` with the correct type (C extends KIterable<T>). It will always become
-   * a KIterable and KList operators can't be accessed afterwards without a cast.
-   * Could be fixed by https://github.com/dart-lang/language/issues/41
+   *       listOf(["a", "b", "c"])
+   *          ..onEach(print)
+   *          ..map((it) => it.toUpperCase())
+   *          .getOrNull(0); // prints: a
+   *
+   * Without the cascade syntax (..) [KList.getOrNull] wouldn't be available.
    */
-  KIterable<T> onEach(void Function(T) action);
+  void onEach(void Function(T) action);
 
   /**
    * Splits the original collection into pair of lists,
@@ -510,12 +513,6 @@ abstract class KIterableExtension<T> {
    * Returns a list containing first [n] elements.
    */
   KList<T> take(int n);
-
-  /**
-   * Appends all elements to the given [destination] collection.
-   */
-  // TODO add when dart fixes generic type problems
-  //C toCollection<C extends KMutableCollection<T>>(C destination);
 
   /**
    * Returns a HashSet of all elements.

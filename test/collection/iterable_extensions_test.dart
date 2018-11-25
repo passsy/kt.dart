@@ -48,7 +48,14 @@ void main() {
       final list = listOf(["a", "b", "c"]);
       expect(list.drop(1), equals(listOf(["b", "c"])));
     });
-    // TODO drop on empty
+    test("drop empty does nothing", () {
+      final list = emptyList<int>();
+      expect(list.drop(1), equals(emptyList<int>()));
+    });
+    test("drop on list returns a list", () {
+      final list = emptyList<int>();
+      expect(list.drop(1), TypeMatcher<KList<int>>());
+    });
   });
 
   group("filter", () {
@@ -93,14 +100,6 @@ void main() {
             5: listOf(["PETER"]),
           })));
     });
-  });
-
-  group("drop", () {
-    test("drop first value", () {
-      final list = listOf(["a", "b", "c"]);
-      expect(list.drop(1), equals(listOf(["b", "c"])));
-    });
-    // TODO drop on empty
   });
 
   group("max", () {

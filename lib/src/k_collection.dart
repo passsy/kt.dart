@@ -33,7 +33,7 @@ abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
   bool containsAll(KCollection<T> elements);
 
   @override
-  KCollection<T> drop(int n);
+  KList<T> drop(int n);
 }
 
 abstract class KCollectionExtension<T> {

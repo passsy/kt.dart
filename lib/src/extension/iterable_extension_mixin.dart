@@ -133,13 +133,19 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KIterable<T> drop(int n) {
-    if (n < 0) throw ArgumentError("Requested element count $n is less than zero.");
-    return listOf(iter.skip(n));
+  KList<T> drop(int n) {
+    final list = mutableListOf<T>();
+    var count = 0;
+    for (final item in iter) {
+      if (count++ >= n) {
+        list.add(item);
+      }
+    }
+    return list;
   }
 
   @override
-  KIterable<T> dropWhile(bool Function(T) predicate) {
+  KList<T> dropWhile(bool Function(T) predicate) {
     assert(predicate != null);
     var yielding = false;
     var list = mutableListOf<T>();
@@ -581,9 +587,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KIterable<R> map<R>(R Function(T) transform) {
+  KList<R> map<R>(R Function(T) transform) {
     final KMutableList<R> list = mutableListOf<R>();
-    return mapTo(list, transform);
+    var mapped = mapTo(list, transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return mapped;
   }
 
   @override
@@ -712,11 +721,10 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KIterable<T> onEach(void Function(T) action) {
+  void onEach(void Function(T) action) {
     for (final element in iter) {
       action(element);
     }
-    return this;
   }
 
   @override
