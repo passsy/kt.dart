@@ -10,6 +10,11 @@ main() {
   final map = mapOf({"a": "A", "b": "B", "c": "C"});
   final emptyM = emptyMap();
 
+  final a = listOf(["a", "b", "c"])
+    ..onEach(print)
+    ..map((it) => it.toUpperCase()).getOrNull(0);
+  print(a); // prints: "A"
+
   list.map((it) => it.runes.first).filter((it) => it.bitLength < 1).flatMap(_nextChars3).forEach(print);
 
   KMap<String, String> mapping = list.associateWith((key) => ">$key<");
