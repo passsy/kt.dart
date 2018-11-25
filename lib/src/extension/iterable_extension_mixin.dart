@@ -943,6 +943,13 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KSet<T> substract(KIterable<T> other) {
+    final set = toMutableSet();
+    set.removeAll(other);
+    return set;
+  }
+
+  @override
   num sum() {
     if (this is! KIterable<num>) {
       throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");

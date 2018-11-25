@@ -493,6 +493,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
    */
+  // TODO add infix override
   KList<T> plus(KIterable<T> elements);
 
   /**
@@ -559,6 +560,14 @@ abstract class KIterableExtension<T> {
    * Returns a list of all elements sorted according to the specified [comparator].
    */
   KList<T> sortedWith(Comparator<T> comparator);
+
+  /**
+   * Returns a set containing all elements that are contained by this collection and not contained by the specified collection.
+   *
+   * The returned set preserves the element iteration order of the original collection.
+   */
+  // TODO add infix override
+  KSet<T> substract(KIterable<T> other);
 
   /**
    * Returns the sum of all elements in the collection.

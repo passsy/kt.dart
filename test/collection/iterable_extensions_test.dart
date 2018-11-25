@@ -112,6 +112,15 @@ void main() {
     });
   });
 
+  group("intersect", () {
+    test("remove one item", () {
+      var a = listOf(["paul", "john", "max", "lisa"]);
+      var b = listOf(["julie", "richard", "john", "lisa"]);
+      final result = a.intersect(b);
+      expect(result, setOf(["john", "lisa"]));
+    });
+  });
+
   group("map", () {
     test("map int to string", () {
       final list = listOf([1, 2, 3]);
@@ -206,6 +215,13 @@ void main() {
     test("sortByDescending", () {
       final result = listOf(["paul", "john", "max", "lisa"]).sortedByDescending(lastChar);
       expect(result, listOf(["max", "john", "paul", "lisa"]));
+    });
+  });
+
+  group("subscract", () {
+    test("remove one item", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).substract(listOf(["max"]));
+      expect(result, setOf(["paul", "john", "lisa"]));
     });
   });
 
