@@ -783,6 +783,7 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
 
   @override
   void onEach(void Function(T) action) {
+    assert(action != null);
     for (final element in iter) {
       action(element);
     }
