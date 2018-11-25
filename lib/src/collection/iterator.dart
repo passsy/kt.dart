@@ -59,6 +59,7 @@ class DartListIterator<T> extends DartIterator<T> implements KListIterator<T>, K
 
   @override
   void set(T element) {
+    if (lastRet < 0) throw "illegal cursor state -1. next() or previous() not called";
     list.replaceRange(lastRet, lastRet + 1, [element]);
   }
 }
