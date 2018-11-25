@@ -22,6 +22,25 @@ abstract class KMutableListExtensionsMixin<T> implements KMutableListExtension<T
   }
 
   @override
+  void sortBy<R extends Comparable<R>>(R Function(T) selector) {
+    if (size > 1) {
+      sortedWith(compareBy(selector));
+    }
+  }
+
+  @override
+  void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
+    if (size > 1) {
+      sortedWith(compareBy(selector));
+    }
+  }
+
+  @override
+  void sortWith(Comparator<T> comparator) {
+    list.sort(comparator);
+  }
+
+  @override
   void swap(int indexA, int indexB) {
     var firstOld = get(indexA);
     var secondOld = set(indexB, firstOld);

@@ -37,8 +37,10 @@ abstract class KMutableList<T> implements KList<T>, KMutableCollection<T>, KMuta
 
   @override
   bool removeAll(KCollection<T> elements);
+
   @override
   bool retainAll(KCollection<T> elements);
+
   @override
   void clear();
 
@@ -83,6 +85,21 @@ abstract class KMutableListExtension<T> {
    * Reverses elements in the list in-place.
    */
   void reverse();
+
+  /**
+   * Sorts elements in the list in-place according to natural sort order of the value returned by specified [selector] function.
+   */
+  void sortBy<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Sorts elements in the list in-place descending according to natural sort order of the value returned by specified [selector] function.
+   */
+  void sortByDescending<R extends Comparable<R>>(R Function(T) selector);
+
+  /**
+   * Sorts elements in the list in-place according to the specified [comparator]
+   */
+  void sortWith(Comparator<T> comparator);
 
   /**
    * Swaps the elements at the specified positions in the specified list.
