@@ -739,6 +739,17 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
+  KList<T> minus(KIterable<T> other) {
+    if (this is KCollection && (this as KCollection).isEmpty()) {
+      return this.toList();
+    }
+    return filterNot((it) => other.contains(it));
+  }
+
+  @override
+  KList<T> operator -(KIterable<T> other) => minus(other);
+
+  @override
   T minBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(selector != null);
     final i = iterator();
@@ -950,8 +961,6 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     set.removeAll(other);
     return set;
   }
-
-  KSet<T> operator -(KIterable<T> other) => subtract(other);
 
   @override
   num sum() {

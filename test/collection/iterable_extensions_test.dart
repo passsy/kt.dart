@@ -165,6 +165,17 @@ void main() {
     });
   });
 
+  group("minus", () {
+    test("remove one item", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).minus(listOf(["max"]));
+      expect(result, listOf(["paul", "john", "lisa"]));
+    });
+    test("infix", () {
+      final result = listOf(["paul", "john", "max", "lisa"]) - listOf(["max"]);
+      expect(result, listOf(["paul", "john", "lisa"]));
+    });
+  });
+
   group("plus", () {
     test("concat two lists", () {
       final result = listOf([1, 2, 3]).plus(listOf([4, 5, 6]));
@@ -233,10 +244,6 @@ void main() {
   group("subtract", () {
     test("remove one item", () {
       final result = listOf(["paul", "john", "max", "lisa"]).subtract(listOf(["max"]));
-      expect(result, setOf(["paul", "john", "lisa"]));
-    });
-    test("infix", () {
-      final result = listOf(["paul", "john", "max", "lisa"]) - listOf(["max"]);
       expect(result, setOf(["paul", "john", "lisa"]));
     });
   });

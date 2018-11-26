@@ -455,6 +455,16 @@ abstract class KIterableExtension<T> {
   num min();
 
   /**
+   * Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+   */
+  KList<T> minus(KIterable<T> minus);
+
+  /**
+   * Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+   */
+  KList<T> operator -(KIterable<T> other);
+
+  /**
    * Returns the first element yielding the smallest value of the given function or `null` if there are no elements.
    */
   @nullable
@@ -571,13 +581,6 @@ abstract class KIterableExtension<T> {
    * The returned set preserves the element iteration order of the original collection.
    */
   KSet<T> subtract(KIterable<T> other);
-
-  /**
-   * Returns a set containing all elements that are contained by this collection and not contained by the specified collection.
-   *
-   * The returned set preserves the element iteration order of the original collection.
-   */
-  KSet<T> operator -(KIterable<T> other);
 
   /**
    * Returns the sum of all elements in the collection.
