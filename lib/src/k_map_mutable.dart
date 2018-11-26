@@ -95,4 +95,6 @@ abstract class KMutableMapExtension<K, V> {
    * Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
    */
   void putAllPairs(KIterable<KPair<K, V>> pairs);
+
+  // TODO toMap
 }

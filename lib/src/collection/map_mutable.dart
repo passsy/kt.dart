@@ -125,4 +125,7 @@ class _MutableEntry<K, V> implements KMutableMapEntry<K, V> {
     _value = value;
     return old;
   }
+
+  @override
+  KPair<K, V> toPair() => KPair(_key, _value);
 }

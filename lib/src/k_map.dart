@@ -80,6 +80,11 @@ abstract class KMapEntry<K, V> {
    */
   @nullable
   V get value;
+
+  /**
+   * Converts entry to [Pair] with key being first component and value being second.
+   */
+  KPair<K, V> toPair() => KPair(key, value);
 }
 
 abstract class KMapExtension<K, V> {
@@ -96,10 +101,21 @@ abstract class KMapExtension<K, V> {
   @nonNull
   V getValue(K key);
 
+  // TODO isNotEmpty
+  // TODO isNullOrEmpty
+  // TODO
+  // TODO filter
+  // TODO filterTo
+  // TODO filterNot
+  // TODO filterNotTo
+
   /**
    * Returns an [Iterator] over the entries in the [Map].
    */
   KIterator<KMapEntry<K, V>> iterator();
+
+  // TODO plus
+  // TODO minus
 
   /**
    * Returns a new Map with entries having the keys obtained by applying the [transform] function to each entry in this
@@ -134,4 +150,6 @@ abstract class KMapExtension<K, V> {
    * by applying the [transform] function to each entry in this [Map].
    */
   M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform);
+
+  // TODO toMutableMap
 }
