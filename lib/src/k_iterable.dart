@@ -457,12 +457,17 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
    */
-  KList<T> minus(KIterable<T> minus);
+  KList<T> minus(KIterable<T> elements);
 
   /**
    * Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
    */
-  KList<T> operator -(KIterable<T> other);
+  KList<T> operator -(KIterable<T> elements);
+
+  /**
+   * Returns a list containing all elements of the original collection without the first occurrence of the given [element].
+   */
+  KList<T> minusElement(T element);
 
   /**
    * Returns the first element yielding the smallest value of the given function or `null` if there are no elements.

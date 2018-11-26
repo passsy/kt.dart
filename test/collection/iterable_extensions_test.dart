@@ -155,6 +155,7 @@ void main() {
       final list = listOf([1, 3, 2]);
       expect(list.min(), 1);
     });
+
     test("empty list return null", () {
       final list = emptyList<int>();
       expect(list.min(), null);
@@ -166,12 +167,18 @@ void main() {
   });
 
   group("minus", () {
-    test("remove one item", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).minus(listOf(["max"]));
-      expect(result, listOf(["paul", "john", "lisa"]));
+    test("remove list", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).minus(listOf(["max", "john"]));
+      expect(result, listOf(["paul", "lisa"]));
     });
+
     test("infix", () {
       final result = listOf(["paul", "john", "max", "lisa"]) - listOf(["max"]);
+      expect(result, listOf(["paul", "john", "lisa"]));
+    });
+
+    test("remove one item", () {
+      final result = listOf(["paul", "john", "max", "lisa"]).minusElement("max");
       expect(result, listOf(["paul", "john", "lisa"]));
     });
   });
