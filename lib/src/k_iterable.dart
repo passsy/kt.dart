@@ -493,8 +493,12 @@ abstract class KIterableExtension<T> {
   /**
    * Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
    */
-  // TODO add infix override
   KList<T> plus(KIterable<T> elements);
+
+  /**
+   * Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+   */
+  KList<T> operator +(KIterable<T> elements);
 
   /**
    * Returns a list containing all elements of the original collection and then the given [element].
@@ -566,8 +570,14 @@ abstract class KIterableExtension<T> {
    *
    * The returned set preserves the element iteration order of the original collection.
    */
-  // TODO add infix override
   KSet<T> subtract(KIterable<T> other);
+
+  /**
+   * Returns a set containing all elements that are contained by this collection and not contained by the specified collection.
+   *
+   * The returned set preserves the element iteration order of the original collection.
+   */
+  KSet<T> operator -(KIterable<T> other);
 
   /**
    * Returns the sum of all elements in the collection.

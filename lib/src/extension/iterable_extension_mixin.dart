@@ -813,6 +813,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     return result;
   }
 
+  KList<T> operator +(KIterable<T> elements) => plus(elements);
+
   @override
   KList<T> plusElement(T element) {
     final result = mutableListOf<T>();
@@ -948,6 +950,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
     set.removeAll(other);
     return set;
   }
+
+  KSet<T> operator -(KIterable<T> other) => subtract(other);
 
   @override
   num sum() {
