@@ -83,6 +83,7 @@ abstract class KMutableMapExtension<K, V> {
    *
    * Note that the operation is not guaranteed to be atomic if the map is being modified concurrently.
    */
+  @nonNull
   V getOrPut(K key, V Function() defaultValue);
 
   /**

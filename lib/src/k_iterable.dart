@@ -162,7 +162,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this collection.
    */
-  @nullable
+  @nonNull
   T elementAtOrElse(int index, T Function(int) defaultValue);
 
   /**
@@ -239,7 +239,7 @@ abstract class KIterableExtension<T> {
    *
    * @throws [NoSuchElementException] if the collection is empty.
    */
-  @nullable
+  @nonNull
   T first([bool Function(T) predicate]);
 
   /**
@@ -358,7 +358,7 @@ abstract class KIterableExtension<T> {
    * Returns the last element matching the given [predicate].
    * @throws [NoSuchElementException] if no such element is found.
    */
-  @nullable
+  @nonNull
   T last([bool Function(T) predicate]);
 
   /**
@@ -546,7 +546,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
    */
-  @nullable
+  @nonNull
   T single([bool Function(T) predicate]);
 
   /**

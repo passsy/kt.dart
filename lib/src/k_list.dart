@@ -84,15 +84,13 @@ abstract class KListExtension<T> {
   /**
    * Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this list.
    */
-  @nullable
+  @nonNull
   T elementAt(int index);
 
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-   *
-   * returns `null` when [defaultValue] return `null`
    */
-  @nullable
+  @nonNull
   T elementAtOrElse(int index, T defaultValue(int index));
 
   /**
@@ -116,10 +114,8 @@ abstract class KListExtension<T> {
 
   /**
    * Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-   *
-   * returns `null` when [defaultValue] return `null`
    */
-  @nullable
+  @nonNull
   T getOrElse(int index, T Function(int) defaultValue);
 
   /**
@@ -132,6 +128,7 @@ abstract class KListExtension<T> {
    * Returns the last element matching the given [predicate].
    * @throws [NoSuchElementException] if no such element is found.
    */
+  @nonNull
   T last([bool Function(T) predicate]);
 
   /**
