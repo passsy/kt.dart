@@ -97,4 +97,11 @@ abstract class KMutableMapExtension<K, V> {
   void putAllPairs(KIterable<KPair<K, V>> pairs);
 
   // TODO toMap
+  /**
+   * If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.
+   *
+   *  return the previous value associated with the specified key, or `null` if there was no mapping for the key. (A `null` return can also indicate that the map previously associated `null` with the key, if the implementation supports `null` values.)
+   */
+  @nullable
+  V putIfAbsent(K key, V value);
 }

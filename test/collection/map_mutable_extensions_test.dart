@@ -92,4 +92,36 @@ void main() {
       expect(pokemon[2], "Dito");
     });
   });
+
+  group("putIfAbsent", () {
+    test("insert", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon.putIfAbsent(3, "Venusaur");
+      expect(pokemon.size, 3);
+      expect(pokemon[3], "Venusaur");
+    });
+
+    test("don't replace", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon.putIfAbsent(2, "Venusaur");
+      expect(pokemon.size, 2);
+      expect(pokemon[2], "Ivysaur");
+    });
+
+    test("replace when mapped to null", () {
+      final pokemon = mutableMapOf({
+        1: null,
+        2: "Ivysaur",
+      });
+      pokemon.putIfAbsent(1, "Mew");
+      expect(pokemon.size, 2);
+      expect(pokemon[1], "Mew");
+    });
+  });
 }
