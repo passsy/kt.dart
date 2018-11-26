@@ -84,6 +84,35 @@ abstract class KMapEntry<K, V> {
 
 abstract class KMapExtension<K, V> {
   /**
+   * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.
+   */
+  V getOrElse(K key, V Function() defaultValue);
+
+  /**
+   * Returns the value for the given [key] or throws an exception if there is no such key in the map.
+   *
+   * @throws NoSuchElementException when the map doesn't contain a value for the specified key
+   */
+  @nonNull
+  V getValue(K key);
+
+  /**
+   * Returns an [Iterator] over the entries in the [Map].
+   */
+  KIterator<KMapEntry<K, V>> iterator();
+
+  /**
+   * Returns a new Map with entries having the keys obtained by applying the [transform] function to each entry in this
+   * [Map] and the values of this map.
+   *
+   * In case if any two entries are mapped to the equal keys, the value of the latter one will overwrite
+   * the value associated with the former one.
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<R, V> mapKeys<R>(R Function(KMapEntry<K, V>) transform);
+
+  /**
    * Populates the given [destination] map with entries having the keys obtained
    * by applying the [transform] function to each entry in this [Map] and the values of this map.
    *
@@ -91,4 +120,18 @@ abstract class KMapExtension<K, V> {
    * the value associated with the former one.
    */
   M mapKeysTo<R, M extends KMutableMap<R, V>>(M destination, R Function(KMapEntry<K, V> entry) transform);
+
+  /**
+   * Returns a new map with entries having the keys of this map and the values obtained by applying the [transform]
+   * function to each entry in this [Map].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, R> mapValues<R>(R Function(KMapEntry<K, V>) transform);
+
+  /**
+   * Populates the given [destination] map with entries having the keys of this map and the values obtained
+   * by applying the [transform] function to each entry in this [Map].
+   */
+  M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform);
 }

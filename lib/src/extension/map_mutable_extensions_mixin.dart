@@ -11,6 +11,8 @@ abstract class KMutableMapExtensionsMixin<K, V> implements KMutableMapExtension<
     return answer;
   }
 
+  KMutableIterator<KMutableMapEntry<K, V>> iterator() => entries.iterator();
+
   @override
   void putAllPairs(KIterable<KPair<K, V>> pairs) {
     for (var value in pairs.iter) {

@@ -2,7 +2,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/extension/map_extensions_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartMap<K, V> extends KMap<K, V> with KMapExtensionsMixin<K, V> {
+class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   final Map<K, V> _map;
   int _hashCode;
 

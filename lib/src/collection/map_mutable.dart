@@ -3,7 +3,9 @@ import 'package:dart_kollection/src/extension/map_extensions_mixin.dart';
 import 'package:dart_kollection/src/extension/map_mutable_extensions_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsMixin<K, V>, KMapExtensionsMixin<K, V> {
+class DartMutableMap<K, V>
+    with KMapExtensionsMixin<K, V>, KMutableMapExtensionsMixin<K, V>
+    implements KMutableMap<K, V> {
   final Map<K, V> _map;
 
   DartMutableMap([Map<K, V> map = const {}])
@@ -27,7 +29,8 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KMutableSet<KMutableEntry<K, V>> get entries => linkedSetOf(_map.entries.map((entry) => _MutableEntry.from(entry)));
+  KMutableSet<KMutableMapEntry<K, V>> get entries =>
+      linkedSetOf(_map.entries.map((entry) => _MutableEntry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -100,7 +103,7 @@ class DartMutableMap<K, V> extends KMutableMap<K, V> with KMutableMapExtensionsM
       hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
 }
 
-class _MutableEntry<K, V> implements KMutableEntry<K, V> {
+class _MutableEntry<K, V> implements KMutableMapEntry<K, V> {
   _MutableEntry(this._key, this._value);
 
   _MutableEntry.from(MapEntry<K, V> entry)

@@ -60,13 +60,13 @@ abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, 
    * Returns a [MutableSet] of all key/value pairs in this map.
    */
   @override
-  KMutableSet<KMutableEntry<K, V>> get entries;
+  KMutableSet<KMutableMapEntry<K, V>> get entries;
 }
 
 /**
  * Represents a key/value pair held by a [KMutableMap].
  */
-abstract class KMutableEntry<K, V> extends KMapEntry<K, V> {
+abstract class KMutableMapEntry<K, V> extends KMapEntry<K, V> {
   /**
    * Changes the value associated with the key of this entry.
    *
@@ -85,6 +85,11 @@ abstract class KMutableMapExtension<K, V> {
    */
   @nonNull
   V getOrPut(K key, V Function() defaultValue);
+
+  /**
+   * Returns an [Iterator] over the entries in the [Map].
+   */
+  KMutableIterator<KMutableMapEntry<K, V>> iterator();
 
   /**
    * Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
