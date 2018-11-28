@@ -1,14 +1,11 @@
 name: dart_kollection
-description: A starting point for Dart libraries or applications.
+description: Kotlin colletions port to Dart
 version: 0.1.0
 homepage: https://github.com/passsy/dart_kollection
-author: pascalwelsch <email@example.com>
+author: Pascal Welsch <pascal.welsch@gmail.com>
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
-
-#dependencies:
-#  path: ^1.4.1
 
 dev_dependencies:
   test: ^1.0.0
