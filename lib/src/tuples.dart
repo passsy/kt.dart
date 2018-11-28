@@ -11,6 +11,7 @@
  */
 class KPair<A, B> {
   KPair(this.first, this.second);
+
   final A first;
   final B second;
 
@@ -41,6 +42,7 @@ class KPair<A, B> {
  */
 class KTriple<A, B, C> {
   KTriple(this.first, this.second, this.third);
+
   final A first;
   final B second;
   final C third;

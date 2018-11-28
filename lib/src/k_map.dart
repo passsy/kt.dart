@@ -151,5 +151,5 @@ abstract class KMapExtension<K, V> {
    */
   M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform);
 
-  // TODO toMutableMap
+// TODO toMutableMap
 }

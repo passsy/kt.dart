@@ -1,8 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/extension/map_extensions_mixin.dart';
 
-import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
-
 class EmptyMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   @override
   operator [](K key) => null;

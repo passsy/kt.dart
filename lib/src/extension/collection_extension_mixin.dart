@@ -1,6 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/list_mutable.dart';
-import 'dart:math' as math;
 
 abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, KCollection<T> {
   @override

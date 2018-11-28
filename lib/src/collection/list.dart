@@ -1,8 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:dart_kollection/src/collection/iterator.dart';
 import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
-import 'package:dart_kollection/src/collection/iterator.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 

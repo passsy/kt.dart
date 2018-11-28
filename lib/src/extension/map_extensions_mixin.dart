@@ -46,5 +46,6 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   }
 
   String _entryToString(KMapEntry<K, V> entry) => _toString(entry.key) + "=" + _toString(entry.value);
+
   String _toString(Object o) => identical(o, this) ? "(this Map)" : o.toString();
 }
