@@ -90,6 +90,13 @@ void main() {
     });
   });
 
+  group("flatMap", () {
+    test("flatMap int to string", () {
+      final list = listOf([1, 2, 3]);
+      expect(list.flatMap((it) => listOf([it, it + 1, it + 2])), listOf([1, 2, 3, 2, 3, 4, 3, 4, 5]));
+    });
+  });
+
   group("groupBy", () {
     test("basic", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
