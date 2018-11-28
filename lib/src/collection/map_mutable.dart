@@ -64,6 +64,9 @@ class DartMutableMap<K, V>
   }
 
   @override
+  void operator []=(K key, V value) => put(key, value);
+
+  @override
   void putAll(KMap<K, V> from) {
     for (var entry in from.entries.iter) {
       _map[entry.key] = entry.value;

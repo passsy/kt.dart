@@ -17,6 +17,11 @@ abstract class KMutableMap<K, V> implements KMap<K, V>, KMutableMapExtension<K, 
   V put(K key, V value);
 
   /**
+   * Associates the specified [value] with the specified [key] in the map.
+   */
+  void operator []=(K key, V value);
+
+  /**
    * Removes the specified key and its corresponding value from this map.
    *
    * @return the previous value associated with the key, or `null` if the key was not present in the map.

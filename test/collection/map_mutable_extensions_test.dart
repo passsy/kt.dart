@@ -63,6 +63,26 @@ void main() {
     });
   });
 
+  group("put", () {
+    test("put", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.put(1, "Dito"), "Bulbasaur");
+      expect(pokemon.get(1), "Dito");
+    });
+
+    test("operator", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon[1] = "Dito";
+      expect(pokemon[1], "Dito");
+    });
+  });
+
   group("putAllPairs", () {
     test("add new ones", () {
       final pokemon = mutableMapOf({
