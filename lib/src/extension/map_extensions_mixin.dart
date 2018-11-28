@@ -39,4 +39,12 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, (it) => it.key, transform);
   }
+
+  @override
+  String toString() {
+    return entries.joinToString(separator: ", ", prefix: "{", postfix: "}", transform: (it) => _entryToString(it));
+  }
+
+  String _entryToString(KMapEntry<K, V> entry) => _toString(entry.key) + "=" + _toString(entry.value);
+  String _toString(Object o) => identical(o, this) ? "(this Map)" : o.toString();
 }
