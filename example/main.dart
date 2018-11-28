@@ -1,28 +1,31 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
+import 'shop.dart';
+
 main() {
-  final list = listOf(["a", "b", "c"]);
-  final emptyL = emptyList();
+  final rekasPrducts = getOrderedProducts(jbCustomers[reka]);
+  print("reka bought $rekasPrducts");
 
-  final set = setOf(["a", "b", "c"]);
-  final emptyS = emptySet();
+  final allOrdersOfJbShop = getAllOrderedProducts(jbShop);
+  var formattedSales = allOrdersOfJbShop
+      .map((it) => "Sold ${it.second}x '${it.first}', revenue ${it.third}\$")
+      .joinToString(separator: "\n");
+  print("total jbShop sales:\n${formattedSales}");
 
-  final map = mapOf({"a": "A", "b": "B", "c": "C"});
-  final emptyM = emptyMap();
-
-  final a = (listOf(["a", "b", "c"])..onEach(print)).map((it) => it.toUpperCase()).getOrNull(0);
-  print(a); // prints: "A"
-
-  list.map((it) => it.runes.first).filter((it) => it.bitLength < 1).flatMap(_nextChars3).forEach(print);
-
-  KMap<String, String> mapping = list.associateWith((key) => ">$key<");
-  print(mapping.get("a")); // prints ">a<"
+  final revenue = allOrdersOfJbShop.map((it) => it.third).sum();
+  print("total jbShop revenue ${revenue}\$");
 }
 
-KList<String> _nextChars3(int rune) {
-  return listOf([
-    String.fromCharCode(rune + 1),
-    String.fromCharCode(rune + 2),
-    String.fromCharCode(rune + 3),
-  ]);
+KSet<Product> getOrderedProducts(Customer customer) {
+  return customer.orders.flatMap((it) => it.products).toSet();
+}
+
+KList<KTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
+  return shop.customers
+      .flatMap((it) => getOrderedProducts(it))
+      .groupBy((it) => it)
+      .mapValues((entry) => entry.value.count())
+      .entries
+      .map((entry) => KTriple(entry.key, entry.value, (entry.value * entry.key.price).toInt()))
+      .sortedByDescending<num>((entry) => entry.third);
 }
