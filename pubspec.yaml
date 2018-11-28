@@ -1,8 +1,8 @@
 name: dart_kollection
 description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: pascalwelsch <email@example.com>
+version: 0.1.0
+homepage: https://github.com/passsy/dart_kollection
+author: pascalwelsch <email@example.com>
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
