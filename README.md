@@ -1,5 +1,8 @@
 # Dart Kollection
 
+[![Pub](https://img.shields.io/pub/v/dart_kollection.svg)](https://pub.dartlang.org/packages/dart_kollection)
+
+
 Brings Kotlins collection API to Dart with over 120+ operators which makes it easier to work with `Lists`, `Maps` and `Sets`.
 The collections are by default immutable, but they all have a mutable version as well.
 
