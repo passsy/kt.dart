@@ -7,6 +7,11 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param E the type of elements contained in the set. The set is covariant on its element type.
  */
 abstract class KSet<T> implements KCollection<T> {
+  /**
+   * dart interop list for time critical operations such as sorting
+   */
+  Set<T> get set;
+
   // Query Operations
   @override
   int get size;

@@ -10,6 +10,11 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param V the type of map values. The map is covariant on its value type.
  */
 abstract class KMap<K, V> implements KMapExtension<K, V> {
+  /**
+   * dart interop list for time critical operations such as sorting
+   */
+  Map<K, V> get map;
+
   // Query Operations
   /**
    * Returns the number of key/value pairs in the map.

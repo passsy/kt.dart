@@ -8,6 +8,9 @@ class EmptyList<T>
     with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KListExtensionsMixin<T>
     implements KList<T> {
   @override
+  List<T> get list => <T>[];
+
+  @override
   bool contains(T element) => false;
 
   @override
@@ -65,9 +68,6 @@ class EmptyList<T>
 
   @override
   Iterable<T> get iter => DartEmptyIterable();
-
-  @override
-  List<T> get list => <T>[];
 }
 
 class _EmptyIterator<T> extends KListIterator<T> {

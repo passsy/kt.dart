@@ -2,7 +2,7 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('empty list', () {
+  group('empty map', () {
     test("has no elements", () {
       final empty = emptyMap<String, Object>();
       expect(empty.size, equals(0));
@@ -46,7 +46,7 @@ void main() {
       expect(empty.get(null), isNull);
     });
 
-    test("is equals to another empty list", () {
+    test("is equals to another empty map", () {
       final empty0 = emptyMap();
       final empty1 = emptyMap();
 
@@ -68,6 +68,11 @@ void main() {
 
       expect(empty0, equals(empty1));
       expect(empty0.hashCode, equals(empty1.hashCode));
+    });
+
+    test("access dart map", () {
+      final Map<String, int> map = emptyMap<String, int>().map;
+      expect(map.length, 0);
     });
   });
 }
