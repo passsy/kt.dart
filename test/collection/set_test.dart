@@ -77,5 +77,11 @@ void main() {
 
       expect(set0, isNot(equals(set3)));
     });
+
+    test("access dart set", () {
+      Set<String> set = setOf<String>(["a", "b", "c"]).set;
+      expect(set.length, 3);
+      expect(set, equals(Set.from(["a", "b", "c"])));
+    });
   });
 }

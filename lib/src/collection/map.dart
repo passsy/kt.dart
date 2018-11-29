@@ -13,6 +13,9 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
         super();
 
   @override
+  Map<K, V> get map => _map;
+
+  @override
   bool containsKey(K key) => _map.containsKey(key);
 
   @override

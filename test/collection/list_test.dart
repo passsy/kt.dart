@@ -106,5 +106,11 @@ void main() {
       expect(() => list.subList(3, 1), throwsA(TypeMatcher<ArgumentError>()));
       expect(() => list.subList(2, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
     });
+
+    test("access dart list", () {
+      List<String> list = listOf<String>(["a", "b", "c"]).list;
+      expect(list.length, 3);
+      expect(list, equals(["a", "b", "c"]));
+    });
   });
 }

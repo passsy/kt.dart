@@ -85,5 +85,10 @@ void main() {
       expect(() => empty.subList(-1, -1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.subList(2, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
     });
+
+    test("access dart list", () {
+      List<String> list = emptyList<String>().list;
+      expect(list.length, 0);
+    });
   });
 }

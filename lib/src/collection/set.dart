@@ -15,6 +15,9 @@ class DartSet<T> with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T> 
   Iterable<T> get iter => _set;
 
   @override
+  Set<T> get set => _set;
+
+  @override
   bool contains(T element) => _set.contains(element);
 
   @override
