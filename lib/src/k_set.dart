@@ -8,7 +8,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  */
 abstract class KSet<T> implements KCollection<T> {
   /**
-   * dart interop list for time critical operations such as sorting
+   * dart interop set for time critical operations such as sorting
    */
   Set<T> get set;
 

@@ -11,7 +11,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  */
 abstract class KMap<K, V> implements KMapExtension<K, V> {
   /**
-   * dart interop list for time critical operations such as sorting
+   * dart interop map for time critical operations such as sorting
    */
   Map<K, V> get map;
 
