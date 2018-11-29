@@ -9,4 +9,15 @@ void main() {
       expect(map, equals({"a": 1, "b": 2}));
     });
   });
+
+  group("toString", () {
+    test("with content", () {
+      final map = mapOf({"a": 1});
+      expect(map.toString(), "{a=1}");
+    });
+    test("empty", () {
+      final map = emptyMap();
+      expect(map.toString(), "{}");
+    });
+  });
 }
