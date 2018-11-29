@@ -1,0 +1,20 @@
+language: dart
+# Speed up builds by using containerization.
+sudo: false
+dart:
+  - 2.1.0
+with_content_shell: false
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+script:
+  - set -e
+  - sh tool/check_format.sh
+  - dartanalyzer --fatal-infos --fatal-warnings ./
+  - pub run test test/dart_kollection_test.dart
+  - pub global activate coverage
+  - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
+  - dart --observe=8111 test/dart_kollection_test.dart
+  - pub global run coverage:format_coverage --package-root=packages --report-on lib --in coverage.json --out lcov.info --lcov
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
