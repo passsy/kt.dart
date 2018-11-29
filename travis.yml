@@ -1,5 +1,4 @@
 language: dart
-# Speed up builds by using containerization.
 sudo: false
 dart:
   - 2.1.0
