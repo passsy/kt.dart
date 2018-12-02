@@ -16,7 +16,11 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
     return value;
   }
 
+  @override
   KIterator<KMapEntry<K, V>> iterator() => entries.iterator();
+
+  @override
+  bool isNotEmpty() => !isEmpty();
 
   @override
   KMap<R, V> mapKeys<R>(R Function(KMapEntry<K, V>) transform) {

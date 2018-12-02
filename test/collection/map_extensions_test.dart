@@ -33,6 +33,26 @@ void main() {
     });
   });
 
+  group("isEmpty", () {
+    test("is empty", () {
+      expect(mutableMapOf({}).isEmpty(), true);
+      expect(emptyMap().isEmpty(), true);
+    });
+    test("is not empty", () {
+      expect(mutableMapOf({1: "a"}).isEmpty(), false);
+    });
+  });
+
+  group("isNotEmpty", () {
+    test("is empty", () {
+      expect(mutableMapOf({}).isNotEmpty(), false);
+      expect(emptyMap().isNotEmpty(), false);
+    });
+    test("is not empty", () {
+      expect(mutableMapOf({1: "a"}).isNotEmpty(), true);
+    });
+  });
+
   group("iterator", () {
     test("iterate", () {
       var iterator = pokemon.iterator();
