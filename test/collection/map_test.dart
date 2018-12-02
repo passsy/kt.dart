@@ -8,6 +8,11 @@ void main() {
       expect(map.length, 2);
       expect(map, equals({"a": 1, "b": 2}));
     });
+
+    test("entry converts to KPair", () {
+      var pair = mapOf({"a": 1}).entries.first().toPair();
+      expect(pair, KPair("a", 1));
+    });
   });
 
   group("toString", () {
