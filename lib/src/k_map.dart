@@ -121,9 +121,6 @@ abstract class KMapExtension<K, V> {
    */
   bool isNotEmpty();
 
-  // TODO plus
-  // TODO minus
-
   /**
    * Returns a new Map with entries having the keys obtained by applying the [transform] function to each entry in this
    * [Map] and the values of this map.
@@ -157,6 +154,36 @@ abstract class KMapExtension<K, V> {
    * by applying the [transform] function to each entry in this [Map].
    */
   M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform);
+
+  /**
+   * Returns a map containing all entries of the original map except the entry with the given [key].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, V> minus(K key);
+
+  /**
+   * Returns a map containing all entries of the original map except the entry with the given [key].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, V> operator -(K key);
+
+  /**
+   * Creates a new read-only map by replacing or adding entries to this map from another [map].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   * Those entries of another [map] that are missing in this map are iterated in the end in the order of that [map].
+   */
+  KMap<K, V> plus(KMap<K, V> map);
+
+  /**
+   * Creates a new read-only map by replacing or adding entries to this map from another [map].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   * Those entries of another [map] that are missing in this map are iterated in the end in the order of that [map].
+   */
+  KMap<K, V> operator +(KMap<K, V> map);
 
   /**
    * Returns a new read-only map containing all key-value pairs from the original map.

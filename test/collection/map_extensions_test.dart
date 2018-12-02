@@ -80,6 +80,97 @@ void main() {
     });
   });
 
+  group("minus", () {
+    test("remove element", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map.minus(1);
+      expect(result.size, 1);
+      expect(result, mapOf({2: "Ivysaur"}));
+      expect(map.size, 2);
+    });
+
+    test("- (minus) operator", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map - 1;
+      expect(result.size, 1);
+      expect(result, mapOf({2: "Ivysaur"}));
+      expect(map.size, 2);
+    });
+
+    test("-= (minusAssign) operator", () {
+      var map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      map -= 1;
+      expect(map.size, 1);
+      expect(map, mapOf({2: "Ivysaur"}));
+    });
+
+    test("do nothing when key doesn't exist", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map.minus(5);
+      expect(result, map);
+    });
+  });
+
+  group("plus", () {
+    test("add element", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map.plus(mapOf({3: "Venusaur"}));
+      expect(result.size, 3);
+      expect(result[3], "Venusaur");
+      expect(map.size, 2);
+    });
+
+    test("+ (plus) operator", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map + mapOf({3: "Venusaur"});
+      expect(result.size, 3);
+      expect(result[3], "Venusaur");
+      expect(map.size, 2);
+    });
+
+    test("+= (plusAssign) operator", () {
+      var map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      map += mapOf({3: "Venusaur"});
+      expect(map.size, 3);
+      expect(map[3], "Venusaur");
+      expect(map.size, 3);
+    });
+
+    test("override existing mapping", () {
+      final map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final result = map.plus(mapOf({2: "Dito"}));
+      expect(result.size, 2);
+      expect(map.size, 2);
+      expect(result[2], "Dito");
+      expect(map[2], "Ivysaur");
+      expect(result, isNot(equals(map)));
+    });
+  });
+
   group("toMap", () {
     test("makes a copy which doesn't share memory", () {
       final map = mutableMapOf({
