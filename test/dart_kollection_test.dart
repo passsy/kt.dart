@@ -9,10 +9,12 @@ import 'collection/map_mutable_extensions_test.dart' as map_mutable_extensions_t
 import 'collection/map_test.dart' as map_test;
 import 'collection/set_test.dart' as set_test;
 import 'collections_test.dart' as collections_test;
+import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
 
 main() {
   collections_test.main();
+  exceptions_test.main();
   tuples_test.main();
   iterable_extensions_test.main();
   list_mutable_extensions_test.main();
