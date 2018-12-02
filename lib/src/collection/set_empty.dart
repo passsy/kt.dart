@@ -36,8 +36,6 @@ class EmptySet<T> with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>
 }
 
 class _EmptyIterator<T> extends KIterator<T> {
-  const _EmptyIterator();
-
   @override
   bool hasNext() => false;
 

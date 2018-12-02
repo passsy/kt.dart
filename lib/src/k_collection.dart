@@ -6,8 +6,6 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param E the type of elements contained in the collection. The collection is covariant on its element type.
  */
 abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
-  const KCollection() : super();
-
   // Query Operations
   /**
    * Returns the size of the collection.

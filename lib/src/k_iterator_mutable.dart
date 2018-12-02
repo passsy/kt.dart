@@ -5,8 +5,6 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @see MutableCollection.iterator
  */
 abstract class KMutableIterator<T> implements KIterator<T> {
-  const KMutableIterator();
-
   /**
    * Removes from the underlying collection the last element returned by this iterator.
    */

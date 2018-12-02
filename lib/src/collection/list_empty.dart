@@ -71,8 +71,6 @@ class EmptyList<T>
 }
 
 class _EmptyIterator<T> extends KListIterator<T> {
-  const _EmptyIterator();
-
   @override
   bool hasNext() => false;
 
