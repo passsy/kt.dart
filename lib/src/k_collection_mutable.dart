@@ -7,6 +7,7 @@ import 'package:dart_kollection/dart_kollection.dart';
  */
 abstract class KMutableCollection<T> implements KCollection<T>, KMutableIterable<T> {
   // Query Operations
+  @override
   KMutableIterator<T> iterator();
 
   // Modification Operations

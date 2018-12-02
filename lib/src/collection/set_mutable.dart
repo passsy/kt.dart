@@ -122,6 +122,11 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
 
   @override
   void remove() {
-    _set.remove(lastReturned);
+    // removing from list is wrong because is is a copy of the original list.
+    // remove should modify the underlying list, not the copy
+    // see how kotlin solved this:
+    // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
+    throw UnimplementedError(
+        "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
   }
 }
