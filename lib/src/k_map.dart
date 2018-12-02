@@ -156,5 +156,17 @@ abstract class KMapExtension<K, V> {
    */
   M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform);
 
-// TODO toMutableMap
+  /**
+   * Returns a new read-only map containing all key-value pairs from the original map.
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, V> toMap();
+
+  /**
+   * Returns a new mutable map containing all key-value pairs from the original map.
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMutableMap<K, V> toMutableMap();
 }

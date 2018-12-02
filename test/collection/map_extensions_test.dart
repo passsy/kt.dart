@@ -59,4 +59,38 @@ void main() {
       expect(mapped.size, 2);
     });
   });
+
+  group("toMap", () {
+    test("makes a copy which doesn't share memory", () {
+      final map = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final copy = map.toMap();
+      expect(copy, map);
+      map.put(3, "Venusaur");
+      expect(map.size, 3);
+      expect(copy.size, 2);
+    });
+
+    test("make a copy of an empty list", () {
+      final map = emptyMap();
+      final copy = map.toMap();
+      expect(copy, map);
+    });
+  });
+
+  group("toMutableMap", () {
+    test("makes a copy", () {
+      var map = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final copy = map.toMutableMap();
+      expect(map, copy);
+      copy.put(3, "Venusaur");
+      expect(copy.size, 3);
+      expect(map.size, 2);
+    });
+  });
 }
