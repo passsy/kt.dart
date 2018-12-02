@@ -106,9 +106,6 @@ abstract class KMapExtension<K, V> {
   @nonNull
   V getValue(K key);
 
-  // TODO isNotEmpty
-  // TODO isNullOrEmpty
-  // TODO
   // TODO filter
   // TODO filterTo
   // TODO filterNot
@@ -118,6 +115,11 @@ abstract class KMapExtension<K, V> {
    * Returns an [Iterator] over the entries in the [Map].
    */
   KIterator<KMapEntry<K, V>> iterator();
+
+  /**
+   * Returns `true` if this map is not empty.
+   */
+  bool isNotEmpty();
 
   // TODO plus
   // TODO minus
