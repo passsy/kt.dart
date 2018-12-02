@@ -79,4 +79,7 @@ class _Entry<K, V> extends KMapEntry<K, V> {
   _Entry.from(MapEntry<K, V> entry)
       : key = entry.key,
         value = entry.value;
+
+  @override
+  KPair<K, V> toPair() => KPair(key, value);
 }

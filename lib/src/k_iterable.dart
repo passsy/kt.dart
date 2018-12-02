@@ -31,7 +31,7 @@ abstract class KIterableExtension<T> {
   /**
    * Returns this collection as an [Iterable].
    */
-  KIterable<T> asIterable() => this;
+  KIterable<T> asIterable();
 
   /**
    * Returns a [Map] containing key-value pairs provided by [transform] function
