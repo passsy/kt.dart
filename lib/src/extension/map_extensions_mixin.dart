@@ -41,6 +41,17 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   }
 
   @override
+  KMap<K, V> toMap() {
+    if (size == 0) return emptyMap();
+    return toMutableMap();
+  }
+
+  @override
+  KMutableMap<K, V> toMutableMap() {
+    return mutableMapOf(map);
+  }
+
+  @override
   String toString() {
     return entries.joinToString(separator: ", ", prefix: "{", postfix: "}", transform: (it) => _entryToString(it));
   }

@@ -101,7 +101,6 @@ abstract class KMutableMapExtension<K, V> {
    */
   void putAllPairs(KIterable<KPair<K, V>> pairs);
 
-  // TODO toMap
   /**
    * If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.
    *
