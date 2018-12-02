@@ -45,6 +45,21 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   }
 
   @override
+  KMap<K, V> minus(K key) {
+    return toMutableMap()..remove(key);
+  }
+
+  KMap<K, V> operator -(K key) => minus(key);
+
+  @override
+  KMap<K, V> plus(KMap<K, V> map) {
+    return toMutableMap()..putAll(map);
+  }
+
+  @override
+  KMap<K, V> operator +(KMap<K, V> map) => plus(map);
+
+  @override
   KMap<K, V> toMap() {
     if (size == 0) return emptyMap();
     return toMutableMap();
