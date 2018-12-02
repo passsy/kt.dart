@@ -20,14 +20,6 @@ Comparator<T> reverse<T>(Comparator<T> comparator) {
   return compareTo;
 }
 
-//class _ReversedComparator<T> {
-//  _ReversedComparator(this.comparator);
-//
-//  Comparator<T> comparator;
-//
-//  int compareTo(T a, T b) => comparator(b, a);
-//}
-
 Comparator<T> compareBy<T>(Comparable Function(T) selector) {
   int compareTo(T a, T b) => selector(a).compareTo(selector(b));
 
@@ -39,11 +31,3 @@ Comparator<T> compareByDescending<T>(Comparable Function(T) selector) {
 
   return compareTo;
 }
-
-//class _CompareBy<T> {
-//  Comparable Function(T) selector;
-//
-//  _CompareBy(this.selector);
-//
-//  int compareTo(T a, T b) => selector(a).compareTo(selector(b));
-//}
