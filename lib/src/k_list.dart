@@ -39,7 +39,7 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
    * Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
    */
   @nullable
-  T operator [](int index) => get(index);
+  T operator [](int index);
 
   // Search Operations
   /**

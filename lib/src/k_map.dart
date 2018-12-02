@@ -89,7 +89,7 @@ abstract class KMapEntry<K, V> {
   /**
    * Converts entry to [Pair] with key being first component and value being second.
    */
-  KPair<K, V> toPair() => KPair(key, value);
+  KPair<K, V> toPair();
 }
 
 abstract class KMapExtension<K, V> {
