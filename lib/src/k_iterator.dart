@@ -5,8 +5,6 @@ import 'package:dart_kollection/dart_kollection.dart';
  * Allows to sequentially access the elements.
  */
 abstract class KIterator<T> {
-  const KIterator();
-
   /**
    * Returns the next element in the iteration.
    *
@@ -30,8 +28,6 @@ abstract class KIterator<T> {
  * An iterator over a collection that supports indexed access.
  */
 abstract class KListIterator<T> implements KIterator<T> {
-  const KListIterator();
-
   /**
    * Returns `true` if this list iterator has more elements when
    * traversing the list in the reverse direction.  (In other words,
