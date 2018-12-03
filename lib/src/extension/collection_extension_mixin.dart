@@ -3,7 +3,8 @@ import 'dart:math' as math;
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/list_mutable.dart';
 
-abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, KCollection<T> {
+abstract class KCollectionExtensionMixin<T>
+    implements KCollectionExtension<T>, KCollection<T> {
   @override
   KMutableList<T> toMutableList() => DartMutableList<T>(iter);
 
@@ -22,6 +23,7 @@ abstract class KCollectionExtensionMixin<T> implements KCollectionExtension<T>, 
         separator: ", ",
         prefix: "[",
         postfix: "]",
-        transform: (it) => (identical(it, this) ? "(this Collection)" : it.toString()));
+        transform: (it) =>
+            (identical(it, this) ? "(this Collection)" : it.toString()));
   }
 }

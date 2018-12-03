@@ -9,7 +9,10 @@ import 'package:dart_kollection/src/util/hash.dart';
  * [KList] based on a dart [List]
  */
 class DartList<T>
-    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KListExtensionsMixin<T>
+    with
+        KIterableExtensionsMixin<T>,
+        KCollectionExtensionMixin<T>,
+        KListExtensionsMixin<T>
     implements KList<T> {
   final List<T> _list;
   int _hashCode;
@@ -72,7 +75,8 @@ class DartList<T>
     if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
     if (toIndex == null) throw ArgumentError("toIndex can't be null");
     if (fromIndex < 0 || toIndex > size) {
-      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+      throw IndexOutOfBoundsException(
+          "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
     }
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");

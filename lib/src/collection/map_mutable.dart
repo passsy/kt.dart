@@ -105,8 +105,10 @@ class DartMutableMap<K, V>
   }
 
   @override
-  int get hashCode =>
-      hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
+  int get hashCode => hashObjects(_map.keys
+      .map((key) => hash2(key.hashCode, _map[key].hashCode))
+      .toList(growable: false)
+        ..sort());
 }
 
 class _MutableEntry<K, V> implements KMutableMapEntry<K, V> {

@@ -22,7 +22,8 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KSet<KMapEntry<K, V>> get entries => setOf(_map.entries.map((entry) => _Entry.from(entry)));
+  KSet<KMapEntry<K, V>> get entries =>
+      setOf(_map.entries.map((entry) => _Entry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -60,8 +61,10 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   @override
   int get hashCode {
     if (_hashCode == null) {
-      _hashCode =
-          hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
+      _hashCode = hashObjects(_map.keys
+          .map((key) => hash2(key.hashCode, _map[key].hashCode))
+          .toList(growable: false)
+            ..sort());
     }
     return _hashCode;
   }

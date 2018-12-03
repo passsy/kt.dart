@@ -15,7 +15,8 @@ abstract class KMutableIterator<T> implements KIterator<T> {
  * An iterator over a mutable collection that supports indexed access. Provides the ability
  * to add, modify and remove elements while iterating.
  */
-abstract class KMutableListIterator<T> implements KListIterator<T>, KMutableIterator<T> {
+abstract class KMutableListIterator<T>
+    implements KListIterator<T>, KMutableIterator<T> {
   /**
    * Replaces the last element returned by [next] or [previous] with the specified element [element].
    */

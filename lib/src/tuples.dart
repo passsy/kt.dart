@@ -21,7 +21,10 @@ class KPair<A, B> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KPair && runtimeType == other.runtimeType && first == other.first && second == other.second;
+      other is KPair &&
+          runtimeType == other.runtimeType &&
+          first == other.first &&
+          second == other.second;
 
   @override
   int get hashCode => first.hashCode ^ second.hashCode;

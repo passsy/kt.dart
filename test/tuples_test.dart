@@ -39,14 +39,18 @@ void main() {
       expect(KTriple("a", "b", "c"), KTriple("a", "b", "c"));
       expect(KTriple("a", "b", "c").hashCode, KTriple("a", "b", "c").hashCode);
       expect(KTriple("a", "b", "c"), isNot(equals(KTriple("x", "b", "c"))));
-      expect(KTriple("a", "b", "c").hashCode, isNot(equals(KTriple("x", "b", "c").hashCode)));
+      expect(KTriple("a", "b", "c").hashCode,
+          isNot(equals(KTriple("x", "b", "c").hashCode)));
       expect(KTriple("a", "b", "c"), isNot(equals(KTriple("a", "x", "c"))));
-      expect(KTriple("a", "b", "c").hashCode, isNot(equals(KTriple("a", "x", "c").hashCode)));
+      expect(KTriple("a", "b", "c").hashCode,
+          isNot(equals(KTriple("a", "x", "c").hashCode)));
       expect(KTriple("a", "b", "c"), isNot(equals(KTriple("a", "b", "x"))));
-      expect(KTriple("a", "b", "c").hashCode, isNot(equals(KTriple("a", "b", "x").hashCode)));
+      expect(KTriple("a", "b", "c").hashCode,
+          isNot(equals(KTriple("a", "b", "x").hashCode)));
 
       expect(KTriple(null, null, null), KTriple(null, null, null));
-      expect(KTriple(null, null, null).hashCode, KTriple(null, null, null).hashCode);
+      expect(KTriple(null, null, null).hashCode,
+          KTriple(null, null, null).hashCode);
     });
 
     test("toString", () {

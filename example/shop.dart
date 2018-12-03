@@ -24,7 +24,8 @@ KList<KTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
       .groupBy((it) => it)
       .mapValues((entry) => entry.value.count())
       .entries
-      .map((entry) => KTriple(entry.key, entry.value, (entry.value * entry.key.price).toInt()))
+      .map((entry) => KTriple(
+          entry.key, entry.value, (entry.value * entry.key.price).toInt()))
       .sortedByDescending<num>((entry) => entry.third);
 }
 
@@ -102,11 +103,14 @@ final Budapest = City("Budapest");
 final Ankara = City("Ankara");
 final Tokyo = City("Tokyo");
 
-Customer customer(String name, City city, [List<Order> orders = const []]) => Customer(name, city, listOf(orders));
+Customer customer(String name, City city, [List<Order> orders = const []]) =>
+    Customer(name, city, listOf(orders));
 
-Order order(List<Product> products, [bool isDelivered = true]) => Order(listOf(products), isDelivered);
+Order order(List<Product> products, [bool isDelivered = true]) =>
+    Order(listOf(products), isDelivered);
 
-Shop shop(String name, List<Customer> customers) => Shop(name, listOf(customers));
+Shop shop(String name, List<Customer> customers) =>
+    Shop(name, listOf(customers));
 
 final jbShop = shop("jb test shop", [
   customer(lucas, Canberra, [
@@ -134,14 +138,18 @@ final jbShop = shop("jb test shop", [
   ])
 ]);
 
-final KMap<String, Customer> jbCustomers = jbShop.customers.fold(hashMapOf<String, Customer>(), (map, customer) {
+final KMap<String, Customer> jbCustomers =
+    jbShop.customers.fold(hashMapOf<String, Customer>(), (map, customer) {
   (map as KMutableMap<String, Customer>)[customer.name] = customer;
   return map;
 });
 
-final orderedProducts = setOf([idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm]);
+final orderedProducts =
+    setOf([idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm]);
 
-final sortedCustomers = listOf([cooper, nathan, bajram, asuka, lucas, riku, reka]).map((it) => jbCustomers[it]);
+final sortedCustomers =
+    listOf([cooper, nathan, bajram, asuka, lucas, riku, reka])
+        .map((it) => jbCustomers[it]);
 
 final groupedByCities = mapOf({
   Canberra: listOf([lucas, cooper]),

@@ -19,7 +19,8 @@ void main() {
       final empty = emptyList();
 
       expect(empty.iterator().hasNext(), isFalse);
-      expect(() => empty.iterator().next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => empty.iterator().next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {
@@ -31,9 +32,12 @@ void main() {
     test("throws when accessing an element", () {
       final empty = emptyList();
 
-      expect(() => empty.get(0), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.get(1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.get(-1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.get(0),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.get(1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.get(-1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.get(null), throwsA(TypeMatcher<ArgumentError>()));
     });
 
@@ -80,10 +84,14 @@ void main() {
     test("sublist throws for all other ranges", () {
       final empty = emptyList<int>();
 
-      expect(() => empty.subList(0, 1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.subList(1, 1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.subList(-1, -1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.subList(2, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.subList(0, 1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.subList(1, 1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.subList(-1, -1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => empty.subList(2, 10),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
     });
 
     test("access dart list", () {

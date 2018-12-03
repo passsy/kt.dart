@@ -132,7 +132,8 @@ class DartMutableList<T>
     if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
     if (toIndex == null) throw ArgumentError("toIndex can't be null");
     if (fromIndex < 0 || toIndex > size) {
-      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+      throw IndexOutOfBoundsException(
+          "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
     }
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");

@@ -22,13 +22,15 @@ void main() {
     test("values iterator has no next", () {
       final empty = emptyMap();
       expect(empty.values.iterator().hasNext(), isFalse);
-      expect(() => empty.values.iterator().next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => empty.values.iterator().next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("keys iterator has no next", () {
       final empty = emptyMap();
       expect(empty.keys.iterator().hasNext(), isFalse);
-      expect(() => empty.keys.iterator().next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => empty.keys.iterator().next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {

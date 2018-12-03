@@ -7,7 +7,8 @@ main() {
   final numbers1 = listOf([1, 2, 3, 4]).map((it) => ">$it<");
   print(numbers1); // [>1<, >2<, >3<, >4<]
 
-  final numbers2 = listOf([1, 2, 3, 4]).flatMap((it) => listOf([it * 2, it * 3]));
+  final numbers2 =
+      listOf([1, 2, 3, 4]).flatMap((it) => listOf([it * 2, it * 3]));
   print(numbers2); // [2, 3, 4, 6, 6, 9, 8, 12]
 
   final numbers3 = numbers2.filter((it) => it % 3 == 0);
@@ -25,10 +26,12 @@ main() {
   final dartListEquals = [12, 9, 6, 3] == [12, 9, 6, 3];
   print(dartListEquals); // false
 
-  final kMapEquals = mapOf({1: "Bulbasaur", 2: "Ivysaur"}) == mapOf({1: "Bulbasaur", 2: "Ivysaur"});
+  final kMapEquals = mapOf({1: "Bulbasaur", 2: "Ivysaur"}) ==
+      mapOf({1: "Bulbasaur", 2: "Ivysaur"});
   print(kMapEquals); // true
 
-  final dartMapEquals = {1: "Bulbasaur", 2: "Ivysaur"} == {1: "Bulbasaur", 2: "Ivysaur"};
+  final dartMapEquals =
+      {1: "Bulbasaur", 2: "Ivysaur"} == {1: "Bulbasaur", 2: "Ivysaur"};
   print(dartMapEquals); // false
 
   /**

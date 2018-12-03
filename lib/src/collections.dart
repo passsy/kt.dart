@@ -27,7 +27,8 @@ KList<T> emptyList<T>() => EmptyList<T>();
 /**
  * Returns an empty new [MutableList].
  */
-KMutableList<T> mutableListOf<T>([Iterable<T> elements = const []]) => DartMutableList(elements);
+KMutableList<T> mutableListOf<T>([Iterable<T> elements = const []]) =>
+    DartMutableList(elements);
 
 /**
  * Returns an immutable map, mapping only the specified key to the
@@ -48,13 +49,15 @@ KMap<K, V> emptyMap<K, V>() => EmptyMap<K, V>();
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap.noCopy(LinkedHashMap.of(map));
+KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap.noCopy(LinkedHashMap.of(map));
 
 /**
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
-KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap.noCopy(HashMap.of(map));
+KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap.noCopy(HashMap.of(map));
 
 /**
  * Returns an empty new [HashMap].
@@ -75,7 +78,8 @@ KMutableMap<K, V> hashMapFrom<K, V>(KIterable<KPair<K, V>> pairs) {
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) => DartMutableMap.noCopy(LinkedHashMap.of(map));
+KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap.noCopy(LinkedHashMap.of(map));
 
 /**
  * Returns a new read-only set with the given elements.

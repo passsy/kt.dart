@@ -5,7 +5,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  *
  * @param E the type of elements contained in the collection. The mutable collection is invariant on its element type.
  */
-abstract class KMutableCollection<T> implements KCollection<T>, KMutableIterable<T> {
+abstract class KMutableCollection<T>
+    implements KCollection<T>, KMutableIterable<T> {
   // Query Operations
   @override
   KMutableIterator<T> iterator();

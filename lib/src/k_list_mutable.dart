@@ -4,7 +4,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  * A generic ordered collection of elements that supports adding and removing elements.
  * @param E the type of elements contained in the list. The mutable list is invariant on its element type.
  */
-abstract class KMutableList<T> implements KList<T>, KMutableCollection<T>, KMutableListExtension<T> {
+abstract class KMutableList<T>
+    implements KList<T>, KMutableCollection<T>, KMutableListExtension<T> {
   // Modification Operations
   /**
    * Adds the specified element to the end of this list.

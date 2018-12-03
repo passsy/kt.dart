@@ -5,7 +5,10 @@ import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.d
 import 'package:dart_kollection/src/util/hash.dart';
 
 class DartMutableSet<T>
-    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KMutableIterableExtensionsMixin<T>
+    with
+        KIterableExtensionsMixin<T>,
+        KCollectionExtensionMixin<T>,
+        KMutableIterableExtensionsMixin<T>
     implements KMutableSet<T> {
   final Set<T> _set;
 
@@ -45,7 +48,8 @@ class DartMutableSet<T>
   int get size => _set.length;
 
   @override
-  int get hashCode => hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
+  int get hashCode =>
+      hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
 
   @override
   bool operator ==(dynamic other) {

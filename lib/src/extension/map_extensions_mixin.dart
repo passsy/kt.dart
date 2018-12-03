@@ -1,7 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_map_mutable.dart';
 
-abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K, V> {
+abstract class KMapExtensionsMixin<K, V>
+    implements KMapExtension<K, V>, KMap<K, V> {
   @override
   V getOrElse(K key, V Function() defaultValue) {
     return get(key) ?? defaultValue();
@@ -29,7 +30,8 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   }
 
   @override
-  M mapKeysTo<R, M extends KMutableMap<R, V>>(M destination, R Function(KMapEntry<K, V> entry) transform) {
+  M mapKeysTo<R, M extends KMutableMap<R, V>>(
+      M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, transform, (it) => it.value);
   }
 
@@ -40,7 +42,8 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
   }
 
   @override
-  M mapValuesTo<R, M extends KMutableMap<K, R>>(M destination, R Function(KMapEntry<K, V> entry) transform) {
+  M mapValuesTo<R, M extends KMutableMap<K, R>>(
+      M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, (it) => it.key, transform);
   }
 
@@ -72,10 +75,16 @@ abstract class KMapExtensionsMixin<K, V> implements KMapExtension<K, V>, KMap<K,
 
   @override
   String toString() {
-    return entries.joinToString(separator: ", ", prefix: "{", postfix: "}", transform: (it) => _entryToString(it));
+    return entries.joinToString(
+        separator: ", ",
+        prefix: "{",
+        postfix: "}",
+        transform: (it) => _entryToString(it));
   }
 
-  String _entryToString(KMapEntry<K, V> entry) => _toString(entry.key) + "=" + _toString(entry.value);
+  String _entryToString(KMapEntry<K, V> entry) =>
+      _toString(entry.key) + "=" + _toString(entry.value);
 
-  String _toString(Object o) => identical(o, this) ? "(this Map)" : o.toString();
+  String _toString(Object o) =>
+      identical(o, this) ? "(this Map)" : o.toString();
 }

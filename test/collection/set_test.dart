@@ -6,7 +6,8 @@ void main() {
     test("empty iterator", () {
       var iterator = setOf().iterator();
       expect(iterator.hasNext(), isFalse);
-      expect(() => iterator.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => iterator.next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("has no elements", () {
@@ -28,7 +29,8 @@ void main() {
       final set = setOf();
       final iterator = set.iterator();
       expect(iterator.hasNext(), isFalse);
-      expect(() => iterator.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => iterator.next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("iterator with 1 element has 1 next", () {
@@ -38,7 +40,8 @@ void main() {
       expect(iterator.next(), equals("a"));
 
       expect(iterator.hasNext(), isFalse);
-      expect(() => iterator.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => iterator.next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("iterator with items", () {
@@ -53,7 +56,8 @@ void main() {
       expect(iterator.next(), isNotNull);
 
       expect(iterator.hasNext(), isFalse);
-      expect(() => iterator.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => iterator.next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {

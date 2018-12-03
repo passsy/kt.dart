@@ -5,7 +5,10 @@ import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 
 class EmptyList<T>
-    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>, KListExtensionsMixin<T>
+    with
+        KIterableExtensionsMixin<T>,
+        KCollectionExtensionMixin<T>,
+        KListExtensionsMixin<T>
     implements KList<T> {
   @override
   List<T> get list => <T>[];
@@ -19,13 +22,15 @@ class EmptyList<T>
   @override
   T get(int index) {
     if (index == null) throw ArgumentError("index can't be null");
-    throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
+    throw IndexOutOfBoundsException(
+        "Empty list doesn't contain element at index $index.");
   }
 
   @override
   T operator [](int index) {
     if (index == null) throw ArgumentError("index can't be null");
-    throw IndexOutOfBoundsException("Empty list doesn't contain element at index $index.");
+    throw IndexOutOfBoundsException(
+        "Empty list doesn't contain element at index $index.");
   }
 
   @override

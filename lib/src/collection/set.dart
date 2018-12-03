@@ -3,7 +3,9 @@ import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
-class DartSet<T> with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T> implements KSet<T> {
+class DartSet<T>
+    with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>
+    implements KSet<T> {
   final Set<T> _set;
   int _hashCode;
 
@@ -37,7 +39,8 @@ class DartSet<T> with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T> 
   @override
   int get hashCode {
     if (_hashCode == null) {
-      _hashCode = hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
+      _hashCode = hashObjects(
+          _set.map((e) => e.hashCode).toList(growable: false)..sort());
     }
     return _hashCode;
   }

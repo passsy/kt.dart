@@ -25,7 +25,8 @@ void main() {
       expect(iterator.next(), equals("a"));
 
       expect(iterator.hasNext(), isFalse);
-      expect(() => iterator.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => iterator.next(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
     });
 
     test("is list", () {
@@ -41,8 +42,10 @@ void main() {
       expect(list.get(0), equals("a"));
       expect(list.get(1), equals("b"));
       expect(list.get(2), equals("c"));
-      expect(() => list.get(3), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.get(-1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(
+          () => list.get(3), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.get(-1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(null), throwsA(TypeMatcher<ArgumentError>()));
     });
 
@@ -82,12 +85,14 @@ void main() {
 
     group("reduceRight", () {
       test("reduce", () {
-        final result = listOf([1, 2, 3, 4]).reduceRight((it, int acc) => it + acc);
+        final result =
+            listOf([1, 2, 3, 4]).reduceRight((it, int acc) => it + acc);
         expect(result, 10);
       });
 
       test("empty throws", () {
-        expect(() => emptyList<int>().reduceRight((it, int acc) => it + acc), throwsUnsupportedError);
+        expect(() => emptyList<int>().reduceRight((it, int acc) => it + acc),
+            throwsUnsupportedError);
       });
     });
 
@@ -100,11 +105,15 @@ void main() {
     test("sublist throws for illegal ranges", () {
       final list = listOf(["a", "b", "c"]);
 
-      expect(() => list.subList(0, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(6, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(-1, -1), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.subList(0, 10),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.subList(6, 10),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.subList(-1, -1),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.subList(3, 1), throwsA(TypeMatcher<ArgumentError>()));
-      expect(() => list.subList(2, 10), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.subList(2, 10),
+          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
     });
 
     test("access dart list", () {

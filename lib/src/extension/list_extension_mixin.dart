@@ -61,7 +61,9 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T getOrElse(int index, T Function(int) defaultValue) {
-    return (index >= 0 && index <= lastIndex) ? get(index) : defaultValue(index);
+    return (index >= 0 && index <= lastIndex)
+        ? get(index)
+        : defaultValue(index);
   }
 
   @override
@@ -84,7 +86,8 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
           return element;
         }
       }
-      throw NoSuchElementException("Collection contains no element matching the predicate.");
+      throw NoSuchElementException(
+          "Collection contains no element matching the predicate.");
     }
   }
 

@@ -4,7 +4,8 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/comparisons.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
 
-abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIterable<T> {
+abstract class KIterableExtensionsMixin<T>
+    implements KIterableExtension<T>, KIterable<T> {
   @override
   bool all([bool Function(T element) predicate]) {
     assert(predicate != null);
@@ -39,12 +40,14 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KMap<K, V> associateBy<K, V>(K Function(T) keySelector, [V Function(T) valueTransform]) {
+  KMap<K, V> associateBy<K, V>(K Function(T) keySelector,
+      [V Function(T) valueTransform]) {
     return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
   }
 
   @override
-  M associateByTo<K, V, M extends KMutableMap<K, V>>(M destination, K Function(T) keySelector,
+  M associateByTo<K, V, M extends KMutableMap<K, V>>(
+      M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]) {
     assert(valueTransform != null);
     for (var element in iter) {
@@ -56,7 +59,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  M associateTo<K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform) {
+  M associateTo<K, V, M extends KMutableMap<K, V>>(
+      M destination, KPair<K, V> Function(T) transform) {
     assert(transform != null);
     for (var element in iter) {
       var pair = transform(element);
@@ -71,7 +75,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector) {
+  M associateWithTo<V, M extends KMutableMap<T, V>>(
+      M destination, V Function(T) valueSelector) {
     assert(valueSelector != null);
     for (var element in iter) {
       destination.put(element, valueSelector(element));
@@ -177,7 +182,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       return (this as KList).get(index);
     }
     return elementAtOrElse(index, (int index) {
-      throw IndexOutOfBoundsException("Collection doesn't contain element at index $index.");
+      throw IndexOutOfBoundsException(
+          "Collection doesn't contain element at index $index.");
     });
   }
 
@@ -235,7 +241,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate) {
+  C filterIndexedTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(int index, T) predicate) {
     assert(predicate != null);
     var i = 0;
     for (final element in iter) {
@@ -284,7 +291,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate) {
+  C filterNotTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(T) predicate) {
     assert(predicate != null);
     for (final element in iter) {
       if (!predicate(element)) {
@@ -295,7 +303,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate) {
+  C filterTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(T) predicate) {
     assert(predicate != null);
     for (final element in iter) {
       if (predicate(element)) {
@@ -330,7 +339,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       for (var element in iter) {
         if (predicate(element)) return element;
       }
-      throw NoSuchElementException("Collection contains no element matching the predicate.");
+      throw NoSuchElementException(
+          "Collection contains no element matching the predicate.");
     }
   }
 
@@ -367,7 +377,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform) {
+  C flatMapTo<R, C extends KMutableCollection<R>>(
+      C destination, KIterable<R> Function(T) transform) {
     assert(transform != null);
     for (var element in iter) {
       final list = transform(element);
@@ -423,13 +434,16 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KMap<K, KList<V>> groupByTransform<K, V>(K Function(T) keySelector, V Function(T) valueTransform) {
-    final groups = groupByToTransform(linkedMapOf<K, KMutableList<V>>(), keySelector, valueTransform);
+  KMap<K, KList<V>> groupByTransform<K, V>(
+      K Function(T) keySelector, V Function(T) valueTransform) {
+    final groups = groupByToTransform(
+        linkedMapOf<K, KMutableList<V>>(), keySelector, valueTransform);
     return groups;
   }
 
   @override
-  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(M destination, K Function(T) keySelector) {
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
+      M destination, K Function(T) keySelector) {
     assert(destination != null);
     assert(keySelector != null);
     for (final element in iter) {
@@ -549,7 +563,9 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
           found = true;
         }
       }
-      if (!found) throw NoSuchElementException("Collection contains no element matching the predicate.");
+      if (!found)
+        throw NoSuchElementException(
+            "Collection contains no element matching the predicate.");
       return last;
     }
   }
@@ -615,7 +631,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform) {
+  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(int index, T) transform) {
     assert(transform != null);
     var index = 0;
     for (final item in iter) {
@@ -628,7 +645,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C mapIndexedTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform) {
+  C mapIndexedTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(int index, T) transform) {
     assert(transform != null);
     var index = 0;
     for (final item in iter) {
@@ -646,7 +664,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C mapNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
+  C mapNotNullTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(T) transform) {
     assert(transform != null);
     for (final item in iter) {
       var result = transform(item);
@@ -658,7 +677,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform) {
+  C mapTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(T) transform) {
     assert(transform != null);
     for (var item in iter) {
       destination.add(transform(item));
@@ -669,7 +689,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   num max() {
     if (this is! KIterable<num>) {
-      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+      throw ArgumentError(
+          "sum is only supported for type KIterable<num>, not ${runtimeType}");
     }
 
     final i = iterator();
@@ -721,7 +742,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   num min() {
     if (this is! KIterable<num>) {
-      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+      throw ArgumentError(
+          "sum is only supported for type KIterable<num>, not ${runtimeType}");
     }
 
     final i = iterator();
@@ -851,7 +873,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   S reduce<S>(S Function(S acc, T) operation) {
     final i = iterator();
-    if (!i.hasNext()) throw UnsupportedError("Empty collection can't be reduced.");
+    if (!i.hasNext())
+      throw UnsupportedError("Empty collection can't be reduced.");
     S accumulator = i.next() as S;
     while (i.hasNext()) {
       accumulator = operation(accumulator, i.next());
@@ -862,7 +885,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
     final i = iterator();
-    if (!i.hasNext()) throw UnsupportedError("Empty collection can't be reduced.");
+    if (!i.hasNext())
+      throw UnsupportedError("Empty collection can't be reduced.");
     var index = 1;
     S accumulator = i.next() as S;
     while (i.hasNext()) {
@@ -910,12 +934,16 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
-          if (found) throw ArgumentError("Collection contains more than one matching element.");
+          if (found)
+            throw ArgumentError(
+                "Collection contains more than one matching element.");
           single = element;
           found = true;
         }
       }
-      if (!found) throw NoSuchElementException("Collection contains no element matching the predicate.");
+      if (!found)
+        throw NoSuchElementException(
+            "Collection contains no element matching the predicate.");
       return single;
     }
   }
@@ -953,10 +981,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   KList<T> sorted() => sortedWith(naturalOrder());
 
   @override
-  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) => sortedWith(compareBy(selector));
+  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) =>
+      sortedWith(compareBy(selector));
 
   @override
-  KList<T> sortedByDescending<R extends Comparable<R>>(R Function(T) selector) =>
+  KList<T> sortedByDescending<R extends Comparable<R>>(
+          R Function(T) selector) =>
       sortedWith(compareByDescending(selector));
 
   @override
@@ -979,7 +1009,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   @override
   num sum() {
     if (this is! KIterable<num>) {
-      throw ArgumentError("sum is only supported for type KIterable<num>, not ${runtimeType}");
+      throw ArgumentError(
+          "sum is only supported for type KIterable<num>, not ${runtimeType}");
     }
 
     num sum = 0;
@@ -1057,7 +1088,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<KList<T>> windowed(int size, {int step = 1, bool partialWindows = false}) {
+  KList<KList<T>> windowed(int size,
+      {int step = 1, bool partialWindows = false}) {
     final list = this.toList();
     final thisSize = list.size;
     final result = mutableListOf<KList<T>>();
@@ -1073,7 +1105,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false}) {
+  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform,
+      {int step = 1, bool partialWindows = false}) {
     assert(transform != null);
     final list = this.toList();
     final thisSize = list.size;
@@ -1090,10 +1123,12 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<KPair<T, R>> zip<R>(KIterable<R> other) => zipTransform(other, (T a, R b) => KPair(a, b));
+  KList<KPair<T, R>> zip<R>(KIterable<R> other) =>
+      zipTransform(other, (T a, R b) => KPair(a, b));
 
   @override
-  KList<V> zipTransform<R, V>(KIterable<R> other, V Function(T a, R b) transform) {
+  KList<V> zipTransform<R, V>(
+      KIterable<R> other, V Function(T a, R b) transform) {
     final first = iterator();
     final second = other.iterator();
     final list = mutableListOf<V>();
@@ -1104,7 +1139,8 @@ abstract class KIterableExtensionsMixin<T> implements KIterableExtension<T>, KIt
   }
 
   @override
-  KList<KPair<T, T>> zipWithNext<R>() => zipWithNextTransform((a, b) => KPair(a, b));
+  KList<KPair<T, T>> zipWithNext<R>() =>
+      zipWithNextTransform((a, b) => KPair(a, b));
 
   @override
   KList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
@@ -1132,7 +1168,8 @@ class _MovingSubList<T> {
 
   void move(int fromIndex, int toIndex) {
     if (fromIndex < 0 || toIndex > list.size) {
-      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: ${list.size}");
+      throw IndexOutOfBoundsException(
+          "fromIndex: $fromIndex, toIndex: $toIndex, size: ${list.size}");
     }
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");

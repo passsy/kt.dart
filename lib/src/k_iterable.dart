@@ -51,7 +51,8 @@ abstract class KIterableExtension<T> {
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KMap<K, V> associateBy<K, V>(K Function(T) keySelector, [V Function(T) valueTransform]);
+  KMap<K, V> associateBy<K, V>(K Function(T) keySelector,
+      [V Function(T) valueTransform]);
 
   /**
    * Populates and returns the [destination] mutable map with key-value pairs,
@@ -60,7 +61,8 @@ abstract class KIterableExtension<T> {
    *
    * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
    */
-  M associateByTo<K, V, M extends KMutableMap<K, V>>(M destination, K Function(T) keySelector,
+  M associateByTo<K, V, M extends KMutableMap<K, V>>(
+      M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]);
 
   /**
@@ -69,7 +71,8 @@ abstract class KIterableExtension<T> {
    *
    * If any of two pairs would have the same key the last one gets added to the map.
    */
-  M associateTo<K, V, M extends KMutableMap<K, V>>(M destination, KPair<K, V> Function(T) transform);
+  M associateTo<K, V, M extends KMutableMap<K, V>>(
+      M destination, KPair<K, V> Function(T) transform);
 
   /**
    * Returns a [Map] where keys are elements from the given collection and values are
@@ -87,7 +90,8 @@ abstract class KIterableExtension<T> {
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
    */
-  M associateWithTo<V, M extends KMutableMap<T, V>>(M destination, V Function(T) valueSelector);
+  M associateWithTo<V, M extends KMutableMap<T, V>>(
+      M destination, V Function(T) valueSelector);
 
   /**
    * Returns an average value produced by [selector] function applied to each element in the collection.
@@ -188,7 +192,8 @@ abstract class KIterableExtension<T> {
    * @param [predicate] function that takes the index of an element and the element itself
    * and returns the result of predicate evaluation on the element.
    */
-  C filterIndexedTo<C extends KMutableCollection<T>>(C destination, bool Function(int index, T) predicate);
+  C filterIndexedTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(int index, T) predicate);
 
   /**
    * Returns a list containing all elements that are instances of specified type parameter R.
@@ -213,12 +218,14 @@ abstract class KIterableExtension<T> {
   /**
    * Appends all elements not matching the given [predicate] to the given [destination].
    */
-  C filterNotTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+  C filterNotTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(T) predicate);
 
   /**
    * Appends all elements matching the given [predicate] to the given [destination].
    */
-  C filterTo<C extends KMutableCollection<T>>(C destination, bool Function(T) predicate);
+  C filterTo<C extends KMutableCollection<T>>(
+      C destination, bool Function(T) predicate);
 
   /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.
@@ -256,7 +263,8 @@ abstract class KIterableExtension<T> {
   /**
    * Appends all elements yielded from results of [transform] function being invoked on each element of original collection, to the given [destination].
    */
-  C flatMapTo<R, C extends KMutableCollection<R>>(C destination, KIterable<R> Function(T) transform);
+  C flatMapTo<R, C extends KMutableCollection<R>>(
+      C destination, KIterable<R> Function(T) transform);
 
   /**
    * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
@@ -298,7 +306,8 @@ abstract class KIterableExtension<T> {
    *
    * The returned map preserves the entry iteration order of the keys produced from the original collection.
    */
-  KMap<K, KList<V>> groupByTransform<K, V>(K Function(T) keySelector, V Function(T) valueTransform);
+  KMap<K, KList<V>> groupByTransform<K, V>(
+      K Function(T) keySelector, V Function(T) valueTransform);
 
   /**
    * Groups elements of the original collection by the key returned by the given [keySelector] function
@@ -306,7 +315,8 @@ abstract class KIterableExtension<T> {
    *
    * @return The [destination] map.
    */
-  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(M destination, K Function(T) keySelector);
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
+      M destination, K Function(T) keySelector);
 
   /**
    * Groups values returned by the [valueTransform] function applied to each element of the original collection
@@ -400,7 +410,8 @@ abstract class KIterableExtension<T> {
    * @param [transform] function that takes the index of an element and the element itself
    * and returns the result of the transform applied to the element.
    */
-  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform);
+  C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(int index, T) transform);
 
   /**
    * Applies the given [transform] function to each element and its index in the original collection
@@ -408,7 +419,8 @@ abstract class KIterableExtension<T> {
    * @param [transform] function that takes the index of an element and the element itself
    * and returns the result of the transform applied to the element.
    */
-  C mapIndexedTo<R, C extends KMutableCollection<R>>(C destination, R Function(int index, T) transform);
+  C mapIndexedTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(int index, T) transform);
 
   /**
    * Returns a list containing the results of applying the given [transform] function
@@ -420,13 +432,15 @@ abstract class KIterableExtension<T> {
    * Applies the given [transform] function to each element in the original collection
    * and appends only the non-null results to the given [destination].
    */
-  C mapNotNullTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
+  C mapNotNullTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(T) transform);
 
   /**
    * Applies the given [transform] function to each element of the original collection
    * and appends the results to the given [destination].
    */
-  C mapTo<R, C extends KMutableCollection<R>>(C destination, R Function(T) transform);
+  C mapTo<R, C extends KMutableCollection<R>>(
+      C destination, R Function(T) transform);
 
   /**
    * Returns the largest element or `null` if there are no elements.
@@ -661,7 +675,8 @@ abstract class KIterableExtension<T> {
    * @param [partialWindows] controls whether or not to keep partial windows in the end if any,
    * by default `false` which means partial windows won't be preserved
    */
-  KList<KList<T>> windowed(int size, {int step = 1, bool partialWindows = false});
+  KList<KList<T>> windowed(int size,
+      {int step = 1, bool partialWindows = false});
 
   /**
    * Returns a list of results of applying the given [transform] function to
@@ -674,7 +689,8 @@ abstract class KIterableExtension<T> {
    * @param [partialWindows] controls whether or not to keep partial windows in the end if any,
    * by default `false` which means partial windows won't be preserved
    */
-  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform, {int step = 1, bool partialWindows = false});
+  KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform,
+      {int step = 1, bool partialWindows = false});
 
   /**
    * Returns a list of pairs built from the elements of `this` collection and [other] collection with the same index.
@@ -687,7 +703,8 @@ abstract class KIterableExtension<T> {
    * using the provided [transform] function applied to each pair of elements.
    * The returned list has length of the shortest collection.
    */
-  KList<V> zipTransform<R, V>(KIterable<R> other, V Function(T a, R b) transform);
+  KList<V> zipTransform<R, V>(
+      KIterable<R> other, V Function(T a, R b) transform);
 
   /**
    * Returns a list of pairs of each two adjacent elements in this collection.

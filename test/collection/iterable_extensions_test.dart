@@ -39,7 +39,8 @@ void main() {
 
     test("distinct by", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
-      expect(list.distinctBy((it) => it.length), equals(listOf(["paul", "peter"])));
+      expect(list.distinctBy((it) => it.length),
+          equals(listOf(["paul", "peter"])));
     });
   });
 
@@ -71,12 +72,14 @@ void main() {
   group("filter", () {
     test("filter", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
-      expect(list.filter((it) => it.contains("a")), equals(listOf(["paul", "lisa"])));
+      expect(list.filter((it) => it.contains("a")),
+          equals(listOf(["paul", "lisa"])));
     });
 
     test("filterNot", () {
       final list = listOf(["paul", "peter", "john", "lisa"]);
-      expect(list.filterNot((it) => it.contains("a")), equals(listOf(["peter", "john"])));
+      expect(list.filterNot((it) => it.contains("a")),
+          equals(listOf(["peter", "john"])));
     });
 
     test("filterNotNull", () {
@@ -86,14 +89,16 @@ void main() {
 
     test("filterIsInstance", () {
       final list = listOf<Object>(["paul", null, "john", 1, "lisa"]);
-      expect(list.filterIsInstance<String>(), equals(listOf(["paul", "john", "lisa"])));
+      expect(list.filterIsInstance<String>(),
+          equals(listOf(["paul", "john", "lisa"])));
     });
   });
 
   group("flatMap", () {
     test("flatMap int to string", () {
       final list = listOf([1, 2, 3]);
-      expect(list.flatMap((it) => listOf([it, it + 1, it + 2])), listOf([1, 2, 3, 2, 3, 4, 3, 4, 5]));
+      expect(list.flatMap((it) => listOf([it, it + 1, it + 2])),
+          listOf([1, 2, 3, 2, 3, 4, 3, 4, 5]));
     });
   });
 
@@ -175,7 +180,8 @@ void main() {
 
   group("minus", () {
     test("remove list", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).minus(listOf(["max", "john"]));
+      final result = listOf(["paul", "john", "max", "lisa"])
+          .minus(listOf(["max", "john"]));
       expect(result, listOf(["paul", "lisa"]));
     });
 
@@ -185,7 +191,8 @@ void main() {
     });
 
     test("remove one item", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).minusElement("max");
+      final result =
+          listOf(["paul", "john", "max", "lisa"]).minusElement("max");
       expect(result, listOf(["paul", "john", "lisa"]));
     });
   });
@@ -209,7 +216,8 @@ void main() {
     });
 
     test("empty throws", () {
-      expect(() => emptyList<int>().reduce((int acc, it) => it + acc), throwsUnsupportedError);
+      expect(() => emptyList<int>().reduce((int acc, it) => it + acc),
+          throwsUnsupportedError);
     });
   });
 
@@ -250,14 +258,16 @@ void main() {
     });
 
     test("sortByDescending", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).sortedByDescending(lastChar);
+      final result =
+          listOf(["paul", "john", "max", "lisa"]).sortedByDescending(lastChar);
       expect(result, listOf(["max", "john", "paul", "lisa"]));
     });
   });
 
   group("subtract", () {
     test("remove one item", () {
-      final result = listOf(["paul", "john", "max", "lisa"]).subtract(listOf(["max"]));
+      final result =
+          listOf(["paul", "john", "max", "lisa"]).subtract(listOf(["max"]));
       expect(result, setOf(["paul", "john", "lisa"]));
     });
   });
@@ -330,7 +340,8 @@ void main() {
           ]));
     });
     test("partial doesn't crash on empty list", () {
-      expect(emptyList().windowed(3, step: 2, partialWindows: true), emptyList());
+      expect(
+          emptyList().windowed(3, step: 2, partialWindows: true), emptyList());
     });
     test("window can be smaller than length, emitting partial only", () {
       expect(
@@ -343,15 +354,21 @@ void main() {
 
   group("windowedTransform", () {
     test("default step", () {
-      expect(listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()), listOf([6, 9, 12]));
+      expect(listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()),
+          listOf([6, 9, 12]));
     });
 
     test("larger step", () {
-      expect(listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum(), step: 2), listOf([6, 12]));
+      expect(
+          listOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum(), step: 2),
+          listOf([6, 12]));
     });
 
     test("step doesn't fit length", () {
-      expect(listOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(), step: 2), listOf([6, 12]));
+      expect(
+          listOf([1, 2, 3, 4, 5, 6])
+              .windowedTransform(3, (l) => l.sum(), step: 2),
+          listOf([6, 12]));
     });
 
     test("window can be smaller than length", () {
@@ -359,14 +376,22 @@ void main() {
     });
 
     test("step doesn't fit length, partial", () {
-      expect(listOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true),
+      expect(
+          listOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(),
+              step: 2, partialWindows: true),
           listOf([6, 12, 11]));
     });
     test("partial doesn't crash on empty list", () {
-      expect(emptyList().windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true), emptyList());
+      expect(
+          emptyList().windowedTransform(3, (l) => l.sum(),
+              step: 2, partialWindows: true),
+          emptyList());
     });
     test("window can be smaller than length, emitting partial only", () {
-      expect(listOf([1]).windowedTransform(3, (l) => l.sum(), step: 2, partialWindows: true), listOf([1]));
+      expect(
+          listOf([1]).windowedTransform(3, (l) => l.sum(),
+              step: 2, partialWindows: true),
+          listOf([1]));
     });
   });
 
@@ -376,12 +401,14 @@ void main() {
       expect(result, listOf([KPair(1, "a"), KPair(2, "b")]));
     });
     test("transform", () {
-      final result = listOf([1, 2, 3, 4, 5]).zipTransform(listOf(["a", "b"]), (a, b) => "$a$b");
+      final result = listOf([1, 2, 3, 4, 5])
+          .zipTransform(listOf(["a", "b"]), (a, b) => "$a$b");
       expect(result, listOf(["1a", "2b"]));
     });
 
     test("with next", () {
-      final result = listOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
+      final result =
+          listOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
       expect(result, listOf([3, 5, 7, 9]));
     });
   });

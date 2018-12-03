@@ -1,7 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_map_mutable.dart';
 
-abstract class KMutableMapExtensionsMixin<K, V> implements KMutableMapExtension<K, V>, KMutableMap<K, V> {
+abstract class KMutableMapExtensionsMixin<K, V>
+    implements KMutableMapExtension<K, V>, KMutableMap<K, V> {
   @override
   V getOrPut(K key, V Function() defaultValue) {
     final value = get(key);
