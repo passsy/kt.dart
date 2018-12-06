@@ -100,6 +100,16 @@ abstract class KListExtension<T> {
   T elementAtOrNull(int index);
 
   /**
+   * Returns first element.
+   *
+   * Use [predicate] to return the first element matching the given [predicate]
+   *
+   * @throws [NoSuchElementException] if the collection is empty.
+   */
+  @nonNull
+  T first([bool Function(T) predicate]);
+
+  /**
    * Accumulates value starting with [initial] value and applying [operation] from right to left to each element and current accumulator value.
    */
   R foldRight<R>(R initial, R Function(T, R acc) operation);

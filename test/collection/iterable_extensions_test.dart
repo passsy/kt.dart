@@ -94,6 +94,18 @@ void main() {
     });
   });
 
+  group("first", () {
+    test("first throws for no elements", () {
+      expect(() => emptySet().first(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+
+    test("finds nothing throws", () {
+      expect(() => setOf<String>(["a"]).first((it) => it == "b"),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+  });
+
   group("flatMap", () {
     test("flatMap int to string", () {
       final list = listOf([1, 2, 3]);
