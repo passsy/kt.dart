@@ -151,9 +151,16 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   });
 
   group("first", () {
-    test("get first element", () {
-      expect(setOf(["a", "b"]).first(), "a");
-    });
+    if (ordered) {
+      test("get first element", () {
+        expect(iterableOf(["a", "b"]).first(), "a");
+      });
+    } else {
+      test("get random first element", () {
+        var result = iterableOf(["a", "b"]).first();
+        expect(result == "a" || result == "b", true);
+      });
+    }
 
     test("first throws for no elements", () {
       expect(() => emptyIterable().first(),
@@ -161,7 +168,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
 
     test("finds nothing throws", () {
-      expect(() => setOf<String>(["a"]).first((it) => it == "b"),
+      expect(() => iterableOf<String>(["a"]).first((it) => it == "b"),
           throwsA(TypeMatcher<NoSuchElementException>()));
     });
   });
