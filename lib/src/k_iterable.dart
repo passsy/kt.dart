@@ -45,14 +45,24 @@ abstract class KIterableExtension<T> {
 
   /**
    * Returns a [Map] containing the elements from the given collection indexed by the key
+   * returned from [keySelector] function applied to each element.
+   *
+   * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
+   *
+   * The returned map preserves the entry iteration order of the original collection.
+   */
+  KMap<K, T> associateBy<K>(K Function(T) keySelector);
+
+  /**
+   * Returns a [Map] containing the elements from the given collection indexed by the key
    * returned from [keySelector] function applied to each element. The element can be transformed with [valueTransform].
    *
    * If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KMap<K, V> associateBy<K, V>(K Function(T) keySelector,
-      [V Function(T) valueTransform]);
+  KMap<K, V> associateByTransform<K, V>(
+      K Function(T) keySelector, V Function(T) valueTransform);
 
   /**
    * Populates and returns the [destination] mutable map with key-value pairs,

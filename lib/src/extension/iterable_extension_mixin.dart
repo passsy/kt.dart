@@ -40,7 +40,12 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   @override
-  KMap<K, V> associateBy<K, V>(K Function(T) keySelector,
+  KMap<K, T> associateBy<K>(K Function(T) keySelector) {
+    return associateByTo(linkedMapOf<K, T>(), keySelector, null);
+  }
+
+  @override
+  KMap<K, V> associateByTransform<K, V>(K Function(T) keySelector,
       [V Function(T) valueTransform]) {
     return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
   }
@@ -49,7 +54,6 @@ abstract class KIterableExtensionsMixin<T>
   M associateByTo<K, V, M extends KMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]) {
-    assert(valueTransform != null);
     for (var element in iter) {
       var key = keySelector(element);
       var value = valueTransform == null ? element : valueTransform(element);
