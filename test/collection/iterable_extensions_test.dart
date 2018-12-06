@@ -17,6 +17,49 @@ void main() {
     });
   });
 
+  group('associate', () {
+    test("associate", () {
+      final list = listOf(["a", "b", "c"]);
+      var result = list.associate((it) => KPair(it.toUpperCase(), it));
+      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      expect(result, equals(expected));
+    });
+    test("associate on empty map", () {
+      final list = emptyList<String>();
+      var result = list.associateWith((it) => it.toUpperCase());
+      expect(result, equals(emptyMap()));
+    });
+  });
+
+  group('associateBy', () {
+    test("associateBy", () {
+      final list = listOf(["a", "b", "c"]);
+      var result = list.associateBy((it) => it.toUpperCase());
+      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      expect(result, equals(expected));
+    });
+    test("associateBy on empty map", () {
+      final list = emptyList<String>();
+      var result = list.associateWith((it) => it.toUpperCase());
+      expect(result, equals(emptyMap()));
+    });
+  });
+
+  group('associateByTransform', () {
+    test("associateByTransform", () {
+      final list = listOf(["a", "bb", "ccc"]);
+      var result = list.associateByTransform(
+          (it) => it.length, (it) => it.toUpperCase());
+      var expected = mapOf({1: "A", 2: "BB", 3: "CCC"});
+      expect(result, equals(expected));
+    });
+    test("associateByTransform on empty map", () {
+      final list = emptyList<String>();
+      var result = list.associateWith((it) => it.toUpperCase());
+      expect(result, equals(emptyMap()));
+    });
+  });
+
   group('associateWith', () {
     test("associateWith", () {
       final list = listOf(["a", "b", "c"]);
