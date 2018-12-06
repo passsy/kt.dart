@@ -3,7 +3,7 @@
 [![Pub](https://img.shields.io/pub/v/dart_kollection.svg)](https://pub.dartlang.org/packages/dart_kollection)
 
 
-Brings Kotlins collection API to Dart with over 120+ operators which makes it easier to work with `Lists`, `Maps` and `Sets`.
+Brings Kotlin's collections implementation to Dart with over 120+ operators which makes it easier to work with `Lists`, `Maps` and `Sets`.
 The collections are by default immutable, but they all have a mutable version as well.
 
 
@@ -52,8 +52,8 @@ The collections are by default immutable, but they all have a mutable version as
     1: "Bulbasaur",
     2: "Ivysaur",
   });
-  pokemon[1] = "Dito";
-  print(pokemon); // {1=Dito, 2=Ivysaur}
+  pokemon[1] = "Ditto";
+  print(pokemon); // {1=Ditto, 2=Ivysaur}
 
   /**
    * Tons of useful operators which *should* be part of the dart std lib
@@ -71,10 +71,10 @@ The collections are by default immutable, but they all have a mutable version as
 
 ## Motivation
 
-Dart already has a great API for collections. But `List` in dart has some disadvantages compared to a `List` in Kotlin which this problems tries to solve. In a nutshell Darts `List` is better comparable to Kotlins `Array`:
-- Darts `List` quals only compares identities, not the content of the `List` which is hard to understand for newcomers.
-- Darts `List` is mutable by default, offering mutation methods even for immutable lists which crash at runtime. Those errors could be easily preventable with correct types.
-- Darts `Iterable` methods are uncommon. Most languages support `flatMap` and `filter` whereas dart offers `expand` and `where`. 
+Although Dart already has a great implementation for collections, its `List` has some disadvantages compared to a `List` in Kotlin which this package tries to solve. In a nutshell, Dart's `List` is better comparable to Kotlin's `Array`:
+- Dart's `List.equals` only compares identities, not the content of the `List` which is hard to understand for newcomers.
+- Dart's `List` is mutable by default, offering mutation methods even for immutable lists which crash at runtime. Those errors could easily be prevented with correct types.
+- Dart's `Iterable` methods are uncommon. Most languages support `flatMap` and `filter` whereas Dart offers `expand` and `where`. 
 
 Also Darts `Iterable` methods aren't extendable. 
 The only solution to bring kotlins cool operators to Dart is to create my own collections.
@@ -82,7 +82,7 @@ The dart team is already working on [extension functions](https://github.com/dar
 Until they're ready I already wanted to have dart code ready to be ported to extension functions.
 
 But even when dart will support extension functions, this project offers a high level collection API which currently do not exist in Dart. 
-When Dart `List` is the counterpart to Kotlins `Array`, Kollections `KList` is the counterpart to Kotlins `List`.
+Where Dart's `List` is the counterpart to Kotlin's `Array`, Kollections' `KList` is the counterpart to Kotlin's `List`.
 
 ## Supported Types
 
