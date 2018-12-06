@@ -59,7 +59,7 @@ class DartMutableList<T>
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KMutableIterator<T> iterator() => DartListIterator(_list, 0);
+  KMutableIterator<T> iterator() => InterOpKListIterator(_list, 0);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);
@@ -67,7 +67,7 @@ class DartMutableList<T>
   @override
   KMutableListIterator<T> listIterator([int index = 0]) {
     if (index == null) throw ArgumentError("index can't be null");
-    return DartListIterator(_list, index);
+    return InterOpKListIterator(_list, index);
   }
 
   @override
@@ -80,7 +80,7 @@ class DartMutableList<T>
   }
 
   @override
-  bool addAll(KCollection<T> elements) {
+  bool addAll(KIterable<T> elements) {
     _list.addAll(elements.iter);
     return true;
   }
@@ -113,7 +113,7 @@ class DartMutableList<T>
   }
 
   @override
-  bool removeAll(KCollection<T> elements) {
+  bool removeAll(KIterable<T> elements) {
     var changed = false;
     for (var value in elements.iter) {
       changed |= _list.remove(value);
@@ -122,7 +122,7 @@ class DartMutableList<T>
   }
 
   @override
-  bool retainAll(KCollection<T> elements) {
+  bool retainAll(KIterable<T> elements) {
     _list.removeWhere((it) => !elements.contains(it));
     return true;
   }

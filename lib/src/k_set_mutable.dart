@@ -19,13 +19,13 @@ abstract class KMutableSet<T> implements KSet<T>, KMutableCollection<T> {
 
   // Bulk Modification Operations
   @override
-  bool addAll(KCollection<T> elements);
+  bool addAll(KIterable<T> elements);
 
   @override
-  bool removeAll(KCollection<T> elements);
+  bool removeAll(KIterable<T> elements);
 
   @override
-  bool retainAll(KCollection<T> elements);
+  bool retainAll(KIterable<T> elements);
 
   @override
   void clear();

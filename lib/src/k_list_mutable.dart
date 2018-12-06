@@ -27,7 +27,7 @@ abstract class KMutableList<T>
    * @return `true` if the list was changed as the result of the operation.
    */
   @override
-  bool addAll(KCollection<T> elements);
+  bool addAll(KIterable<T> elements);
 
   /**
    * Inserts all of the elements in the specified collection [elements] into this list at the specified [index].
@@ -37,10 +37,10 @@ abstract class KMutableList<T>
   bool addAllAt(int index, KCollection<T> elements);
 
   @override
-  bool removeAll(KCollection<T> elements);
+  bool removeAll(KIterable<T> elements);
 
   @override
-  bool retainAll(KCollection<T> elements);
+  bool retainAll(KIterable<T> elements);
 
   @override
   void clear();

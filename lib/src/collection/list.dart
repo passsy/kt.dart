@@ -56,7 +56,7 @@ class DartList<T>
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KIterator<T> iterator() => DartIterator(_list, 0);
+  KIterator<T> iterator() => InterOpKIterator(_list.iterator);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);
@@ -64,7 +64,7 @@ class DartList<T>
   @override
   KListIterator<T> listIterator([int index = 0]) {
     if (index == null) throw ArgumentError("index can't be null");
-    return DartListIterator(_list, index);
+    return InterOpKListIterator(_list, index);
   }
 
   @override

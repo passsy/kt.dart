@@ -36,6 +36,20 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   T elementAtOrNull(int index) => getOrNull(index);
 
   @override
+  T first([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (isEmpty()) throw NoSuchElementException("List is empty.");
+      return get(0);
+    } else {
+      for (var element in iter) {
+        if (predicate(element)) return element;
+      }
+      throw NoSuchElementException(
+          "Collection contains no element matching the predicate.");
+    }
+  }
+
+  @override
   R foldRight<R>(R initial, R Function(T, R acc) operation) {
     if (isEmpty()) return initial;
 

@@ -34,21 +34,21 @@ abstract class KMutableCollection<T>
    *
    * @return `true` if any of the specified elements was added to the collection, `false` if the collection was not modified.
    */
-  bool addAll(KCollection<T> elements);
+  bool addAll(KIterable<T> elements);
 
   /**
    * Removes all of this collection's elements that are also contained in the specified collection.
    *
    * @return `true` if any of the specified elements was removed from the collection, `false` if the collection was not modified.
    */
-  bool removeAll(KCollection<T> elements);
+  bool removeAll(KIterable<T> elements);
 
   /**
    * Retains only the elements in this collection that are contained in the specified collection.
    *
    * @return `true` if any element was removed from the collection, `false` if the collection was not modified.
    */
-  bool retainAll(KCollection<T> elements);
+  bool retainAll(KIterable<T> elements);
 
   /**
    * Removes all elements from this collection.

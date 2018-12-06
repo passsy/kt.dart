@@ -1,12 +1,24 @@
-class DartEmptyIterable<T> extends Iterable<T> {
+import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/collection/dart_iterable.dart';
+import 'package:dart_kollection/src/collection/iterator.dart';
+import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
+
+class EmptyIterable<T> extends KIterable<T> with KIterableExtensionsMixin<T> {
   @override
-  Iterator<T> get iterator => DartEmptyIterator();
+  Iterable<T> get iter => EmptyDartIterable<T>();
+
+  @override
+  KIterator<T> iterator() => InterOpKIterator(iter.iterator);
 }
 
-class DartEmptyIterator<T> extends Iterator<T> {
-  @override
-  T get current => null;
+class DartIterable<T> extends KIterable<T> with KIterableExtensionsMixin<T> {
+  Iterable<T> _iterable;
+
+  DartIterable(this._iterable);
 
   @override
-  bool moveNext() => false;
+  Iterable<T> get iter => _iterable;
+
+  @override
+  KIterator<T> iterator() => InterOpKIterator(_iterable.iterator);
 }
