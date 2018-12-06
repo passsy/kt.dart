@@ -360,7 +360,7 @@ abstract class KIterableExtensionsMixin<T>
       }
       final i = iterator();
       if (!i.hasNext()) {
-        throw NoSuchElementException("Collection is empty");
+        return null;
       }
       return i.next();
     } else {
