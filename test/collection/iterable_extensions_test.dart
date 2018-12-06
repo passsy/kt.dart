@@ -46,6 +46,14 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf(["abc", "bcd", "cde"]);
       expect(iterable.any((e) => e.contains("x")), isFalse);
     });
+    test("any without args returns true with items", () {
+      final iterable = iterableOf(["abc", "bcd", "cde"]);
+      expect(iterable.any(), isTrue);
+    });
+    test("any without args returns false for no items", () {
+      final iterable = emptyIterable();
+      expect(iterable.any(), isFalse);
+    });
   });
 
   group('associate', () {

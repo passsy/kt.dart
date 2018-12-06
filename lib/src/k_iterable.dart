@@ -25,6 +25,8 @@ abstract class KIterableExtension<T> {
 
   /**
    * Returns `true` if at least one element matches the given [predicate].
+   *
+   * Returns `true` if collection has at least one element when no [predicate] is provided
    */
   bool any([bool Function(T element) predicate]);
 
