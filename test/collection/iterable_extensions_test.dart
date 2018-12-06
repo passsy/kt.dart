@@ -43,6 +43,12 @@ void main() {
       var result = list.associateWith((it) => it.toUpperCase());
       expect(result, equals(emptyMap()));
     });
+    test("when conflicting keys, use last ", () {
+      final list = listOf(["a", "b", "c"]);
+      var result = list.associateBy((it) => it.length);
+      var expected = mapOf({1: "c"});
+      expect(result, equals(expected));
+    });
   });
 
   group('associateByTransform', () {
