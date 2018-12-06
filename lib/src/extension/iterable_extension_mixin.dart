@@ -329,7 +329,6 @@ abstract class KIterableExtensionsMixin<T>
   @override
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (this is KList) return (this as KList).first();
       final i = iterator();
       if (!i.hasNext()) {
         throw NoSuchElementException("Collection is empty");

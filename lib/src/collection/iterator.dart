@@ -1,12 +1,40 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_iterator_mutable.dart';
 
-class DartIterator<T> implements KMutableIterator<T> {
+class InterOpKIterator<T> implements KIterator<T> {
+  final Iterator<T> iterator;
+  T nextValue;
+  T lastReturned;
+
+  InterOpKIterator(this.iterator) {
+    lastReturned = null;
+    iterator.moveNext();
+    nextValue = iterator.current;
+  }
+
+  @override
+  bool hasNext() {
+    return nextValue != null;
+  }
+
+  @override
+  T next() {
+    var e = nextValue;
+    if (e == null) throw NoSuchElementException();
+    iterator.moveNext();
+    nextValue = iterator.current;
+    lastReturned = e;
+    return e;
+  }
+}
+
+class InterOpKListIterator<T>
+    implements KListIterator<T>, KMutableListIterator<T> {
   int cursor; // index of next element to return
   int lastRet = -1; // index of last element returned; -1 if no such
   List<T> list;
 
-  DartIterator(this.list, int index) : this.cursor = index {
+  InterOpKListIterator(this.list, int index) : this.cursor = index {
     if (index < 0 || index > list.length) {
       throw IndexOutOfBoundsException("index: $index, size: $list.length");
     }
@@ -34,11 +62,6 @@ class DartIterator<T> implements KMutableIterator<T> {
     throw UnimplementedError(
         "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
   }
-}
-
-class DartListIterator<T> extends DartIterator<T>
-    implements KListIterator<T>, KMutableListIterator<T> {
-  DartListIterator(List<T> list, int index) : super(list, index);
 
   @override
   bool hasPrevious() => cursor != 0;

@@ -1,5 +1,6 @@
 import 'collection/iterable_extensions_test.dart' as iterable_extensions_test;
 import 'collection/list_empty_test.dart' as list_empty_test;
+import 'collection/list_extensions_test.dart' as list_extensions_test;
 import 'collection/list_mutable_extensions_test.dart'
     as list_mutable_extensions_test;
 import 'collection/list_mutable_test.dart' as list_mutable_test;
@@ -16,13 +17,10 @@ import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
 
 main() {
-  collections_test.main();
-  comparisons_test.main();
-  exceptions_test.main();
-  tuples_test.main();
   iterable_extensions_test.main();
-  list_mutable_extensions_test.main();
   list_empty_test.main();
+  list_extensions_test.main();
+  list_mutable_extensions_test.main();
   list_mutable_test.main();
   list_test.main();
   map_empty_test.main();
@@ -30,4 +28,8 @@ main() {
   map_mutable_extensions_test.main();
   map_test.main();
   set_test.main();
+  collections_test.main();
+  comparisons_test.main();
+  exceptions_test.main();
+  tuples_test.main();
 }

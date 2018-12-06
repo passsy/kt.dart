@@ -66,7 +66,7 @@ class DartMutableSet<T>
   }
 
   @override
-  bool addAll(KCollection<T> elements) {
+  bool addAll(KIterable<T> elements) {
     var oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
@@ -79,7 +79,7 @@ class DartMutableSet<T>
   bool remove(T element) => _set.remove(element);
 
   @override
-  bool removeAll(KCollection<T> elements) {
+  bool removeAll(KIterable<T> elements) {
     final oldSize = size;
     for (var value in elements.iter) {
       _set.remove(value);
@@ -88,7 +88,7 @@ class DartMutableSet<T>
   }
 
   @override
-  bool retainAll(KCollection<T> elements) {
+  bool retainAll(KIterable<T> elements) {
     final oldSize = size;
     _set.removeWhere((it) => !elements.contains(it));
     return oldSize != size;

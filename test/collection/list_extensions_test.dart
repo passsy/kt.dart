@@ -3,6 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group("first", () {
+    test("get first element", () {
+      expect(listOf(["a", "b"]).first(), "a");
+    });
+
     test("first throws for no elements", () {
       expect(() => emptySet().first(),
           throwsA(TypeMatcher<NoSuchElementException>()));
