@@ -222,6 +222,27 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("firstOrNull", () {
+    if (ordered) {
+      test("get first element", () {
+        expect(iterableOf(["a", "b"]).firstOrNull(), "a");
+      });
+    } else {
+      test("get random first element", () {
+        var result = iterableOf(["a", "b"]).firstOrNull();
+        expect(result == "a" || result == "b", true);
+      });
+    }
+
+    test("firstOrNull returns null for empty", () {
+      expect(emptyIterable().firstOrNull(), isNull);
+    });
+
+    test("finds nothing throws", () {
+      expect(iterableOf<String>(["a"]).firstOrNull((it) => it == "b"), isNull);
+    });
+  });
+
   group("flatMap", () {
     test("flatMap int to string", () {
       final iterable = iterableOf([1, 2, 3]);
