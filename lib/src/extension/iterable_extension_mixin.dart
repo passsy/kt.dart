@@ -591,7 +591,7 @@ abstract class KIterableExtensionsMixin<T>
     if (predicate == null) {
       if (this is KList) {
         var list = (this as KList);
-        return list.isEmpty() ? null : list.get(0);
+        return list.isEmpty() ? null : list.get(list.lastIndex);
       } else {
         final i = iterator();
         if (!i.hasNext()) {
