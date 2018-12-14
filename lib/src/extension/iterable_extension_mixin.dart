@@ -625,12 +625,18 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<R> mapIndexed<R>(R Function(int index, T) transform) {
-    return mapIndexedTo(mutableListOf<T>(), transform);
+    var mapped = mapIndexedTo(mutableListOf<R>(), transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return mapped;
   }
 
   @override
   KList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
-    return mapIndexedNotNullTo(mutableListOf<T>(), transform);
+    var mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return mapped;
   }
 
   @override

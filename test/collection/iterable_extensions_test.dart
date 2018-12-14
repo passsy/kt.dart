@@ -326,6 +326,14 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("map", () {
+    test("map int to string", () {
+      final iterable = iterableOf([1, 2, 3]);
+      expect(iterable.map((it) => it.toString()).toList(),
+          listOf(["1", "2", "3"]));
+    });
+  });
+
   group("mapNotNull", () {
     test("mapNotNull int to string", () {
       final iterable = iterableOf([1, null, 2, null, 3]);
@@ -333,6 +341,67 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           listOf(["1", "2", "3"]));
     });
   });
+
+  group("mapTo", () {
+    test("mapTo int to string", () {
+      final list = mutableListOf<String>();
+      final iterable = iterableOf([1, 2, 3]);
+      iterable.mapTo(list, (it) => it.toString());
+
+      expect(list, listOf(["1", "2", "3"]));
+    });
+  });
+
+  if (ordered) {
+    group("mapIndexedTo", () {
+      test("mapIndexedTo int to string", () {
+        final list = mutableListOf<String>();
+        final iterable = iterableOf(["a", "b", "c"]);
+        iterable.mapIndexedTo(list, (index, it) => "$index$it");
+
+        expect(list, listOf(["0a", "1b", "2c"]));
+      });
+    });
+  }
+
+  if (ordered) {
+    group("mapIndexed", () {
+      test("mapIndexed int to string", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        final result = iterable.mapIndexed((index, it) => "$index$it");
+
+        expect(result, listOf(["0a", "1b", "2c"]));
+      });
+    });
+  }
+
+  if (ordered) {
+    group("mapIndexedNotNull", () {
+      test("mapIndexedNotNull int to string", () {
+        final iterable = iterableOf(["a", null, "b", "c"]);
+        expect(
+            iterable.mapIndexedNotNull((index, it) {
+              if (it == null) return null;
+              return "$index$it";
+            }).toList(),
+            listOf(["0a", "2b", "3c"]));
+      });
+    });
+  }
+
+  if (ordered) {
+    group("mapIndexedNotNull", () {
+      test("mapIndexedNotNull int to string", () {
+        final set = linkedSetOf<String>();
+        final iterable = iterableOf(["a", null, "b", "c"]);
+        iterable.mapIndexedNotNullTo(set, (index, it) {
+          if (it == null) return null;
+          return "$index$it";
+        }).toList();
+        expect(set, setOf(["0a", "2b", "3c"]));
+      });
+    });
+  }
 
   group("max", () {
     test("gets max value", () {
