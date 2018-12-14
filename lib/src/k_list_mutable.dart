@@ -55,6 +55,11 @@ abstract class KMutableList<T>
   T set(int index, T element);
 
   /**
+   * Replaces the element at the specified position in this list with the specified element.
+   */
+  void operator []=(int index, T element);
+
+  /**
    * Inserts an element into the list at the specified [index].
    */
   void addAt(int index, T element);

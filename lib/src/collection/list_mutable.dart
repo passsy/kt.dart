@@ -113,6 +113,9 @@ class DartMutableList<T>
   }
 
   @override
+  void operator []=(int index, T element) => set(index, element);
+
+  @override
   bool removeAll(KIterable<T> elements) {
     var changed = false;
     for (var value in elements.iter) {
