@@ -32,7 +32,7 @@ void main() {
 
 void testIterable(KIterable<T> Function<T>() emptyIterable,
     KIterable<T> Function<T>(Iterable<T> iterable) iterableOf,
-    {ordered = true}) {
+    {bool ordered = true}) {
   group('any', () {
     test("matches single", () {
       final iterable = iterableOf(["abc", "bcd", "cde"]);

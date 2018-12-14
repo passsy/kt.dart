@@ -83,6 +83,26 @@ void main() {
       expect(list0.hashCode, isNot(equals(list2.hashCode)));
     });
 
+    test("set", () {
+      final list = mutableListOf([1, 2, 3, 4, 5]);
+      list.set(2, 10);
+      expect(list, listOf([1, 2, 10, 4, 5]));
+      list.set(0, 4);
+      expect(list, listOf([4, 2, 10, 4, 5]));
+      list.set(4, 1);
+      expect(list, listOf([4, 2, 10, 4, 1]));
+    });
+
+    test("set operator", () {
+      final list = mutableListOf([1, 2, 3, 4, 5]);
+      list[2] = 10;
+      expect(list, listOf([1, 2, 10, 4, 5]));
+      list[0] = 4;
+      expect(list, listOf([4, 2, 10, 4, 5]));
+      list[4] = 1;
+      expect(list, listOf([4, 2, 10, 4, 1]));
+    });
+
     test("sublist works ", () {
       final list = mutableListOf(["a", "b", "c"]);
       final subList = list.subList(1, 3);
