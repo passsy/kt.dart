@@ -318,6 +318,50 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("last", () {
+    if (ordered) {
+      test("get last element", () {
+        expect(iterableOf(["a", "b"]).last(), "b");
+      });
+    } else {
+      test("get random last element", () {
+        var result = iterableOf(["a", "b"]).last();
+        expect(result == "a" || result == "b", true);
+      });
+    }
+
+    test("last throws for no elements", () {
+      expect(() => emptyIterable().last(),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+
+    test("finds nothing throws", () {
+      expect(() => iterableOf<String>(["a"]).last((it) => it == "b"),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+  });
+
+  group("lastOrNull", () {
+    if (ordered) {
+      test("get lastOrNull element", () {
+        expect(iterableOf(["a", "b"]).lastOrNull(), "b");
+      });
+    } else {
+      test("get random last element", () {
+        var result = iterableOf(["a", "b"]).lastOrNull();
+        expect(result == "a" || result == "b", true);
+      });
+    }
+
+    test("lastOrNull returns null for empty", () {
+      expect(emptyIterable().lastOrNull(), isNull);
+    });
+
+    test("finds nothing throws", () {
+      expect(iterableOf<String>(["a"]).lastOrNull((it) => it == "b"), isNull);
+    });
+  });
+
   group("map", () {
     test("map int to string", () {
       final iterable = iterableOf([1, 2, 3]);

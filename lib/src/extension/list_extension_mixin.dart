@@ -88,6 +88,7 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   @override
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
+      if (isEmpty()) throw NoSuchElementException("List is empty.");
       return get(lastIndex);
     } else {
       final i = listIterator(size);
