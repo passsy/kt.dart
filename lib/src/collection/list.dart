@@ -34,7 +34,7 @@ class DartList<T>
 
   @override
   bool containsAll(KCollection<T> elements) {
-    return elements.any((it) => !_list.contains(it));
+    return elements.all((it) => _list.contains(it));
   }
 
   @override
