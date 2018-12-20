@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group('basic methods', () {
     test("has no elements", () {
@@ -60,8 +62,8 @@ void main() {
       expect(() => list[null], throwsA(TypeMatcher<ArgumentError>()));
     });
 
-    test("indexOf return element or -1", () {
-      final list = listOf(["a", "b", "c"]);
+    test("indexOf returns first element or -1", () {
+      final list = listOf(["a", "b", "c", "a"]);
 
       expect(list.indexOf(""), equals(-1));
       expect(list.indexOf("a"), equals(0));
@@ -69,6 +71,17 @@ void main() {
       expect(list.indexOf("c"), equals(2));
       expect(list.indexOf("d"), equals(-1));
       expect(list.indexOf(null), equals(-1));
+    });
+
+    test("lastIndexOf returns last element or -1", () {
+      final list = listOf(["a", "b", "c", "a"]);
+
+      expect(list.lastIndexOf(""), equals(-1));
+      expect(list.lastIndexOf("a"), equals(3));
+      expect(list.lastIndexOf("b"), equals(1));
+      expect(list.lastIndexOf("c"), equals(2));
+      expect(list.lastIndexOf("d"), equals(-1));
+      expect(list.lastIndexOf(null), equals(-1));
     });
 
     test("is equals to another list list", () {
@@ -105,21 +118,60 @@ void main() {
     test("sublist throws for illegal ranges", () {
       final list = listOf(["a", "b", "c"]);
 
-      expect(() => list.subList(0, 10),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(6, 10),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(-1, -1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(3, 1), throwsA(TypeMatcher<ArgumentError>()));
-      expect(() => list.subList(2, 10),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(
+          catchException<IndexOutOfBoundsException>(() => list.subList(0, 10))
+              .message,
+          allOf(
+            contains("0"),
+            contains("10"),
+            contains("3"),
+          ));
+      expect(
+          catchException<IndexOutOfBoundsException>(() => list.subList(6, 10))
+              .message,
+          allOf(
+            contains("6"),
+            contains("10"),
+            contains("3"),
+          ));
+      expect(
+          catchException<IndexOutOfBoundsException>(() => list.subList(-1, -1))
+              .message,
+          allOf(
+            contains("-1"),
+            contains("3"),
+          ));
+      expect(
+          catchException<ArgumentError>(() => list.subList(3, 1)).message,
+          allOf(
+            contains("3"),
+            contains("1"),
+          ));
+      expect(
+          catchException<IndexOutOfBoundsException>(() => list.subList(2, 10))
+              .message,
+          allOf(
+            contains("2"),
+            contains("10"),
+            contains("3"),
+          ));
+      expect(catchException<ArgumentError>(() => list.subList(null, 1)).message,
+          contains("fromIndex"));
+      expect(catchException<ArgumentError>(() => list.subList(1, null)).message,
+          contains("toIndex"));
     });
 
     test("access dart list", () {
       List<String> list = listOf<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
+    });
+
+    test("listIterator requires index", () {
+      ArgumentError e =
+          catchException(() => listOf(["a", "b", "c"]).listIterator(null));
+      expect(e.message, contains("index"));
+      expect(e.message, contains("null"));
     });
   });
 }
