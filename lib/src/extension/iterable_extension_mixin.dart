@@ -829,7 +829,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   bool none([bool Function(T) predicate]) {
     if (this is KCollection && (this as KCollection).isEmpty()) return true;
-    if (predicate == null) return false;
+    if (predicate == null) return !iterator().hasNext();
     for (final element in iter) {
       if (predicate(element)) {
         return false;
