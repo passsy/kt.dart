@@ -51,11 +51,6 @@ void main() {
       expect(e, TypeMatcher<IndexOutOfBoundsException>());
     });
 
-    test("start index has to be in range (larger)", () {
-      final i = InterOpKListIterator(["a", "b"], 0);
-      //for (var char in InterOpKIterator()) {}
-    });
-
     test("remove is not implemented", () {
       final i = InterOpKListIterator(["a", "b"], 0);
       final e = catchException(() => i.remove());
