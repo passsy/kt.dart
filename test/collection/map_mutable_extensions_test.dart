@@ -2,6 +2,54 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group("clear", () {
+    test("clear items", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon.clear();
+      expect(pokemon, emptyMap());
+    });
+  });
+
+  group("contains", () {
+    test("contains key", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.containsKey(1), isTrue);
+      expect(pokemon.containsKey(2), isTrue);
+    });
+
+    test("doesn't contain key", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.containsKey(null), isFalse);
+      expect(pokemon.containsKey(-1), isFalse);
+    });
+    test("contains value", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.containsValue("Bulbasaur"), isTrue);
+      expect(pokemon.containsValue("Ivysaur"), isTrue);
+    });
+
+    test("doesn't contain value", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.containsValue(null), isFalse);
+      expect(pokemon.containsValue("other"), isFalse);
+    });
+  });
+
   group("get", () {
     test("get", () {
       final pokemon = mutableMapOf({
@@ -41,6 +89,23 @@ void main() {
         2: "Ivysaur",
       });
       expect(() => pokemon.getValue(3), throwsException);
+    });
+  });
+
+  group("getOrDefault", () {
+    test("get", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.getOrDefault(1, "Ditto"), equals("Bulbasaur"));
+    });
+    test("return default", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.getOrDefault(0, "Ditto"), equals("Ditto"));
     });
   });
 
@@ -142,6 +207,57 @@ void main() {
       pokemon.putIfAbsent(1, "Mew");
       expect(pokemon.size, 2);
       expect(pokemon[1], "Mew");
+    });
+  });
+
+  group("removeMapping", () {
+    test("remove", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.removeMapping(2, "Ivysaur"), isTrue);
+      expect(pokemon, mapOf({1: "Bulbasaur"}));
+    });
+
+    test("don't remove when key doesn't match", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.removeMapping(52, "Ivysaur"), isFalse);
+      expect(pokemon.size, equals(2));
+    });
+
+    test("don't remove when value doesn't match", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.removeMapping(2, "Ditto"), isFalse);
+      expect(pokemon.size, equals(2));
+    });
+  });
+
+  group("values", () {
+    test("returns values", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.values, listOf(["Bulbasaur", "Ivysaur"]));
+    });
+    test("empty", () {
+      expect(mutableListOf(), emptyList());
+    });
+
+    test("values with null", () {
+      final pokemon = mutableMapOf({
+        0: null,
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      expect(pokemon.values, listOf([null, "Bulbasaur", "Ivysaur"]));
     });
   });
 }
