@@ -67,7 +67,7 @@ class InterOpKListIterator<T>
   bool hasPrevious() => cursor != 0;
 
   @override
-  int nextIndex() => cursor;
+  int nextIndex() => cursor + 1 > list.length ? list.length : cursor + 1;
 
   @override
   T previous() {

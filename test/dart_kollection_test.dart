@@ -1,5 +1,6 @@
 import 'collection/collection_test.dart' as collection_test;
 import 'collection/iterable_extensions_test.dart' as iterable_extensions_test;
+import 'collection/iterator_test.dart' as iterator_test;
 import 'collection/list_empty_test.dart' as list_empty_test;
 import 'collection/list_extensions_test.dart' as list_extensions_test;
 import 'collection/list_mutable_extensions_test.dart'
@@ -20,6 +21,7 @@ import 'tuples_test.dart' as tuples_test;
 main() {
   collection_test.main();
   iterable_extensions_test.main();
+  iterator_test.main();
   list_empty_test.main();
   list_extensions_test.main();
   list_mutable_extensions_test.main();
