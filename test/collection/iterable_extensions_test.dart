@@ -518,6 +518,26 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     }
   });
 
+  group("none", () {
+    test("no matching returns true", () {
+      final items = iterableOf(["paul", "john", "max", "lisa"]);
+      expect(items.none((it) => it.contains("y")), isTrue);
+    });
+    test("matching returns false", () {
+      final items = iterableOf(["paul", "john", "max", "lisa"]);
+      expect(items.none((it) => it.contains("p")), isFalse);
+    });
+
+    test("none without predicate returns false when iterable has items", () {
+      final items = iterableOf(["paul", "john", "max", "lisa"]);
+      expect(items.none(), isFalse);
+    });
+
+    test("empty returns always true", () {
+      expect(emptyIterable().none(), isTrue);
+    });
+  });
+
   group("plus", () {
     test("concat two iterables", () {
       final result = iterableOf([1, 2, 3]).plus(iterableOf([4, 5, 6]));
