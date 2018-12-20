@@ -201,6 +201,40 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("dropWhile", () {
+    if (ordered) {
+      test("drop two", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        expect(iterable.dropWhile((it) => it != "c"), equals(listOf(["c"])));
+      });
+      test("drop one", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        expect(
+            iterable.dropWhile((it) => it != "b"), equals(listOf(["b", "c"])));
+      });
+    } else {
+      test("drop first value unordered", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        int i = 0;
+        expect(iterable.dropWhile((_) => ++i <= 2).size, 1);
+      });
+    }
+    test("drop empty does nothing", () {
+      final iterable = emptyIterable<int>();
+      expect(
+          iterable.dropWhile((_) => false).toList(), equals(emptyList<int>()));
+    });
+    test("drop all makes an empty list", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      expect(
+          iterable.dropWhile((_) => true).toList(), equals(emptyList<int>()));
+    });
+    test("drop on iterable returns a iterable", () {
+      final iterable = emptyIterable<int>();
+      expect(iterable.dropWhile((_) => false), TypeMatcher<KList<int>>());
+    });
+  });
+
   group("elementAt", () {
     if (ordered) {
       test("returns correct elements", () {
