@@ -15,4 +15,23 @@ void main() {
       expect(list, emptyList());
     });
   });
+
+  group("sorted", () {
+    var lastChar = (String it) {
+      var last = it.runes.last;
+      return String.fromCharCode(last);
+    };
+
+    test("sortBy", () {
+      final result = mutableListOf(["paul", "john", "max", "lisa"])
+        ..sortBy(lastChar);
+      expect(result, listOf(["lisa", "paul", "john", "max"]));
+    });
+
+    test("sortByDescending", () {
+      final result = mutableListOf(["paul", "john", "max", "lisa"])
+        ..sortByDescending(lastChar);
+      expect(result, listOf(["max", "john", "paul", "lisa"]));
+    });
+  });
 }

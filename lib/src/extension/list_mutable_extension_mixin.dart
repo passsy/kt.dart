@@ -25,14 +25,14 @@ abstract class KMutableListExtensionsMixin<T>
   @override
   void sortBy<R extends Comparable<R>>(R Function(T) selector) {
     if (size > 1) {
-      sortedWith(compareBy(selector));
+      sortWith(compareBy(selector));
     }
   }
 
   @override
   void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
     if (size > 1) {
-      sortedWith(compareBy(selector));
+      sortWith(compareByDescending(selector));
     }
   }
 
