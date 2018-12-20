@@ -119,6 +119,24 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group('average', () {
+    test("average of ints", () {
+      final ints = iterableOf([1, 2, 3, 4]);
+      var result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+    test("average of empty is NaN", () {
+      final ints = emptyIterable();
+      var result = ints.averageBy((it) => it);
+      expect(identical(result, double.nan), isTrue);
+    });
+    test("average of nums", () {
+      final ints = iterableOf([1, 2.0, 3, 4]);
+      var result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+  });
+
   group("distinct", () {
     if (ordered) {
       test("distinct elements", () {
