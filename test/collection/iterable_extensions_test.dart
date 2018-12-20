@@ -573,13 +573,13 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       return String.fromCharCode(last);
     };
 
-    test("sortBy", () {
+    test("sortedBy", () {
       final result =
           iterableOf(["paul", "john", "max", "lisa"]).sortedBy(lastChar);
       expect(result, listOf(["lisa", "paul", "john", "max"]));
     });
 
-    test("sortByDescending", () {
+    test("sortedByDescending", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .sortedByDescending(lastChar);
       expect(result, listOf(["max", "john", "paul", "lisa"]));
