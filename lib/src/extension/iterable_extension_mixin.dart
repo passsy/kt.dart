@@ -182,9 +182,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAt(int index) {
-    if (this is KList) {
-      return (this as KList).get(index);
-    }
+    if (index == null) throw ArgumentError("index can't be null");
     return elementAtOrElse(index, (int index) {
       throw IndexOutOfBoundsException(
           "Collection doesn't contain element at index $index.");
@@ -193,10 +191,9 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAtOrElse(int index, T Function(int) defaultValue) {
-    assert(defaultValue != null);
-    if (this is KList) {
-      return (this as KList).getOrElse(index, defaultValue);
-    }
+    if (index == null) throw ArgumentError("index can't be null");
+    if (defaultValue == null)
+      throw ArgumentError("defaultValue function can't be null");
     if (index < 0) {
       return defaultValue(index);
     }
@@ -213,9 +210,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAtOrNull(int index) {
-    if (this is KList) {
-      return (this as KList).getOrNull(index);
-    }
+    if (index == null) throw ArgumentError("index can't be null");
     if (index < 0) {
       return null;
     }

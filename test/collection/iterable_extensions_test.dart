@@ -2,6 +2,8 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/iterable.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("iterable", () {
     testIterable(<T>() => EmptyIterable<T>(),
@@ -196,6 +198,124 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("drop on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
       expect(iterable.drop(1), TypeMatcher<KList<int>>());
+    });
+  });
+
+  group("elementAt", () {
+    if (ordered) {
+      test("returns correct elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        expect(iterable.elementAt(0), equals("a"));
+        expect(iterable.elementAt(1), equals("b"));
+        expect(iterable.elementAt(2), equals("c"));
+      });
+    } else {
+      test("returns all elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        final set = setOf([
+          iterable.elementAt(0),
+          iterable.elementAt(1),
+          iterable.elementAt(2)
+        ]);
+        expect(set.containsAll(iterable), isTrue);
+      });
+    }
+
+    test("throws out of bounds exceptions", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final eOver = catchException<IndexOutOfBoundsException>(
+          () => iterable.elementAt(3));
+      expect(eOver.message, allOf(contains("index"), contains("3")));
+
+      final eUnder = catchException<IndexOutOfBoundsException>(
+          () => iterable.elementAt(-1));
+      expect(eUnder.message, allOf(contains("index"), contains("-1")));
+    });
+
+    test("null is not a valid index", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(() => iterable.elementAt(null));
+      expect(e.message, allOf(contains("index"), contains("null")));
+    });
+  });
+
+  group("elementAtOrElse", () {
+    if (ordered) {
+      test("returns correct elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        expect(iterable.elementAtOrElse(0, (i) => "x"), equals("a"));
+        expect(iterable.elementAtOrElse(1, (i) => "x"), equals("b"));
+        expect(iterable.elementAtOrElse(2, (i) => "x"), equals("c"));
+      });
+    } else {
+      test("returns all elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        final set = setOf([
+          iterable.elementAtOrElse(0, (i) => "x"),
+          iterable.elementAtOrElse(1, (i) => "x"),
+          iterable.elementAtOrElse(2, (i) => "x")
+        ]);
+        expect(set.containsAll(iterable), isTrue);
+      });
+    }
+
+    test("returns else case", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      expect(iterable.elementAtOrElse(-1, (i) => "x"), equals("x"));
+    });
+
+    test("returns else case based on index", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      expect(iterable.elementAtOrElse(-1, (i) => "$i"), equals("-1"));
+      expect(iterable.elementAtOrElse(10, (i) => "$i"), equals("10"));
+    });
+
+    test("null is not a valid index", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.elementAtOrElse(null, (i) => "x"));
+      expect(e.message, allOf(contains("index"), contains("null")));
+    });
+
+    test("null is not a function", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.elementAtOrElse(1, null));
+      expect(e.message, allOf(contains("defaultValue"), contains("null")));
+    });
+  });
+
+  group("elementAtOrNull", () {
+    if (ordered) {
+      test("returns correct elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        expect(iterable.elementAtOrNull(0), equals("a"));
+        expect(iterable.elementAtOrNull(1), equals("b"));
+        expect(iterable.elementAtOrNull(2), equals("c"));
+      });
+    } else {
+      test("returns all elements", () {
+        final iterable = iterableOf(["a", "b", "c"]);
+        final set = setOf([
+          iterable.elementAtOrNull(0),
+          iterable.elementAtOrNull(1),
+          iterable.elementAtOrNull(2)
+        ]);
+        expect(set.containsAll(iterable), isTrue);
+      });
+    }
+
+    test("returns null when out of range", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      expect(iterable.elementAtOrNull(-1), isNull);
+      expect(iterable.elementAtOrNull(10), isNull);
+    });
+
+    test("null is not a valid index", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e =
+          catchException<ArgumentError>(() => iterable.elementAtOrNull(null));
+      expect(e.message, allOf(contains("index"), contains("null")));
     });
   });
 
