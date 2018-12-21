@@ -24,6 +24,10 @@ abstract class KMutableListExtensionsMixin<T>
 
   @override
   void sortBy<R extends Comparable<R>>(R Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     if (size > 1) {
       sortWith(compareBy(selector));
     }
@@ -31,6 +35,10 @@ abstract class KMutableListExtensionsMixin<T>
 
   @override
   void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     if (size > 1) {
       sortWith(compareByDescending(selector));
     }
@@ -38,6 +46,10 @@ abstract class KMutableListExtensionsMixin<T>
 
   @override
   void sortWith(Comparator<T> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
     list.sort(comparator);
   }
 

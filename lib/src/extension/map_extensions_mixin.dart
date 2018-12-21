@@ -5,6 +5,11 @@ abstract class KMapExtensionsMixin<K, V>
     implements KMapExtension<K, V>, KMap<K, V> {
   @override
   V getOrElse(K key, V Function() defaultValue) {
+    assert(() {
+      if (defaultValue == null)
+        throw ArgumentError("defaultValue can't be null");
+      return true;
+    }());
     return get(key) ?? defaultValue();
   }
 
@@ -56,6 +61,10 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, V> plus(KMap<K, V> map) {
+    assert(() {
+      if (map == null) throw ArgumentError("map can't be null");
+      return true;
+    }());
     return toMutableMap()..putAll(map);
   }
 

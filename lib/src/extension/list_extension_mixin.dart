@@ -3,6 +3,10 @@ import 'package:dart_kollection/dart_kollection.dart';
 abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   @override
   KList<T> dropLast(int n) {
+    assert(() {
+      if (n == null) throw ArgumentError("n can't be null");
+      return true;
+    }());
     var count = size - n;
     if (count < 0) {
       count = 0;
@@ -12,7 +16,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   KList<T> dropLastWhile(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     if (!isEmpty()) {
       final i = listIterator(size);
       while (i.hasPrevious()) {
@@ -29,9 +36,12 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T elementAtOrElse(int index, T defaultValue(int index)) {
-    if (index == null) throw ArgumentError("index can't be null");
-    if (defaultValue == null)
-      throw ArgumentError("defaultValue function can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      if (defaultValue == null)
+        throw ArgumentError("defaultValue function can't be null");
+      return true;
+    }());
     return index >= 0 && index <= lastIndex ? get(index) : defaultValue(index);
   }
 
@@ -54,6 +64,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   R foldRight<R>(R initial, R Function(T, R acc) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     if (isEmpty()) return initial;
 
     var accumulator = initial;
@@ -66,6 +80,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     if (isEmpty()) return initial;
 
     var accumulator = initial;
@@ -78,9 +96,12 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T getOrElse(int index, T Function(int) defaultValue) {
-    if (index == null) throw ArgumentError("index can't be null");
-    if (defaultValue == null)
-      throw ArgumentError("default value function can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      if (defaultValue == null)
+        throw ArgumentError("default value function can't be null");
+      return true;
+    }());
     return (index >= 0 && index <= lastIndex)
         ? get(index)
         : defaultValue(index);
@@ -88,7 +109,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T getOrNull(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     return index >= 0 && index <= lastIndex ? get(index) : null;
   }
 
@@ -118,6 +142,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   S reduceRight<S>(S Function(T, S acc) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     final i = listIterator(size);
     if (!i.hasPrevious()) {
       throw UnimplementedError("Empty list can't be reduced.");
@@ -131,6 +159,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   S reduceRightIndexed<S>(S Function(int index, T, S acc) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     final i = listIterator(size);
     if (!i.hasPrevious()) {
       throw UnimplementedError("Empty list can't be reduced.");
@@ -144,6 +176,10 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   KList<T> slice(KIterable<int> indices) {
+    assert(() {
+      if (indices == null) throw ArgumentError("indices can't be null");
+      return true;
+    }());
     if (indices.count() == 0) {
       return emptyList<T>();
     }

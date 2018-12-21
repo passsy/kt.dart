@@ -8,7 +8,10 @@ abstract class KIterableExtensionsMixin<T>
     implements KIterableExtension<T>, KIterable<T> {
   @override
   bool all([bool Function(T element) predicate]) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     if (this is KCollection && (this as KCollection).isEmpty()) return true;
     for (var element in iter) {
       if (!predicate(element)) {
@@ -54,6 +57,11 @@ abstract class KIterableExtensionsMixin<T>
   M associateByTo<K, V, M extends KMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (keySelector == null) throw ArgumentError("keySelector can't be null");
+      return true;
+    }());
     for (var element in iter) {
       var key = keySelector(element);
       var value = valueTransform == null ? element : valueTransform(element);
@@ -65,7 +73,10 @@ abstract class KIterableExtensionsMixin<T>
   @override
   M associateTo<K, V, M extends KMutableMap<K, V>>(
       M destination, KPair<K, V> Function(T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     for (var element in iter) {
       var pair = transform(element);
       destination.put(pair.first, pair.second);
@@ -81,7 +92,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   M associateWithTo<V, M extends KMutableMap<T, V>>(
       M destination, V Function(T) valueSelector) {
-    assert(valueSelector != null);
+    assert(() {
+      if (valueSelector == null)
+        throw ArgumentError("valueSelector can't be null");
+      return true;
+    }());
     for (var element in iter) {
       destination.put(element, valueSelector(element));
     }
@@ -90,7 +105,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   double averageBy(num Function(T) selector) {
-    assert(selector != null);
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     num sum = 0.0;
     var count = 0;
     for (final element in iter) {
@@ -102,11 +120,19 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<KList<T>> chunked(int size) {
+    assert(() {
+      if (size == null) throw ArgumentError("size can't be null");
+      return true;
+    }());
     return windowed(size, step: size, partialWindows: true);
   }
 
   @override
   KList<R> chunkedTransform<R>(int size, R Function(KList<T>) transform) {
+    assert(() {
+      if (size == null) throw ArgumentError("size can't be null");
+      return true;
+    }());
     return windowedTransform(size, transform, step: size, partialWindows: true);
   }
 
@@ -138,7 +164,10 @@ abstract class KIterableExtensionsMixin<T>
   KList<T> distinct() => toMutableSet().toList();
 
   KList<T> distinctBy<K>(K Function(T) selector) {
-    assert(selector != null);
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     final set = hashSetOf<K>();
     final list = mutableListOf<T>();
     for (final element in iter) {
@@ -152,6 +181,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> drop(int n) {
+    assert(() {
+      if (n == null) throw ArgumentError("n can't be null");
+      return true;
+    }());
     final list = mutableListOf<T>();
     var count = 0;
     for (final item in iter) {
@@ -164,7 +197,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> dropWhile(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     var yielding = false;
     var list = mutableListOf<T>();
     for (final item in iter) {
@@ -182,7 +218,11 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAt(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
+
     return elementAtOrElse(index, (int index) {
       throw IndexOutOfBoundsException(
           "Collection doesn't contain element at index $index.");
@@ -191,9 +231,12 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAtOrElse(int index, T Function(int) defaultValue) {
-    if (index == null) throw ArgumentError("index can't be null");
-    if (defaultValue == null)
-      throw ArgumentError("defaultValue function can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      if (defaultValue == null)
+        throw ArgumentError("defaultValue function can't be null");
+      return true;
+    }());
     if (index < 0) {
       return defaultValue(index);
     }
@@ -210,7 +253,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T elementAtOrNull(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     if (index < 0) {
       return null;
     }
@@ -242,7 +288,10 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C filterIndexedTo<C extends KMutableCollection<T>>(
       C destination, bool Function(int index, T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     var i = 0;
     for (final element in iter) {
       if (predicate(i++, element)) {
@@ -292,7 +341,10 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C filterNotTo<C extends KMutableCollection<T>>(
       C destination, bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     for (final element in iter) {
       if (!predicate(element)) {
         destination.add(element);
@@ -304,7 +356,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C filterTo<C extends KMutableCollection<T>>(
       C destination, bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      if (destination == null) throw ArgumentError("destination can't be null");
+      return true;
+    }());
     for (final element in iter) {
       if (predicate(element)) {
         destination.add(element);
@@ -315,13 +371,19 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T find(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     return firstOrNull(predicate);
   }
 
   @override
   T findLast(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     return lastOrNull(predicate);
   }
 
@@ -377,7 +439,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C flatMapTo<R, C extends KMutableCollection<R>>(
       C destination, KIterable<R> Function(T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     for (var element in iter) {
       final list = transform(element);
       destination.addAll(list);
@@ -387,7 +453,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   R fold<R>(R initial, R Function(R acc, T) operation) {
-    assert(operation != null);
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     var accumulator = initial;
     for (final element in iter) {
       accumulator = operation(accumulator, element);
@@ -397,7 +466,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation) {
-    assert(operation != null);
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     var index = 0;
     var accumulator = initial;
     for (final element in iter) {
@@ -407,8 +479,11 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   @override
-  void forEach(void action(T element)) {
-    assert(action != null);
+  void forEach(void Function(T element) action) {
+    assert(() {
+      if (action == null) throw ArgumentError("action can't be null");
+      return true;
+    }());
     var i = iterator();
     while (i.hasNext()) {
       var element = i.next();
@@ -418,7 +493,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   void forEachIndexed(void Function(int index, T element) action) {
-    assert(action != null);
+    assert(() {
+      if (action == null) throw ArgumentError("action can't be null");
+      return true;
+    }());
     var index = 0;
     for (final item in iter) {
       action(index++, item);
@@ -442,8 +520,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
       M destination, K Function(T) keySelector) {
-    assert(destination != null);
-    assert(keySelector != null);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (keySelector == null) throw ArgumentError("keySelector can't be null");
+      return true;
+    }());
     for (final element in iter) {
       final key = keySelector(element);
       final list = destination.getOrPut(key, () => mutableListOf<T>());
@@ -455,9 +536,13 @@ abstract class KIterableExtensionsMixin<T>
   @override
   M groupByToTransform<K, V, M extends KMutableMap<K, KMutableList<V>>>(
       M destination, K Function(T) keySelector, V Function(T) valueTransform) {
-    assert(destination != null);
-    assert(keySelector != null);
-    assert(valueTransform != null);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (keySelector == null) throw ArgumentError("keySelector can't be null");
+      if (valueTransform == null)
+        throw ArgumentError("valueTransform can't be null");
+      return true;
+    }());
     for (final element in iter) {
       final key = keySelector(element);
       final list = destination.getOrPut(key, () => mutableListOf<V>());
@@ -479,7 +564,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   int indexOfFirst(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     var index = 0;
     for (var item in iter) {
       if (predicate(item)) {
@@ -491,7 +579,10 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   int indexOfLast(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     var lastIndex = -1;
     var index = 0;
     for (var item in iter) {
@@ -637,7 +728,10 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     var index = 0;
     for (final item in iter) {
       var element = transform(index++, item);
@@ -651,7 +745,10 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C mapIndexedTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     var index = 0;
     for (final item in iter) {
       destination.add(transform(index++, item));
@@ -670,7 +767,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C mapNotNullTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     for (final item in iter) {
       var result = transform(item);
       if (result != null) {
@@ -683,7 +784,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   C mapTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(T) transform) {
-    assert(transform != null);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     for (var item in iter) {
       destination.add(transform(item));
     }
@@ -713,7 +818,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T maxBy<R extends Comparable<R>>(R Function(T) selector) {
-    assert(selector != null);
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T maxElement = i.next();
@@ -731,6 +839,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T maxWith(Comparator<T> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!i.hasNext()) return null;
     var max = i.next();
@@ -766,6 +878,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> minus(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     if (this is KCollection && (this as KCollection).isEmpty()) {
       return this.toList();
     }
@@ -791,7 +907,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T minBy<R extends Comparable<R>>(R Function(T) selector) {
-    assert(selector != null);
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T minElement = i.next();
@@ -809,6 +928,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   T minWith(Comparator<T> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!i.hasNext()) return null;
     var min = i.next();
@@ -835,7 +958,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   void onEach(void Function(T) action) {
-    assert(action != null);
+    assert(() {
+      if (action == null) throw ArgumentError("action can't be null");
+      return true;
+    }());
     for (final element in iter) {
       action(element);
     }
@@ -843,7 +969,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KPair<KList<T>, KList<T>> partition(bool Function(T) predicate) {
-    assert(predicate != null);
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     final first = mutableListOf<T>();
     final second = mutableListOf<T>();
     for (final element in iter) {
@@ -858,6 +987,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> plus(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     final result = mutableListOf<T>();
     result.addAll(this.asIterable());
     result.addAll(elements);
@@ -876,6 +1009,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   S reduce<S>(S Function(S acc, T) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!i.hasNext())
       throw UnsupportedError("Empty collection can't be reduced.");
@@ -888,6 +1025,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
+    assert(() {
+      if (operation == null) throw ArgumentError("operation can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!i.hasNext())
       throw UnsupportedError("Empty collection can't be reduced.");
@@ -985,19 +1126,32 @@ abstract class KIterableExtensionsMixin<T>
   KList<T> sorted() => sortedWith(naturalOrder());
 
   @override
-  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) =>
-      sortedWith(compareBy(selector));
+  KList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
+    return sortedWith(compareBy(selector));
+  }
 
   @override
-  KList<T> sortedByDescending<R extends Comparable<R>>(
-          R Function(T) selector) =>
-      sortedWith(compareByDescending(selector));
+  KList<T> sortedByDescending<R extends Comparable<R>>(R Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
+    return sortedWith(compareByDescending(selector));
+  }
 
   @override
   KList<T> sortedDescending() => sortedWith(reverseOrder());
 
   @override
   KList<T> sortedWith(Comparator<T> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
     final mutableList = toMutableList();
     mutableList.list.sort(comparator);
     return mutableList;
@@ -1005,6 +1159,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KSet<T> subtract(KIterable<T> other) {
+    assert(() {
+      if (other == null) throw ArgumentError("other can't be null");
+      return true;
+    }());
     final set = toMutableSet();
     set.removeAll(other);
     return set;
@@ -1025,6 +1183,10 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   int sumBy(int Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     int sum = 0;
     for (final element in iter) {
       sum += selector(element);
@@ -1033,6 +1195,10 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   double sumByDouble(double Function(T) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
     double sum = 0.0;
     for (final element in iter) {
       sum += selector(element);
@@ -1042,6 +1208,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> take(int n) {
+    assert(() {
+      if (n == null) throw ArgumentError("n can't be null");
+      return true;
+    }());
     if (n < 0) {
       throw ArgumentError("Requested element count $n is less than zero.");
     }
@@ -1063,6 +1233,10 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   C toCollection<C extends KMutableCollection<T>>(C destination) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      return true;
+    }());
     for (final item in iter) {
       destination.add(item);
     }
@@ -1086,6 +1260,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KSet<T> union(KIterable<T> other) {
+    assert(() {
+      if (other == null) throw ArgumentError("other can't be null");
+      return true;
+    }());
     final set = toMutableSet();
     set.addAll(other);
     return set;
@@ -1094,6 +1272,13 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<KList<T>> windowed(int size,
       {int step = 1, bool partialWindows = false}) {
+    assert(() {
+      if (size == null) throw ArgumentError("size can't be null");
+      if (step == null) throw ArgumentError("step can't be null");
+      if (partialWindows == null)
+        throw ArgumentError("partialWindows can't be null");
+      return true;
+    }());
     final list = this.toList();
     final thisSize = list.size;
     final result = mutableListOf<KList<T>>();
@@ -1111,7 +1296,14 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<R> windowedTransform<R>(int size, R Function(KList<T>) transform,
       {int step = 1, bool partialWindows = false}) {
-    assert(transform != null);
+    assert(() {
+      if (size == null) throw ArgumentError("size can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      if (step == null) throw ArgumentError("step can't be null");
+      if (partialWindows == null)
+        throw ArgumentError("partialWindows can't be null");
+      return true;
+    }());
     final list = this.toList();
     final thisSize = list.size;
     final result = mutableListOf<R>();
@@ -1133,6 +1325,11 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<V> zipTransform<R, V>(
       KIterable<R> other, V Function(T a, R b) transform) {
+    assert(() {
+      if (other == null) throw ArgumentError("other can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     final first = iterator();
     final second = other.iterator();
     final list = mutableListOf<V>();
@@ -1148,6 +1345,10 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
+    assert(() {
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
     final i = iterator();
     if (!i.hasNext()) {
       return emptyList();

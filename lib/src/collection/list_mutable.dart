@@ -37,12 +37,19 @@ class DartMutableList<T>
 
   @override
   bool containsAll(KCollection<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return elements.all((it) => _list.contains(it));
   }
 
   @override
   T get(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     if (index < 0 || index >= size) {
       throw IndexOutOfBoundsException("index: $index, size: $size");
     }
@@ -81,18 +88,31 @@ class DartMutableList<T>
 
   @override
   bool addAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     _list.addAll(elements.iter);
     return true;
   }
 
   @override
   bool addAllAt(int index, KCollection<T> elements) {
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     _list.insertAll(index, elements.iter);
     return true;
   }
 
   @override
   void addAt(int index, T element) {
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     _list.insert(index, element);
   }
 
@@ -103,10 +123,20 @@ class DartMutableList<T>
   bool remove(T element) => _list.remove(element);
 
   @override
-  T removeAt(int index) => _list.removeAt(index);
+  T removeAt(int index) {
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
+    return _list.removeAt(index);
+  }
 
   @override
   T set(int index, T element) {
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     final old = _list[index];
     _list[index] = element;
     return old;
@@ -117,6 +147,10 @@ class DartMutableList<T>
 
   @override
   bool removeAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     var changed = false;
     for (var value in elements.iter) {
       changed |= _list.remove(value);
@@ -126,20 +160,27 @@ class DartMutableList<T>
 
   @override
   bool retainAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     _list.removeWhere((it) => !elements.contains(it));
     return true;
   }
 
   @override
   KMutableList<T> subList(int fromIndex, int toIndex) {
-    if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
-    if (toIndex == null) throw ArgumentError("toIndex can't be null");
+    assert(() {
+      if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
+      if (toIndex == null) throw ArgumentError("toIndex can't be null");
+      if (fromIndex > toIndex) {
+        throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+      }
+      return true;
+    }());
     if (fromIndex < 0 || toIndex > size) {
       throw IndexOutOfBoundsException(
           "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
-    }
-    if (fromIndex > toIndex) {
-      throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
     return DartMutableList(_list.sublist(fromIndex, toIndex));
   }

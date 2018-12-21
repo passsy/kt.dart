@@ -34,12 +34,19 @@ class DartList<T>
 
   @override
   bool containsAll(KCollection<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return elements.all((it) => _list.contains(it));
   }
 
   @override
   T get(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     if (index < 0 || index >= size) {
       throw IndexOutOfBoundsException("index: $index, size: $size");
     }
@@ -63,7 +70,10 @@ class DartList<T>
 
   @override
   KListIterator<T> listIterator([int index = 0]) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     return InterOpKListIterator(_list, index);
   }
 
@@ -72,14 +82,16 @@ class DartList<T>
 
   @override
   KList<T> subList(int fromIndex, int toIndex) {
-    if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
-    if (toIndex == null) throw ArgumentError("toIndex can't be null");
+    assert(() {
+      if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
+      if (toIndex == null) throw ArgumentError("toIndex can't be null");
+      if (fromIndex > toIndex)
+        throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+      return true;
+    }());
     if (fromIndex < 0 || toIndex > size) {
       throw IndexOutOfBoundsException(
           "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
-    }
-    if (fromIndex > toIndex) {
-      throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
     return DartList(_list.sublist(fromIndex, toIndex));
   }

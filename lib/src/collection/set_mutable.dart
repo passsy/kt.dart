@@ -89,6 +89,10 @@ class DartMutableSet<T>
 
   @override
   bool retainAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     final oldSize = size;
     _set.removeWhere((it) => !elements.contains(it));
     return oldSize != size;

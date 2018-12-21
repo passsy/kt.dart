@@ -12,6 +12,10 @@ abstract class KMutableIterableExtensionsMixin<T>
 
   bool _filterInPlace(
       bool Function(T) predicate, bool predicateResultToRemove) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     var result = false;
     var i = iterator();
     while (i.hasNext())
