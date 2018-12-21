@@ -29,6 +29,9 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T elementAtOrElse(int index, T defaultValue(int index)) {
+    if (index == null) throw ArgumentError("index can't be null");
+    if (defaultValue == null)
+      throw ArgumentError("defaultValue function can't be null");
     return index >= 0 && index <= lastIndex ? get(index) : defaultValue(index);
   }
 
@@ -75,6 +78,9 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T getOrElse(int index, T Function(int) defaultValue) {
+    if (index == null) throw ArgumentError("index can't be null");
+    if (defaultValue == null)
+      throw ArgumentError("default value function can't be null");
     return (index >= 0 && index <= lastIndex)
         ? get(index)
         : defaultValue(index);
@@ -82,6 +88,7 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
 
   @override
   T getOrNull(int index) {
+    if (index == null) throw ArgumentError("index can't be null");
     return index >= 0 && index <= lastIndex ? get(index) : null;
   }
 
