@@ -159,6 +159,24 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("chunked", () {
+    test("chunked", () {
+      final chunks = iterableOf([1, 2, 3, 4, 5]).chunked(3);
+      expect(
+          chunks,
+          listOf([
+            listOf([1, 2, 3]),
+            listOf([4, 5])
+          ]));
+    });
+
+    test("chunkedTransform", () {
+      final chunks =
+          iterableOf([1, 2, 3, 4, 5]).chunkedTransform(3, (it) => it.sum());
+      expect(chunks, listOf([6, 9]));
+    });
+  });
+
   group("drop", () {
     if (ordered) {
       test("drop first value ordered", () {
