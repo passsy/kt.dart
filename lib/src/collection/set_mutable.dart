@@ -71,6 +71,10 @@ class DartMutableSet<T>
 
   @override
   bool addAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     var oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
@@ -84,6 +88,10 @@ class DartMutableSet<T>
 
   @override
   bool removeAll(KIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     final oldSize = size;
     for (var value in elements.iter) {
       _set.remove(value);
