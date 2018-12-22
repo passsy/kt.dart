@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   final pokemon = mapOf({
     1: "Bulbasaur",
@@ -30,6 +32,12 @@ void main() {
 
     test("getOrElse", () {
       expect(pokemon.getOrElse(10, () => "None"), "None");
+    });
+
+    test("getOrElse doesn't allow null as defaultValue function", () {
+      final e =
+          catchException<ArgumentError>(() => pokemon.getOrElse(10, null));
+      expect(e.message, allOf(contains("null"), contains("defaultValue")));
     });
   });
 
@@ -133,6 +141,15 @@ void main() {
       expect(result.size, 3);
       expect(result[3], "Venusaur");
       expect(map.size, 2);
+    });
+
+    test("plus doesn't allow null as argument", () {
+      final pokemon = mapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.plus(null));
+      expect(e.message, allOf(contains("null"), contains("map")));
     });
 
     test("+ (plus) operator", () {

@@ -128,6 +128,15 @@ void main() {
       expect(pokemon.getOrPut(150, () => "Mewtwo"), "Mewtwo");
       expect(pokemon.get(150), "Mewtwo");
     });
+
+    test("getOrPut doens't allow null as defaultValue function", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.getOrPut(1, null));
+      expect(e.message, allOf(contains("null"), contains("defaultValue")));
+    });
   });
 
   group("put", () {
@@ -199,6 +208,15 @@ void main() {
       ]));
       expect(pokemon.size, 2);
       expect(pokemon[2], "Dito");
+    });
+
+    test("putAllPairs doens't allow null as argument", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.putAllPairs(null));
+      expect(e.message, allOf(contains("null"), contains("pairs")));
     });
   });
 
