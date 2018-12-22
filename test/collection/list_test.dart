@@ -107,6 +107,12 @@ void main() {
         expect(() => emptyList<int>().reduceRight((it, int acc) => it + acc),
             throwsUnsupportedError);
       });
+
+      test("reduceRight doesn't allow null as operation", () {
+        final list = emptyList<String>();
+        var e = catchException<ArgumentError>(() => list.reduceRight(null));
+        expect(e.message, allOf(contains("null"), contains("operation")));
+      });
     });
 
     test("sublist works ", () {
