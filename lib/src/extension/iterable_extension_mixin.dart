@@ -48,8 +48,8 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   @override
-  KMap<K, V> associateByTransform<K, V>(K Function(T) keySelector,
-      [V Function(T) valueTransform]) {
+  KMap<K, V> associateByTransform<K, V>(
+      K Function(T) keySelector, V Function(T) valueTransform) {
     return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
   }
 
@@ -343,6 +343,7 @@ abstract class KIterableExtensionsMixin<T>
       C destination, bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
+      if (destination == null) throw ArgumentError("destination can't be null");
       return true;
     }());
     for (final element in iter) {
@@ -729,6 +730,7 @@ abstract class KIterableExtensionsMixin<T>
   C mapIndexedNotNullTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());
@@ -746,6 +748,7 @@ abstract class KIterableExtensionsMixin<T>
   C mapIndexedTo<R, C extends KMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());

@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("clear", () {
     test("clear items", () {
@@ -145,6 +147,28 @@ void main() {
       });
       pokemon[1] = "Dito";
       expect(pokemon[1], "Dito");
+    });
+  });
+
+  group("putAll", () {
+    test("putAll", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon.putAll(mapOf({1: "Ditto", 3: "Venusaur"}));
+      expect(pokemon[1], "Ditto");
+      expect(pokemon[2], "Ivysaur");
+      expect(pokemon[3], "Venusaur");
+    });
+
+    test("can't use null for putAll", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.putAll(null));
+      expect(e.message, allOf(contains("null")));
     });
   });
 
