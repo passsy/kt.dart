@@ -24,6 +24,10 @@ class DartSet<T>
 
   @override
   bool containsAll(KCollection<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return elements.all((it) => _set.contains(it));
   }
 

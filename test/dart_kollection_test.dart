@@ -1,3 +1,4 @@
+import 'collection/collection_mutable_test.dart' as collection_mutable_test;
 import 'collection/collection_test.dart' as collection_test;
 import 'collection/iterable_extensions_test.dart' as iterable_extensions_test;
 import 'collection/iterator_test.dart' as iterator_test;
@@ -19,6 +20,7 @@ import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
 
 main() {
+  collection_mutable_test.main();
   collection_test.main();
   iterable_extensions_test.main();
   iterator_test.main();

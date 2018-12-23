@@ -17,18 +17,30 @@ class EmptyList<T>
   bool contains(T element) => false;
 
   @override
-  bool containsAll(KCollection<T> elements) => elements.isEmpty();
+  bool containsAll(KCollection<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
+    return elements.isEmpty();
+  }
 
   @override
   T get(int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     throw IndexOutOfBoundsException(
         "Empty list doesn't contain element at index $index.");
   }
 
   @override
   T operator [](int index) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     throw IndexOutOfBoundsException(
         "Empty list doesn't contain element at index $index.");
   }
@@ -47,7 +59,10 @@ class EmptyList<T>
 
   @override
   KListIterator<T> listIterator([int index = 0]) {
-    if (index == null) throw ArgumentError("index can't be null");
+    assert(() {
+      if (index == null) throw ArgumentError("index can't be null");
+      return true;
+    }());
     return _EmptyIterator();
   }
 
@@ -56,8 +71,11 @@ class EmptyList<T>
 
   @override
   KList<T> subList(int fromIndex, int toIndex) {
-    if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
-    if (toIndex == null) throw ArgumentError("toIndex can't be null");
+    assert(() {
+      if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
+      if (toIndex == null) throw ArgumentError("toIndex can't be null");
+      return true;
+    }());
     if (fromIndex == 0 && toIndex == 0) return this;
     throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex");
   }

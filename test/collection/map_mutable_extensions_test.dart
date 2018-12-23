@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("clear", () {
     test("clear items", () {
@@ -126,6 +128,15 @@ void main() {
       expect(pokemon.getOrPut(150, () => "Mewtwo"), "Mewtwo");
       expect(pokemon.get(150), "Mewtwo");
     });
+
+    test("getOrPut doens't allow null as defaultValue function", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.getOrPut(1, null));
+      expect(e.message, allOf(contains("null"), contains("defaultValue")));
+    });
   });
 
   group("put", () {
@@ -145,6 +156,28 @@ void main() {
       });
       pokemon[1] = "Dito";
       expect(pokemon[1], "Dito");
+    });
+  });
+
+  group("putAll", () {
+    test("putAll", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      pokemon.putAll(mapOf({1: "Ditto", 3: "Venusaur"}));
+      expect(pokemon[1], "Ditto");
+      expect(pokemon[2], "Ivysaur");
+      expect(pokemon[3], "Venusaur");
+    });
+
+    test("can't use null for putAll", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.putAll(null));
+      expect(e.message, allOf(contains("null")));
     });
   });
 
@@ -175,6 +208,15 @@ void main() {
       ]));
       expect(pokemon.size, 2);
       expect(pokemon[2], "Dito");
+    });
+
+    test("putAllPairs doens't allow null as argument", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final e = catchException<ArgumentError>(() => pokemon.putAllPairs(null));
+      expect(e.message, allOf(contains("null"), contains("pairs")));
     });
   });
 

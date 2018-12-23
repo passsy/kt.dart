@@ -13,7 +13,13 @@ class EmptySet<T>
   bool contains(T element) => false;
 
   @override
-  bool containsAll(KCollection<T> elements) => elements.isEmpty();
+  bool containsAll(KCollection<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
+    return elements.isEmpty();
+  }
 
   @override
   bool isEmpty() => true;

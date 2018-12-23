@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("list", () {
     testCollection(
@@ -65,6 +67,19 @@ void testCollection(KCollection<T> Function<T>() emptyCollection,
       var list = collectionOf(["a", "b", "c", "d", "e"]);
       expect(list.containsAll(listOf(["x"])), isFalse);
       expect(list.containsAll(listOf(["c", "x", "d"])), isFalse);
+    });
+
+    test("containsAll doesn't allow null as argument", () {
+      final collection = collectionOf(["a", "b", "c", "d", "e"]);
+      final e =
+          catchException<ArgumentError>(() => collection.containsAll(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+
+    test("containsAll (empty collection) doesn't allow null as argument", () {
+      final e = catchException<ArgumentError>(
+          () => emptyCollection().containsAll(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
 }

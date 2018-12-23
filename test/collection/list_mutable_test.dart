@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group('basic methods', () {
     test("has no elements", () {
@@ -93,6 +95,12 @@ void main() {
       expect(list, listOf([4, 2, 10, 4, 1]));
     });
 
+    test("set doesn't allow null as index", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf().set(null, "test"));
+      expect(e.message, allOf(contains("null"), contains("index")));
+    });
+
     test("set operator", () {
       final list = mutableListOf([1, 2, 3, 4, 5]);
       list[2] = 10;
@@ -109,6 +117,18 @@ void main() {
       expect(subList, equals(mutableListOf(["b", "c"])));
     });
 
+    test("sublist doesn't allow null as fromIndex", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf().subList(null, 10));
+      expect(e.message, allOf(contains("null"), contains("fromIndex")));
+    });
+
+    test("sublist doesn't allow null as toIndex", () {
+      final e =
+          catchException<ArgumentError>(() => mutableListOf().subList(0, null));
+      expect(e.message, allOf(contains("null"), contains("toIndex")));
+    });
+
     test("sublist throws for illegal ranges", () {
       final list = mutableListOf(["a", "b", "c"]);
 
@@ -123,18 +143,54 @@ void main() {
           throwsA(TypeMatcher<IndexOutOfBoundsException>()));
     });
 
-    test("add item", () {
-      final list = mutableListOf<String>();
+    test("add item appends item to end", () {
+      final list = mutableListOf<String>(["World"]);
       list.add("Hello");
-      expect(list.size, equals(1));
-      expect(list[0], equals("Hello"));
+      expect(list, listOf(["World", "Hello"]));
     });
 
-    test("addAll add items at the end of the lsit", () {
+    test("addAt to specific position (first)", () {
+      final list = mutableListOf<String>(["World"]);
+      list.addAt(0, "Hello");
+      expect(list, listOf(["Hello", "World"]));
+    });
+
+    test("addAt to specific position (last)", () {
+      final list = mutableListOf<String>(["World"]);
+      list.addAt(1, "Hello");
+      expect(list, listOf(["World", "Hello"]));
+    });
+
+    test("addAt doens't allow null as index", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf().addAt(null, listOf(["test"])));
+      expect(e.message, allOf(contains("null"), contains("index")));
+    });
+
+    test("addAll add items at the end of the list", () {
       final list = mutableListOf(["a"]);
       list.addAll(listOf(["b", "c"]));
       expect(list.size, equals(3));
       expect(list, equals(listOf(["a", "b", "c"])));
+    });
+
+    test("addAllAt 0 add items at the beginning of the list", () {
+      final list = mutableListOf(["a"]);
+      list.addAllAt(0, listOf(["b", "c"]));
+      expect(list.size, equals(3));
+      expect(list, equals(listOf(["b", "c", "a"])));
+    });
+
+    test("addAllAt doens't allow null as index", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf().addAllAt(null, listOf(["test"])));
+      expect(e.message, allOf(contains("null"), contains("index")));
+    });
+
+    test("addAllAt doens't allow null as elements", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf().addAllAt(0, null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
 }

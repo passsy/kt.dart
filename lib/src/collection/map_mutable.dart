@@ -71,6 +71,10 @@ class DartMutableMap<K, V>
 
   @override
   void putAll(KMap<K, V> from) {
+    assert(() {
+      if (from == null) throw ArgumentError("from can't be null");
+      return true;
+    }());
     for (var entry in from.entries.iter) {
       _map[entry.key] = entry.value;
     }
