@@ -668,6 +668,13 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           () => iterable.groupByTo(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
+
+    test("groupByToTransform doesn't allow null as destination", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(
+          () => iterable.groupByToTransform(null, (it) => it, (it) => it));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
   });
 
   group("intersect", () {
@@ -750,6 +757,31 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf([1, null, 2, null, 3]);
       expect(iterable.mapNotNull((it) => it?.toString()).toList(),
           listOf(["1", "2", "3"]));
+    });
+  });
+
+  group("mapNotNullTo", () {
+    test("mapNotNullTo int to string", () {
+      final list = mutableListOf<String>();
+      final iterable = iterableOf([1, null, 2, null, 3]);
+      iterable.mapNotNullTo(list, (it) => it?.toString());
+
+      expect(list, listOf(["1", "2", "3"]));
+    });
+
+    test("mapNotNullTo doesn't allow null as destination", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(
+          () => iterable.mapNotNullTo(null, (it) => it));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+
+    test("mapNotNullTo doesn't allow null as transform function", () {
+      final iterable = iterableOf([1, 2, 3]);
+      int Function(int) mapper = null;
+      var e = catchException<ArgumentError>(
+          () => iterable.mapNotNullTo(mutableListOf<int>(), mapper));
+      expect(e.message, allOf(contains("null"), contains("transform")));
     });
   });
 
@@ -1268,10 +1300,17 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(result, listOf(["1a", "2b"]));
     });
 
-    test("with next", () {
+    test("zipWithNextTransform", () {
       final result =
           iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
       expect(result, listOf([3, 5, 7, 9]));
+    });
+    test("zipWithNextTransform doesn't allow null as transform function", () {
+      final iterable = emptyIterable<String>();
+      int Function(dynamic, dynamic) transform = null;
+      var e = catchException<ArgumentError>(
+          () => iterable.zipWithNextTransform(transform));
+      expect(e.message, allOf(contains("null"), contains("transform")));
     });
 
     test("zip doesn't allow null as other", () {
