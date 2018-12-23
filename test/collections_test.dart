@@ -86,15 +86,45 @@ void main() {
     });
   });
 
+  group("hashMapOf", () {
+    test("empty is mutable", () {
+      final map = hashMapOf<int, String>();
+      map[1] = "a";
+      expect(map.size, 1);
+      expect(map, mapOf({1: "a"}));
+    });
+
+    test("with empty map is mutable", () {
+      final map = hashMapOf<int, String>({});
+      map[1] = "a";
+      expect(map.size, 1);
+      expect(map, mapOf({1: "a"}));
+    });
+
+    test("mutation of original list doesn't manipulate original map", () {
+      var initialMap = {
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      };
+      final map = hashMapOf<int, String>(initialMap);
+      map[1] = "a";
+      expect(map.size, 2);
+      expect(map, mapOf({1: "a", 2: "Ivysaur"}));
+
+      // original is unchanged
+      expect(initialMap[1], "Bulbasaur");
+    });
+  });
+
   group('hashSetOf', () {
     test("empty is mutable", () {
-      final set = hashSetOf<String>([]);
+      final set = hashSetOf<String>();
       set.add("test");
       expect(set.size, equals(1));
       expect(set, setOf(["test"]));
     });
 
-    test("empty is mutable", () {
+    test("with empty list is mutable", () {
       final set = hashSetOf<String>([]);
       set.add("test");
       expect(set.size, equals(1));
