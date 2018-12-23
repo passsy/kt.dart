@@ -75,5 +75,11 @@ void testCollection(KCollection<T> Function<T>() emptyCollection,
           catchException<ArgumentError>(() => collection.containsAll(null));
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
+
+    test("containsAll (empty collection) doesn't allow null as argument", () {
+      final e = catchException<ArgumentError>(
+          () => emptyCollection().containsAll(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
   });
 }

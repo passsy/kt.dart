@@ -1,6 +1,8 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group('empty list', () {
     test("has no elements", () {
@@ -74,6 +76,18 @@ void main() {
       expect(empty0, equals(empty1));
     });
 
+    test("sublist doesn't allow null as fromIndex", () {
+      final e =
+          catchException<ArgumentError>(() => emptyList().subList(null, 10));
+      expect(e.message, allOf(contains("null"), contains("fromIndex")));
+    });
+
+    test("sublist doesn't allow null as toIndex", () {
+      final e =
+          catchException<ArgumentError>(() => emptyList().subList(0, null));
+      expect(e.message, allOf(contains("null"), contains("toIndex")));
+    });
+
     test("sublist works for index 0 to 0", () {
       final empty = emptyList<Object>();
       final subList = empty.subList(0, 0);
@@ -97,6 +111,12 @@ void main() {
     test("access dart list", () {
       List<String> list = emptyList<String>().list;
       expect(list.length, 0);
+    });
+
+    test("listIterator requires index", () {
+      ArgumentError e = catchException(() => emptyList().listIterator(null));
+      expect(e.message, contains("index"));
+      expect(e.message, contains("null"));
     });
   });
 }
