@@ -51,4 +51,12 @@ void testCollection(
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
+
+  group("toString", () {
+    test("recursive list with self reference prints nicely", () {
+      final self = mutableCollectionOf<dynamic>([]);
+      self.add(self);
+      expect(self.toString(), "[(this Collection)]");
+    });
+  });
 }
