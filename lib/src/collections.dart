@@ -60,17 +60,6 @@ KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
     DartMutableMap.noCopy(HashMap.of(map));
 
 /**
- * Returns an empty new [HashMap].
- */
-KMutableMap<K, V> hashMapFrom<K, V>(KIterable<KPair<K, V>> pairs) {
-  var map = DartMutableMap.noCopy(HashMap<K, V>());
-  if (pairs != null) {
-    map.putAllPairs(pairs);
-  }
-  return map;
-}
-
-/**
  * Returns a new [LinkedHashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  *
