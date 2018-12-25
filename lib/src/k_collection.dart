@@ -1,4 +1,5 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'dart:math' as math show Random;
 
 /**
  * A generic collection of elements. Methods in this interface support only read-only access to the collection;
@@ -45,7 +46,7 @@ abstract class KCollectionExtension<T> {
    *
    * @throws NoSuchElementException if this collection is empty.
    */
-  T random();
+  T random([math.Random random]);
 
   /**
    * Returns a [KMutableList] filled with all elements of this collection.

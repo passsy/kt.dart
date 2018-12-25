@@ -1,3 +1,5 @@
+import 'dart:math' as math show Random;
+
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
@@ -82,4 +84,79 @@ void testCollection(KCollection<T> Function<T>() emptyCollection,
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
+
+  group("isNotEmpty", () {
+    test("is empty", () {
+      expect(collectionOf([]).isNotEmpty(), false);
+    });
+    test("is not empty", () {
+      expect(collectionOf(["a"]).isNotEmpty(), true);
+    });
+  });
+
+  group("random", () {
+    test("random item with random parameter", () {
+      final collection = collectionOf(["a", "b", "c"]);
+
+      final firstPick = collection.random((NotRandom()..next = 2));
+      final pos2 = collection.elementAt(2);
+      if (ordered) expect(pos2, "c");
+
+      expect(firstPick, pos2);
+
+      final pos0 = collection.elementAt(0);
+      if (ordered) expect(pos0, "a");
+
+      final secondPick = collection.random((NotRandom()..next = 0));
+      expect(secondPick, pos0);
+    });
+
+    test("random works without passing a Random", () {
+      final collection = collectionOf(["a", "b", "c"]);
+      expect(collection.random(), anyOf(equals("a"), equals("b"), equals("c")));
+    });
+  });
+
+  group("toString", () {
+    if (ordered) {
+      test("default string representation", () {
+        final collection = collectionOf(["a", "b", "c"]);
+        expect(collection.toString(), "[a, b, c]");
+      });
+    } else {
+      test("unordered collection", () {
+        final collection = collectionOf(["a", "b", "c"]);
+        expect(
+            collection.toString(),
+            anyOf(
+              equals("[a, b, c]"),
+              equals("[a, c, b]"),
+              equals("[b, c, a]"),
+              equals("[b, a, c]"),
+              equals("[c, a, b]"),
+              equals("[c, b, a]"),
+            ));
+      });
+    }
+  });
+}
+
+/// Mocked [math.Random] number generator allow setting the [next] value explicitly
+///
+/// Using a seed is not enough because it might change in other dart releases
+class NotRandom implements math.Random {
+  int next = 0;
+
+  @override
+  bool nextBool() {
+    throw UnimplementedError();
+  }
+
+  @override
+  double nextDouble() {
+    throw UnimplementedError();
+  }
+
+  @override
+  int nextInt(int max) => next;
 }

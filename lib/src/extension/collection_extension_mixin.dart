@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+import 'dart:math' as math show Random;
 
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/list_mutable.dart';
