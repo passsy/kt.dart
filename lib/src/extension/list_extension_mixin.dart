@@ -99,7 +99,7 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
       if (defaultValue == null)
-        throw ArgumentError("default value function can't be null");
+        throw ArgumentError("defaultValue function can't be null");
       return true;
     }());
     return (index >= 0 && index <= lastIndex)
