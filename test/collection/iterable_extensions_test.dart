@@ -588,11 +588,18 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   });
 
   group("fold", () {
-    test("fold division", () {
-      final iterable = iterableOf([1.0, 2.0, 3.0]);
-      final result = iterable.fold(1.0, (double acc, it) => it / acc);
-      expect(result, closeTo(1.5, 0.00001));
-    });
+    if (ordered) {
+      test("fold division", () {
+        final iterable = iterableOf([
+          [1, 2],
+          [3, 4],
+          [5, 6]
+        ]);
+        final result = iterable.fold(
+            listOf<int>(), (KList<int> acc, it) => acc + listOf(it));
+        expect(result, listOf([1, 2, 3, 4, 5, 6]));
+      });
+    }
 
     test("operation must be non null", () {
       final e = catchException<ArgumentError>(
@@ -602,16 +609,23 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   });
 
   group("foldIndexed", () {
-    test("foldIndexed division", () {
-      final list = iterableOf([1.0, 2.0, 3.0, 4.0]);
-      var i = 0;
-      final result = list.foldIndexed(1.0, (index, double acc, it) {
-        expect(index, i);
-        i++;
-        return it / acc;
+    if (ordered) {
+      test("foldIndexed division", () {
+        final iterable = iterableOf([
+          [1, 2],
+          [3, 4],
+          [5, 6]
+        ]);
+        var i = 0;
+        final result =
+            iterable.foldIndexed(listOf<int>(), (index, KList<int> acc, it) {
+          expect(index, i);
+          i++;
+          return acc + listOf(it);
+        });
+        expect(result, listOf([1, 2, 3, 4, 5, 6]));
       });
-      expect(result, closeTo(2.666666, 0.00001));
-    });
+    }
 
     test("operation must be non null", () {
       final e = catchException<ArgumentError>(
