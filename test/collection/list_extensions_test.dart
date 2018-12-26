@@ -52,6 +52,39 @@ void main() {
     });
   });
 
+  group("foldRight", () {
+    test("foldRight division", () {
+      final list = listOf([1.0, 2.0, 3.0]);
+      final result = list.foldRight(1.0, (it, double acc) => acc / it);
+      expect(result, closeTo(0.1666666, 0.00001));
+    });
+
+    test("operation must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => listOf().foldRight("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
+  group("foldRightIndexed", () {
+    test("foldRight division", () {
+      final list = listOf([1.0, 2.0, 3.0, 4.0]);
+      var i = 3;
+      final result = list.foldRightIndexed(1.0, (index, it, double acc) {
+        expect(index, i);
+        i--;
+        return acc / it;
+      });
+      expect(result, closeTo(0.0416666, 0.00001));
+    });
+
+    test("operation must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => listOf().foldRightIndexed("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
   group("first", () {
     test("get first element", () {
       expect(listOf(["a", "b"]).first(), "a");
@@ -99,6 +132,7 @@ void main() {
       expect(e.message, allOf(contains("null"), contains("defaultValue")));
     });
   });
+
   group("getOrNull", () {
     test("get item", () {
       final list = listOf(["a", "b", "c"]);

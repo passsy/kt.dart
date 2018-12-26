@@ -587,6 +587,39 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("fold", () {
+    test("fold division", () {
+      final iterable = iterableOf([1.0, 2.0, 3.0]);
+      final result = iterable.fold(1.0, (double acc, it) => it / acc);
+      expect(result, closeTo(1.5, 0.00001));
+    });
+
+    test("operation must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => emptyIterable().fold("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
+  group("foldIndexed", () {
+    test("foldIndexed division", () {
+      final list = iterableOf([1.0, 2.0, 3.0, 4.0]);
+      var i = 0;
+      final result = list.foldIndexed(1.0, (index, double acc, it) {
+        expect(index, i);
+        i++;
+        return it / acc;
+      });
+      expect(result, closeTo(2.666666, 0.00001));
+    });
+
+    test("operation must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => emptyIterable().foldIndexed("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
   group("groupBy", () {
     if (ordered) {
       test("basic", () {
@@ -1048,6 +1081,32 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("reduce doesn't allow null as operation", () {
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.reduce(null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
+  group("reduceIndexed", () {
+    test("reduceIndexed", () {
+      var i = 1;
+      final result =
+          iterableOf([1, 2, 3, 4]).reduceIndexed((index, int acc, it) {
+        expect(index, i);
+        i++;
+        return it + acc;
+      });
+      expect(result, 10);
+    });
+
+    test("empty throws", () {
+      expect(
+          () => emptyIterable<int>()
+              .reduceIndexed((index, int acc, it) => it + acc),
+          throwsUnsupportedError);
+    });
+
+    test("reduceIndexed doesn't allow null as operation", () {
+      final iterable = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => iterable.reduceIndexed(null));
       expect(e.message, allOf(contains("null"), contains("operation")));
     });
   });

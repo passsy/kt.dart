@@ -115,6 +115,33 @@ void main() {
       });
     });
 
+    group("reduceRightIndexed", () {
+      test("reduceRightIndexed", () {
+        var i = 2;
+        final result =
+            listOf([1, 2, 3, 4]).reduceRightIndexed((index, it, int acc) {
+          expect(index, i);
+          i--;
+          return it + acc;
+        });
+        expect(result, 10);
+      });
+
+      test("empty throws", () {
+        expect(
+            () => emptyList<int>()
+                .reduceRightIndexed((index, it, int acc) => it + acc),
+            throwsUnsupportedError);
+      });
+
+      test("reduceRightIndexed doesn't allow null as operation", () {
+        final list = emptyList<String>();
+        var e =
+            catchException<ArgumentError>(() => list.reduceRightIndexed(null));
+        expect(e.message, allOf(contains("null"), contains("operation")));
+      });
+    });
+
     test("sublist works ", () {
       final list = listOf(["a", "b", "c"]);
       final subList = list.subList(1, 3);
