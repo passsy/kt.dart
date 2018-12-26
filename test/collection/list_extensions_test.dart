@@ -52,6 +52,49 @@ void main() {
     });
   });
 
+  group("foldRight", () {
+    test("foldRight division", () {
+      final iterable = listOf([
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]);
+      final result = iterable.foldRight(
+          listOf<int>(), (it, KList<int> acc) => acc + listOf(it));
+      expect(result, listOf([5, 6, 3, 4, 1, 2]));
+    });
+
+    test("operation must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => emptyList().foldRight("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
+  group("foldRightIndexed", () {
+    test("foldRightIndexed division", () {
+      final iterable = listOf([
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]);
+      var i = 2;
+      final result =
+          iterable.foldRightIndexed(listOf<int>(), (index, it, KList<int> acc) {
+        expect(index, i);
+        i--;
+        return acc + listOf(it);
+      });
+      expect(result, listOf([5, 6, 3, 4, 1, 2]));
+    });
+
+    test("operation must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => emptyList().foldRightIndexed("foo", null));
+      expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
   group("first", () {
     test("get first element", () {
       expect(listOf(["a", "b"]).first(), "a");
@@ -99,6 +142,7 @@ void main() {
       expect(e.message, allOf(contains("null"), contains("defaultValue")));
     });
   });
+
   group("getOrNull", () {
     test("get item", () {
       final list = listOf(["a", "b", "c"]);
