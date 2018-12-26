@@ -677,6 +677,20 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("indexOf", () {
+    test("returns index", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      var found = iterable.indexOf("b");
+      if (iterable.count() == 4) {
+        // ordered list
+        expect(found, 1);
+      } else {
+        // set, position is unknown
+        expect(found, isNot(-1));
+      }
+    });
+  });
+
   group("intersect", () {
     test("remove one item", () {
       var a = iterableOf(["paul", "john", "max", "lisa"]);
@@ -733,6 +747,20 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
 
     test("finds nothing throws", () {
       expect(iterableOf<String>(["a"]).lastOrNull((it) => it == "b"), isNull);
+    });
+  });
+
+  group("lastIndexOf", () {
+    test("returns last index", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      var found = iterable.lastIndexOf("b");
+      if (iterable.count() == 4) {
+        // ordered list
+        expect(found, 3);
+      } else {
+        // set, position is unknown
+        expect(found, isNot(-1));
+      }
     });
   });
 

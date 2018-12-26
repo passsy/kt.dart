@@ -52,6 +52,33 @@ void testCollection(
     });
   });
 
+  group("removeAll", () {
+    test("remove items", () {
+      final list = mutableCollectionOf(["a", "b", "c", "d"]);
+      list.removeAll(listOf(["b", "c"]));
+      expect(list, mutableCollectionOf(["a", "d"]));
+    });
+    test("elements can't be null", () {
+      final e =
+          catchException<ArgumentError>(() => mutableListOf().removeAll(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+  });
+
+  group("retainAll", () {
+    test("retain items", () {
+      final list = mutableCollectionOf(["a", "b", "c", "d", "a", "b"]);
+      list.retainAll(listOf(["b", "c"]));
+      expect(list, mutableCollectionOf(["b", "c", "b"]));
+    });
+
+    test("elements can't be null", () {
+      final e =
+          catchException<ArgumentError>(() => mutableListOf().retainAll(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+  });
+
   group("toString", () {
     test("recursive list with self reference prints nicely", () {
       final self = mutableCollectionOf<dynamic>([]);

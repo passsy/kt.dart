@@ -52,6 +52,15 @@ void main() {
       expect(empty.indexOf(null), equals(-1));
     });
 
+    test("lastIndexOf always returns -1", () {
+      final empty = emptyList();
+
+      expect(empty.lastIndexOf(""), equals(-1));
+      expect(empty.lastIndexOf([]), equals(-1));
+      expect(empty.lastIndexOf(0), equals(-1));
+      expect(empty.lastIndexOf(null), equals(-1));
+    });
+
     test("is equals to another empty list", () {
       final empty0 = emptyList();
       final empty1 = emptyList();
@@ -117,6 +126,35 @@ void main() {
       ArgumentError e = catchException(() => emptyList().listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
+    });
+
+    test("[] get operator", () {
+      final list = emptyList();
+
+      final e0 = catchException<IndexOutOfBoundsException>(() => list[0]);
+      expect(e0.message, contains("doesn't contain element at index 0"));
+      final e1 = catchException<IndexOutOfBoundsException>(() => list[-1]);
+      expect(e1.message, contains("doesn't contain element at index -1"));
+      final e2 = catchException<IndexOutOfBoundsException>(() => list[3]);
+      expect(e2.message, contains("doesn't contain element at index 3"));
+
+      final e3 = catchException<ArgumentError>(() => list[null]);
+      expect(e3.message, allOf(contains("null"), contains("index")));
+    });
+
+    test("toString prints empty list", () {
+      expect(emptyList().toString(), "[]");
+    });
+
+    test("listIterator doesn't iterate", () {
+      final i = emptyList().listIterator();
+      expect(i.hasNext(), false);
+      expect(i.hasPrevious(), false);
+      expect(i.nextIndex(), 0);
+      expect(i.previousIndex(), -1);
+      expect(
+          () => i.previous(), throwsA(TypeMatcher<NoSuchElementException>()));
+      expect(() => i.next(), throwsA(TypeMatcher<NoSuchElementException>()));
     });
   });
 }

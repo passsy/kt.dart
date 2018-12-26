@@ -4,6 +4,21 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("clear", () {
+    test("clear list", () {
+      final list = mutableListOf(["a", "b", "c"]);
+      expect(list.size, 3);
+      list.clear();
+      expect(list.size, 0);
+    });
+    test("clear empty list", () {
+      final list = mutableListOf();
+      expect(list.size, 0);
+      list.clear();
+      expect(list.size, 0);
+    });
+  });
+
   group('fill', () {
     test("replace all elements", () {
       final list = mutableListOf(["a", "b", "c"]);
@@ -15,6 +30,34 @@ void main() {
       final list = mutableListOf<String>([]);
       list.fill("x");
       expect(list, emptyList());
+    });
+  });
+
+  group("removeAt", () {
+    test("index can't be null", () {
+      final e =
+          catchException<ArgumentError>(() => mutableListOf().removeAt(null));
+      expect(e.message, allOf(contains("null"), contains("index")));
+    });
+
+    test("removes item at index", () {
+      final list = mutableListOf(["a", "b", "c"]);
+      list.removeAt(1);
+      expect(list, listOf(["a", "c"]));
+    });
+
+    test("removeAt throw for indexes greater size", () {
+      final list = mutableListOf(["a", "b", "c"]);
+      final e =
+          catchException<IndexOutOfBoundsException>(() => list.removeAt(-1));
+      expect(e.message, allOf(contains("3"), contains("")));
+    });
+
+    test("removeAt throw for indexes below 0", () {
+      final list = mutableListOf(["a", "b", "c"]);
+      final e =
+          catchException<IndexOutOfBoundsException>(() => list.removeAt(-1));
+      expect(e.message, allOf(contains("-1"), contains("")));
     });
   });
 
