@@ -77,7 +77,8 @@ class EmptyList<T>
       return true;
     }());
     if (fromIndex == 0 && toIndex == 0) return this;
-    throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex");
+    throw IndexOutOfBoundsException(
+        "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
   }
 
   @override

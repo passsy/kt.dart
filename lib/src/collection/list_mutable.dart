@@ -128,6 +128,9 @@ class DartMutableList<T>
       if (index == null) throw ArgumentError("index can't be null");
       return true;
     }());
+    if (index < 0 || index >= size) {
+      throw IndexOutOfBoundsException("index: $index, size: $size");
+    }
     return _list.removeAt(index);
   }
 

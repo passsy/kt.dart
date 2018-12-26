@@ -192,5 +192,11 @@ void main() {
           () => mutableListOf().addAllAt(0, null));
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
+
+    test("listIterator requires int as index", () {
+      final e = catchException<ArgumentError>(
+          () => mutableListOf(["a", "b", "c"]).listIterator(null));
+      expect(e.message, allOf(contains("null"), contains("index")));
+    });
   });
 }
