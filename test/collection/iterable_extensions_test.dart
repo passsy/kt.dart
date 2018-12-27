@@ -1423,6 +1423,66 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("single", () {
+    test("single", () {
+      expect(iterableOf([1]).single(), 1);
+    });
+    test("single throws when list has more elements", () {
+      final e =
+          catchException<ArgumentError>(() => iterableOf([1, 2]).single());
+      expect(e.message, contains("has more than one element"));
+    });
+    test("single throws for empty iterables", () {
+      final e = catchException<NoSuchElementException>(
+          () => emptyIterable().single());
+      expect(e.message, contains("is empty"));
+    });
+    test("single with predicate finds item", () {
+      final found = iterableOf(["paul", "john", "max", "lisa"])
+          .single((it) => it.contains("x"));
+      expect(found, "max");
+    });
+    test("single with predicate without match", () {
+      final e = catchException<NoSuchElementException>(() =>
+          iterableOf(["paul", "john", "max", "lisa"])
+              .single((it) => it.contains("y")));
+      expect(e.message, contains("no element matching the predicate"));
+    });
+    test("single with predicate multiple matches", () {
+      final e = catchException<ArgumentError>(() =>
+          iterableOf(["paul", "john", "max", "lisa"])
+              .single((it) => it.contains("l")));
+      expect(e.message, contains("more than one matching element"));
+    });
+  });
+
+  group("singleOrNull", () {
+    test("singleOrNull", () {
+      expect(iterableOf([1]).singleOrNull(), 1);
+    });
+    test("singleOrNull on multiple iterable returns null", () {
+      expect(iterableOf([1, 2]).singleOrNull(), null);
+    });
+    test("singleOrNull on empty iterable returns null", () {
+      expect(emptyIterable().singleOrNull(), null);
+    });
+    test("singleOrNull with predicate finds item", () {
+      final found = iterableOf(["paul", "john", "max", "lisa"])
+          .singleOrNull((it) => it.contains("x"));
+      expect(found, "max");
+    });
+    test("singleOrNull with predicate without match returns null", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .singleOrNull((it) => it.contains("y"));
+      expect(result, null);
+    });
+    test("singleOrNull with predicate multiple matches returns null", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .singleOrNull((it) => it.contains("l"));
+      expect(result, null);
+    });
+  });
+
   group("sort", () {
     test("sort", () {
       final result = iterableOf([4, 2, 3, 1]).sorted();

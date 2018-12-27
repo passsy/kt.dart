@@ -1067,7 +1067,6 @@ abstract class KIterableExtensionsMixin<T>
   @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (this is KList) return (this as KList).single();
       var i = iterator();
       if (!i.hasNext()) {
         throw NoSuchElementException("Collection is empty.");
@@ -1098,18 +1097,13 @@ abstract class KIterableExtensionsMixin<T>
 
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (this is KList) {
-        final list = (this as KList);
-        return list.size == 1 ? list.get(0) : null;
-      } else {
-        final i = iterator();
-        if (!i.hasNext()) return null;
-        final single = i.next();
-        if (i.hasNext()) {
-          return null;
-        }
-        return single;
+      final i = iterator();
+      if (!i.hasNext()) return null;
+      final single = i.next();
+      if (i.hasNext()) {
+        return null;
       }
+      return single;
     } else {
       T single = null;
       var found = false;
