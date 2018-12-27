@@ -570,7 +570,7 @@ abstract class KIterableExtension<T> {
   KList<T> reversed();
 
   /**
-   * Returns the single element matching the given [predicate], or throws exception if there is no or more than one matching element.
+   * Returns the single element matching the given [predicate], or throws an exception if the list is empty or has more than one element.
    */
   @nonNull
   T single([bool Function(T) predicate]);

@@ -175,6 +175,60 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   }
 
   @override
+  T single([bool Function(T) predicate]) {
+    if (predicate == null) {
+      switch (size) {
+        case 0:
+          throw NoSuchElementException("List is empty");
+        case 1:
+          return get(0);
+        default:
+          throw ArgumentError("List has more than one element.");
+      }
+    } else {
+      T single = null;
+      var found = false;
+      for (final element in iter) {
+        if (predicate(element)) {
+          if (found)
+            throw ArgumentError(
+                "Collection contains more than one matching element.");
+          single = element;
+          found = true;
+        }
+      }
+      if (!found) {
+        throw NoSuchElementException(
+            "Collection contains no element matching the predicate.");
+      }
+      return single;
+    }
+  }
+
+  @override
+  T singleOrNull([bool Function(T) predicate]) {
+    if (predicate == null) {
+      if (size == 1) {
+        return get(0);
+      } else {
+        return null;
+      }
+    } else {
+      T single = null;
+      var found = false;
+      for (final element in iter) {
+        if (predicate(element)) {
+          if (found) return null;
+          single = element;
+          found = true;
+        }
+      }
+      if (!found) return null;
+      return single;
+    }
+  }
+
+  @override
   KList<T> slice(KIterable<int> indices) {
     assert(() {
       if (indices == null) throw ArgumentError("indices can't be null");
