@@ -159,4 +159,31 @@ void main() {
       expect(e.message, allOf(contains("null"), contains("index")));
     });
   });
+
+  group("slice", () {
+    test("slice", () {
+      final list = listOf([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      final result = list.slice(listOf([4, 6, 8]));
+      expect(result, listOf([5, 7, 9]));
+    });
+    test("slice with empty list results in empty list", () {
+      final list = listOf([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      final result = list.slice(emptyList());
+      expect(result, emptyList());
+    });
+    test("indices can't be null", () {
+      final e = catchException<ArgumentError>(() => listOf().slice(null));
+      expect(e.message, allOf(contains("null"), contains("indices")));
+    });
+    test("check upper bounds", () {
+      final e = catchException<IndexOutOfBoundsException>(
+          () => listOf([1, 2, 3]).slice(listOf([3])));
+      expect(e.message, allOf(contains("size: 3"), contains("index: 3")));
+    });
+    test("check lower bounds", () {
+      final e = catchException<IndexOutOfBoundsException>(
+          () => listOf([1, 2, 3]).slice(listOf([-1])));
+      expect(e.message, allOf(contains("size: 3"), contains("index: -1")));
+    });
+  });
 }
