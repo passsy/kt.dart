@@ -699,8 +699,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group("forEachIndexed", () {
-    test("forEachIndexed", () {
+  group("forEach", () {
+    test("forEach", () {
       final result = mutableListOf<String>();
       var iterable = iterableOf(["a", "b", "c", "d"]);
       iterable.forEach((it) {
