@@ -481,14 +481,38 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       var e = catchException<ArgumentError>(() => list.filter(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
+  });
 
+  group("filterIndexed", () {
+    test("filterIndexed", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      var i = 0;
+      expect(
+          iterable.filterIndexed((index, it) {
+            expect(index, i);
+            i++;
+            return it.contains("a");
+          }).toSet(),
+          equals(setOf(["paul", "lisa"])));
+    });
+
+    test("filterIndexed doesn't allow null as predicate", () {
+      final list = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => list.filterIndexed(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("filterTo", () {
     test("filterTo doesn't allow null as destination", () {
       final list = emptyIterable<String>();
       var e =
           catchException<ArgumentError>(() => list.filterTo(null, (_) => true));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
+  });
 
+  group("filterNot", () {
     test("filterNot", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
       expect(iterable.filterNot((it) => it.contains("a")).toSet(),
@@ -507,17 +531,58 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           () => list.filterNotTo(null, (_) => true));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
+  });
 
+  group("filterNotNull", () {
     test("filterNotNull", () {
       final iterable = iterableOf(["paul", null, "john", "lisa"]);
       expect(iterable.filterNotNull().toSet(),
           equals(setOf(["paul", "john", "lisa"])));
     });
+  });
 
+  group("filterIsInstance", () {
     test("filterIsInstance", () {
       final iterable = iterableOf<Object>(["paul", null, "john", 1, "lisa"]);
       expect(iterable.filterIsInstance<String>().toSet(),
           equals(setOf(["paul", "john", "lisa"])));
+    });
+  });
+
+  group("find", () {
+    test("find item", () {
+      var iterable = iterableOf(["paul", "john", "max", "lisa"]);
+      var result = iterable.find((it) => it.contains("l"));
+
+      if (ordered) {
+        expect(result, "paul");
+      } else {
+        expect(result, anyOf("paul", "lisa"));
+      }
+    });
+
+    test("find predicate can't be null", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(() => iterable.find(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("findLast", () {
+    test("findLast item", () {
+      var iterable = iterableOf(["paul", "john", "max", "lisa"]);
+      var result = iterable.findLast((it) => it.contains("l"));
+      if (ordered) {
+        expect(result, "lisa");
+      } else {
+        expect(result, anyOf("paul", "lisa"));
+      }
+    });
+
+    test("find predicate can't be null", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(() => iterable.findLast(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -634,6 +699,51 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("forEachIndexed", () {
+    test("forEachIndexed", () {
+      final result = mutableListOf<String>();
+      var iterable = iterableOf(["a", "b", "c", "d"]);
+      iterable.forEach((it) {
+        result.add(it);
+      });
+      if (ordered) {
+        expect(result, listOf(["a", "b", "c", "d"]));
+      } else {
+        expect(result.size, 4);
+        expect(result.toSet(), iterable.toSet());
+      }
+    });
+
+    test("action must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => emptyIterable().forEach(null));
+      expect(e.message, allOf(contains("null"), contains("action")));
+    });
+  });
+
+  group("forEachIndexed", () {
+    test("forEachIndexed", () {
+      final result = mutableListOf<String>();
+      var iterable = iterableOf(["a", "b", "c", "d"]);
+      iterable.forEachIndexed((index, it) {
+        result.add("$index$it");
+      });
+      if (ordered) {
+        expect(result, listOf(["0a", "1b", "2c", "3d"]));
+      } else {
+        expect(result.size, 4);
+        expect(result.toSet(),
+            iterable.mapIndexed((index, it) => "$index$it").toSet());
+      }
+    });
+
+    test("action must be non null", () {
+      final e = catchException<ArgumentError>(
+          () => emptyIterable().forEachIndexed(null));
+      expect(e.message, allOf(contains("null"), contains("action")));
+    });
+  });
+
   group("groupBy", () {
     if (ordered) {
       test("basic", () {
@@ -735,6 +845,45 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         // set, position is unknown
         expect(found, isNot(-1));
       }
+    });
+  });
+
+  group("indexOfFirst", () {
+    test("returns index", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      var found = iterable.indexOfFirst((it) => it == "b");
+      if (iterable.count() == 4) {
+        // ordered list
+        expect(found, 1);
+      } else {
+        // set, position is unknown
+        expect(found, isNot(-1));
+      }
+    });
+
+    test("indexOfFirst predicate can't be null", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(() => iterable.indexOfFirst(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("indexOfLast", () {
+    test("returns index", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      var found = iterable.indexOfLast((it) => it == "b");
+      if (iterable.count() == 4) {
+        // ordered list
+        expect(found, 3);
+      } else {
+        // set, position is unknown
+        expect(found, isNot(-1));
+      }
+    });
+    test("indexOfLast predicate can't be null", () {
+      final iterable = iterableOf([1, 2, 3]);
+      var e = catchException<ArgumentError>(() => iterable.indexOfLast(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -971,6 +1120,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf([1, 3, 2]);
       expect(iterable.max(), 3);
     });
+
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
       expect(iterable.max(), null);
@@ -981,9 +1131,49 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("maxBy", () {
+    test("gets max value", () {
+      final iterable = iterableOf(["1", "3", "2"]);
+      expect(iterable.maxBy((it) => num.parse(it)), "3");
+    });
+
+    test("empty iterable return null", () {
+      final iterable = emptyIterable<int>();
+      expect(iterable.maxBy<num>((it) => it), null);
+    });
+
+    test("maxBy requires a non null selector", () {
+      final e =
+          catchException<ArgumentError>(() => emptyIterable().maxBy<num>(null));
+      expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+  });
+
+  group("maxWith", () {
+    int _intComparison(int value, int other) {
+      return value.compareTo(other);
+    }
+
+    test("gets max value", () {
+      final iterable = iterableOf([2, 1, 3]);
+      expect(iterable.maxWith(_intComparison), 3);
+    });
+
+    test("empty iterable return null", () {
+      final iterable = emptyIterable<int>();
+      expect(iterable.maxWith(_intComparison), null);
+    });
+
+    test("maxWith requires a non null comparator", () {
+      final e =
+          catchException<ArgumentError>(() => emptyIterable().maxWith(null));
+      expect(e.message, allOf(contains("null"), contains("comparator")));
+    });
+  });
+
   group("min", () {
     test("gets min value", () {
-      final iterable = iterableOf([1, 3, 2]);
+      final iterable = iterableOf([3, 1, 2]);
       expect(iterable.min(), 1);
     });
 
@@ -994,6 +1184,46 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
 
     test("throws for non nums", () {
       expect(() => iterableOf(["1", "2", "3"]).min(), throwsArgumentError);
+    });
+  });
+
+  group("minBy", () {
+    test("gets min value", () {
+      final iterable = iterableOf(["1", "3", "2"]);
+      expect(iterable.minBy((it) => num.parse(it)), "1");
+    });
+
+    test("empty iterable return null", () {
+      final iterable = emptyIterable<int>();
+      expect(iterable.minBy<num>((it) => it), null);
+    });
+
+    test("maxBy requires a non null selector", () {
+      final e =
+          catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
+      expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+  });
+
+  group("minWith", () {
+    int _intComparison(int value, int other) {
+      return value.compareTo(other);
+    }
+
+    test("gets max value", () {
+      final iterable = iterableOf([2, 1, 3]);
+      expect(iterable.minWith(_intComparison), 3);
+    });
+
+    test("empty iterable return null", () {
+      final iterable = emptyIterable<int>();
+      expect(iterable.minWith(_intComparison), null);
+    });
+
+    test("minWith requires a non null comparator", () {
+      final e =
+          catchException<ArgumentError>(() => emptyIterable().minWith(null));
+      expect(e.message, allOf(contains("null"), contains("comparator")));
     });
   });
 
@@ -1063,6 +1293,39 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("onEach", () {
+    test("onEach", () {
+      final iterable = iterableOf([
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]);
+      iterable.onEach((it) => it.add(0));
+      expect(iterable.map((it) => it.last).toList(), listOf([0, 0, 0]));
+    });
+
+    test("onEach doesn't allow null as action", () {
+      final iterable = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => iterable.onEach(null));
+      expect(e.message, allOf(contains("null"), contains("action")));
+    });
+  });
+
+  group("partition", () {
+    test("partition", () {
+      final result =
+          iterableOf([7, 31, 4, 3, 92, 32]).partition((it) => it > 10);
+      expect(result.first.toSet(), setOf([31, 92, 32]));
+      expect(result.second.toSet(), setOf([7, 4, 3]));
+    });
+
+    test("partition doesn't allow null as predicate", () {
+      final iterable = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => iterable.partition(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
   group("plus", () {
     test("concat two iterables", () {
       final result = iterableOf([1, 2, 3]).plus(iterableOf([4, 5, 6]));
@@ -1078,6 +1341,18 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.plus(null));
       expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+  });
+
+  group("plusElement", () {
+    test("concat item", () {
+      final result = iterableOf([1, 2, 3]).plusElement(5);
+      expect(result.toList(), listOf([1, 2, 3, 5]));
+    });
+
+    test("element can be null", () {
+      final result = iterableOf([1, 2, 3]).plusElement(null);
+      expect(result.toList(), listOf([1, 2, 3, null]));
     });
   });
 
@@ -1122,6 +1397,14 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.reduceIndexed(null));
       expect(e.message, allOf(contains("null"), contains("operation")));
+    });
+  });
+
+  group("requireNoNulls", () {
+    test("throw when nulls are found", () {
+      final e = catchException<ArgumentError>(
+          () => iterableOf(["paul", null, "john", "lisa"]).requireNoNulls());
+      expect(e.message, contains("null element found"));
     });
   });
 
