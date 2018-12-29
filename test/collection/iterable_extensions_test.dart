@@ -1585,6 +1585,34 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("take", () {
+    test("take zero returns empty", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      expect(iterable.take(0).toList(), emptyList());
+    });
+
+    test("take negative returns empty", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      final e = catchException<ArgumentError>(() => iterable.take(-3));
+      expect(e.message, allOf(contains("-3"), contains("less than zero")));
+    });
+
+    test("take more than size returns full list", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      expect(iterable.take(10).toList(), iterable.toList());
+    });
+
+    test("take smaller list size returns first elements", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      expect(iterable.take(2).toList(), listOf([1, 2]));
+    });
+
+    test("take doesn't allow null as n", () {
+      final iterable = emptyIterable<num>();
+      var e = catchException<ArgumentError>(() => iterable.take(null));
+      expect(e.message, allOf(contains("null"), contains("n")));
+    });
+  });
   group("windowed", () {
     test("default step", () {
       expect(
