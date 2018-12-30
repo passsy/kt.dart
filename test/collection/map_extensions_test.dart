@@ -32,29 +32,6 @@ void main() {
     });
   });
 
-  group("filterNotTo", () {
-//    test("filterNotTo", () {
-//      final result = mutableMapOf<int, String>();
-//      final filtered =
-//          pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I"));
-//      expect(identical(result, filtered), isTrue);
-//      expect(result, mapOf({1: "Bulbasaur"}));
-//    });
-//    test("filterNotTo requires predicate to be non null", () {
-//      bool Function(KMapEntry<int, String> entry) predicate = null;
-//
-//      var other = mutableMapOf<int, String>();
-//      final e = catchException<ArgumentError>(
-//          () => pokemon.filterNotTo(other, predicate));
-//      expect(e.message, allOf(contains("null"), contains("predicate")));
-//    });
-    test("filterNotTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.filterNotTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
-    });
-  });
-
   group("get", () {
     test("get", () {
       expect(pokemon.get(1), "Bulbasaur");
@@ -122,17 +99,6 @@ void main() {
       expect(mapped["1"], "Bulbasaur");
       expect(mapped["2"], "Ivysaur");
       expect(mapped.size, 2);
-    });
-  });
-
-  group("mapKeysTo", () {
-    test("map keys to", () {
-      final other = mutableMapOf<String, String>();
-      final mapped = pokemon.mapKeysTo(other, (entry) => entry.key.toString());
-      expect(identical(other, mapped), isTrue);
-      expect(other["1"], "Bulbasaur");
-      expect(other["2"], "Ivysaur");
-      expect(other.size, 2);
     });
   });
 

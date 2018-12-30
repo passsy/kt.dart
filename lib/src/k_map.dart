@@ -105,8 +105,9 @@ abstract class KMapExtension<K, V> {
    *
    * @return the destination map.
    */
-  M filterTo<M extends KMutableMap<K, V>>(
-      M destination, bool Function(KMapEntry<K, V> entry) predicate);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M filterTo<M extends KMutableMap<K, V>>(
+  //     M destination, bool Function(KMapEntry<K, V> entry) predicate);
 
   /**
    * Returns a new map containing all key-value pairs not matching the given [predicate].
@@ -120,8 +121,9 @@ abstract class KMapExtension<K, V> {
    *
    * @return the destination map.
    */
-  M filterNotTo<M extends KMutableMap<K, V>>(
-      M destination, bool Function(KMapEntry<K, V> entry) predicate);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M filterNotTo<M extends KMutableMap<K, V>>(
+  //     M destination, bool Function(KMapEntry<K, V> entry) predicate);
 
   /**
    * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.

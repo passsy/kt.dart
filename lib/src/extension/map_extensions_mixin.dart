@@ -10,7 +10,7 @@ abstract class KMapExtensionsMixin<K, V>
     return filtered;
   }
 
-  @override
+  // TODO add @override again
   M filterTo<M extends KMutableMap<K, V>>(
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
@@ -33,7 +33,7 @@ abstract class KMapExtensionsMixin<K, V>
     return filtered;
   }
 
-  @override
+  // TODO add @override again
   M filterNotTo<M extends KMutableMap<K, V>>(
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
