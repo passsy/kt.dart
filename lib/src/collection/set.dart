@@ -55,7 +55,10 @@ class DartSet<T>
     if (other is! KSet) return false;
     if (other.size != size) return false;
     if (other.hashCode != hashCode) return false;
-    return containsAll(other);
+    if (other is KSet<T>) {
+      return containsAll(other);
+    }
+    return false;
   }
 }
 

@@ -7,6 +7,6 @@ T catchException<T>(Function block) {
     fail("block did not throw");
   } catch (e) {
     expect(e, TypeMatcher<T>());
-    return e;
+    return e as T;
   }
 }

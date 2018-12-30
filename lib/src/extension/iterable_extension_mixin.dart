@@ -44,7 +44,8 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<K, T> associateBy<K>(K Function(T) keySelector) {
-    return associateByTo(linkedMapOf<K, T>(), keySelector, null);
+    return associateByTo<K, T, KMutableMap<K, T>>(
+        linkedMapOf<K, T>(), keySelector, null);
   }
 
   @override
@@ -64,7 +65,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (var element in iter) {
       var key = keySelector(element);
-      var value = valueTransform == null ? element : valueTransform(element);
+      V value = valueTransform == null ? element : valueTransform(element);
       destination.put(key, value);
     }
     return destination;
@@ -148,7 +149,7 @@ abstract class KIterableExtensionsMixin<T>
       return (this as KCollection).size;
     }
     var count = 0;
-    Iterator it = iter.iterator;
+    Iterator<T> it = iter.iterator;
     while (it.moveNext()) {
       if (predicate == null) {
         count++;
@@ -409,7 +410,7 @@ abstract class KIterableExtensionsMixin<T>
   T firstOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList);
+        var list = (this as KList<T>);
         if (list.isEmpty()) {
           return null;
         } else {
@@ -634,7 +635,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (this is KList) return (this as KList).last();
+      if (this is KList) return (this as KList<T>).last();
       final i = iterator();
       if (!i.hasNext()) {
         throw NoSuchElementException("Collection is empty");
@@ -677,7 +678,7 @@ abstract class KIterableExtensionsMixin<T>
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList);
+        var list = (this as KList<T>);
         return list.isEmpty() ? null : list.get(list.lastIndex);
       } else {
         final i = iterator();

@@ -179,7 +179,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(result, equals(2.5));
     });
     test("average of empty is NaN", () {
-      final ints = emptyIterable();
+      final ints = emptyIterable<num>();
       var result = ints.averageBy((it) => it);
       expect(identical(result, double.nan), isTrue);
     });
@@ -367,7 +367,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           iterable.elementAt(1),
           iterable.elementAt(2)
         ]);
-        expect(set.containsAll(iterable), isTrue);
+        expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
 
@@ -405,7 +405,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           iterable.elementAtOrElse(1, (i) => "x"),
           iterable.elementAtOrElse(2, (i) => "x")
         ]);
-        expect(set.containsAll(iterable), isTrue);
+        expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
 
@@ -451,7 +451,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           iterable.elementAtOrNull(1),
           iterable.elementAtOrNull(2)
         ]);
-        expect(set.containsAll(iterable), isTrue);
+        expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
 

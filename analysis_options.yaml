@@ -1,6 +1,9 @@
 analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  exclude:
+    - test/**
 
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
 linter:
