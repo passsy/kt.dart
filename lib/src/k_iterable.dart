@@ -102,8 +102,9 @@ abstract class KIterableExtension<T> {
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
    */
-  M associateWithTo<V, M extends KMutableMap<T, V>>(
-      M destination, V Function(T) valueSelector);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M associateWithTo<V, M extends KMutableMap<T, V>>(
+  //     M destination, V Function(T) valueSelector);
 
   /**
    * Returns an average value produced by [selector] function applied to each element in the collection.
@@ -204,8 +205,9 @@ abstract class KIterableExtension<T> {
    * @param [predicate] function that takes the index of an element and the element itself
    * and returns the result of predicate evaluation on the element.
    */
-  C filterIndexedTo<C extends KMutableCollection<T>>(
-      C destination, bool Function(int index, T) predicate);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // C filterIndexedTo<C extends KMutableCollection<T>>(
+  //     C destination, bool Function(int index, T) predicate);
 
   /**
    * Returns a list containing all elements that are instances of specified type parameter R.
@@ -225,19 +227,22 @@ abstract class KIterableExtension<T> {
   /**
    * Appends all elements that are not `null` to the given [destination].
    */
-  C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
 
   /**
    * Appends all elements not matching the given [predicate] to the given [destination].
    */
-  C filterNotTo<C extends KMutableCollection<T>>(
-      C destination, bool Function(T) predicate);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // C filterNotTo<C extends KMutableCollection<T>>(
+  //     C destination, bool Function(T) predicate);
 
   /**
    * Appends all elements matching the given [predicate] to the given [destination].
    */
-  C filterTo<C extends KMutableCollection<T>>(
-      C destination, bool Function(T) predicate);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // C filterTo<C extends KMutableCollection<T>>(
+  //     C destination, bool Function(T) predicate);
 
   /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.
@@ -327,8 +332,9 @@ abstract class KIterableExtension<T> {
    *
    * @return The [destination] map.
    */
-  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
-      M destination, K Function(T) keySelector);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
+  //     M destination, K Function(T) keySelector);
 
   /**
    * Groups values returned by the [valueTransform] function applied to each element of the original collection

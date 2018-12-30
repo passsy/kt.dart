@@ -80,7 +80,7 @@ abstract class KMapExtensionsMixin<K, V>
     return mapped;
   }
 
-  @override
+  // TODO add @override again
   M mapKeysTo<R, M extends KMutableMap<R, V>>(
       M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, transform, (it) => it.value);
@@ -92,7 +92,7 @@ abstract class KMapExtensionsMixin<K, V>
     return mapped;
   }
 
-  @override
+  // TODO add @override again
   M mapValuesTo<R, M extends KMutableMap<K, R>>(
       M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, (it) => it.key, transform);
