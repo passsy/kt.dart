@@ -139,8 +139,9 @@ abstract class KMapExtension<K, V> {
    * In case if any two entries are mapped to the equal keys, the value of the latter one will overwrite
    * the value associated with the former one.
    */
-  M mapKeysTo<R, M extends KMutableMap<R, V>>(
-      M destination, R Function(KMapEntry<K, V> entry) transform);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M mapKeysTo<R, M extends KMutableMap<R, V>>(
+  //     M destination, R Function(KMapEntry<K, V> entry) transform);
 
   /**
    * Returns a new map with entries having the keys of this map and the values obtained by applying the [transform]
@@ -154,8 +155,9 @@ abstract class KMapExtension<K, V> {
    * Populates the given [destination] map with entries having the keys of this map and the values obtained
    * by applying the [transform] function to each entry in this [Map].
    */
-  M mapValuesTo<R, M extends KMutableMap<K, R>>(
-      M destination, R Function(KMapEntry<K, V> entry) transform);
+  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  // M mapValuesTo<R, M extends KMutableMap<K, R>>(
+  //     M destination, R Function(KMapEntry<K, V> entry) transform);
 
   /**
    * Returns a map containing all entries of the original map except the entry with the given [key].
