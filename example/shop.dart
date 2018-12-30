@@ -1,6 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
-main() {
+void main() {
   final rekasPrducts = getOrderedProducts(jbCustomers[reka]);
   print("reka bought $rekasPrducts");
 

@@ -19,7 +19,7 @@ import 'comparisons_test.dart' as comparisons_test;
 import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
 
-main() {
+void main() {
   collection_mutable_test.main();
   collection_test.main();
   iterable_extensions_test.main();

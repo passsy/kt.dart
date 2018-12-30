@@ -1,6 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
-main() {
+void main() {
   /**
    * Lists
    */
