@@ -4,6 +4,52 @@ import 'package:dart_kollection/src/k_map_mutable.dart';
 abstract class KMapExtensionsMixin<K, V>
     implements KMapExtension<K, V>, KMap<K, V> {
   @override
+  KMap<K, V> filter(bool Function(KMapEntry<K, V> entry) predicate) {
+    final filtered = filterTo(linkedMapOf<K, V>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    return filtered;
+  }
+
+  @override
+  M filterTo<M extends KMutableMap<K, V>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    for (final element in entries.iter) {
+      if (predicate(element)) {
+        destination.put(element.key, element.value);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  KMap<K, V> filterNot(bool Function(KMapEntry<K, V> entry) predicate) {
+    final filtered = filterNotTo(linkedMapOf<K, V>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    return filtered;
+  }
+
+  @override
+  M filterNotTo<M extends KMutableMap<K, V>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    for (final element in entries.iter) {
+      if (!predicate(element)) {
+        destination.put(element.key, element.value);
+      }
+    }
+    return destination;
+  }
+
+  @override
   V getOrElse(K key, V Function() defaultValue) {
     assert(() {
       if (defaultValue == null)

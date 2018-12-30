@@ -94,6 +94,36 @@ abstract class KMapEntry<K, V> {
 
 abstract class KMapExtension<K, V> {
   /**
+   * Returns a new map containing all key-value pairs matching the given [predicate].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, V> filter(bool Function(KMapEntry<K, V> entry) predicate);
+
+  /**
+   * Appends all entries matching the given [predicate] into the mutable map given as [destination] parameter.
+   *
+   * @return the destination map.
+   */
+  M filterTo<M extends KMutableMap<K, V>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate);
+
+  /**
+   * Returns a new map containing all key-value pairs not matching the given [predicate].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KMap<K, V> filterNot(bool Function(KMapEntry<K, V> entry) predicate);
+
+  /**
+   * Appends all entries not matching the given [predicate] into the given [destination].
+   *
+   * @return the destination map.
+   */
+  M filterNotTo<M extends KMutableMap<K, V>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate);
+
+  /**
    * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.
    */
   V getOrElse(K key, V Function() defaultValue);
@@ -105,11 +135,6 @@ abstract class KMapExtension<K, V> {
    */
   @nonNull
   V getValue(K key);
-
-  // TODO filter
-  // TODO filterTo
-  // TODO filterNot
-  // TODO filterNotTo
 
   /**
    * Returns an [Iterator] over the entries in the [Map].
