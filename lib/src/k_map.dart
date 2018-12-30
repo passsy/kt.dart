@@ -103,11 +103,15 @@ abstract class KMapExtension<K, V> {
   /**
    * Appends all entries matching the given [predicate] into the mutable map given as [destination] parameter.
    *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<K, V>`
+   *
    * @return the destination map.
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M filterTo<M extends KMutableMap<K, V>>(
-  //     M destination, bool Function(KMapEntry<K, V> entry) predicate);
+  // TODO Change to `M extends KMutableMap<K, V>` once  has been fixed
+  M filterTo<M extends KMutableMap<dynamic, dynamic>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate);
 
   /**
    * Returns a new map containing all key-value pairs not matching the given [predicate].
@@ -119,11 +123,15 @@ abstract class KMapExtension<K, V> {
   /**
    * Appends all entries not matching the given [predicate] into the given [destination].
    *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<K, V>`
+   *
    * @return the destination map.
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M filterNotTo<M extends KMutableMap<K, V>>(
-  //     M destination, bool Function(KMapEntry<K, V> entry) predicate);
+  // TODO Change to `M extends KMutableMap<K, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M filterNotTo<M extends KMutableMap<dynamic, dynamic>>(
+      M destination, bool Function(KMapEntry<K, V> entry) predicate);
 
   /**
    * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.

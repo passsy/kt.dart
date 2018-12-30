@@ -1,5 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_map_mutable.dart';
+import 'package:dart_kollection/src/util/errors.dart';
 
 abstract class KMapExtensionsMixin<K, V>
     implements KMapExtension<K, V>, KMap<K, V> {
@@ -10,11 +11,17 @@ abstract class KMapExtensionsMixin<K, V>
     return filtered;
   }
 
-  // TODO add @override again
-  M filterTo<M extends KMutableMap<K, V>>(
+  @override
+  M filterTo<M extends KMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableMapOf<K, V>() is! M)
+        throw ArgumentError("filterTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<${K}, ${V}>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map (${this.runtimeType}) entries. Entries can't be copied to destination."
+            "\n\n$kGenericTypeError");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
@@ -33,11 +40,17 @@ abstract class KMapExtensionsMixin<K, V>
     return filtered;
   }
 
-  // TODO add @override again
-  M filterNotTo<M extends KMutableMap<K, V>>(
+  @override
+  M filterNotTo<M extends KMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableMapOf<K, V>() is! M)
+        throw ArgumentError("filterNotTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<${K}, ${V}>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map (${this.runtimeType}) entries. Entries can't be copied to destination."
+            "\n\n$kGenericTypeError");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
