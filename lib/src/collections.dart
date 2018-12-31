@@ -13,8 +13,28 @@ import 'package:dart_kollection/src/collection/set_mutable.dart';
 
 /**
  * Returns a new read-only list of given elements.
+ *
+ * `null` is a valid element but the elements will be cut after the last non null element
  */
-KList<T> listOf<T>([Iterable<T> elements = const []]) {
+KList<T> listOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  final args = [arg9, arg8, arg7, arg6, arg5, arg4, arg3, arg2, arg1, arg0]
+      .skipWhile((it) => it == null);
+
+  if (args.length == 0) return emptyList();
+  return DartList(args);
+}
+
+KList<T> listFrom<T>([Iterable<T> elements = const []]) {
   if (elements.length == 0) return emptyList();
   return DartList(elements);
 }
