@@ -42,10 +42,8 @@ class DartSet<T>
 
   @override
   int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = hashObjects(
-          _set.map((e) => e.hashCode).toList(growable: false)..sort());
-    }
+    _hashCode ??= hashObjects(
+        _set.map((e) => e.hashCode).toList(growable: false)..sort());
     return _hashCode;
   }
 

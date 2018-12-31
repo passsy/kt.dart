@@ -98,9 +98,7 @@ class DartList<T>
 
   @override
   int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = 1 + hashObjects(_list);
-    }
+    _hashCode ??= 1 + hashObjects(_list);
     return _hashCode;
   }
 

@@ -22,3 +22,4 @@ linter:
     - unnecessary_this
     - unrelated_type_equality_checks
     - valid_regexps
+    - prefer_conditional_assignment
