@@ -1217,7 +1217,7 @@ abstract class KIterableExtensionsMixin<T>
     if (this is KCollection) {
       final collection = this as KCollection;
       if (n >= collection.size) return toList();
-      if (n == 1) return listOf(first());
+      if (n == 1) return listFrom([first()]);
     }
     var count = 0;
     final list = mutableListOf<T>();

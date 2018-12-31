@@ -119,7 +119,7 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
       : _set = set,
         _iterator = set.iter.iterator {
     lastReturned = null;
-    _iterator.moveNext();
+    _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
   }
 
@@ -127,17 +127,18 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;
+  var _hasNext = false;
 
   @override
   bool hasNext() {
-    return nextValue != null;
+    return _hasNext;
   }
 
   @override
   T next() {
+    if (!_hasNext) throw NoSuchElementException();
     var e = nextValue;
-    if (e == null) throw NoSuchElementException();
-    _iterator.moveNext();
+    _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
     lastReturned = e;
     return e;
