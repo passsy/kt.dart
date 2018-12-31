@@ -892,7 +892,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     if (this is KCollection && (this as KCollection).isEmpty()) {
-      return this.toList();
+      return toList();
     }
     return filterNot((it) => elements.contains(it));
   }
@@ -1002,7 +1002,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     final result = mutableListOf<T>();
-    result.addAll(this.asIterable());
+    result.addAll(asIterable());
     result.addAll(elements);
     return result;
   }
@@ -1013,7 +1013,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<T> plusElement(T element) {
     final result = mutableListOf<T>();
-    result.addAll(this.asIterable());
+    result.addAll(asIterable());
     result.add(element);
     return result;
   }
@@ -1287,7 +1287,7 @@ abstract class KIterableExtensionsMixin<T>
         throw ArgumentError("partialWindows can't be null");
       return true;
     }());
-    final list = this.toList();
+    final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<KList<T>>();
     final window = _MovingSubList(list);
@@ -1312,7 +1312,7 @@ abstract class KIterableExtensionsMixin<T>
         throw ArgumentError("partialWindows can't be null");
       return true;
     }());
-    final list = this.toList();
+    final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<R>();
     final window = _MovingSubList(list);
@@ -1387,8 +1387,8 @@ class _MovingSubList<T> {
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
-    this._fromIndex = fromIndex;
-    this._size = toIndex - fromIndex;
+    _fromIndex = fromIndex;
+    _size = toIndex - fromIndex;
   }
 
   KList<T> snapshot() => list.subList(_fromIndex, _fromIndex + _size);

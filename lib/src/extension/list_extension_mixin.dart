@@ -138,7 +138,7 @@ abstract class KListExtensionsMixin<T> implements KListExtension<T>, KList<T> {
   }
 
   @override
-  int get lastIndex => this.size - 1;
+  int get lastIndex => size - 1;
 
   @override
   S reduceRight<S>(S Function(T, S acc) operation) {

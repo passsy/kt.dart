@@ -30,7 +30,7 @@ class InterOpKIterator<T> implements KIterator<T> {
 
 class InterOpKListIterator<T>
     implements KListIterator<T>, KMutableListIterator<T> {
-  InterOpKListIterator(this.list, int index) : this.cursor = index {
+  InterOpKListIterator(this.list, int index) : cursor = index {
     if (index < 0 || index > list.length) {
       throw IndexOutOfBoundsException("index: $index, size: $list.length");
     }
