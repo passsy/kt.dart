@@ -60,8 +60,4 @@ void main() {
   final beatles = setOf(["John", "Paul", "George", "Ringo"]);
   print(beatles); // [John, Paul, George, Ringo]
   print(beatles.joinToString(separator: "/")); // John/Paul/George/Ringo
-
-  final other = mutableMapOf<String, num>();
-  beatles.associateWith((it) => it.length).filterTo(other, (_) => true);
-  print("Other $other");
 }
