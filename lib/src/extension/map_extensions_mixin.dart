@@ -98,15 +98,14 @@ abstract class KMapExtensionsMixin<K, V>
       M destination, R Function(KMapEntry<K, V> entry) transform) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
-
+      if (transform == null) throw ArgumentError("transform can't be null");
       final testType = mutableMapOf<R, V>();
       if (testType is! M)
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
-            "\nExpected: ${testType.runtimeType}, Actual: ${destination.runtimeType}"
+            "\nExpected: KMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KMapEntry<$R, $V> "
             "and can't be copied into destination of type ${destination.runtimeType}."
             "\n\n$kBug35518GenericTypeError");
-      if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());
     for (var element in entries.iter) {
