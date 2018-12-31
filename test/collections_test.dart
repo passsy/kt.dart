@@ -7,82 +7,82 @@ void main() {
       final list = emptyList<String>();
       expect(list.size, 0);
       expect(list.hashCode, 1);
+      expect(list, listFrom());
       expect(list, listOf());
-      expect(list, listOf([]));
-      var emptyMutable = mutableListOf(["a"])..remove("a");
+      var emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
     });
   });
 
-  group('listOf', () {
+  group('listFrom', () {
     test("empty", () {
-      final list = listOf<String>();
+      final list = listFrom<String>();
       expect(list.size, 0);
       expect(list.hashCode, 1);
+      expect(list, listFrom());
       expect(list, listOf());
-      expect(list, listOf([]));
-      var emptyMutable = mutableListOf(["a"])..remove("a");
+      var emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
     });
 
     test("create with value", () {
-      final list = listOf<String>(["test"]);
+      final list = listFrom<String>(["test"]);
       expect(list.size, equals(1));
-      expect(list, listOf(["test"]));
+      expect(list, listOf("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final klist = listOf<String>(originalList);
+      final klist = listFrom<String>(originalList);
       expect(klist.size, equals(1));
-      expect(klist, listOf(["foo"]));
+      expect(klist, listOf("foo"));
 
       originalList.add("bar");
       expect(originalList, ["foo", "bar"]);
       // originalList was copied, therefore no change of klist
-      expect(klist, listOf(["foo"]));
+      expect(klist, listOf("foo"));
     });
   });
 
-  group('mutableListOf', () {
+  group('mutableListFrom', () {
     test("empty", () {
       final list = mutableListOf<String>();
       expect(list.size, 0);
       expect(list.hashCode, 1);
+      expect(list, listFrom());
       expect(list, listOf());
-      expect(list, listOf([]));
-      var emptyMutable = mutableListOf(["a"])..remove("a");
+      var emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
     });
 
     test("empty is mutable", () {
-      final list = mutableListOf<String>([]);
+      final list = mutableListFrom<String>([]);
       list.add("test");
       expect(list.size, equals(1));
-      expect(list, listOf(["test"]));
+      expect(list, listOf("test"));
     });
 
     test("create with value", () {
-      final list = mutableListOf<String>(["test"]);
+      final list = mutableListFrom<String>(["test"]);
       expect(list.size, equals(1));
-      expect(list, listOf(["test"]));
+      expect(list, listOf("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final klist = mutableListOf<String>(originalList);
+      final klist = mutableListFrom<String>(originalList);
       expect(klist.size, equals(1));
-      expect(klist, listOf(["foo"]));
+      expect(klist, listOf("foo"));
 
       originalList.add("bar");
       expect(originalList, ["foo", "bar"]);
       // originalList was copied, therefore no change of klist
-      expect(klist, listOf(["foo"]));
+      expect(klist, listOf("foo"));
     });
   });
 
