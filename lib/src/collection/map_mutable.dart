@@ -54,7 +54,7 @@ class DartMutableMap<K, V>
   int get size => _map.length;
 
   @override
-  KMutableCollection<V> get values => mutableListOf(_map.values);
+  KMutableCollection<V> get values => mutableListFrom(_map.values);
 
   @override
   void clear() => _map.clear();

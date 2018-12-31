@@ -1248,7 +1248,7 @@ abstract class KIterableExtensionsMixin<T>
   KList<T> toList() => listFrom(iter);
 
   @override
-  KMutableList<T> toMutableList() => mutableListOf(iter);
+  KMutableList<T> toMutableList() => mutableListFrom(iter);
 
   @override
   KMutableSet<T> toMutableSet() => linkedSetOf(iter);
