@@ -6,12 +6,12 @@ import 'package:dart_kollection/src/util/hash.dart';
 class DartSet<T>
     with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>
     implements KSet<T> {
-  final Set<T> _set;
-  int _hashCode;
-
   DartSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
+
+  final Set<T> _set;
+  int _hashCode;
 
   @override
   Iterable<T> get iter => _set;
@@ -28,7 +28,7 @@ class DartSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all((it) => _set.contains(it));
+    return elements.all(_set.contains);
   }
 
   @override
@@ -42,10 +42,8 @@ class DartSet<T>
 
   @override
   int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = hashObjects(
-          _set.map((e) => e.hashCode).toList(growable: false)..sort());
-    }
+    _hashCode ??= hashObjects(
+        _set.map((e) => e.hashCode).toList(growable: false)..sort());
     return _hashCode;
   }
 
@@ -63,15 +61,15 @@ class DartSet<T>
 }
 
 class _DartToKIterator<T> extends KIterator<T> {
-  final Iterator<T> iterator;
-  T nextValue;
-  T lastReturned;
-
   _DartToKIterator(this.iterator) {
     lastReturned = null;
     iterator.moveNext();
     nextValue = iterator.current;
   }
+
+  final Iterator<T> iterator;
+  T nextValue;
+  T lastReturned;
 
   @override
   bool hasNext() {
@@ -80,7 +78,7 @@ class _DartToKIterator<T> extends KIterator<T> {
 
   @override
   T next() {
-    var e = nextValue;
+    final e = nextValue;
     if (e == null) throw NoSuchElementException();
     iterator.moveNext();
     nextValue = iterator.current;

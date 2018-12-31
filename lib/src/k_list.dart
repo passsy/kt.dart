@@ -46,12 +46,14 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
    * Returns the index of the first occurrence of the specified element in the list, or -1 if the specified
    * element is not contained in the list.
    */
+  @override
   int indexOf(T element);
 
   /**
    * Returns the index of the last occurrence of the specified element in the list, or -1 if the specified
    * element is not contained in the list.
    */
+  @override
   int lastIndexOf(T element);
 
   // List Iterators

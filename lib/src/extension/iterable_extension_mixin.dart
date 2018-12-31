@@ -64,8 +64,9 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     for (var element in iter) {
-      var key = keySelector(element);
-      V value = valueTransform == null ? element : valueTransform(element);
+      final key = keySelector(element);
+      final V value =
+          valueTransform == null ? element : valueTransform(element);
       destination.put(key, value);
     }
     return destination;
@@ -79,7 +80,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     for (var element in iter) {
-      var pair = transform(element);
+      final pair = transform(element);
       destination.put(pair.first, pair.second);
     }
     return destination;
@@ -149,12 +150,12 @@ abstract class KIterableExtensionsMixin<T>
       return (this as KCollection).size;
     }
     var count = 0;
-    Iterator<T> it = iter.iterator;
-    while (it.moveNext()) {
+    final Iterator<T> i = iter.iterator;
+    while (i.moveNext()) {
       if (predicate == null) {
         count++;
       } else {
-        if (predicate(it.current)) {
+        if (predicate(i.current)) {
           count++;
         }
       }
@@ -162,8 +163,10 @@ abstract class KIterableExtensionsMixin<T>
     return count;
   }
 
+  @override
   KList<T> distinct() => toMutableSet().toList();
 
+  @override
   KList<T> distinctBy<K>(K Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -203,7 +206,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     var yielding = false;
-    var list = mutableListOf<T>();
+    final list = mutableListOf<T>();
     for (final item in iter) {
       if (yielding) {
         list.add(item);
@@ -323,7 +326,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> filterNotNull() {
-    var list = filterNotNullTo(mutableListOf<T>());
+    final list = filterNotNullTo(mutableListOf<T>());
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return list;
@@ -410,7 +413,7 @@ abstract class KIterableExtensionsMixin<T>
   T firstOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList<T>);
+        final list = this as KList<T>;
         if (list.isEmpty()) {
           return null;
         } else {
@@ -486,9 +489,9 @@ abstract class KIterableExtensionsMixin<T>
       if (action == null) throw ArgumentError("action can't be null");
       return true;
     }());
-    var i = iterator();
+    final i = iterator();
     while (i.hasNext()) {
-      var element = i.next();
+      final element = i.next();
       action(element);
     }
   }
@@ -529,7 +532,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, () => mutableListOf<T>());
+      final list = destination.getOrPut(key, mutableListOf);
       list.add(element);
     }
     return destination;
@@ -547,7 +550,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, () => mutableListOf<V>());
+      final list = destination.getOrPut(key, mutableListOf);
       list.add(valueTransform(element));
     }
     return destination;
@@ -580,6 +583,7 @@ abstract class KIterableExtensionsMixin<T>
     return -1;
   }
 
+  @override
   int indexOfLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -596,6 +600,7 @@ abstract class KIterableExtensionsMixin<T>
     return lastIndex;
   }
 
+  @override
   KSet<T> intersect(KIterable<T> other) {
     final set = toMutableSet();
     set.retainAll(other);
@@ -610,7 +615,7 @@ abstract class KIterableExtensionsMixin<T>
       int limit = -1,
       String truncated = "...",
       String Function(T) transform}) {
-    var buffer = StringBuffer();
+    final buffer = StringBuffer();
     buffer.write(prefix);
     var count = 0;
     for (var element in iter) {
@@ -661,6 +666,7 @@ abstract class KIterableExtensionsMixin<T>
     }
   }
 
+  @override
   int lastIndexOf(T element) {
     if (this is KList) return (this as KList).lastIndexOf(element);
     var lastIndex = -1;
@@ -678,7 +684,7 @@ abstract class KIterableExtensionsMixin<T>
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList<T>);
+        final list = this as KList<T>;
         return list.isEmpty() ? null : list.get(list.lastIndex);
       } else {
         final i = iterator();
@@ -705,7 +711,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<R> map<R>(R Function(T) transform) {
     final KMutableList<R> list = mutableListOf<R>();
-    var mapped = mapTo(list, transform);
+    final mapped = mapTo(list, transform);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
@@ -713,7 +719,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<R> mapIndexed<R>(R Function(int index, T) transform) {
-    var mapped = mapIndexedTo(mutableListOf<R>(), transform);
+    final mapped = mapIndexedTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
@@ -721,7 +727,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
-    var mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
+    final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
@@ -737,7 +743,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     var index = 0;
     for (final item in iter) {
-      var element = transform(index++, item);
+      final element = transform(index++, item);
       if (element != null) {
         destination.add(element);
       }
@@ -762,7 +768,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<R> mapNotNull<R>(R Function(T) transform) {
-    var mapped = mapNotNullTo(mutableListOf<R>(), transform);
+    final mapped = mapNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
@@ -777,7 +783,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     for (final item in iter) {
-      var result = transform(item);
+      final result = transform(item);
       if (result != null) {
         destination.add(result);
       }
@@ -803,7 +809,7 @@ abstract class KIterableExtensionsMixin<T>
   num max() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     final i = iterator();
@@ -863,7 +869,7 @@ abstract class KIterableExtensionsMixin<T>
   num min() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     final i = iterator();
@@ -887,7 +893,7 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     if (this is KCollection && (this as KCollection).isEmpty()) {
-      return this.toList();
+      return toList();
     }
     return filterNot((it) => elements.contains(it));
   }
@@ -895,6 +901,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<T> operator -(KIterable<T> other) => minus(other);
 
+  @override
   KList<T> minusElement(T element) {
     final result = mutableListOf<T>();
     var removed = false;
@@ -996,17 +1003,18 @@ abstract class KIterableExtensionsMixin<T>
       return true;
     }());
     final result = mutableListOf<T>();
-    result.addAll(this.asIterable());
+    result.addAll(asIterable());
     result.addAll(elements);
     return result;
   }
 
+  @override
   KList<T> operator +(KIterable<T> elements) => plus(elements);
 
   @override
   KList<T> plusElement(T element) {
     final result = mutableListOf<T>();
-    result.addAll(this.asIterable());
+    result.addAll(asIterable());
     result.add(element);
     return result;
   }
@@ -1068,7 +1076,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
-      var i = iterator();
+      final i = iterator();
       if (!i.hasNext()) {
         throw NoSuchElementException("Collection is empty.");
       }
@@ -1096,6 +1104,7 @@ abstract class KIterableExtensionsMixin<T>
     }
   }
 
+  @override
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1170,7 +1179,7 @@ abstract class KIterableExtensionsMixin<T>
   num sum() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     num sum = 0;
@@ -1180,6 +1189,7 @@ abstract class KIterableExtensionsMixin<T>
     return sum;
   }
 
+  @override
   int sumBy(int Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1192,6 +1202,7 @@ abstract class KIterableExtensionsMixin<T>
     return sum;
   }
 
+  @override
   double sumByDouble(double Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1277,7 +1288,7 @@ abstract class KIterableExtensionsMixin<T>
         throw ArgumentError("partialWindows can't be null");
       return true;
     }());
-    final list = this.toList();
+    final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<KList<T>>();
     final window = _MovingSubList(list);
@@ -1302,7 +1313,7 @@ abstract class KIterableExtensionsMixin<T>
         throw ArgumentError("partialWindows can't be null");
       return true;
     }());
-    final list = this.toList();
+    final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<R>();
     final window = _MovingSubList(list);
@@ -1377,8 +1388,8 @@ class _MovingSubList<T> {
     if (fromIndex > toIndex) {
       throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
     }
-    this._fromIndex = fromIndex;
-    this._size = toIndex - fromIndex;
+    _fromIndex = fromIndex;
+    _size = toIndex - fromIndex;
   }
 
   KList<T> snapshot() => list.subList(_fromIndex, _fromIndex + _size);

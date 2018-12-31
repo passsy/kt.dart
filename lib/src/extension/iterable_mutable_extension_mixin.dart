@@ -17,7 +17,7 @@ abstract class KMutableIterableExtensionsMixin<T>
       return true;
     }());
     var result = false;
-    var i = iterator();
+    final i = iterator();
     while (i.hasNext())
       if (predicate(i.next()) == predicateResultToRemove) {
         i.remove();
