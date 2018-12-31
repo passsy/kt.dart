@@ -11,7 +11,7 @@ abstract class KMutableListExtensionsMixin<T>
 
   @override
   void reverse() {
-    var mid = size >> 1;
+    final mid = size >> 1;
 
     var i = 0;
     var j = size - 1;
@@ -55,8 +55,8 @@ abstract class KMutableListExtensionsMixin<T>
 
   @override
   void swap(int indexA, int indexB) {
-    var firstOld = get(indexA);
-    var secondOld = set(indexB, firstOld);
+    final firstOld = get(indexA);
+    final secondOld = set(indexB, firstOld);
     set(indexA, secondOld);
   }
 }

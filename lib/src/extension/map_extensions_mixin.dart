@@ -61,7 +61,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   V getValue(K key) {
-    var value = get(key);
+    final value = get(key);
     if (value == null) {
       throw NoSuchElementException("Key $key is missing in the map.");
     }
@@ -76,7 +76,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<R, V> mapKeys<R>(R Function(KMapEntry<K, V>) transform) {
-    var mapped = mapKeysTo(linkedMapOf<R, V>(), transform);
+    final mapped = mapKeysTo(linkedMapOf<R, V>(), transform);
     return mapped;
   }
 
@@ -88,7 +88,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, R> mapValues<R>(R Function(KMapEntry<K, V>) transform) {
-    var mapped = mapValuesTo(linkedMapOf<K, R>(), transform);
+    final mapped = mapValuesTo(linkedMapOf<K, R>(), transform);
     return mapped;
   }
 

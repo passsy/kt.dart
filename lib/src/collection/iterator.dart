@@ -19,7 +19,7 @@ class InterOpKIterator<T> implements KIterator<T> {
 
   @override
   T next() {
-    var e = nextValue;
+    final e = nextValue;
     if (e == null) throw NoSuchElementException();
     iterator.moveNext();
     nextValue = iterator.current;
@@ -47,7 +47,7 @@ class InterOpKListIterator<T>
 
   @override
   T next() {
-    int i = cursor;
+    final i = cursor;
     if (i >= list.length) throw NoSuchElementException();
     cursor = i + 1;
     return list[lastRet = i];

@@ -78,7 +78,7 @@ class DartMutableSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    var oldSize = size;
+    final oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
   }
@@ -135,7 +135,7 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
 
   @override
   T next() {
-    var e = nextValue;
+    final e = nextValue;
     if (e == null) throw NoSuchElementException();
     _iterator.moveNext();
     nextValue = _iterator.current;
