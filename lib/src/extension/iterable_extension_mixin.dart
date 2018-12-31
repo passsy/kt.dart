@@ -91,7 +91,6 @@ abstract class KIterableExtensionsMixin<T>
     return associateWithTo(linkedMapOf<T, V>(), valueSelector);
   }
 
-  // TODO add @override again
   M associateWithTo<V, M extends KMutableMap<T, V>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
@@ -289,7 +288,6 @@ abstract class KIterableExtensionsMixin<T>
     return list;
   }
 
-  // TODO add @override again
   C filterIndexedTo<C extends KMutableCollection<T>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
@@ -332,7 +330,6 @@ abstract class KIterableExtensionsMixin<T>
     return list;
   }
 
-  // TODO add @override again
   C filterNotNullTo<C extends KMutableCollection<T>>(C destination) {
     for (final element in iter) {
       if (element != null) {
@@ -342,7 +339,6 @@ abstract class KIterableExtensionsMixin<T>
     return destination;
   }
 
-  // TODO add @override again
   C filterNotTo<C extends KMutableCollection<T>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -358,7 +354,6 @@ abstract class KIterableExtensionsMixin<T>
     return destination;
   }
 
-  // TODO add @override again
   C filterTo<C extends KMutableCollection<T>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -522,7 +517,6 @@ abstract class KIterableExtensionsMixin<T>
     return groups;
   }
 
-  // TODO add @override again
   M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
       M destination, K Function(T) keySelector) {
     assert(() {
