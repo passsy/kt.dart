@@ -12,6 +12,7 @@ linter:
     - annotate_overrides
     - cancel_subscriptions
     - hash_and_equals
+    - directives_ordering
     - iterable_contains_unrelated_type
     - list_remove_unrelated_type
     - sort_constructors_first

@@ -1,5 +1,6 @@
-import 'package:dart_kollection/dart_kollection.dart';
 import 'dart:math' as math show Random;
+
+import 'package:dart_kollection/dart_kollection.dart';
 
 /**
  * A generic collection of elements. Methods in this interface support only read-only access to the collection;
