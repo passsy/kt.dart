@@ -6,22 +6,18 @@ import 'package:dart_kollection/src/util/hash.dart';
 class DartSet<T>
     with KIterableExtensionsMixin<T>, KCollectionExtensionMixin<T>
     implements KSet<T> {
+  final Set<T> _set;
+  int _hashCode;
+
   DartSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
-
-  final Set<T> _set;
-  int _hashCode;
 
   @override
   Iterable<T> get iter => _set;
 
   @override
-  Set<T> get set {
-    // The API of Set is mutable. Since KSet is immutable returning a new instance
-    // here prevents mutation of the underlying Set
-    return Set.of(_set);
-  }
+  Set<T> get set => _set;
 
   @override
   bool contains(T element) => _set.contains(element);
@@ -32,7 +28,7 @@ class DartSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all(_set.contains);
+    return elements.all((it) => _set.contains(it));
   }
 
   @override
@@ -46,8 +42,10 @@ class DartSet<T>
 
   @override
   int get hashCode {
-    _hashCode ??= hashObjects(
-        _set.map((e) => e.hashCode).toList(growable: false)..sort());
+    if (_hashCode == null) {
+      _hashCode = hashObjects(
+          _set.map((e) => e.hashCode).toList(growable: false)..sort());
+    }
     return _hashCode;
   }
 
@@ -59,33 +57,33 @@ class DartSet<T>
     if (other.hashCode != hashCode) return false;
     if (other is KSet<T>) {
       return containsAll(other);
-    } else {
-      return (other as KSet).containsAll(this);
     }
+    return false;
   }
 }
 
 class _DartToKIterator<T> extends KIterator<T> {
-  _DartToKIterator(this.iterator) {
-    lastReturned = null;
-    iterator.moveNext();
-    nextValue = iterator.current;
-  }
-
   final Iterator<T> iterator;
   T nextValue;
   T lastReturned;
+  var _hasNext = false;
+
+  _DartToKIterator(this.iterator) {
+    lastReturned = null;
+    _hasNext = iterator.moveNext();
+    nextValue = iterator.current;
+  }
 
   @override
   bool hasNext() {
-    return nextValue != null;
+    return _hasNext;
   }
 
   @override
   T next() {
-    final e = nextValue;
-    if (e == null) throw NoSuchElementException();
-    iterator.moveNext();
+    if (!_hasNext) throw NoSuchElementException();
+    var e = nextValue;
+    _hasNext = iterator.moveNext();
     nextValue = iterator.current;
     lastReturned = e;
     return e;

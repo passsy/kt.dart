@@ -10,6 +10,8 @@ class DartMutableSet<T>
         KCollectionExtensionMixin<T>,
         KMutableIterableExtensionsMixin<T>
     implements KMutableSet<T> {
+  final Set<T> _set;
+
   DartMutableSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
@@ -21,8 +23,6 @@ class DartMutableSet<T>
       : assert(set != null),
         _set = set,
         super();
-
-  final Set<T> _set;
 
   @override
   Iterable<T> get iter => _set;
@@ -39,7 +39,7 @@ class DartMutableSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all(_set.contains);
+    return elements.all((it) => _set.contains(it));
   }
 
   @override
@@ -63,9 +63,8 @@ class DartMutableSet<T>
     if (other.hashCode != hashCode) return false;
     if (other is KSet<T>) {
       return containsAll(other);
-    } else {
-      return (other as KSet).containsAll(this);
     }
+    return false;
   }
 
   @override
@@ -79,7 +78,7 @@ class DartMutableSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    final oldSize = size;
+    var oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
   }
@@ -120,7 +119,7 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
       : _set = set,
         _iterator = set.iter.iterator {
     lastReturned = null;
-    _iterator.moveNext();
+    _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
   }
 
@@ -128,17 +127,18 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;
+  var _hasNext = false;
 
   @override
   bool hasNext() {
-    return nextValue != null;
+    return _hasNext;
   }
 
   @override
   T next() {
-    final e = nextValue;
-    if (e == null) throw NoSuchElementException();
-    _iterator.moveNext();
+    if (!_hasNext) throw NoSuchElementException();
+    var e = nextValue;
+    _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
     lastReturned = e;
     return e;
