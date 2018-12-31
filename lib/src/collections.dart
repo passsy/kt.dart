@@ -15,7 +15,7 @@ import 'package:dart_kollection/src/collection/set_mutable.dart';
  * Returns a new read-only list of given elements.
  */
 KList<T> listOf<T>([Iterable<T> elements = const []]) {
-  if (elements.length == 0) return emptyList();
+  if (elements.isEmpty) return emptyList();
   return DartList(elements);
 }
 
@@ -75,7 +75,7 @@ KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
  * Elements of the set are iterated in the order they were specified.
  */
 KSet<T> setOf<T>([Iterable<T> elements = const []]) {
-  if (elements.length == 0) return emptySet();
+  if (elements.isEmpty) return emptySet();
   return DartSet(elements);
 }
 
