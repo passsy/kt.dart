@@ -6,7 +6,7 @@ class EmptyMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   Map<K, V> get map => {};
 
   @override
-  operator [](K key) => null;
+  V operator [](K key) => null;
 
   @override
   bool containsKey(K key) => false;

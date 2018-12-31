@@ -10,8 +10,6 @@ class DartMutableSet<T>
         KCollectionExtensionMixin<T>,
         KMutableIterableExtensionsMixin<T>
     implements KMutableSet<T> {
-  final Set<T> _set;
-
   DartMutableSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
@@ -23,6 +21,8 @@ class DartMutableSet<T>
       : assert(set != null),
         _set = set,
         super();
+
+  final Set<T> _set;
 
   @override
   Iterable<T> get iter => _set;
@@ -39,7 +39,7 @@ class DartMutableSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all((it) => _set.contains(it));
+    return elements.all(_set.contains);
   }
 
   @override
@@ -78,7 +78,7 @@ class DartMutableSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    var oldSize = size;
+    final oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
   }
@@ -135,7 +135,7 @@ class _MutableSetIterator<T> extends KMutableIterator<T> {
 
   @override
   T next() {
-    var e = nextValue;
+    final e = nextValue;
     if (e == null) throw NoSuchElementException();
     _iterator.moveNext();
     nextValue = _iterator.current;

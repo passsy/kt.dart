@@ -1,7 +1,7 @@
 class IndexOutOfBoundsException implements Exception {
-  final String message;
-
   IndexOutOfBoundsException([this.message]);
+
+  final String message;
 
   @override
   String toString() => message == null
@@ -10,9 +10,9 @@ class IndexOutOfBoundsException implements Exception {
 }
 
 class NoSuchElementException implements Exception {
-  final String message;
-
   NoSuchElementException([this.message]);
+
+  final String message;
 
   @override
   String toString() => message == null

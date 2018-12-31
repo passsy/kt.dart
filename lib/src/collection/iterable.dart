@@ -12,9 +12,9 @@ class EmptyIterable<T> extends KIterable<T> with KIterableExtensionsMixin<T> {
 }
 
 class DartIterable<T> extends KIterable<T> with KIterableExtensionsMixin<T> {
-  Iterable<T> _iterable;
-
   DartIterable(this._iterable);
+
+  Iterable<T> _iterable;
 
   @override
   Iterable<T> get iter => _iterable;

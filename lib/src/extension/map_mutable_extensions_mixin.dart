@@ -34,9 +34,7 @@ abstract class KMutableMapExtensionsMixin<K, V>
   @override
   V putIfAbsent(K key, V value) {
     V v = get(key);
-    if (v == null) {
-      v = put(key, value);
-    }
+    v ??= put(key, value);
     return v;
   }
 }
