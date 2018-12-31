@@ -412,7 +412,7 @@ abstract class KIterableExtensionsMixin<T>
   T firstOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList<T>);
+        var list = this as KList<T>;
         if (list.isEmpty()) {
           return null;
         } else {
@@ -683,7 +683,7 @@ abstract class KIterableExtensionsMixin<T>
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KList) {
-        var list = (this as KList<T>);
+        var list = this as KList<T>;
         return list.isEmpty() ? null : list.get(list.lastIndex);
       } else {
         final i = iterator();

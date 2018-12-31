@@ -66,3 +66,4 @@ linter:
     - prefer_is_empty
     - prefer_is_not_empty
     - unnecessary_new # under review (see #1068)
+    - unnecessary_parenthesis # under review (see #1068)
