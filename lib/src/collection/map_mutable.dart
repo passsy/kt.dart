@@ -6,8 +6,6 @@ import 'package:dart_kollection/src/util/hash.dart';
 class DartMutableMap<K, V>
     with KMapExtensionsMixin<K, V>, KMutableMapExtensionsMixin<K, V>
     implements KMutableMap<K, V> {
-  final Map<K, V> _map;
-
   DartMutableMap([Map<K, V> map = const {}])
       :
         // copy list to prevent external modification
@@ -21,6 +19,8 @@ class DartMutableMap<K, V>
       : assert(map != null),
         _map = map,
         super();
+
+  final Map<K, V> _map;
 
   @override
   Map<K, V> get map => _map;

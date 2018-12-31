@@ -14,14 +14,14 @@ class DartList<T>
         KCollectionExtensionMixin<T>,
         KListExtensionsMixin<T>
     implements KList<T> {
-  final List<T> _list;
-  int _hashCode;
-
   DartList([Iterable<T> iterable = const []])
       :
 // copy list to prevent external modification
         _list = List.from(iterable, growable: false),
         super();
+
+  final List<T> _list;
+  int _hashCode;
 
   @override
   Iterable<T> get iter => _list;

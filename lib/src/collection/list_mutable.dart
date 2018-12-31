@@ -18,13 +18,13 @@ class DartMutableList<T>
         KListExtensionsMixin<T>,
         KMutableListExtensionsMixin<T>
     implements KMutableList<T> {
-  final List<T> _list;
-
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification
         _list = List.from(iterable, growable: true),
         super();
+
+  final List<T> _list;
 
   @override
   Iterable<T> get iter => _list;
