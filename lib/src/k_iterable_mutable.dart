@@ -10,6 +10,7 @@ abstract class KMutableIterable<T>
   /**
    * Returns an iterator over the elements of this sequence that supports removing elements during iteration.
    */
+  @override
   KMutableIterator<T> iterator();
 }
 
