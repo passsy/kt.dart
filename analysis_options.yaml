@@ -23,3 +23,4 @@ linter:
     - unrelated_type_equality_checks
     - valid_regexps
     - prefer_conditional_assignment
+    - prefer_interpolation_to_compose_strings

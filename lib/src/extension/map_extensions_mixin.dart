@@ -136,7 +136,7 @@ abstract class KMapExtensionsMixin<K, V>
   }
 
   String _entryToString(KMapEntry<K, V> entry) =>
-      _toString(entry.key) + "=" + _toString(entry.value);
+      "${_toString(entry.key)}=${_toString(entry.value)}";
 
   String _toString(Object o) =>
       identical(o, this) ? "(this Map)" : o.toString();
