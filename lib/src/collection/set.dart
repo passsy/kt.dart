@@ -28,7 +28,7 @@ class DartSet<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all((it) => _set.contains(it));
+    return elements.all(_set.contains);
   }
 
   @override

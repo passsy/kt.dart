@@ -132,10 +132,7 @@ abstract class KMapExtensionsMixin<K, V>
   @override
   String toString() {
     return entries.joinToString(
-        separator: ", ",
-        prefix: "{",
-        postfix: "}",
-        transform: (it) => _entryToString(it));
+        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
   }
 
   String _entryToString(KMapEntry<K, V> entry) =>

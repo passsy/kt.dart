@@ -38,7 +38,7 @@ class DartList<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all((it) => _list.contains(it));
+    return elements.all(_list.contains);
   }
 
   @override
