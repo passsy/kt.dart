@@ -21,8 +21,10 @@ abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
   /**
    * Checks if the specified element is contained in this collection.
    */
+  @override
   bool contains(T element);
 
+  @override
   KIterator<T> iterator();
 
   // Bulk Operations

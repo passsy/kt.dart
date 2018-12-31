@@ -17,6 +17,7 @@ abstract class KMutableMapExtensionsMixin<K, V>
     return answer;
   }
 
+  @override
   KMutableIterator<KMutableMapEntry<K, V>> iterator() => entries.iterator();
 
   @override

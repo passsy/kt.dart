@@ -103,6 +103,7 @@ abstract class KMapExtensionsMixin<K, V>
     return toMutableMap()..remove(key);
   }
 
+  @override
   KMap<K, V> operator -(K key) => minus(key);
 
   @override

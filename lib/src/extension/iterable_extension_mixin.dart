@@ -162,8 +162,10 @@ abstract class KIterableExtensionsMixin<T>
     return count;
   }
 
+  @override
   KList<T> distinct() => toMutableSet().toList();
 
+  @override
   KList<T> distinctBy<K>(K Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -580,6 +582,7 @@ abstract class KIterableExtensionsMixin<T>
     return -1;
   }
 
+  @override
   int indexOfLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -596,6 +599,7 @@ abstract class KIterableExtensionsMixin<T>
     return lastIndex;
   }
 
+  @override
   KSet<T> intersect(KIterable<T> other) {
     final set = toMutableSet();
     set.retainAll(other);
@@ -661,6 +665,7 @@ abstract class KIterableExtensionsMixin<T>
     }
   }
 
+  @override
   int lastIndexOf(T element) {
     if (this is KList) return (this as KList).lastIndexOf(element);
     var lastIndex = -1;
@@ -895,6 +900,7 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KList<T> operator -(KIterable<T> other) => minus(other);
 
+  @override
   KList<T> minusElement(T element) {
     final result = mutableListOf<T>();
     var removed = false;
@@ -1001,6 +1007,7 @@ abstract class KIterableExtensionsMixin<T>
     return result;
   }
 
+  @override
   KList<T> operator +(KIterable<T> elements) => plus(elements);
 
   @override
@@ -1096,6 +1103,7 @@ abstract class KIterableExtensionsMixin<T>
     }
   }
 
+  @override
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1180,6 +1188,7 @@ abstract class KIterableExtensionsMixin<T>
     return sum;
   }
 
+  @override
   int sumBy(int Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1192,6 +1201,7 @@ abstract class KIterableExtensionsMixin<T>
     return sum;
   }
 
+  @override
   double sumByDouble(double Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
