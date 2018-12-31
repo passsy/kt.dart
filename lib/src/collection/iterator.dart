@@ -48,7 +48,7 @@ class InterOpKListIterator<T>
   @override
   T next() {
     int i = cursor;
-    if (i >= list.length) throw new NoSuchElementException();
+    if (i >= list.length) throw NoSuchElementException();
     cursor = i + 1;
     return list[lastRet = i];
   }
