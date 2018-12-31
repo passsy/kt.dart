@@ -104,13 +104,13 @@ final Ankara = City("Ankara");
 final Tokyo = City("Tokyo");
 
 Customer customer(String name, City city, [List<Order> orders = const []]) =>
-    Customer(name, city, listOf(orders));
+    Customer(name, city, listFrom(orders));
 
 Order order(List<Product> products, [bool isDelivered = true]) =>
-    Order(listOf(products), isDelivered);
+    Order(listFrom(products), isDelivered);
 
 Shop shop(String name, List<Customer> customers) =>
-    Shop(name, listOf(customers));
+    Shop(name, listFrom(customers));
 
 final jbShop = shop("jb test shop", [
   customer(lucas, Canberra, [
@@ -147,14 +147,13 @@ final KMap<String, Customer> jbCustomers =
 final orderedProducts =
     setOf([idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm]);
 
-final sortedCustomers =
-    listOf([cooper, nathan, bajram, asuka, lucas, riku, reka])
-        .map((it) => jbCustomers[it]);
+final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
+    .map((it) => jbCustomers[it]);
 
 final groupedByCities = mapOf({
-  Canberra: listOf([lucas, cooper]),
-  Vancouver: listOf([nathan]),
-  Budapest: listOf([reka]),
-  Ankara: listOf([bajram]),
-  Tokyo: listOf([asuka, riku]),
+  Canberra: listOf(lucas, cooper),
+  Vancouver: listOf(nathan),
+  Budapest: listOf(reka),
+  Ankara: listOf(bajram),
+  Tokyo: listOf(asuka, riku),
 }).mapValues((it) => it.value.map((name) => jbCustomers[name]));

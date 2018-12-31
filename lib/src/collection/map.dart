@@ -44,7 +44,7 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   int get size => _map.length;
 
   @override
-  KCollection<V> get values => listOf(_map.values);
+  KCollection<V> get values => listFrom(_map.values);
 
   @override
   bool operator ==(dynamic other) {

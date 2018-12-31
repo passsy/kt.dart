@@ -13,9 +13,29 @@ import 'package:dart_kollection/src/collection/set_mutable.dart';
 
 /**
  * Returns a new read-only list of given elements.
+ *
+ * `null` is a valid element but the elements will be cut after the last non null element
  */
-KList<T> listOf<T>([Iterable<T> elements = const []]) {
-  if (elements.isEmpty) return emptyList();
+KList<T> listOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  final args = [arg9, arg8, arg7, arg6, arg5, arg4, arg3, arg2, arg1, arg0]
+      .skipWhile((it) => it == null);
+
+  if (args.length == 0) return emptyList();
+  return DartList(args);
+}
+
+KList<T> listFrom<T>([Iterable<T> elements = const []]) {
+  if (elements.length == 0) return emptyList();
   return DartList(elements);
 }
 
@@ -75,7 +95,7 @@ KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
  * Elements of the set are iterated in the order they were specified.
  */
 KSet<T> setOf<T>([Iterable<T> elements = const []]) {
-  if (elements.isEmpty) return emptySet();
+  if (elements.length == 0) return emptySet();
   return DartSet(elements);
 }
 
@@ -84,18 +104,10 @@ KSet<T> setOf<T>([Iterable<T> elements = const []]) {
  */
 KSet<T> emptySet<T>() => EmptySet<T>();
 
-/**
- * Returns a new [KMutableSet] based on [LinkedHashSet] with the given elements.
- * Elements of the set are iterated in the order they were specified.
- */
 KMutableSet<T> linkedSetOf<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
 }
 
-/**
- * Returns a new [KMutableSet] based on [HashSet] with the given elements.
- * Elements of the set are iterated in unpredictable order.
- */
 KMutableSet<T> hashSetOf<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(HashSet<T>.of(elements));
 }

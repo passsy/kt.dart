@@ -1279,7 +1279,7 @@ abstract class KIterableExtensionsMixin<T>
     if (this is KCollection) {
       final collection = this as KCollection;
       if (n >= collection.size) return toList();
-      if (n == 1) return listOf([first()]);
+      if (n == 1) return listOf(first());
     }
     var count = 0;
     final list = mutableListOf<T>();
@@ -1315,7 +1315,7 @@ abstract class KIterableExtensionsMixin<T>
   KMutableSet<T> toHashSet() => hashSetOf(iter);
 
   @override
-  KList<T> toList() => listOf(iter);
+  KList<T> toList() => listFrom(iter);
 
   @override
   KMutableList<T> toMutableList() => mutableListOf(iter);
