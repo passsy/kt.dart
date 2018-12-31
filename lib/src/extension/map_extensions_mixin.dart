@@ -18,10 +18,10 @@ abstract class KMapExtensionsMixin<K, V>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (mutableMapOf<K, V>() is! M)
         throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KMutableMap<${K}, ${V}>, Actual: ${destination.runtimeType}"
+            "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map (${this.runtimeType}) entries. Entries can't be copied to destination."
-            "\n\n$kGenericTypeError");
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
@@ -47,10 +47,10 @@ abstract class KMapExtensionsMixin<K, V>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (mutableMapOf<K, V>() is! M)
         throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KMutableMap<${K}, ${V}>, Actual: ${destination.runtimeType}"
+            "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map (${this.runtimeType}) entries. Entries can't be copied to destination."
-            "\n\n$kGenericTypeError");
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
@@ -93,10 +93,26 @@ abstract class KMapExtensionsMixin<K, V>
     return mapped;
   }
 
-  // TODO add @override again
-  M mapKeysTo<R, M extends KMutableMap<R, V>>(
+  @override
+  M mapKeysTo<R, M extends KMutableMap<dynamic, dynamic>>(
       M destination, R Function(KMapEntry<K, V> entry) transform) {
-    return entries.associateByTo(destination, transform, (it) => it.value);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+
+      final testType = mutableMapOf<R, V>();
+      if (testType is! M)
+        throw ArgumentError("mapKeysTo destination has wrong type parameters."
+            "\nExpected: ${testType.runtimeType}, Actual: ${destination.runtimeType}"
+            "\nEntries after key transformation with $transform have type KMapEntry<$R, $V> "
+            "and can't be copied into destination of type ${destination.runtimeType}."
+            "\n\n$kBug35518GenericTypeError");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      return true;
+    }());
+    for (var element in entries.iter) {
+      destination.put(transform(element), element.value);
+    }
+    return destination;
   }
 
   @override
@@ -105,7 +121,6 @@ abstract class KMapExtensionsMixin<K, V>
     return mapped;
   }
 
-  // TODO add @override again
   M mapValuesTo<R, M extends KMutableMap<K, R>>(
       M destination, R Function(KMapEntry<K, V> entry) transform) {
     return entries.associateByTo(destination, (it) => it.key, transform);

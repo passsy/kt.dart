@@ -173,10 +173,13 @@ abstract class KMapExtension<K, V> {
    *
    * In case if any two entries are mapped to the equal keys, the value of the latter one will overwrite
    * the value associated with the former one.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<R, V>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M mapKeysTo<R, M extends KMutableMap<R, V>>(
-  //     M destination, R Function(KMapEntry<K, V> entry) transform);
+  M mapKeysTo<R, M extends KMutableMap<dynamic, dynamic>>(
+      M destination, R Function(KMapEntry<K, V> entry) transform);
 
   /**
    * Returns a new map with entries having the keys of this map and the values obtained by applying the [transform]
