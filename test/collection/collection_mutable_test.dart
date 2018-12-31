@@ -5,8 +5,8 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("mutableList", () {
-    testCollection(<T>() => mutableListOf<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+    testCollection(<T>() => mutableListFrom<T>([]),
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
   group("hashset", () {
     testCollection(<T>() => hashSetOf<T>(),
@@ -41,7 +41,7 @@ void testCollection(
   group("addAll", () {
     test("add all items", () {
       final list = mutableCollectionOf(["a"]);
-      list.addAll(listOf(["b", "c"]));
+      list.addAll(listOf("b", "c"));
       expect(list.size, equals(3));
       expect(list, equals(mutableCollectionOf(["a", "b", "c"])));
     });
@@ -55,7 +55,7 @@ void testCollection(
   group("removeAll", () {
     test("remove items", () {
       final list = mutableCollectionOf(["a", "b", "c", "d"]);
-      list.removeAll(listOf(["b", "c"]));
+      list.removeAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["a", "d"]));
     });
     test("elements can't be null", () {
@@ -68,7 +68,7 @@ void testCollection(
   group("retainAll", () {
     test("retain items", () {
       final list = mutableCollectionOf(["a", "b", "c", "d", "a", "b"]);
-      list.retainAll(listOf(["b", "c"]));
+      list.retainAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["b", "c", "b"]));
     });
 

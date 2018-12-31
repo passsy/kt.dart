@@ -6,12 +6,12 @@ import '../test/assert_dart.dart';
 void main() {
   group('basic methods', () {
     test("has no elements", () {
-      final list = listOf([]);
+      final list = listOf();
       expect(list.size, equals(0));
     });
 
     test("contains nothing", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
       expect(list.contains("a"), isTrue);
       expect(list.contains("b"), isTrue);
       expect(list.contains("c"), isTrue);
@@ -21,7 +21,7 @@ void main() {
     });
 
     test("iterator with 1 element has 1 next", () {
-      final list = listOf(["a"]);
+      final list = listOf("a");
       final iterator = list.iterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), equals("a"));
@@ -32,14 +32,14 @@ void main() {
     });
 
     test("is list", () {
-      final list = listOf(["asdf"]);
+      final list = listOf("asdf");
 
       expect(list.isEmpty(), isFalse);
       expect(list.isEmpty(), isFalse);
     });
 
     test("get returns elements", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(list.get(0), equals("a"));
       expect(list.get(1), equals("b"));
@@ -52,7 +52,7 @@ void main() {
     });
 
     test("[] returns elements", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(list[0], equals("a"));
       expect(list[1], equals("b"));
@@ -63,7 +63,7 @@ void main() {
     });
 
     test("indexOf returns first element or -1", () {
-      final list = listOf(["a", "b", "c", "a"]);
+      final list = listOf("a", "b", "c", "a");
 
       expect(list.indexOf(""), equals(-1));
       expect(list.indexOf("a"), equals(0));
@@ -74,7 +74,7 @@ void main() {
     });
 
     test("lastIndexOf returns last element or -1", () {
-      final list = listOf(["a", "b", "c", "a"]);
+      final list = listOf("a", "b", "c", "a");
 
       expect(list.lastIndexOf(""), equals(-1));
       expect(list.lastIndexOf("a"), equals(3));
@@ -85,9 +85,9 @@ void main() {
     });
 
     test("is equals to another list list", () {
-      final list0 = listOf(["a", "b", "c"]);
-      final list1 = listOf(["a", "b", "c"]);
-      final list2 = listOf(["a", "c"]);
+      final list0 = listOf("a", "b", "c");
+      final list1 = listOf("a", "b", "c");
+      final list2 = listOf("a", "c");
 
       expect(list0, equals(list1));
       expect(list0.hashCode, equals(list1.hashCode));
@@ -99,7 +99,7 @@ void main() {
     group("reduceRight", () {
       test("reduce", () {
         final result =
-            listOf([1, 2, 3, 4]).reduceRight((it, int acc) => it + acc);
+            listOf(1, 2, 3, 4).reduceRight((it, int acc) => it + acc);
         expect(result, 10);
       });
 
@@ -119,7 +119,7 @@ void main() {
       test("reduceRightIndexed", () {
         var i = 2;
         final result =
-            listOf([1, 2, 3, 4]).reduceRightIndexed((index, it, int acc) {
+            listOf(1, 2, 3, 4).reduceRightIndexed((index, it, int acc) {
           expect(index, i);
           i--;
           return it + acc;
@@ -143,13 +143,13 @@ void main() {
     });
 
     test("sublist works ", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
       final subList = list.subList(1, 3);
-      expect(subList, equals(listOf(["b", "c"])));
+      expect(subList, equals(listOf("b", "c")));
     });
 
     test("sublist throws for illegal ranges", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(
           catchException<IndexOutOfBoundsException>(() => list.subList(0, 10))
@@ -195,14 +195,14 @@ void main() {
     });
 
     test("access dart list", () {
-      List<String> list = listOf<String>(["a", "b", "c"]).list;
+      List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
     });
 
     test("listIterator requires index", () {
       ArgumentError e =
-          catchException(() => listOf(["a", "b", "c"]).listIterator(null));
+          catchException(() => listOf("a", "b", "c").listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
     });

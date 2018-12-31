@@ -187,7 +187,7 @@ void main() {
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      pokemon.putAllPairs(listOf([
+      pokemon.putAllPairs(listFrom([
         KPair(2, "Dito"),
         KPair(3, "Venusaur"),
         KPair(4, "Charmander"),
@@ -203,7 +203,7 @@ void main() {
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      pokemon.putAllPairs(listOf([
+      pokemon.putAllPairs(listFrom([
         KPair(2, "Dito"),
       ]));
       expect(pokemon.size, 2);
@@ -287,7 +287,7 @@ void main() {
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      expect(pokemon.values, listOf(["Bulbasaur", "Ivysaur"]));
+      expect(pokemon.values, listOf("Bulbasaur", "Ivysaur"));
     });
     test("empty", () {
       expect(mutableListOf(), emptyList());
@@ -299,7 +299,7 @@ void main() {
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      expect(pokemon.values, listOf([null, "Bulbasaur", "Ivysaur"]));
+      expect(pokemon.values, listOf(null, "Bulbasaur", "Ivysaur"));
     });
   });
 }

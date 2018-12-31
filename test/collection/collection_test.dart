@@ -7,12 +7,12 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("list", () {
-    testCollection(
-        <T>() => emptyList<T>(), <T>(Iterable<T> iterable) => listOf(iterable));
+    testCollection(<T>() => emptyList<T>(),
+        <T>(Iterable<T> iterable) => listFrom(iterable));
   });
   group("mutableList", () {
     testCollection(<T>() => emptyList<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
   group("set", () {
     testCollection(
@@ -55,20 +55,20 @@ void testCollection(KCollection<T> Function<T>() emptyCollection,
   group('containsAll', () {
     test("no elements", () {
       var list = emptyCollection<String>();
-      expect(list.containsAll(listOf(["a"])), isFalse);
-      expect(list.containsAll(listOf([])), isTrue);
+      expect(list.containsAll(listOf("a")), isFalse);
+      expect(list.containsAll(listOf()), isTrue);
     });
 
     test("contains all", () {
       var list = collectionOf(["a", "b", "c", "d", "e"]);
-      expect(list.containsAll(listOf(["a"])), isTrue);
-      expect(list.containsAll(listOf(["c", "d"])), isTrue);
+      expect(list.containsAll(listOf("a")), isTrue);
+      expect(list.containsAll(listOf("c", "d")), isTrue);
     });
 
     test("doesn't contain all", () {
       var list = collectionOf(["a", "b", "c", "d", "e"]);
-      expect(list.containsAll(listOf(["x"])), isFalse);
-      expect(list.containsAll(listOf(["c", "x", "d"])), isFalse);
+      expect(list.containsAll(listOf("x")), isFalse);
+      expect(list.containsAll(listOf("c", "x", "d")), isFalse);
     });
 
     test("containsAll doesn't allow null as argument", () {
