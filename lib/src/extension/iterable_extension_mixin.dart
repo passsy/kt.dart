@@ -808,7 +808,7 @@ abstract class KIterableExtensionsMixin<T>
   num max() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     final i = iterator();
@@ -868,7 +868,7 @@ abstract class KIterableExtensionsMixin<T>
   num min() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     final i = iterator();
@@ -1178,7 +1178,7 @@ abstract class KIterableExtensionsMixin<T>
   num sum() {
     if (this is! KIterable<num>) {
       throw ArgumentError(
-          "sum is only supported for type KIterable<num>, not ${runtimeType}");
+          "sum is only supported for type KIterable<num>, not $runtimeType");
     }
 
     num sum = 0;
