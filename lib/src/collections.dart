@@ -46,9 +46,9 @@ KList<T> listOf<T>(
     args = [arg0, arg1, arg2];
   } else if (arg1 != null) {
     args = [arg0, arg1];
-  } else if (arg1 != null) {
+  } else if (arg0 != null) {
     args = [arg0];
-  } else if (arg0 == null) {
+  } else {
     return emptyList();
   }
   return DartList(args);
