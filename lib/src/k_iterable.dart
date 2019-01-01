@@ -247,10 +247,14 @@ abstract class KIterableExtension<T> {
 
   /**
    * Appends all elements matching the given [predicate] to the given [destination].
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterTo<C extends KMutableCollection<T>>(
-  //     C destination, bool Function(T) predicate);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterTo<C extends KMutableCollection<dynamic>>(
+      C destination, bool Function(T) predicate);
 
   /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.

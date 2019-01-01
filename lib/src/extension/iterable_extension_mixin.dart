@@ -376,11 +376,18 @@ abstract class KIterableExtensionsMixin<T>
     return destination;
   }
 
-  C filterTo<C extends KMutableCollection<T>>(
+  @override
+  C filterTo<C extends KMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError("filterTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (final element in iter) {

@@ -528,6 +528,59 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("filterTo", () {
+    test("filterTo same type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.filterTo(result, (it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), setOf([4, -12]));
+      }
+    });
+    test("filterTo super type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.filterTo(result, (it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), equals(setOf([4, -12])));
+      }
+    });
+    test("filterTo wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterTo(result, (it) => it < 10));
+      expect(
+          e.message,
+          allOf(
+            contains("filterTo"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("filterTo requires predicate to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final bool Function(String) predicate = null;
+      final other = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+    test("filterTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.filterTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("filterIndexed", () {
     test("filterIndexed", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
