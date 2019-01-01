@@ -101,7 +101,12 @@ abstract class KIterableExtension<T> {
    * where key is the element itself and value is provided by the [valueSelector] function applied to that key.
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<T, V>`
    */
+  // TODO Change to `M extends KMutableMap<T, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   M associateWithTo<V, M extends KMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector);
 
