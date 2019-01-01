@@ -740,6 +740,51 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("filterNotNullTo", () {
+    test("filterNotNullTo same type", () {
+      final iterable = iterableOf([4, 25, null, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.filterNotNullTo(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, 25, 10]));
+      } else {
+        expect(result.toSet(), setOf([4, 25, 10]));
+      }
+    });
+    test("filterNotNullTo super type", () {
+      final iterable = iterableOf([4, 25, null, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.filterNotNullTo(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, 25, 10]));
+      } else {
+        expect(result.toSet(), equals(setOf([4, 25, 10])));
+      }
+    });
+    test("filterNotNullTo wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e =
+          catchException<ArgumentError>(() => iterable.filterNotNullTo(result));
+      expect(
+          e.message,
+          allOf(
+            contains("filterNotNullTo"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("filterNotNullTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e =
+          catchException<ArgumentError>(() => iterable.filterNotNullTo(null));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("filterIsInstance", () {
     test("filterIsInstance", () {
       final iterable = iterableOf<Object>(["paul", null, "john", 1, "lisa"]);

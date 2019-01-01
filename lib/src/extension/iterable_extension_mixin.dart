@@ -90,6 +90,8 @@ abstract class KIterableExtensionsMixin<T>
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return associated;
   }
 
@@ -352,7 +354,19 @@ abstract class KIterableExtensionsMixin<T>
     return list;
   }
 
-  C filterNotNullTo<C extends KMutableCollection<T>>(C destination) {
+  @override
+  C filterNotNullTo<C extends KMutableCollection<dynamic>>(C destination) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError(
+            "filterNotNullTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
+      return true;
+    }());
     for (final element in iter) {
       if (element != null) {
         destination.add(element);
