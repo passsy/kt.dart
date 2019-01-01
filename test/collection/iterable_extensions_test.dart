@@ -601,6 +601,70 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("filterIndexedTo", () {
+    test("filterIndexedTo index is incrementing", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      var index = 0;
+      iterable.filterIndexedTo(result, (i, it) {
+        expect(i, index);
+        index++;
+        return true;
+      });
+      expect(index, 4);
+    });
+    test("filterIndexedTo same type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), setOf([4, -12]));
+      }
+    });
+    test("filterIndexedTo super type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), equals(setOf([4, -12])));
+      }
+    });
+    test("filterIndexedTo wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterIndexedTo(result, (i, it) => it < 10));
+      expect(
+          e.message,
+          allOf(
+            contains("filterIndexedTo"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("filterIndexedTo requires predicate to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final bool Function(int, String) predicate = null;
+      final other = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterIndexedTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+    test("filterIndexedTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.filterIndexedTo(null, (i, it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("filterNot", () {
     test("filterNot", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
