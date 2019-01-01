@@ -89,7 +89,8 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
-    return associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    final associated = associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    return associated;
   }
 
   @override
@@ -103,8 +104,8 @@ abstract class KIterableExtensionsMixin<T>
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\ndestination (${destination.runtimeType}) items aren't subtype of "
+            "$runtimeType items. Items can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       return true;
     }());
