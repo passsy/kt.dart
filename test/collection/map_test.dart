@@ -25,4 +25,17 @@ void main() {
       expect(map.toString(), "{}");
     });
   });
+
+  group("equals", () {
+    test("equals altough only subtypes", () {
+      expect(mapOf<int, String>({1: "a", 2: "b"}),
+          mapOf<num, String>({1: "a", 2: "b"}));
+      expect(mapOf<num, String>({1: "a", 2: "b"}),
+          mapOf<int, String>({1: "a", 2: "b"}));
+      expect(mapOf<String, int>({"a": 1, "b": 2}),
+          mapOf<String, num>({"a": 1, "b": 2}));
+      expect(mapOf<String, num>({"a": 1, "b": 2}),
+          mapOf<String, int>({"a": 1, "b": 2}));
+    });
+  });
 }
