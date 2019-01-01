@@ -109,7 +109,7 @@ abstract class KMapExtension<K, V> {
    *
    * @return the destination map.
    */
-  // TODO Change to `M extends KMutableMap<K, V>` once  has been fixed
+  // TODO Change to `M extends KMutableMap<K, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   M filterTo<M extends KMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KMapEntry<K, V> entry) predicate);
 
