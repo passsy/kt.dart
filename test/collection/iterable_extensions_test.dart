@@ -679,6 +679,59 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("filterNotTo", () {
+    test("filterNotTo same type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.filterNotTo(result, (it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([25, 10]));
+      } else {
+        expect(result.toSet(), setOf([25, 10]));
+      }
+    });
+    test("filterNotTo super type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.filterNotTo(result, (it) => it < 10);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([25, 10]));
+      } else {
+        expect(result.toSet(), equals(setOf([25, 10])));
+      }
+    });
+    test("filterNotTo wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterNotTo(result, (it) => it < 10));
+      expect(
+          e.message,
+          allOf(
+            contains("filterNotTo"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("filterNotTo requires predicate to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final bool Function(String) predicate = null;
+      final other = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.filterNotTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+    test("filterNotTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.filterNotTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("filterNotNull", () {
     test("filterNotNull", () {
       final iterable = iterableOf(["paul", null, "john", "lisa"]);
