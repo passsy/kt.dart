@@ -16,13 +16,13 @@ abstract class KMapExtensionsMixin<K, V>
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (predicate == null) throw ArgumentError("predicate can't be null");
       if (mutableMapOf<K, V>() is! M)
         throw ArgumentError("filterTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
     for (final element in entries.iter) {
@@ -45,13 +45,13 @@ abstract class KMapExtensionsMixin<K, V>
       M destination, bool Function(KMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (predicate == null) throw ArgumentError("predicate can't be null");
       if (mutableMapOf<K, V>() is! M)
         throw ArgumentError("filterNotTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
     }());
     for (final element in entries.iter) {
