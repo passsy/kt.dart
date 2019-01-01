@@ -99,8 +99,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
-      final testType = mutableMapOf<R, V>();
-      if (testType is! M)
+      if (mutableMapOf<R, V>() is! M)
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KMapEntry<$R, $V> "
@@ -126,8 +125,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
-      final testType = mutableMapOf<K, R>();
-      if (testType is! M)
+      if (mutableMapOf<K, R>() is! M)
         throw ArgumentError("mapValuesTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KMapEntry<$K, $R> "
