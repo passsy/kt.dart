@@ -208,10 +208,14 @@ abstract class KIterableExtension<T> {
    * Appends all elements matching the given [predicate] to the given [destination].
    * @param [predicate] function that takes the index of an element and the element itself
    * and returns the result of predicate evaluation on the element.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterIndexedTo<C extends KMutableCollection<T>>(
-  //     C destination, bool Function(int index, T) predicate);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterIndexedTo<C extends KMutableCollection<dynamic>>(
+      C destination, bool Function(int index, T) predicate);
 
   /**
    * Returns a list containing all elements that are instances of specified type parameter R.

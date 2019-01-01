@@ -287,22 +287,33 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> filter(bool Function(T) predicate) {
-    final list = filterTo(mutableListOf<T>(), predicate);
+    final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
-    return list;
+    return filtered;
   }
 
   @override
   KList<T> filterIndexed(bool Function(int index, T) predicate) {
-    final list = filterIndexedTo(mutableListOf<T>(), predicate);
-    return list;
+    final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return filtered;
   }
 
-  C filterIndexedTo<C extends KMutableCollection<T>>(
+  @override
+  C filterIndexedTo<C extends KMutableCollection<dynamic>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError(
+            "filterIndexedTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     var i = 0;

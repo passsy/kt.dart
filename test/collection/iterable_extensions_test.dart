@@ -156,18 +156,18 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group('associateWith', () {
     test("associateWith", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      var result = iterable.associateWith((it) => it.length);
-      var expected = mapOf({"a": "A", "b": "B", "c": "C"});
+      final result = iterable.associateWith((it) => it.toUpperCase());
+      final expected = mapOf({"a": "A", "b": "B", "c": "C"});
       expect(result, equals(expected));
     });
     test("associateWith on empty map", () {
       final iterable = emptyIterable<String>();
-      var result = iterable.associateWith((it) => it.length);
+      final result = iterable.associateWith((it) => it.toUpperCase());
       expect(result, equals(emptyMap()));
     });
     test("associateWith doesn't allow null as valueSelector", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.associateWith(null));
+      final e = catchException<ArgumentError>(() => list.associateWith(null));
       expect(e.message, allOf(contains("null"), contains("valueSelector")));
     });
   });
