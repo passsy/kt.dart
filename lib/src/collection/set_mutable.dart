@@ -64,7 +64,7 @@ class DartMutableSet<T>
     if (other is KSet<T>) {
       return containsAll(other);
     } else {
-      return other.containsAll(this);
+      return (other as KSet).containsAll(this);
     }
   }
 
