@@ -102,9 +102,8 @@ abstract class KIterableExtension<T> {
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M associateWithTo<V, M extends KMutableMap<T, V>>(
-  //     M destination, V Function(T) valueSelector);
+  M associateWithTo<V, M extends KMutableMap<dynamic, dynamic>>(
+      M destination, V Function(T) valueSelector);
 
   /**
    * Returns an average value produced by [selector] function applied to each element in the collection.

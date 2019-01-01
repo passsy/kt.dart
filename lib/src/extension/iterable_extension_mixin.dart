@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/comparisons.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
+import 'package:dart_kollection/src/util/errors.dart';
 
 abstract class KIterableExtensionsMixin<T>
     implements KIterableExtension<T>, KIterable<T> {
@@ -91,11 +92,20 @@ abstract class KIterableExtensionsMixin<T>
     return associateWithTo(linkedMapOf<T, V>(), valueSelector);
   }
 
-  M associateWithTo<V, M extends KMutableMap<T, V>>(
+  @override
+  M associateWithTo<V, M extends KMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (valueSelector == null)
         throw ArgumentError("valueSelector can't be null");
+      if (mutableMapOf<T, V>() is! M)
+        throw ArgumentError(
+            "associateWithTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (var element in iter) {

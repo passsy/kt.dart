@@ -156,19 +156,64 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group('associateWith', () {
     test("associateWith", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      var result = iterable.associateWith((it) => it.toUpperCase());
+      var result = iterable.associateWith((it) => it.length);
       var expected = mapOf({"a": "A", "b": "B", "c": "C"});
       expect(result, equals(expected));
     });
     test("associateWith on empty map", () {
       final iterable = emptyIterable<String>();
-      var result = iterable.associateWith((it) => it.toUpperCase());
+      var result = iterable.associateWith((it) => it.length);
       expect(result, equals(emptyMap()));
     });
     test("associateWith doesn't allow null as valueSelector", () {
       final list = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => list.associateWith(null));
       expect(e.message, allOf(contains("null"), contains("valueSelector")));
+    });
+  });
+
+  group("associateWithTo", () {
+    test("associateWithTo same type", () {
+      final iterable = iterableOf(["a", "bb", "ccc"]);
+      final result = mutableMapOf<String, int>();
+      final filtered = iterable.associateWithTo(result, (it) => it.length);
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+    });
+    test("associateWithTo super type", () {
+      final iterable = iterableOf(["a", "bb", "ccc"]);
+      final result = mutableMapOf<String, num>();
+      final filtered = iterable.associateWithTo(result, (it) => it.length);
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+    });
+    test("associateWithTo wrong type throws", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final result = mutableMapOf<String, String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.associateWithTo(result, (entry) => entry.length));
+      expect(
+          e.message,
+          allOf(
+            contains("associateWithTo"),
+            contains("destination"),
+            contains("<String, String>"),
+            contains("<String, int>"),
+          ));
+    });
+    test("associateWithTo requires valueSelector to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final String Function(String item) predicate = null;
+      final other = mutableMapOf<String, String>();
+      final e = catchException<ArgumentError>(
+          () => iterable.associateWithTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("valueSelector")));
+    });
+    test("associateWithTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.associateWithTo(null, (it) => it.toUpperCase()));
+      expect(e.message, allOf(contains("null"), contains("destination")));
     });
   });
 
