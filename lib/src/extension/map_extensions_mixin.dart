@@ -120,9 +120,25 @@ abstract class KMapExtensionsMixin<K, V>
     return mapped;
   }
 
-  M mapValuesTo<R, M extends KMutableMap<K, R>>(
+  @override
+  M mapValuesTo<R, M extends KMutableMap<dynamic, dynamic>>(
       M destination, R Function(KMapEntry<K, V> entry) transform) {
-    return entries.associateByTo(destination, (it) => it.key, transform);
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      final testType = mutableMapOf<K, R>();
+      if (testType is! M)
+        throw ArgumentError("mapValuesTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
+            "\nEntries after key transformation with $transform have type KMapEntry<$K, $R> "
+            "and can't be copied into destination of type ${destination.runtimeType}."
+            "\n\n$kBug35518GenericTypeError");
+      return true;
+    }());
+    for (var element in entries.iter) {
+      destination.put(element.key, transform(element));
+    }
+    return destination;
   }
 
   @override

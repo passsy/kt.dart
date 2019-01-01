@@ -178,6 +178,7 @@ abstract class KMapExtension<K, V> {
    * but will be checked at runtime.
    * [M] actually is expected to be `M extends KMutableMap<R, V>`
    */
+  // TODO Change to `M extends KMutableMap<R, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   M mapKeysTo<R, M extends KMutableMap<dynamic, dynamic>>(
       M destination, R Function(KMapEntry<K, V> entry) transform);
 
@@ -192,10 +193,14 @@ abstract class KMapExtension<K, V> {
   /**
    * Populates the given [destination] map with entries having the keys of this map and the values obtained
    * by applying the [transform] function to each entry in this [Map].
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<K, R>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M mapValuesTo<R, M extends KMutableMap<K, R>>(
-  //     M destination, R Function(KMapEntry<K, V> entry) transform);
+  // TODO Change to `M extends KMutableMap<K, R>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M mapValuesTo<R, M extends KMutableMap<dynamic, dynamic>>(
+      M destination, R Function(KMapEntry<K, V> entry) transform);
 
   /**
    * Returns a map containing all entries of the original map except the entry with the given [key].
