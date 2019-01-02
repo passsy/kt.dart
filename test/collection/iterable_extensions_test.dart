@@ -2002,6 +2002,13 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("toHashSet", () {
+    test("toHashSet", () {
+      final list = iterableOf(["a", "b", "c", "b"]);
+      expect(list.toHashSet().size, 3);
+    });
+  });
+
   group("toCollection", () {
     test("toCollection same type", () {
       final iterable = iterableOf([4, 25, -12, 10]);
@@ -2044,6 +2051,19 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final e =
           catchException<ArgumentError>(() => iterable.toCollection(null));
       expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("union", () {
+    test("concat two iterables", () {
+      final result = iterableOf([1, 2, 3]).union(iterableOf([4, 5, 6]));
+      expect(result.toList(), listOf([1, 2, 3, 4, 5, 6]));
+    });
+
+    test("union doesn't allow null as other", () {
+      final iterable = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => iterable.union(null));
+      expect(e.message, allOf(contains("null"), contains("other")));
     });
   });
 
@@ -2206,19 +2226,6 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(result, listOf(["1a", "2b"]));
     });
 
-    test("zipWithNextTransform", () {
-      final result =
-          iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
-      expect(result, listOf([3, 5, 7, 9]));
-    });
-    test("zipWithNextTransform doesn't allow null as transform function", () {
-      final iterable = emptyIterable<String>();
-      int Function(dynamic, dynamic) transform = null;
-      var e = catchException<ArgumentError>(
-          () => iterable.zipWithNextTransform(transform));
-      expect(e.message, allOf(contains("null"), contains("transform")));
-    });
-
     test("zip doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.zip(null));
@@ -2235,6 +2242,32 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       int Function(dynamic, dynamic) transform = null;
       var e = catchException<ArgumentError>(
           () => iterable.zipTransform(emptyIterable(), transform));
+      expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+  });
+
+  group("zipWithNext", () {
+    test("zipWithNext", () {
+      final result = iterableOf([1, 2, 3]).zipWithNext();
+      expect(result, listOf([KPair(1, 2), KPair(2, 3)]));
+    });
+  });
+
+  group("zipWithNextTransform", () {
+    test("zipWithNextTransform", () {
+      final result =
+          iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
+      expect(result, listOf([3, 5, 7, 9]));
+    });
+    test("empty does nothing", () {
+      final result = emptyIterable().zipWithNextTransform((a, b) => a + b);
+      expect(result, emptyList());
+    });
+    test("zipWithNextTransform doesn't allow null as transform function", () {
+      final iterable = emptyIterable<String>();
+      int Function(dynamic, dynamic) transform = null;
+      var e = catchException<ArgumentError>(
+          () => iterable.zipWithNextTransform(transform));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
   });
