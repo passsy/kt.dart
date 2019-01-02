@@ -2,7 +2,7 @@
 
 [diff v0.2.0...master](https://github.com/passsy/dart_kollection/compare/v0.2.0...master)
 
-This release of Kollection fully covers the project with unit tests.
+This release of Kollection fully covers the project with unit tests, from 52% to 95% :tada:.
 By doing that bugs where discovered and fixed.
 
 Because Dart doesn't support [non-nullable types](https://github.com/dart-lang/sdk/issues/22) yet, this update manually checks all method arguments at runtime. 
@@ -22,7 +22,7 @@ expect(result, listOf([4, -12]));
 
 ### API changes
 
-- [#38](https://github.com/passsy/dart_kollection/pull/38) **BREAKING:** Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use [`hashMapOf`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/collections.dart#L59) to construct a `KMutableMap`
+- [#38](https://github.com/passsy/dart_kollection/pull/38) **BREAKING:** Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use [`hashMapOf`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/collections.dart#L59) to construct a [`KMutableMap`](https://github.com/passsy/dart_kollection/blob/efbabc1b45125f26557457344c56850107f58b7b/lib/src/k_map_mutable.dart#L9)
 - [#17](https://github.com/passsy/dart_kollection/pull/17) **BREAKING:** [`KMap.associateBy`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L56) now takes only a single parameter (`K Function(T) keySelector`). If you used `valueTransform` use [`KMap.associateByTransform`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L66) as replacement
 - [#23](https://github.com/passsy/dart_kollection/pull/23) New [`KMutableList.[]=`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_list_mutable.dart#L60) operator. Example: `list[4] = "Hello"`
 - [#47](https://github.com/passsy/dart_kollection/pull/47) New [`KMap`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/k_map.dart#L12) methods [`filter`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L101), [`filterTo`](filterTo), [`filterNot`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L121), [`filterNotTo`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L133), 
