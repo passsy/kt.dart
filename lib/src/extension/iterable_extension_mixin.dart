@@ -576,7 +576,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, mutableListOf);
+      final list = destination.getOrPut(key, () => mutableListOf<T>());
       list.add(element);
     }
     return destination;
@@ -594,7 +594,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, mutableListOf);
+      final list = destination.getOrPut(key, () => mutableListOf<V>());
       list.add(valueTransform(element));
     }
     return destination;
