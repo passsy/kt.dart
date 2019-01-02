@@ -18,6 +18,7 @@ import 'collections_test.dart' as collections_test;
 import 'comparisons_test.dart' as comparisons_test;
 import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
+import 'util/hash_test.dart' as hash_test;
 
 void main() {
   collection_mutable_test.main();
@@ -38,4 +39,5 @@ void main() {
   comparisons_test.main();
   exceptions_test.main();
   tuples_test.main();
+  hash_test.main();
 }
