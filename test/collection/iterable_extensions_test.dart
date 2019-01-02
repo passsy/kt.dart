@@ -1239,6 +1239,47 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("joinToString", () {
+    if (ordered) {
+      test("joinToString", () {
+        final s = iterableOf(["a", "b", "c"]).joinToString();
+        expect(s, "a, b, c");
+      });
+      test("joinToString calls childs toString", () {
+        final s = iterableOf([
+          listOf([1, 2, 3]),
+          KPair("a", "b"),
+          "test"
+        ]).joinToString();
+        expect(s, "[1, 2, 3], (a, b), test");
+      });
+      test("with transform", () {
+        final s = iterableOf(["a", "b", "c"])
+            .joinToString(transform: (it) => it.toUpperCase());
+        expect(s, "A, B, C");
+      });
+      test("custom separator", () {
+        final s = iterableOf(["a", "b", "c"]).joinToString(separator: "/");
+        expect(s, "a/b/c");
+      });
+      test("post and prefix", () {
+        final s =
+            iterableOf(["a", "b", "c"]).joinToString(prefix: "<", postfix: ">");
+        expect(s, "<a, b, c>");
+      });
+      test("limit length", () {
+        final s =
+            iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).joinToString(limit: 7);
+        expect(s, "1, 2, 3, 4, 5, 6, 7, ...");
+      });
+      test("custom truncated", () {
+        final s = iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+            .joinToString(limit: 7, truncated: "(and many more)");
+        expect(s, "1, 2, 3, 4, 5, 6, 7, (and many more)");
+      });
+    }
+  });
+
   group("last", () {
     if (ordered) {
       test("get last element", () {
