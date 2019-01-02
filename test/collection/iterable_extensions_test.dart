@@ -1649,6 +1649,11 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       });
     }
 
+    test("empty gets returned empty", () {
+      final result = emptyIterable() - iterableOf(["max"]);
+      expect(result.toList(), emptyList());
+    });
+
     test("minus doesn't allow null as elements", () {
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.minus(null));
