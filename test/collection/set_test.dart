@@ -87,5 +87,10 @@ void main() {
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
     });
+
+    test("equals although differnt types (subtypes)", () {
+      expect(setOf<int>([1, 2, 3]), setOf<num>([1, 2, 3]));
+      expect(setOf<num>([1, 2, 3]), setOf<int>([1, 2, 3]));
+    });
   });
 }

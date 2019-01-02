@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/comparisons.dart';
 import 'package:dart_kollection/src/k_iterable.dart';
+import 'package:dart_kollection/src/util/errors.dart';
 
 abstract class KIterableExtensionsMixin<T>
     implements KIterableExtension<T>, KIterable<T> {
@@ -88,15 +89,26 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
-    return associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    final associated = associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return associated;
   }
 
-  // TODO add @override again
-  M associateWithTo<V, M extends KMutableMap<T, V>>(
+  @override
+  M associateWithTo<V, M extends KMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (valueSelector == null)
         throw ArgumentError("valueSelector can't be null");
+      if (mutableMapOf<T, V>() is! M)
+        throw ArgumentError(
+            "associateWithTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) items aren't subtype of "
+            "$runtimeType items. Items can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (var element in iter) {
@@ -277,23 +289,33 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KList<T> filter(bool Function(T) predicate) {
-    final list = filterTo(mutableListOf<T>(), predicate);
+    final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
-    return list;
+    return filtered;
   }
 
   @override
   KList<T> filterIndexed(bool Function(int index, T) predicate) {
-    final list = filterIndexedTo(mutableListOf<T>(), predicate);
-    return list;
+    final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    return filtered;
   }
 
-  // TODO add @override again
-  C filterIndexedTo<C extends KMutableCollection<T>>(
+  @override
+  C filterIndexedTo<C extends KMutableCollection<dynamic>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError(
+            "filterIndexedTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     var i = 0;
@@ -332,8 +354,19 @@ abstract class KIterableExtensionsMixin<T>
     return list;
   }
 
-  // TODO add @override again
-  C filterNotNullTo<C extends KMutableCollection<T>>(C destination) {
+  @override
+  C filterNotNullTo<C extends KMutableCollection<dynamic>>(C destination) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError(
+            "filterNotNullTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
+      return true;
+    }());
     for (final element in iter) {
       if (element != null) {
         destination.add(element);
@@ -342,12 +375,18 @@ abstract class KIterableExtensionsMixin<T>
     return destination;
   }
 
-  // TODO add @override again
-  C filterNotTo<C extends KMutableCollection<T>>(
+  @override
+  C filterNotTo<C extends KMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError("filterNotTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (final element in iter) {
@@ -358,12 +397,18 @@ abstract class KIterableExtensionsMixin<T>
     return destination;
   }
 
-  // TODO add @override again
-  C filterTo<C extends KMutableCollection<T>>(
+  @override
+  C filterTo<C extends KMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError("filterTo destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (final element in iter) {
@@ -522,17 +567,23 @@ abstract class KIterableExtensionsMixin<T>
     return groups;
   }
 
-  // TODO add @override again
-  M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
+  @override
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<dynamic>>>(
       M destination, K Function(T) keySelector) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
+      if (mutableMapOf<K, KMutableList<T>>() is! M)
+        throw ArgumentError("groupByTo destination has wrong type parameters."
+            "\nExpected: KMutableMap<K, KMutableList<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, mutableListOf);
+      final list = destination.getOrPut(key, () => mutableListOf<T>());
       list.add(element);
     }
     return destination;
@@ -550,7 +601,7 @@ abstract class KIterableExtensionsMixin<T>
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, mutableListOf);
+      final list = destination.getOrPut(key, () => mutableListOf<V>());
       list.add(valueTransform(element));
     }
     return destination;
@@ -1241,6 +1292,7 @@ abstract class KIterableExtensionsMixin<T>
     return list.toList();
   }
 
+  // TODO expose as C extends KMutableCollection<dynamic> https://github.com/dart-lang/sdk/issues/35518
   C toCollection<C extends KMutableCollection<T>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");

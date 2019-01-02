@@ -198,5 +198,12 @@ void main() {
           () => mutableListOf(["a", "b", "c"]).listIterator(null));
       expect(e.message, allOf(contains("null"), contains("index")));
     });
+
+    test("equals although differnt types (subtypes)", () {
+      expect(mutableListOf<int>([1, 2, 3]), mutableListOf<num>([1, 2, 3]));
+      expect(mutableListOf<num>([1, 2, 3]), mutableListOf<int>([1, 2, 3]));
+      expect(linkedSetOf<int>([1, 2, 3]), linkedSetOf<num>([1, 2, 3]));
+      expect(linkedSetOf<num>([1, 2, 3]), linkedSetOf<int>([1, 2, 3]));
+    });
   });
 }

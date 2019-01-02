@@ -1,6 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/iterator.dart';
 import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/collection_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
@@ -15,6 +16,7 @@ class DartMutableList<T>
         KIterableExtensionsMixin<T>,
         KCollectionExtensionMixin<T>,
         KMutableIterableExtensionsMixin<T>,
+        KMutableCollectionExtensionMixin<T>,
         KListExtensionsMixin<T>,
         KMutableListExtensionsMixin<T>
     implements KMutableList<T> {

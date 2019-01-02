@@ -63,8 +63,9 @@ class DartMutableSet<T>
     if (other.hashCode != hashCode) return false;
     if (other is KSet<T>) {
       return containsAll(other);
+    } else {
+      return (other as KSet).containsAll(this);
     }
-    return false;
   }
 
   @override

@@ -101,10 +101,14 @@ abstract class KIterableExtension<T> {
    * where key is the element itself and value is provided by the [valueSelector] function applied to that key.
    *
    * If any two elements are equal, the last one overwrites the former value in the map.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableMap<T, V>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M associateWithTo<V, M extends KMutableMap<T, V>>(
-  //     M destination, V Function(T) valueSelector);
+  // TODO Change to `M extends KMutableMap<T, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M associateWithTo<V, M extends KMutableMap<dynamic, dynamic>>(
+      M destination, V Function(T) valueSelector);
 
   /**
    * Returns an average value produced by [selector] function applied to each element in the collection.
@@ -204,10 +208,14 @@ abstract class KIterableExtension<T> {
    * Appends all elements matching the given [predicate] to the given [destination].
    * @param [predicate] function that takes the index of an element and the element itself
    * and returns the result of predicate evaluation on the element.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterIndexedTo<C extends KMutableCollection<T>>(
-  //     C destination, bool Function(int index, T) predicate);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterIndexedTo<C extends KMutableCollection<dynamic>>(
+      C destination, bool Function(int index, T) predicate);
 
   /**
    * Returns a list containing all elements that are instances of specified type parameter R.
@@ -226,23 +234,35 @@ abstract class KIterableExtension<T> {
 
   /**
    * Appends all elements that are not `null` to the given [destination].
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterNotNullTo<C extends KMutableCollection<T>>(C destination);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterNotNullTo<C extends KMutableCollection<dynamic>>(C destination);
 
   /**
    * Appends all elements not matching the given [predicate] to the given [destination].
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterNotTo<C extends KMutableCollection<T>>(
-  //     C destination, bool Function(T) predicate);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterNotTo<C extends KMutableCollection<dynamic>>(
+      C destination, bool Function(T) predicate);
 
   /**
    * Appends all elements matching the given [predicate] to the given [destination].
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // C filterTo<C extends KMutableCollection<T>>(
-  //     C destination, bool Function(T) predicate);
+  // TODO Change to `C extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterTo<C extends KMutableCollection<dynamic>>(
+      C destination, bool Function(T) predicate);
 
   /**
    * Returns the first element matching the given [predicate], or `null` if no such element was found.
@@ -330,11 +350,13 @@ abstract class KIterableExtension<T> {
    * Groups elements of the original collection by the key returned by the given [keySelector] function
    * applied to each element and puts to the [destination] map each group key associated with a list of corresponding elements.
    *
-   * @return The [destination] map.
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
-  //     M destination, K Function(T) keySelector);
+  // TODO Change to `M extends KMutableMap<K, KMutableList<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<dynamic>>>(
+      M destination, K Function(T) keySelector);
 
   /**
    * Groups values returned by the [valueTransform] function applied to each element of the original collection
