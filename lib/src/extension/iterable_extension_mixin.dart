@@ -1292,10 +1292,17 @@ abstract class KIterableExtensionsMixin<T>
     return list.toList();
   }
 
-  // TODO expose as C extends KMutableCollection<dynamic> https://github.com/dart-lang/sdk/issues/35518
-  C toCollection<C extends KMutableCollection<T>>(C destination) {
+  @override
+  C toCollection<C extends KMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
+      if (mutableListOf<T>() is! C)
+        throw ArgumentError(
+            "toCollection destination has wrong type parameters."
+            "\nExpected: KMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       return true;
     }());
     for (final item in iter) {

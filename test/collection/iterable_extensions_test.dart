@@ -625,11 +625,10 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       }
     });
     test("filterIndexedTo super type", () {
-      final iterable = iterableOf([4, 25, -12, 10]);
+      final KIterable<int> iterable = listOf([4, 25, -12, 10]);
       final result = mutableListOf<num>();
       final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
       expect(identical(result, filtered), isTrue);
-      if (ordered) {
         expect(result, listOf([4, -12]));
       } else {
         expect(result.toSet(), equals(setOf([4, -12])));
@@ -1944,6 +1943,54 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(e.message, allOf(contains("null"), contains("n")));
     });
   });
+
+
+  group("toCollection", () {
+    test("toCollection same type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.toCollection(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), setOf([4, -12]));
+      }
+    });
+    test("toCollection super type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.toCollection(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, -12]));
+      } else {
+        expect(result.toSet(), equals(setOf([4, -12])));
+      }
+    });
+    test("toCollection wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e = catchException<ArgumentError>(
+              () => iterable.toCollection(result));
+      expect(
+          e.message,
+          allOf(
+            contains("toCollection"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("toCollection requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+              () => iterable.toCollection(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+  
+  
   group("windowed", () {
     test("default step", () {
       expect(
