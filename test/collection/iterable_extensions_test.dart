@@ -1182,7 +1182,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("indexOfFirst", () {
     test("returns index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
-      var found = iterable.indexOfFirst((it) => it == "b");
+      final found = iterable.indexOfFirst((it) => it == "b");
       if (iterable.count() == 4) {
         // ordered list
         expect(found, 1);
@@ -1190,6 +1190,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         // set, position is unknown
         expect(found, isNot(-1));
       }
+    });
+
+    test("not found returns -1", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      final found = iterable.indexOfFirst((it) => it == "x");
+      expect(found, -1);
     });
 
     test("indexOfFirst predicate can't be null", () {
