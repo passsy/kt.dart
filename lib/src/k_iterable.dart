@@ -665,6 +665,16 @@ abstract class KIterableExtension<T> {
   KList<T> take(int n);
 
   /**
+   * Appends all elements to the given [destination] collection.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KMutableCollection<T>`
+   */
+  // TODO Change to `M extends KMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C toCollection<C extends KMutableCollection<dynamic>>(C destination);
+
+  /**
    * Returns a HashSet of all elements.
    */
   KMutableSet<T> toHashSet();

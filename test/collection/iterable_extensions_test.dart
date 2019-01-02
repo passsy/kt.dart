@@ -1121,6 +1121,50 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("groupByToTransform", () {
+    test("groupByToTransform same type", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final result = mutableMapOf<int, KMutableList<String>>();
+      final grouped = iterable.groupByToTransform(
+          result, (it) => it.length, (it) => it.toUpperCase());
+      expect(identical(result, grouped), isTrue);
+      if (ordered) {
+        expect(
+            result,
+            mapOf({
+              4: listOf(["PAUL", "JOHN", "LISA"]),
+              5: listOf(["PETER"]),
+            }));
+      } else {
+        expect(result.size, 2);
+        expect(result[4].toSet(), setOf(["PAUL", "JOHN", "LISA"]));
+        expect(result[5], listOf(["PETER"]));
+      }
+    });
+    test("groupByToTransform requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
+          null, (it) => it.length, (it) => it.toUpperCase()));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+    test("groupByToTransform requires keySelector to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final String Function(String) keySelector = null;
+      final other = mutableMapOf<String, KMutableList<String>>();
+      final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
+          other, keySelector, (it) => it.toUpperCase()));
+      expect(e.message, allOf(contains("null"), contains("keySelector")));
+    });
+    test("groupByToTransform requires valueTransform to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final String Function(String) valueSelector = null;
+      final other = mutableMapOf<String, KMutableList<String>>();
+      final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
+          other, (it) => it.toUpperCase(), valueSelector));
+      expect(e.message, allOf(contains("null"), contains("valueTransform")));
+    });
+  });
+
   group("indexOf", () {
     test("returns index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
@@ -1900,6 +1944,52 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(e.message, allOf(contains("null"), contains("n")));
     });
   });
+
+  group("toCollection", () {
+    test("toCollection same type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<int>();
+      final filtered = iterable.toCollection(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, 25, -12, 10]));
+      } else {
+        expect(result.toSet(), setOf([4, 25, -12, 10]));
+      }
+    });
+    test("toCollection super type", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<num>();
+      final filtered = iterable.toCollection(result);
+      expect(identical(result, filtered), isTrue);
+      if (ordered) {
+        expect(result, listOf([4, 25, -12, 10]));
+      } else {
+        expect(result.toSet(), equals(setOf([4, 25, -12, 10])));
+      }
+    });
+    test("toCollection wrong type throws", () {
+      final iterable = iterableOf([4, 25, -12, 10]);
+      final result = mutableListOf<String>();
+      final e =
+          catchException<ArgumentError>(() => iterable.toCollection(result));
+      expect(
+          e.message,
+          allOf(
+            contains("toCollection"),
+            contains("destination"),
+            contains("<int>"),
+            contains("<String>"),
+          ));
+    });
+    test("toCollection requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e =
+          catchException<ArgumentError>(() => iterable.toCollection(null));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("windowed", () {
     test("default step", () {
       expect(
