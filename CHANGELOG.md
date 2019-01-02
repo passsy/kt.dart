@@ -5,50 +5,55 @@
 This release of Kollection fully covers the project with unit tests.
 By doing that bugs where discovered and fixed.
 
-Because Dart doesn't support Non-nullable types, this update manually checks all method arguments at runtime. 
+Because Dart doesn't support [non-nullable types](https://github.com/dart-lang/sdk/issues/22) yet, this update manually checks all method arguments at runtime. 
 Passing `null` in any method will throw `ArgumentError` unless documented otherwise.
 
-### Breaking change
+### Behavior changes
 
-- #36 All method arguments are now validated for nullability. If a argument isn't documented as `nullable` the method will throw `ArgumentError` (when asserts are enabled)
-- #38 Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart
-- #17 `KMap.associateBy` not takes only a single parameter (`K Function(T) keySelector`). if you used `valueTransform` use `KMap.associateByTransform` as replacement
-- 
-
-### Bug fixes
-
-- #18 Fixed `KList.first()` stackoverflow
-- #44 Fixed `Klist.single()` stackoverflow
-- #24 Fixed `KList.last()` which returned `first()`
-- #20 Fixed `KIterable.firstOrNull` which threw `NoSuchElementException` for empty lists, now returns `null`
-- #22 Fixed `KList.mapIndexedTo`, `KList.mapIndexedNotNull` couldn't be called due to a generic compilation error
-- #26 Fixed `KList.containsAll` returned false when all elements ar in list
-- #28 Fixed `KListIterator.nextIndex` was off by one, now returns the index of the element returned by `next()`
-- #30 Fixed `KMutableList.sortBy` and `sortByDescending` not sorting the `KMutableList` but a copy
-- #31 Fixed `KIterable.none` always returned `true` (Was always working for `KCollection`)
-- #51 Fixed `KSet.==()` returns false for `setOf<int>([1, 2, 3]) == setOf<num>([1, 2, 3])`
+- [#36](https://github.com/passsy/dart_kollection/pull/36) All method arguments are now validated for nullability. If a argument isn't documented as "nullable" the method will throw `ArgumentError` (when asserts are enabled)
+- [#51](https://github.com/passsy/dart_kollection/pull/51), [#46](https://github.com/passsy/dart_kollection/pull/46) `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` did not compile when called directly due to [dart-lang/sdk/issues/35518](https://github.com/dart-lang/sdk/issues/35518). The type of `destination` of those methods has been changed to a dynamic type (i.e. `KMutableList<T>` -> `KMutableList<dynamic>`). Those methods will now be checked at runtime. This has one advantage: It allows to pass in contravariant types.
+```dart
+final KIterable<int> iterable = listOf([4, 25, -12, 10]);
+final result = mutableListOf<num>(); // covariant!
+final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
+expect(identical(result, filtered), isTrue);
+expect(result, listOf([4, -12]));
+```
 
 ### API changes
 
-- #23 New `KMutableList.[]=` operator. Example: `list[4] = "Hello"`
-- #47 New `KMap` methods `filter`, `filterTo`, `filterNot`, `filterNotTo`, 
-- #51, #46 `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` did not compile when called directly due to [dart-lang/sdk/issues/35518](https://github.com/dart-lang/sdk/issues/35518). The type of `destination` of those methods has been changed to a dynamic type (i.e. `KMutableList<T>` -> `KMutableList<dynamic>`). It will now be checked at runtime. This has one advantage: It allows to pass in contravariant types.
-- #37 `KCollection.random` now optionally accepts a `Random` as argument which can be seeded as you want
-- #39 `KList.removeAt` now throws `IndexOutOfBoundsException` when `index` is not valid
-- #18 `KCollection`s `addAll`, `removeAll` and `retainAll` now receive `KIterable` as parameter, was `KCollection`
+- [#38](https://github.com/passsy/dart_kollection/pull/38) **BREAKING:** Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use `hashMapOf` to construct `KMutableMap`s
+- [#17](https://github.com/passsy/dart_kollection/pull/17) **BREAKING:** `KMap.associateBy` now takes only a single parameter (`K Function(T) keySelector`). If you used `valueTransform` use `KMap.associateByTransform` as replacement
+- [#23](https://github.com/passsy/dart_kollection/pull/23) New `KMutableList.[]=` operator. Example: `list[4] = "Hello"`
+- [#47](https://github.com/passsy/dart_kollection/pull/47) New `KMap` methods `filter`, `filterTo`, `filterNot`, `filterNotTo`, 
+
+- [#37](https://github.com/passsy/dart_kollection/pull/37) `KCollection.random` now optionally accepts a `Random` as argument which can be seeded
+- [#39](https://github.com/passsy/dart_kollection/pull/39) `KList.removeAt` now throws `IndexOutOfBoundsException` when `index` exceeds length or is negative
+- [#18](https://github.com/passsy/dart_kollection/pull/18) `KCollection`: `addAll`, `removeAll` and `retainAll` now receive `KIterable` as parameter, was `KCollection`
+
+### Bug fixes
+
+- [#18](https://github.com/passsy/dart_kollection/pull/18) Fixed `KList.first()` stackoverflow
+- [#44](https://github.com/passsy/dart_kollection/pull/44) Fixed `Klist.single()` stackoverflow
+- [#24](https://github.com/passsy/dart_kollection/pull/24) Fixed `KList.last()` which returned `first()`
+- [#20](https://github.com/passsy/dart_kollection/pull/20) Fixed `KIterable.firstOrNull` which threw `NoSuchElementException` for empty lists, now returns `null`
+- [#22](https://github.com/passsy/dart_kollection/pull/22) Fixed `KList.mapIndexedTo`, `KList.mapIndexedNotNull` couldn't be called due to a generic compilation error
+- [#26](https://github.com/passsy/dart_kollection/pull/26) Fixed `KList.containsAll` returned false when all elements ar in list
+- [#28](https://github.com/passsy/dart_kollection/pull/28) Fixed `KListIterator.nextIndex` was off by one, now returns the index of the element returned by `next()`
+- [#30](https://github.com/passsy/dart_kollection/pull/30) Fixed `KMutableList.sortBy` and `sortByDescending` not sorting the `KMutableList` but a copy
+- [#31](https://github.com/passsy/dart_kollection/pull/31) Fixed `KIterable.none` always returned `true` (Was always working for `KCollection`)
+- [#51](https://github.com/passsy/dart_kollection/pull/51) Fixed `KSet.==()` returns false for `setOf<int>([1, 2, 3]) == setOf<num>([1, 2, 3])`
 
 ### Documentation changes
 
-- #19 `KIterable.any` document return value when called without `predicate`
-- #51 Document expected type of now dynamically typed `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` 
+- [#19](https://github.com/passsy/dart_kollection/pull/19) `KIterable.any` document return value when called without `predicate`
+- [#51](https://github.com/passsy/dart_kollection/pull/51) Document expected type of now dynamically typed `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` 
 
 ### Other changes
 
-- Added a **lot of tests** #19, #27, #32, #33, #34, #35, #39, #40, #41, #42, #43, #45, 
-- #48, #49, #50, Activated many lint checks 
-- #25 `tool/run_coverage_locally.sh` now installs deps only when not installed and prints resulting HTML report path
-
-
+- Added a **lot of tests** [#19](https://github.com/passsy/dart_kollection/pull/19), [#27](https://github.com/passsy/dart_kollection/pull/27), [#32](https://github.com/passsy/dart_kollection/pull/32), [#33](https://github.com/passsy/dart_kollection/pull/33), [#34](https://github.com/passsy/dart_kollection/pull/34), [#35](https://github.com/passsy/dart_kollection/pull/35), [#39](https://github.com/passsy/dart_kollection/pull/39), [#40](https://github.com/passsy/dart_kollection/pull/40), [#41](https://github.com/passsy/dart_kollection/pull/41), [#42](https://github.com/passsy/dart_kollection/pull/42), [#43](https://github.com/passsy/dart_kollection/pull/43), [#45](https://github.com/passsy/dart_kollection/pull/45), 
+- [#48](https://github.com/passsy/dart_kollection/pull/48), [#49](https://github.com/passsy/dart_kollection/pull/49), [#50](https://github.com/passsy/dart_kollection/pull/50), Activated many lint checks 
+- [#25](https://github.com/passsy/dart_kollection/pull/25) `tool/run_coverage_locally.sh` now installs deps only when not installed and prints resulting HTML report path
 
 
 ## 0.2.0
@@ -56,30 +61,30 @@ Passing `null` in any method will throw `ArgumentError` unless documented otherw
 [diff v0.1.0...v0.2.0](https://github.com/passsy/dart_kollection/compare/v0.1.0...v0.2.0)
 
 ### Behavior change
-- #6 Breaking: `KMutableIterator.remove` now throws `UnimplementedError` because of bug #5
+- [#6](https://github.com/passsy/dart_kollection/pull/6) Breaking: `KMutableIterator.remove` now throws `UnimplementedError` because of bug [#5](https://github.com/passsy/dart_kollection/issues/5)
 
 ### API changes
-- #1 Add `Set<T> get set` returning the internal dart set
-- #1 Add `Map<K, V> get map` returning the intenral dart set
-- #7 Add `KMap.toMap` and `KMap.toMutableMap`
-- #8 Add `KMap.isNotEmpty`
+- [#1](https://github.com/passsy/dart_kollection/pull/1) Add `Set<T> get set` returning the internal dart set
+- [#1](https://github.com/passsy/dart_kollection/pull/1) Add `Map<K, V> get map` returning the intenral dart set
+- [#7](https://github.com/passsy/dart_kollection/pull/7) Add `KMap.toMap` and `KMap.toMutableMap`
+- [#8](https://github.com/passsy/dart_kollection/pull/8) Add `KMap.isNotEmpty`
 - 3e3228e Add `KMap.toString()`
-- #9 Add `Map.plus`, `Map.minus` and  `operator +(KMap<K, V> map)`, `operator -(K key)`
-- #12 Remove const constructors from collection interfaces
-- #13 Remove default implementations from collection interfaces
+- [#9](https://github.com/passsy/dart_kollection/pull/9) Add `Map.plus`, `Map.minus` and  `operator +(KMap<K, V> map)`, `operator -(K key)`
+- [#12](https://github.com/passsy/dart_kollection/pull/12) Remove const constructors from collection interfaces
+- [#13](https://github.com/passsy/dart_kollection/pull/13) Remove default implementations from collection interfaces
 
 ### Documentation changes
-- #15 Add documentation for `compareBy` and `compareByDescending`
+- [#15](https://github.com/passsy/dart_kollection/pull/15) Add documentation for `compareBy` and `compareByDescending`
 
 ### Other changes
-- #2 Travis CI #2
-- #3, #4 Code coverage
-- #10 Test `KMutableList.fill`
-- #11 Test `KPair`, `KTriple`
-- #14 Test Exceptions
-- #15 Test Comparators `naturalOrder()`, `reverseOrder()`
-- #15 Test `reverse(Comparator)` util function
-- 6dd0d85 Reformatted with dartfmt (80 chars) 
+- [#2](https://github.com/passsy/dart_kollection/pull/2) Travis CI [#2](https://github.com/passsy/dart_kollection/pull/2)
+- [#3](https://github.com/passsy/dart_kollection/pull/3), [#4](https://github.com/passsy/dart_kollection/pull/4) Code coverage
+- [#10](https://github.com/passsy/dart_kollection/pull/10) Test `KMutableList.fill`
+- [#11](https://github.com/passsy/dart_kollection/pull/11) Test `KPair`, `KTriple`
+- [#14](https://github.com/passsy/dart_kollection/pull/14) Test Exceptions
+- [#15](https://github.com/passsy/dart_kollection/pull/15) Test Comparators `naturalOrder()`, `reverseOrder()`
+- [#15](https://github.com/passsy/dart_kollection/pull/15) Test `reverse(Comparator)` util function
+- [6dd0d85](https://github.com/passsy/dart_kollection/pull/6/commits/6dd0d85) Reformatted with dartfmt (80 chars) 
 
 
 ## 0.1.0
