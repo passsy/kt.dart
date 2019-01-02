@@ -1251,7 +1251,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
 
     test("finds nothing throws", () {
-      expect(() => iterableOf<String>(["a"]).last((it) => it == "b"),
+      expect(() => iterableOf<String>(["a", "b", "c"]).last((it) => it == "x"),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+
+    test("finds nothing in empty throws", () {
+      expect(() => emptyIterable().last((it) => it == "x"),
           throwsA(TypeMatcher<NoSuchElementException>()));
     });
   });
