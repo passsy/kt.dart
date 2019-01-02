@@ -1041,7 +1041,64 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       var e = catchException<ArgumentError>(() => iterable.groupBy(null));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
     });
+  });
 
+  group("groupByTo", () {
+    test("groupByTo same type", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final result = mutableMapOf<int, KMutableList<String>>();
+      final grouped = iterable.groupByTo(result, (it) => it.length);
+      expect(identical(result, grouped), isTrue);
+      expect(
+          result,
+          mapOf({
+            4: iterableOf(["paul", "john", "lisa"]).toList(),
+            5: listOf(["peter"]),
+          }));
+    });
+    test("groupByTo super type", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final result = mutableMapOf<int, KMutableList<Pattern>>();
+      final grouped = iterable.groupByTo(result, (it) => it.length);
+      expect(identical(result, grouped), isTrue);
+      expect(
+          result,
+          mapOf({
+            4: iterableOf(["paul", "john", "lisa"]).toList(),
+            5: listOf(["peter"]),
+          }));
+    });
+    test("groupByTo wrong type throws", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final result = mutableMapOf<int, KMutableList<int>>();
+      final e = catchException<ArgumentError>(
+          () => iterable.groupByTo(result, (it) => it.length));
+      expect(
+          e.message,
+          allOf(
+            contains("groupByTo"),
+            contains("destination"),
+            contains("KMutableList<int>"),
+            contains("KMutableList<String>"),
+          ));
+    });
+    test("groupByTo requires destination to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(
+          () => iterable.groupByTo(null, (it) => it.length));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+    test("groupByTo requires keySelector to be non null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final String Function(String) keySelector = null;
+      final other = mutableMapOf<String, KMutableList<String>>();
+      final e = catchException<ArgumentError>(
+          () => iterable.groupByTo(other, keySelector));
+      expect(e.message, allOf(contains("null"), contains("keySelector")));
+    });
+  });
+
+  group("groupByTransform", () {
     test("groupByTransform doesn't allow null as keySelector", () {
       final iterable = iterableOf([1, 2, 3]);
       var e = catchException<ArgumentError>(

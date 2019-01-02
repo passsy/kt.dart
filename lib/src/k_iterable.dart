@@ -350,11 +350,13 @@ abstract class KIterableExtension<T> {
    * Groups elements of the original collection by the key returned by the given [keySelector] function
    * applied to each element and puts to the [destination] map each group key associated with a list of corresponding elements.
    *
-   * @return The [destination] map.
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [C] actually is expected to be `C extends KMutableCollection<T>`
    */
-  // TODO add after https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  // M groupByTo<K, M extends KMutableMap<K, KMutableList<T>>>(
-  //     M destination, K Function(T) keySelector);
+  // TODO Change to `M extends KMutableMap<K, KMutableList<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M groupByTo<K, M extends KMutableMap<K, KMutableList<dynamic>>>(
+      M destination, K Function(T) keySelector);
 
   /**
    * Groups values returned by the [valueTransform] function applied to each element of the original collection
