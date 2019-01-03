@@ -1,6 +1,11 @@
-## 0.3.0 (unreleased)
+## 0.4.0 (unreleased)
 
-[diff v0.2.0...master](https://github.com/passsy/dart_kollection/compare/v0.2.0...master)
+[diff v0.3.0...master](https://github.com/passsy/dart_kollection/compare/v0.3.0...master)
+
+
+## 0.3.0
+
+[diff v0.2.0...v0.3.0](https://github.com/passsy/dart_kollection/compare/v0.2.0...v0.3.0)
 
 ### Summary
 
