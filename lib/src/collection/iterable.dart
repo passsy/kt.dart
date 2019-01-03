@@ -26,12 +26,10 @@ class DartIterable<T> extends KIterable<T> with KIterableExtensionsMixin<T> {
 
 class DartMutableIterable<T> extends KMutableIterable<T>
     with KIterableExtensionsMixin<T>, KMutableIterableExtensionsMixin<T> {
-  DartMutableIterable(this._iterable)
-      :
-        // only allow lists for now, because the mutable iterator only supports lists
-        assert(_iterable is List);
+  DartMutableIterable(this._iterable);
 
-  Iterable<T> _iterable;
+  // only allow lists for now, because the mutable iterator only supports lists
+  List<T> _iterable;
 
   @override
   Iterable<T> get iter => _iterable;
