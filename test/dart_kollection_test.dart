@@ -1,6 +1,8 @@
 import 'collection/collection_mutable_test.dart' as collection_mutable_test;
 import 'collection/collection_test.dart' as collection_test;
 import 'collection/iterable_extensions_test.dart' as iterable_extensions_test;
+import 'collection/iterable_mutable_extensions_test.dart'
+    as iterable_mutable_extensions_test;
 import 'collection/iterator_test.dart' as iterator_test;
 import 'collection/list_empty_test.dart' as list_empty_test;
 import 'collection/list_extensions_test.dart' as list_extensions_test;
@@ -12,6 +14,7 @@ import 'collection/map_empty_test.dart' as map_empty_test;
 import 'collection/map_extensions_test.dart' as map_extensions_test;
 import 'collection/map_mutable_extensions_test.dart'
     as map_mutable_extensions_test;
+import 'collection/map_mutable_test.dart' as map_mutable_test;
 import 'collection/map_test.dart' as map_test;
 import 'collection/set_test.dart' as set_test;
 import 'collections_test.dart' as collections_test;
@@ -25,6 +28,7 @@ void main() {
   collection_mutable_test.main();
   collection_test.main();
   iterable_extensions_test.main();
+  iterable_mutable_extensions_test.main();
   iterator_test.main();
   list_empty_test.main();
   list_extensions_test.main();
@@ -34,6 +38,7 @@ void main() {
   map_empty_test.main();
   map_extensions_test.main();
   map_mutable_extensions_test.main();
+  map_mutable_test.main();
   map_test.main();
   set_test.main();
   collections_test.main();

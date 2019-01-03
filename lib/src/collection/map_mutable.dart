@@ -133,9 +133,12 @@ class _MutableEntry<K, V> implements KMutableMapEntry<K, V> {
 
   @override
   V setValue(V newValue) {
-    final old = _value;
-    _value = value;
-    return old;
+    // setting _value here is wrong because is is a copy of the original value.
+    // setValue should modify the underlying list, not the copy
+    // see how kotlin solved this:
+    // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
+    throw UnimplementedError(
+        "setValue() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/55 for prioritization");
   }
 
   @override
