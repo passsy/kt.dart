@@ -1,7 +1,4 @@
 analyzer:
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
   exclude:
     - test/**
     - example/**
@@ -53,7 +50,6 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
     - prefer_conditional_assignment
-    - prefer_const_constructors
     - prefer_const_constructors_in_immutables
     - prefer_constructors_over_static_methods
     - prefer_contains
