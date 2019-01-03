@@ -17,7 +17,11 @@ class DartSet<T>
   Iterable<T> get iter => _set;
 
   @override
-  Set<T> get set => _set;
+  Set<T> get set {
+    // The API of Set is mutable. Since KSet is immutable returning a new instance
+    // here prevents mutation of the underlying Set
+    return Set.of(_set);
+  }
 
   @override
   bool contains(T element) => _set.contains(element);
