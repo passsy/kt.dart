@@ -84,10 +84,18 @@ KSet<T> setOf<T>([Iterable<T> elements = const []]) {
  */
 KSet<T> emptySet<T>() => EmptySet<T>();
 
+/**
+ * Returns a new [KMutableSet] based on [LinkedHashSet] with the given elements.
+ * Elements of the set are iterated in the order they were specified.
+ */
 KMutableSet<T> linkedSetOf<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
 }
 
+/**
+ * Returns a new [KMutableSet] based on [HashSet] with the given elements.
+ * Elements of the set are iterated in unpredictable order.
+ */
 KMutableSet<T> hashSetOf<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(HashSet<T>.of(elements));
 }
