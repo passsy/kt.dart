@@ -16,16 +16,16 @@ void main() {
   });
   group("set", () {
     testCollection(
-        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setOf(iterable));
+        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
   });
   group("hashset", () {
     testCollection(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
   group("linkedSet", () {
     testCollection(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
 }
 

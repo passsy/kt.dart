@@ -1312,7 +1312,7 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   @override
-  KMutableSet<T> toHashSet() => hashSetOf(iter);
+  KMutableSet<T> toHashSet() => hashSetFrom(iter);
 
   @override
   KList<T> toList() => listFrom(iter);
@@ -1321,10 +1321,10 @@ abstract class KIterableExtensionsMixin<T>
   KMutableList<T> toMutableList() => mutableListFrom(iter);
 
   @override
-  KMutableSet<T> toMutableSet() => linkedSetOf(iter);
+  KMutableSet<T> toMutableSet() => linkedSetFrom(iter);
 
   @override
-  KSet<T> toSet() => linkedSetOf(iter);
+  KSet<T> toSet() => linkedSetFrom(iter);
 
   @override
   KSet<T> union(KIterable<T> other) {

@@ -10,12 +10,12 @@ void main() {
   });
   group("hashset", () {
     testCollection(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
   group("linkedSet", () {
     testCollection(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
 }
 

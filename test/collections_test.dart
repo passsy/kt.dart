@@ -121,66 +121,66 @@ void main() {
       final set = hashSetOf<String>();
       set.add("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("with empty list is mutable", () {
-      final set = hashSetOf<String>([]);
+      final set = hashSetFrom<String>([]);
       set.add("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("create with value", () {
-      final set = hashSetOf<String>(["test"]);
+      final set = hashSetOf<String>("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final kset = hashSetOf<String>(originalList);
+      final kset = hashSetFrom<String>(originalList);
       expect(kset.size, equals(1));
-      expect(kset, setOf(["foo"]));
+      expect(kset, setOf("foo"));
 
       originalList.add("bar");
       expect(originalList, ["foo", "bar"]);
       // originalList was copied, therefore no change of klist
-      expect(kset, setOf(["foo"]));
+      expect(kset, setOf("foo"));
     });
   });
 
   group('linkedSetOf', () {
     test("empty is mutable", () {
-      final set = linkedSetOf<String>([]);
+      final set = linkedSetOf<String>();
       set.add("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("empty is mutable", () {
-      final set = linkedSetOf<String>([]);
+      final set = linkedSetFrom<String>([]);
       set.add("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("create with value", () {
-      final set = linkedSetOf<String>(["test"]);
+      final set = linkedSetOf<String>("test");
       expect(set.size, equals(1));
-      expect(set, setOf(["test"]));
+      expect(set, setOf("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final kset = linkedSetOf<String>(originalList);
+      final kset = linkedSetFrom<String>(originalList);
       expect(kset.size, equals(1));
-      expect(kset, setOf(["foo"]));
+      expect(kset, setOf("foo"));
 
       originalList.add("bar");
       expect(originalList, ["foo", "bar"]);
       // originalList was copied, therefore no change of kset
-      expect(kset, setOf(["foo"]));
+      expect(kset, setOf("foo"));
     });
   });
 }
