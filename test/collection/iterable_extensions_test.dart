@@ -1182,7 +1182,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("indexOfFirst", () {
     test("returns index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
-      var found = iterable.indexOfFirst((it) => it == "b");
+      final found = iterable.indexOfFirst((it) => it == "b");
       if (iterable.count() == 4) {
         // ordered list
         expect(found, 1);
@@ -1190,6 +1190,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         // set, position is unknown
         expect(found, isNot(-1));
       }
+    });
+
+    test("not found returns -1", () {
+      final iterable = iterableOf(["a", "b", "c", "b"]);
+      final found = iterable.indexOfFirst((it) => it == "x");
+      expect(found, -1);
     });
 
     test("indexOfFirst predicate can't be null", () {
@@ -1233,6 +1239,47 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("joinToString", () {
+    if (ordered) {
+      test("joinToString", () {
+        final s = iterableOf(["a", "b", "c"]).joinToString();
+        expect(s, "a, b, c");
+      });
+      test("joinToString calls childs toString", () {
+        final s = iterableOf([
+          listOf([1, 2, 3]),
+          KPair("a", "b"),
+          "test"
+        ]).joinToString();
+        expect(s, "[1, 2, 3], (a, b), test");
+      });
+      test("with transform", () {
+        final s = iterableOf(["a", "b", "c"])
+            .joinToString(transform: (it) => it.toUpperCase());
+        expect(s, "A, B, C");
+      });
+      test("custom separator", () {
+        final s = iterableOf(["a", "b", "c"]).joinToString(separator: "/");
+        expect(s, "a/b/c");
+      });
+      test("post and prefix", () {
+        final s =
+            iterableOf(["a", "b", "c"]).joinToString(prefix: "<", postfix: ">");
+        expect(s, "<a, b, c>");
+      });
+      test("limit length", () {
+        final s =
+            iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).joinToString(limit: 7);
+        expect(s, "1, 2, 3, 4, 5, 6, 7, ...");
+      });
+      test("custom truncated", () {
+        final s = iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+            .joinToString(limit: 7, truncated: "(and many more)");
+        expect(s, "1, 2, 3, 4, 5, 6, 7, (and many more)");
+      });
+    }
+  });
+
   group("last", () {
     if (ordered) {
       test("get last element", () {
@@ -1251,7 +1298,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
 
     test("finds nothing throws", () {
-      expect(() => iterableOf<String>(["a"]).last((it) => it == "b"),
+      expect(() => iterableOf<String>(["a", "b", "c"]).last((it) => it == "x"),
+          throwsA(TypeMatcher<NoSuchElementException>()));
+    });
+
+    test("finds nothing in empty throws", () {
+      expect(() => emptyIterable().last((it) => it == "x"),
           throwsA(TypeMatcher<NoSuchElementException>()));
     });
   });
@@ -1596,6 +1648,11 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         expect(result.toSet(), setOf(["paul", "john", "lisa"]));
       });
     }
+
+    test("empty gets returned empty", () {
+      final result = emptyIterable() - iterableOf(["max"]);
+      expect(result.toList(), emptyList());
+    });
 
     test("minus doesn't allow null as elements", () {
       final iterable = emptyIterable<String>();
@@ -1945,6 +2002,13 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("toHashSet", () {
+    test("toHashSet", () {
+      final list = iterableOf(["a", "b", "c", "b"]);
+      expect(list.toHashSet().size, 3);
+    });
+  });
+
   group("toCollection", () {
     test("toCollection same type", () {
       final iterable = iterableOf([4, 25, -12, 10]);
@@ -1987,6 +2051,19 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final e =
           catchException<ArgumentError>(() => iterable.toCollection(null));
       expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("union", () {
+    test("concat two iterables", () {
+      final result = iterableOf([1, 2, 3]).union(iterableOf([4, 5, 6]));
+      expect(result.toList(), listOf([1, 2, 3, 4, 5, 6]));
+    });
+
+    test("union doesn't allow null as other", () {
+      final iterable = emptyIterable<String>();
+      var e = catchException<ArgumentError>(() => iterable.union(null));
+      expect(e.message, allOf(contains("null"), contains("other")));
     });
   });
 
@@ -2149,19 +2226,6 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(result, listOf(["1a", "2b"]));
     });
 
-    test("zipWithNextTransform", () {
-      final result =
-          iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
-      expect(result, listOf([3, 5, 7, 9]));
-    });
-    test("zipWithNextTransform doesn't allow null as transform function", () {
-      final iterable = emptyIterable<String>();
-      int Function(dynamic, dynamic) transform = null;
-      var e = catchException<ArgumentError>(
-          () => iterable.zipWithNextTransform(transform));
-      expect(e.message, allOf(contains("null"), contains("transform")));
-    });
-
     test("zip doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
       var e = catchException<ArgumentError>(() => iterable.zip(null));
@@ -2178,6 +2242,32 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       int Function(dynamic, dynamic) transform = null;
       var e = catchException<ArgumentError>(
           () => iterable.zipTransform(emptyIterable(), transform));
+      expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+  });
+
+  group("zipWithNext", () {
+    test("zipWithNext", () {
+      final result = iterableOf([1, 2, 3]).zipWithNext();
+      expect(result, listOf([KPair(1, 2), KPair(2, 3)]));
+    });
+  });
+
+  group("zipWithNextTransform", () {
+    test("zipWithNextTransform", () {
+      final result =
+          iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
+      expect(result, listOf([3, 5, 7, 9]));
+    });
+    test("empty does nothing", () {
+      final result = emptyIterable().zipWithNextTransform((a, b) => a + b);
+      expect(result, emptyList());
+    });
+    test("zipWithNextTransform doesn't allow null as transform function", () {
+      final iterable = emptyIterable<String>();
+      int Function(dynamic, dynamic) transform = null;
+      var e = catchException<ArgumentError>(
+          () => iterable.zipWithNextTransform(transform));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
   });

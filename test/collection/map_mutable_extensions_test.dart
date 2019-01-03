@@ -302,4 +302,45 @@ void main() {
       expect(pokemon.values, listOf([null, "Bulbasaur", "Ivysaur"]));
     });
   });
+
+  group("iterator", () {
+    test("iterator is iterates", () {
+      final pokemon = mutableMapOf({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      KMutableIterator<KMapEntry<int, String>> i = pokemon.iterator();
+      expect(i.hasNext(), isTrue);
+      var next = i.next();
+      expect(next.key, 1);
+      expect(next.value, "Bulbasaur");
+
+      expect(i.hasNext(), isTrue);
+      next = i.next();
+      expect(next.key, 2);
+      expect(next.value, "Ivysaur");
+
+      expect(i.hasNext(), isFalse);
+    });
+
+    group("remove doesn't work", () {
+      test("iterator is iterates", () {
+        final pokemon = mutableMapOf({
+          1: "Bulbasaur",
+          2: "Ivysaur",
+        });
+        KMutableIterator<KMapEntry<int, String>> i = pokemon.iterator();
+        expect(i.hasNext(), isTrue);
+        var next = i.next();
+        expect(next.key, 1);
+        expect(next.value, "Bulbasaur");
+
+        // TODO replace error assertion with value assertion when https://github.com/passsy/dart_kollection/issues/5 has been fixed
+        final e = catchException(() => i.remove());
+        expect(e, equals(const TypeMatcher<UnimplementedError>()));
+        // removed first item
+        //expect(pokemon, mapOf({2: "Ivysaur"}));
+      });
+    });
+  });
 }
