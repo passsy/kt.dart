@@ -100,5 +100,21 @@ void main() {
       expect(setOf<int>([1, 2, 3]), setOf<num>([1, 2, 3]));
       expect(setOf<num>([1, 2, 3]), setOf<int>([1, 2, 3]));
     });
+
+    test("using the dart set doesn't allow mutation - empty", () {
+      final kset = setOf();
+      expect(kset.isEmpty(), isTrue);
+      kset.set.add("asdf");
+      // unchanged
+      expect(kset.isEmpty(), isTrue);
+    });
+
+    test("using the dart set doesn't allow mutation", () {
+      final kset = setOf(["a"]);
+      expect(kset, setOf(["a"]));
+      kset.set.add("b");
+      // unchanged
+      expect(kset, setOf(["a"]));
+    });
   });
 }
