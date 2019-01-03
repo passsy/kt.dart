@@ -2,7 +2,9 @@
 
 [diff v0.2.0...master](https://github.com/passsy/dart_kollection/compare/v0.2.0...master)
 
-This release of Kollection fully covers the project with unit tests, from 52% to 95% :tada:.
+### Summary
+
+This release of Kollection fully covers the project with unit tests, from 52% to 99% :tada:.
 By doing that bugs where discovered and fixed.
 
 Because Dart doesn't support [non-nullable types](https://github.com/dart-lang/sdk/issues/22) yet, this update manually checks all method arguments at runtime. 
@@ -19,11 +21,13 @@ final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
 expect(identical(result, filtered), isTrue);
 expect(result, listOf([4, -12]));
 ```
+- [#56](https://github.com/passsy/dart_kollection/pull/56) `KMutableEntry.setValue` now throws `UnimplementedError` because of bug [#55](https://github.com/passsy/dart_kollection/issues/55). It anyways never worked.
+- [#58](https://github.com/passsy/dart_kollection/pull/58) `KSet` doesn't allow mutation of its elements with via `set` getter. It is now really immutable.
 
 ### API changes
 
-- [#38](https://github.com/passsy/dart_kollection/pull/38) **BREAKING:** Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use [`hashMapOf`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/collections.dart#L59) to construct a [`KMutableMap`](https://github.com/passsy/dart_kollection/blob/efbabc1b45125f26557457344c56850107f58b7b/lib/src/k_map_mutable.dart#L9)
-- [#17](https://github.com/passsy/dart_kollection/pull/17) **BREAKING:** [`KMap.associateBy`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L56) now takes only a single parameter (`K Function(T) keySelector`). If you used `valueTransform` use [`KMap.associateByTransform`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L66) as replacement
+- [#38](https://github.com/passsy/dart_kollection/pull/38) Breaking: Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use [`hashMapOf`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/collections.dart#L59) to construct a [`KMutableMap`](https://github.com/passsy/dart_kollection/blob/efbabc1b45125f26557457344c56850107f58b7b/lib/src/k_map_mutable.dart#L9)
+- [#17](https://github.com/passsy/dart_kollection/pull/17) Breaking: [`KMap.associateBy`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L56) now takes only a single parameter (`K Function(T) keySelector`). If you used `valueTransform` use [`KMap.associateByTransform`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L66) as replacement
 - [#23](https://github.com/passsy/dart_kollection/pull/23) New [`KMutableList.[]=`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_list_mutable.dart#L60) operator. Example: `list[4] = "Hello"`
 - [#47](https://github.com/passsy/dart_kollection/pull/47) New [`KMap`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/k_map.dart#L12) methods [`filter`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L101), [`filterTo`](filterTo), [`filterNot`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L121), [`filterNotTo`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L133), 
 
@@ -46,13 +50,14 @@ expect(result, listOf([4, -12]));
 
 ### Documentation changes
 
+- [#57](https://github.com/passsy/dart_kollection/pull/57) Document [`hashSetOf`](https://github.com/passsy/dart_kollection/blob/e8f6a724dec93a1297bbf703b0e69b04a4607f7b/lib/src/collections.dart#L99) and [`linkedSetOf`](https://github.com/passsy/dart_kollection/blob/e8f6a724dec93a1297bbf703b0e69b04a4607f7b/lib/src/collections.dart#L91)
 - [#19](https://github.com/passsy/dart_kollection/pull/19) [`KIterable.any`](https://github.com/passsy/dart_kollection/blob/5cd8369d88c35b426b7415c6e0f96fba5ab540d5/lib/src/k_iterable.dart#L31) document return value when called without `predicate`
 - [#51](https://github.com/passsy/dart_kollection/pull/51) Document expected type of now dynamically typed `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` 
 
 ### Other changes
 
-- Added a **lot of tests** [#19](https://github.com/passsy/dart_kollection/pull/19), [#27](https://github.com/passsy/dart_kollection/pull/27), [#32](https://github.com/passsy/dart_kollection/pull/32), [#33](https://github.com/passsy/dart_kollection/pull/33), [#34](https://github.com/passsy/dart_kollection/pull/34), [#35](https://github.com/passsy/dart_kollection/pull/35), [#39](https://github.com/passsy/dart_kollection/pull/39), [#40](https://github.com/passsy/dart_kollection/pull/40), [#41](https://github.com/passsy/dart_kollection/pull/41), [#42](https://github.com/passsy/dart_kollection/pull/42), [#43](https://github.com/passsy/dart_kollection/pull/43), [#45](https://github.com/passsy/dart_kollection/pull/45), 
-- [#48](https://github.com/passsy/dart_kollection/pull/48), [#49](https://github.com/passsy/dart_kollection/pull/49), [#50](https://github.com/passsy/dart_kollection/pull/50), Activated many lint checks 
+- Added a **lot of tests** [#19](https://github.com/passsy/dart_kollection/pull/19), [#27](https://github.com/passsy/dart_kollection/pull/27), [#32](https://github.com/passsy/dart_kollection/pull/32), [#33](https://github.com/passsy/dart_kollection/pull/33), [#34](https://github.com/passsy/dart_kollection/pull/34), [#35](https://github.com/passsy/dart_kollection/pull/35), [#39](https://github.com/passsy/dart_kollection/pull/39), [#40](https://github.com/passsy/dart_kollection/pull/40), [#41](https://github.com/passsy/dart_kollection/pull/41), [#42](https://github.com/passsy/dart_kollection/pull/42), [#43](https://github.com/passsy/dart_kollection/pull/43), [#45](https://github.com/passsy/dart_kollection/pull/45), [#53](https://github.com/passsy/dart_kollection/pull/53), [#54](https://github.com/passsy/dart_kollection/pull/54), [#58](https://github.com/passsy/dart_kollection/pull/58), 
+- [#48](https://github.com/passsy/dart_kollection/pull/48), [#49](https://github.com/passsy/dart_kollection/pull/49), [#50](https://github.com/passsy/dart_kollection/pull/50), [#59](https://github.com/passsy/dart_kollection/pull/59) Activated many lint checks
 - [#25](https://github.com/passsy/dart_kollection/pull/25) `tool/run_coverage_locally.sh` now installs deps only when not installed and prints resulting HTML report path
 
 
