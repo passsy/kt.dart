@@ -5,17 +5,17 @@ import '../test/assert_dart.dart';
 
 void main() {
   test("linkedSetOf automatically removes duplicates", () {
-    final set = linkedSetOf(["a", "b", "a", "c"]);
+    final set = linkedSetOf("a", "b", "a", "c");
     expect(set.size, 3);
   });
 
   test("hashSetOf automatically removes duplicates", () {
-    final set = hashSetOf(["a", "b", "a", "c"]);
+    final set = hashSetOf("a", "b", "a", "c");
     expect(set.size, 3);
   });
 
   test("linkedSetOf iterates in order as specified", () {
-    final set = linkedSetOf(["a", "b", "c"]);
+    final set = linkedSetOf("a", "b", "c");
     final iterator = set.iterator();
     expect(iterator.hasNext(), isTrue);
     expect(iterator.next(), "a");
@@ -34,15 +34,15 @@ void main() {
     kset.set.add("asdf");
     // unchanged
     expect(kset.isEmpty(), isFalse);
-    expect(kset, setOf(["asdf"]));
+    expect(kset, setOf("asdf"));
   });
 
   test("using the internal dart set allows mutation", () {
-    final kset = linkedSetOf(["a"]);
-    expect(kset, setOf(["a"]));
+    final kset = linkedSetOf("a");
+    expect(kset, setOf("a"));
     kset.set.add("b");
     // unchanged
-    expect(kset, setOf(["a", "b"]));
+    expect(kset, setOf("a", "b"));
   });
 
   test("clear", () {
@@ -53,30 +53,30 @@ void main() {
 
   group("remove", () {
     test("remove item when found", () {
-      final list = linkedSetOf(["a", "b", "c"]);
+      final list = linkedSetOf("a", "b", "c");
       final result = list.remove("b");
-      expect(list, setOf(["a", "c"]));
+      expect(list, setOf("a", "c"));
       expect(result, isTrue);
     });
     test("don't remove item when not found", () {
-      final list = linkedSetOf(["a", "b", "c"]);
+      final list = linkedSetOf("a", "b", "c");
       final result = list.remove("x");
-      expect(list, setOf(["a", "b", "c"]));
+      expect(list, setOf("a", "b", "c"));
       expect(result, isFalse);
     });
   });
 
   group("removeAll", () {
     test("remove item when found", () {
-      final list = linkedSetOf(["paul", "john", "max", "lisa"]);
-      final result = list.removeAll(listOf(["paul", "max"]));
-      expect(list, setOf(["john", "lisa"]));
+      final list = linkedSetOf("paul", "john", "max", "lisa");
+      final result = list.removeAll(listOf("paul", "max"));
+      expect(list, setOf("john", "lisa"));
       expect(result, isTrue);
     });
     test("remove only found when found", () {
-      final list = linkedSetOf(["paul", "john", "max", "lisa"]);
-      final result = list.removeAll(listOf(["paul", "max", "tony"]));
-      expect(list, setOf(["john", "lisa"]));
+      final list = linkedSetOf("paul", "john", "max", "lisa");
+      final result = list.removeAll(listOf("paul", "max", "tony"));
+      expect(list, setOf("john", "lisa"));
       expect(result, isTrue);
     });
 

@@ -33,7 +33,7 @@ class DartMutableMap<K, V>
 
   @override
   KMutableSet<KMutableMapEntry<K, V>> get entries =>
-      linkedSetOf(_map.entries.map((entry) => _MutableEntry.from(entry)));
+      linkedSetFrom(_map.entries.map((entry) => _MutableEntry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -48,7 +48,7 @@ class DartMutableMap<K, V>
   bool isEmpty() => _map.isEmpty;
 
   @override
-  KMutableSet<K> get keys => linkedSetOf(_map.keys);
+  KMutableSet<K> get keys => linkedSetFrom(_map.keys);
 
   @override
   int get size => _map.length;

@@ -14,7 +14,7 @@ import 'package:dart_kollection/src/collection/set_mutable.dart';
 /**
  * Returns a new read-only list of given elements.
  *
- * `null` is a valid element but the elements will be cut after the last non null element
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
  */
 KList<T> listOf<T>(
     [T arg0,
@@ -51,11 +51,19 @@ KList<T> listOf<T>(
   } else {
     return emptyList();
   }
+  assert(() {
+    if (args.contains(null))
+      throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+    return true;
+  }());
   return DartList(args);
 }
 
+/**
+ * Returns a new read-only list based on [elements].
+ */
 KList<T> listFrom<T>([Iterable<T> elements = const []]) {
-  if (elements.length == 0) return emptyList();
+  if (elements.isEmpty) return emptyList();
   return DartList(elements);
 }
 
@@ -65,7 +73,9 @@ KList<T> listFrom<T>([Iterable<T> elements = const []]) {
 KList<T> emptyList<T>() => EmptyList<T>();
 
 /**
- * Returns an empty new [MutableList].
+ * Returns a new mutable list of given elements.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
  */
 KMutableList<T> mutableListOf<T>(
     [T arg0,
@@ -102,9 +112,17 @@ KMutableList<T> mutableListOf<T>(
   } else {
     args = [];
   }
+  assert(() {
+    if (args.contains(null))
+      throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+    return true;
+  }());
   return DartMutableList(args);
 }
 
+/**
+ * Returns a new mutable list based on [elements].
+ */
 KMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
     DartMutableList(elements);
 
@@ -151,9 +169,58 @@ KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
 /**
  * Returns a new read-only set with the given elements.
  * Elements of the set are iterated in the order they were specified.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
  */
-KSet<T> setOf<T>([Iterable<T> elements = const []]) {
-  if (elements.length == 0) return emptySet();
+KSet<T> setOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  List<T> args;
+  if (arg9 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9];
+  } else if (arg8 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8];
+  } else if (arg7 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7];
+  } else if (arg6 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6];
+  } else if (arg5 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5];
+  } else if (arg4 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4];
+  } else if (arg3 != null) {
+    args = [arg0, arg1, arg2, arg3];
+  } else if (arg2 != null) {
+    args = [arg0, arg1, arg2];
+  } else if (arg1 != null) {
+    args = [arg0, arg1];
+  } else if (arg0 != null) {
+    args = [arg0];
+  } else {
+    args = [];
+  }
+  assert(() {
+    if (args.contains(null))
+      throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+    return true;
+  }());
+  return DartSet(args);
+}
+
+/**
+ * Returns a new read-only set based on [elements].
+ * Elements of the set are iterated in the order they were specified.
+ */
+KSet<T> setFrom<T>([Iterable<T> elements = const []]) {
+  if (elements.isEmpty) return emptySet();
   return DartSet(elements);
 }
 
@@ -162,10 +229,116 @@ KSet<T> setOf<T>([Iterable<T> elements = const []]) {
  */
 KSet<T> emptySet<T>() => EmptySet<T>();
 
-KMutableSet<T> linkedSetOf<T>([Iterable<T> elements = const []]) {
+/**
+ * Returns a new [KMutableSet] based on [LinkedHashSet] with the given elements.
+ * Elements of the set are iterated in the order they were specified.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
+ */
+KMutableSet<T> linkedSetOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  List<T> args;
+  if (arg9 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9];
+  } else if (arg8 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8];
+  } else if (arg7 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7];
+  } else if (arg6 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6];
+  } else if (arg5 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5];
+  } else if (arg4 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4];
+  } else if (arg3 != null) {
+    args = [arg0, arg1, arg2, arg3];
+  } else if (arg2 != null) {
+    args = [arg0, arg1, arg2];
+  } else if (arg1 != null) {
+    args = [arg0, arg1];
+  } else if (arg0 != null) {
+    args = [arg0];
+  } else {
+    args = [];
+  }
+  assert(() {
+    if (args.contains(null))
+      throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+    return true;
+  }());
+  return DartMutableSet.noCopy(LinkedHashSet<T>.of(args));
+}
+
+/**
+ * Returns a new [LinkedHashSet] based on [elements].
+ * Elements of the set are iterated in the order they were specified.
+ */
+KMutableSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
 }
 
-KMutableSet<T> hashSetOf<T>([Iterable<T> elements = const []]) {
+/**
+ * Returns a new [KMutableSet] based on [HashSet] with the given elements.
+ * Elements of the set are iterated in unpredictable order.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
+ */
+KMutableSet<T> hashSetOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  List<T> args;
+  if (arg9 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9];
+  } else if (arg8 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8];
+  } else if (arg7 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7];
+  } else if (arg6 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5, arg6];
+  } else if (arg5 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4, arg5];
+  } else if (arg4 != null) {
+    args = [arg0, arg1, arg2, arg3, arg4];
+  } else if (arg3 != null) {
+    args = [arg0, arg1, arg2, arg3];
+  } else if (arg2 != null) {
+    args = [arg0, arg1, arg2];
+  } else if (arg1 != null) {
+    args = [arg0, arg1];
+  } else if (arg0 != null) {
+    args = [arg0];
+  } else {
+    args = [];
+  }
+  assert(() {
+    if (args.contains(null))
+      throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+    return true;
+  }());
+  return DartMutableSet.noCopy(HashSet<T>.of(args));
+}
+
+/**
+ * Returns a new [HashSet] based on [elements].
+ * Elements of the set are iterated in unpredictable order.
+ */
+KMutableSet<T> hashSetFrom<T>([Iterable<T> elements = const []]) {
   return DartMutableSet.noCopy(HashSet<T>.of(elements));
 }

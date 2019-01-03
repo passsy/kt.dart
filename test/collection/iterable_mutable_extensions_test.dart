@@ -16,12 +16,12 @@ void main() {
 
   group("hashset", () {
     testIterable(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
   group("linkedSet", () {
     testIterable(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
 
   test("DartMutableIterable exposes dart Iterable via iter", () {

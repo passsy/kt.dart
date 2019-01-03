@@ -299,7 +299,7 @@ void main() {
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      expect(pokemon.values, listOf(null, "Bulbasaur", "Ivysaur"));
+      expect(pokemon.values, listFrom([null, "Bulbasaur", "Ivysaur"]));
     });
   });
 

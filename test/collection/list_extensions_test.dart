@@ -100,7 +100,7 @@ void main() {
     });
 
     test("finds nothing throws", () {
-      expect(() => setOf<String>(["a"]).first((it) => it == "b"),
+      expect(() => setOf<String>("a").first((it) => it == "b"),
           throwsA(TypeMatcher<NoSuchElementException>()));
       expect(() => listOf("a").first((it) => it == "b"),
           throwsA(TypeMatcher<NoSuchElementException>()));
