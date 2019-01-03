@@ -206,5 +206,10 @@ void main() {
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
     });
+
+    test("equals although differnt types (subtypes)", () {
+      expect(listOf<int>(1, 2, 3), listOf<num>(1, 2, 3));
+      expect(listOf<num>(1, 2, 3), listOf<int>(1, 2, 3));
+    });
   });
 }

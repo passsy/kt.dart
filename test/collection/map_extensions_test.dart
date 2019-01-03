@@ -32,6 +32,82 @@ void main() {
     });
   });
 
+  group("filterTo", () {
+    test("filterTo same type", () {
+      final result = mutableMapOf<int, String>();
+      final filtered =
+          pokemon.filterTo(result, (entry) => entry.value.startsWith("I"));
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({2: "Ivysaur"}));
+    });
+    test("filterTo super type", () {
+      final result = mutableMapOf<num, String>();
+      final filtered =
+          pokemon.filterTo(result, (entry) => entry.value.startsWith("I"));
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({2: "Ivysaur"}));
+    });
+    test("filterTo wrong type throws", () {
+      final result = mutableMapOf<String, String>();
+      final e = catchException<ArgumentError>(() =>
+          pokemon.filterTo(result, (entry) => entry.value.startsWith("I")));
+      expect(
+          e.message,
+          allOf(contains("filterTo"), contains("destination"),
+              contains("<String, String>"), contains("<int, String>")));
+    });
+    test("filterTo requires predicate to be non null", () {
+      bool Function(KMapEntry<int, String> entry) predicate = null;
+      var other = mutableMapOf<int, String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.filterTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+    test("filterTo requires destination to be non null", () {
+      final e = catchException<ArgumentError>(
+          () => pokemon.filterTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("filterNotTo", () {
+    test("filterNotTo same type", () {
+      final result = mutableMapOf<int, String>();
+      final filtered =
+          pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I"));
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({1: "Bulbasaur"}));
+    });
+    test("filterNotTo super type", () {
+      final result = mutableMapOf<num, String>();
+      final filtered =
+          pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I"));
+      expect(identical(result, filtered), isTrue);
+      expect(result, mapOf({1: "Bulbasaur"}));
+    });
+    test("filterNotTo wrong type throws", () {
+      final result = mutableMapOf<String, String>();
+      final e = catchException<ArgumentError>(() =>
+          pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I")));
+      expect(
+          e.message,
+          allOf(contains("filterNotTo"), contains("destination"),
+              contains("<String, String>"), contains("<int, String>")));
+    });
+    test("filterNotTo requires predicate to be non null", () {
+      bool Function(KMapEntry<int, String> entry) predicate = null;
+      var other = mutableMapOf<int, String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.filterNotTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+    test("filterNotTo requires destination to be non null", () {
+      final e = catchException<ArgumentError>(
+          () => pokemon.filterNotTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
   group("get", () {
     test("get", () {
       expect(pokemon.get(1), "Bulbasaur");
@@ -102,12 +178,114 @@ void main() {
     });
   });
 
-  group("map values", () {
+  group("mapKeysTo", () {
+    test("mapKeysTo same type", () {
+      final result = mutableMapOf<int, String>();
+      final filtered = pokemon.mapKeysTo(result, (entry) => entry.key + 1000);
+      expect(identical(result, filtered), isTrue);
+      expect(
+          result,
+          mapOf({
+            1001: "Bulbasaur",
+            1002: "Ivysaur",
+          }));
+    });
+    test("mapKeysTo super type", () {
+      final result = mutableMapOf<num, String>();
+      final filtered = pokemon.mapKeysTo(result, (entry) => entry.key + 1000);
+      expect(identical(result, filtered), isTrue);
+      expect(
+          result,
+          mapOf({
+            1001: "Bulbasaur",
+            1002: "Ivysaur",
+          }));
+    });
+    test("mapKeysTo wrong type throws", () {
+      final result = mutableMapOf<String, String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapKeysTo(result, (entry) => entry.key + 1000));
+      expect(
+          e.message,
+          allOf(
+            contains("mapKeysTo"),
+            contains("destination"),
+            contains("<String, String>"),
+            contains("<int, String>"),
+          ));
+    });
+    test("mapKeysTo requires transform to be non null", () {
+      bool Function(KMapEntry<int, String> entry) predicate = null;
+      final other = mutableMapOf<int, String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapKeysTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+    test("mapKeysTo requires destination to be non null", () {
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapKeysTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("mapValues", () {
     test("map values", () {
       final mapped = pokemon.mapValues((entry) => entry.value.toUpperCase());
       expect(mapped[1], "BULBASAUR");
       expect(mapped[2], "IVYSAUR");
       expect(mapped.size, 2);
+    });
+  });
+
+  group("mapValuesTo", () {
+    test("mapValuesTo same type", () {
+      final result = mutableMapOf<int, String>();
+      final filtered = pokemon.mapValuesTo(
+          result, (entry) => "${entry.value}${entry.value.length}");
+      expect(identical(result, filtered), isTrue);
+      expect(
+          result,
+          mapOf({
+            1: "Bulbasaur9",
+            2: "Ivysaur7",
+          }));
+    });
+    test("mapValuesTo super type", () {
+      final result = mutableMapOf<num, String>();
+      final filtered = pokemon.mapValuesTo(
+          result, (entry) => "${entry.value}${entry.value.length}");
+      expect(identical(result, filtered), isTrue);
+      expect(
+          result,
+          mapOf({
+            1: "Bulbasaur9",
+            2: "Ivysaur7",
+          }));
+    });
+    test("mapValuesTo wrong type throws", () {
+      final result = mutableMapOf<int, int>();
+      final e = catchException<ArgumentError>(() => pokemon.mapValuesTo(
+          result, (entry) => "${entry.value}${entry.value.length}"));
+      expect(
+          e.message,
+          allOf(
+            contains("mapValuesTo"),
+            contains("destination"),
+            contains("<int, String>"),
+            contains("<int, int>"),
+          ));
+    });
+    test("mapValuesTo requires transform to be non null", () {
+      bool Function(KMapEntry<int, String> entry) predicate = null;
+      final other = mutableMapOf<int, String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapValuesTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+    test("mapValuesTo requires destination to be non null", () {
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapValuesTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
     });
   });
 

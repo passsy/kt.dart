@@ -3,14 +3,14 @@ import 'package:dart_kollection/src/extension/map_extensions_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
-  final Map<K, V> _map;
-  int _hashCode;
-
   DartMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification
         _map = Map.unmodifiable(map),
         super();
+
+  final Map<K, V> _map;
+  int _hashCode;
 
   @override
   Map<K, V> get map => _map;
@@ -60,28 +60,24 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
 
   @override
   int get hashCode {
-    if (_hashCode == null) {
-      _hashCode = hashObjects(_map.keys
-          .map((key) => hash2(key.hashCode, _map[key].hashCode))
-          .toList(growable: false)
-            ..sort());
-    }
-    return _hashCode;
+    return _hashCode ??= hashObjects(_map.keys
+        .map((key) => hash2(key.hashCode, _map[key].hashCode))
+        .toList(growable: false)
+          ..sort());
   }
 }
 
 class _Entry<K, V> extends KMapEntry<K, V> {
-  @override
-  final K key;
-
-  @override
-  final V value;
-
   _Entry(this.key, this.value);
 
   _Entry.from(MapEntry<K, V> entry)
       : key = entry.key,
         value = entry.value;
+  @override
+  final K key;
+
+  @override
+  final V value;
 
   @override
   KPair<K, V> toPair() => KPair(key, value);

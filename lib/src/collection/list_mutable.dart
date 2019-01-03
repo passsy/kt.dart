@@ -1,6 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/iterator.dart';
 import 'package:dart_kollection/src/extension/collection_extension_mixin.dart';
+import 'package:dart_kollection/src/extension/collection_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/iterable_mutable_extension_mixin.dart';
 import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
@@ -15,16 +16,17 @@ class DartMutableList<T>
         KIterableExtensionsMixin<T>,
         KCollectionExtensionMixin<T>,
         KMutableIterableExtensionsMixin<T>,
+        KMutableCollectionExtensionMixin<T>,
         KListExtensionsMixin<T>,
         KMutableListExtensionsMixin<T>
     implements KMutableList<T> {
-  final List<T> _list;
-
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification
         _list = List.from(iterable, growable: true),
         super();
+
+  final List<T> _list;
 
   @override
   Iterable<T> get iter => _list;
@@ -41,7 +43,7 @@ class DartMutableList<T>
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    return elements.all((it) => _list.contains(it));
+    return elements.all(_list.contains);
   }
 
   @override

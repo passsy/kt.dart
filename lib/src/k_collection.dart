@@ -1,5 +1,6 @@
-import 'package:dart_kollection/dart_kollection.dart';
 import 'dart:math' as math show Random;
+
+import 'package:dart_kollection/dart_kollection.dart';
 
 /**
  * A generic collection of elements. Methods in this interface support only read-only access to the collection;
@@ -21,8 +22,10 @@ abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
   /**
    * Checks if the specified element is contained in this collection.
    */
+  @override
   bool contains(T element);
 
+  @override
   KIterator<T> iterator();
 
   // Bulk Operations

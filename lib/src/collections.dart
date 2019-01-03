@@ -13,8 +13,6 @@ import 'package:dart_kollection/src/collection/set_mutable.dart';
 
 /**
  * Returns a new read-only list of given elements.
- *
- * `null` is a valid element but the elements will be cut after the last non null element
  */
 KList<T> listOf<T>(
     [T arg0,

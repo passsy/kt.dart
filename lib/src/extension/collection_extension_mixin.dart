@@ -20,10 +20,11 @@ abstract class KCollectionExtensionMixin<T>
   @override
   String toString() {
     return joinToString(
-        separator: ", ",
-        prefix: "[",
-        postfix: "]",
-        transform: (it) =>
-            (identical(it, this) ? "(this Collection)" : it.toString()));
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
   }
 }

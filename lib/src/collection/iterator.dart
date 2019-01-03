@@ -2,15 +2,15 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/k_iterator_mutable.dart';
 
 class InterOpKIterator<T> implements KIterator<T> {
-  final Iterator<T> iterator;
-  T nextValue;
-  T lastReturned;
-
   InterOpKIterator(this.iterator) {
     lastReturned = null;
     iterator.moveNext();
     nextValue = iterator.current;
   }
+
+  final Iterator<T> iterator;
+  T nextValue;
+  T lastReturned;
 
   @override
   bool hasNext() {
@@ -19,7 +19,7 @@ class InterOpKIterator<T> implements KIterator<T> {
 
   @override
   T next() {
-    var e = nextValue;
+    final e = nextValue;
     if (e == null) throw NoSuchElementException();
     iterator.moveNext();
     nextValue = iterator.current;
@@ -30,15 +30,15 @@ class InterOpKIterator<T> implements KIterator<T> {
 
 class InterOpKListIterator<T>
     implements KListIterator<T>, KMutableListIterator<T> {
-  int cursor; // index of next element to return
-  int lastRet = -1; // index of last element returned; -1 if no such
-  List<T> list;
-
-  InterOpKListIterator(this.list, int index) : this.cursor = index {
+  InterOpKListIterator(this.list, int index) : cursor = index {
     if (index < 0 || index > list.length) {
       throw IndexOutOfBoundsException("index: $index, size: $list.length");
     }
   }
+
+  int cursor; // index of next element to return
+  int lastRet = -1; // index of last element returned; -1 if no such
+  List<T> list;
 
   @override
   bool hasNext() {
@@ -47,8 +47,8 @@ class InterOpKListIterator<T>
 
   @override
   T next() {
-    int i = cursor;
-    if (i >= list.length) throw new NoSuchElementException();
+    final i = cursor;
+    if (i >= list.length) throw NoSuchElementException();
     cursor = i + 1;
     return list[lastRet = i];
   }
