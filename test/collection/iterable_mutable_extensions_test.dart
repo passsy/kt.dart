@@ -23,6 +23,12 @@ void main() {
     testIterable(<T>() => linkedSetOf<T>(),
         <T>(Iterable<T> iterable) => linkedSetOf(iterable));
   });
+
+  test("DartMutableIterable exposes dart Iterable via iter", () {
+    final dartIterable = [];
+    final exposedIter = DartMutableIterable(dartIterable).iter;
+    expect(identical(dartIterable, exposedIter), isTrue);
+  });
 }
 
 void testIterable(KMutableIterable<T> Function<T>() emptyIterable,

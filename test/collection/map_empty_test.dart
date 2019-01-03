@@ -47,6 +47,14 @@ void main() {
       expect(empty.get(-1), isNull);
       expect(empty.get(null), isNull);
     });
+    test("[] operator always returns null", () {
+      final empty = emptyMap();
+
+      expect(empty[0], isNull);
+      expect(empty[1], isNull);
+      expect(empty[-1], isNull);
+      expect(empty[null], isNull);
+    });
 
     test("is equals to another empty map", () {
       final empty0 = emptyMap();
@@ -75,6 +83,28 @@ void main() {
     test("access dart map", () {
       final Map<String, int> map = emptyMap<String, int>().map;
       expect(map.length, 0);
+    });
+    test("containsKeyalways returns false", () {
+      expect(emptyMap().containsKey(2), isFalse);
+      expect(emptyMap().containsKey(null), isFalse);
+      expect(emptyMap().containsKey(""), isFalse);
+    });
+    test("containsValuealways returns false", () {
+      expect(emptyMap().containsValue(2), isFalse);
+      expect(emptyMap().containsValue(null), isFalse);
+      expect(emptyMap().containsValue(""), isFalse);
+    });
+    test("getOrDefault always returns the default", () {
+      expect(emptyMap().getOrDefault(0, "Ditto"), equals("Ditto"));
+    });
+    test("isEmpty always returns true", () {
+      expect(mapOf().isEmpty(), isTrue);
+    });
+    test("values always is empty", () {
+      expect(emptyMap().values.isEmpty(), isTrue);
+    });
+    test("entries always is empty", () {
+      expect(emptyMap().entries.isEmpty(), isTrue);
     });
   });
 }

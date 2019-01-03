@@ -3,8 +3,16 @@ import 'package:test/test.dart';
 
 void main() {
   group('basic methods', () {
+    test("hashCode is 0", () {
+      expect(emptySet().hashCode, 0);
+    });
+
+    test("toString is []", () {
+      expect(emptySet().toString(), "[]");
+    });
+
     test("empty iterator", () {
-      var iterator = setOf().iterator();
+      final iterator = setOf().iterator();
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
           throwsA(TypeMatcher<NoSuchElementException>()));
@@ -45,7 +53,7 @@ void main() {
     });
 
     test("iterator with items", () {
-      var iterator = setOf([1, 2, 3]).iterator();
+      final iterator = setOf([1, 2, 3]).iterator();
 
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), isNotNull);
@@ -83,7 +91,7 @@ void main() {
     });
 
     test("access dart set", () {
-      Set<String> set = setOf<String>(["a", "b", "c"]).set;
+      final Set<String> set = setOf<String>(["a", "b", "c"]).set;
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
     });
