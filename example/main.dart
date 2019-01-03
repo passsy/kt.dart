@@ -36,7 +36,7 @@ void main() {
   /**
    * Sets
    */
-  print(setOf([1, 1, 2, 2, 3])); // [1, 2, 3]
+  print(setOf(1, 1, 2, 2, 3)); // [1, 2, 3]
 
   /**
    * Maps
@@ -57,7 +57,10 @@ void main() {
   final numbers5 = listOf(1, 2, 3, 4).sortedDescending();
   print(numbers5); // [4, 3, 2, 1]
 
-  final beatles = setOf(["John", "Paul", "George", "Ringo"]);
+  final beatles = setOf("John", "Paul", "George", "Ringo");
   print(beatles); // [John, Paul, George, Ringo]
-  print(beatles.joinToString(separator: "/")); // John/Paul/George/Ringo
+  print(beatles.joinToString(
+    separator: "/",
+    transform: (it) => it.toUpperCase(),
+  )); // JOHN/PAUL/GEORGE/RINGO
 }
