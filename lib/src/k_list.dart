@@ -1,11 +1,37 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/collection/list.dart';
+import 'package:dart_kollection/src/collection/list_empty.dart';
+import 'package:dart_kollection/src/util/arguments.dart';
 
 /**
  * A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
  * read/write access is supported through the [KMutableList] interface.
- * @param E the type of elements contained in the list. The list is covariant on its element type.
+ * @param [T] the type of elements contained in the list. The list is covariant on its element type.
  */
 abstract class KList<T> implements KCollection<T>, KListExtension<T> {
+  factory KList.empty() => EmptyList<T>();
+
+  factory KList.from([Iterable<T> elements = const []]) {
+    if (elements.isEmpty) return EmptyList();
+    return DartList(elements);
+  }
+
+  factory KList.of(
+      [T arg0,
+      T arg1,
+      T arg2,
+      T arg3,
+      T arg4,
+      T arg5,
+      T arg6,
+      T arg7,
+      T arg8,
+      T arg9]) {
+    final args =
+        argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    return KList.from(args);
+  }
+
   /**
    * dart interop list for time critical operations such as sorting
    */

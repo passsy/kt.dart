@@ -6,7 +6,7 @@ import 'package:dart_kollection/src/extension/list_extension_mixin.dart';
 import 'package:dart_kollection/src/util/hash.dart';
 
 /**
- * [KList] based on a dart [List]
+ * [KList] implementation based on a dart [List]
  */
 class DartList<T>
     with
@@ -14,10 +14,9 @@ class DartList<T>
         KCollectionExtensionMixin<T>,
         KListExtensionsMixin<T>
     implements KList<T> {
+  /// Create an immutable [KList] by copying the incoming [iterable] into a [List]
   DartList([Iterable<T> iterable = const []])
-      :
-// copy list to prevent external modification
-        _list = List.from(iterable, growable: false),
+      : _list = List.from(iterable, growable: false),
         super();
 
   final List<T> _list;
