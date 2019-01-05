@@ -9,13 +9,24 @@ import 'package:dart_kollection/src/util/arguments.dart';
  * @param [T] the type of elements contained in the list. The list is covariant on its element type.
  */
 abstract class KList<T> implements KCollection<T>, KListExtension<T> {
+  /**
+   * Returns an empty read-only list.
+   */
   factory KList.empty() => EmptyList<T>();
 
+  /**
+   * Returns a new read-only list based on [elements].
+   */
   factory KList.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptyList();
     return DartList(elements);
   }
 
+  /**
+   * Returns a new read-only list of given elements.
+   *
+   * Elements aren't allowed to be `null`. If your list requires `null` values use [KList.from]
+   */
   factory KList.of(
       [T arg0,
       T arg1,
