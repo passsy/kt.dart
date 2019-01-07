@@ -8,67 +8,50 @@ void main() {
 }
 
 void list() {
-  // List of
-  final kListOf = listOf(1, 2, 3, 4, 5);
-  final dListOf = KList.of(1, 2, 3, 4, 5);
-  assert(kListOf == dListOf);
+  emptyList<int>();
+  listOf(1, 2, 3, 4, 5);
+  listFrom([1, 2, 3, 4, 5]);
 
-  // List from
-  final kListFrom = listFrom([1, 2, 3, 4, 5]);
-  final dListFrom = KList.from([1, 2, 3, 4, 5]);
-  assert(kListFrom == dListFrom);
+  mutableListOf(1, 2, 3, 4, 5);
+  mutableListFrom([1, 2, 3, 4, 5]);
 
-  // MutableList of
-  final kMutableListOf = mutableListOf(1, 2, 3, 4, 5);
-  final dMutableListOf = KMutableList.of(1, 2, 3, 4, 5);
-  assert(kMutableListOf == dMutableListOf);
+  KList<int>.empty();
+  KList.of(1, 2, 3, 4, 5);
+  KList.from([1, 2, 3, 4, 5]);
 
-  // MutableList from
-  final kMutableListFrom = mutableListFrom([1, 2, 3, 4, 5]);
-  final dMutableListFrom = KMutableList.from([1, 2, 3, 4, 5]);
-  assert(kMutableListFrom == dMutableListFrom);
+  KMutableList<int>.empty();
+  KMutableList.of(1, 2, 3, 4, 5);
+  KMutableList.from([1, 2, 3, 4, 5]);
 }
 
 void set() {
-  // Set of
-  final kSetOf = setOf(1, 2, 3, 4, 5);
-  final dSetOf = KSet.of(1, 2, 3, 4, 5);
-  assert(kSetOf == dSetOf);
+  emptySet<int>();
+  setOf(1, 2, 3, 4, 5);
+  setFrom([1, 2, 3, 4, 5]);
 
-  // Set from
-  final kSetFrom = setFrom([1, 2, 3, 4, 5]);
-  final dSetFrom = KSet.from([1, 2, 3, 4, 5]);
-  assert(kSetFrom == dSetFrom);
+  KSet<int>.empty();
+  KSet.of(1, 2, 3, 4, 5);
+  KSet.from([1, 2, 3, 4, 5]);
 
-  // LinkedSet from
-  final kLinkedSetFrom = linkedSetFrom([1, 2, 3, 4, 5]);
-  final dLinkedSetFrom = KLinkedSet.from([1, 2, 3, 4, 5]);
-  assert(kLinkedSetFrom == dLinkedSetFrom);
+  KHashSet<int>.empty();
+  KHashSet.of(1, 2, 3, 4, 5);
+  KHashSet.from([1, 2, 3, 4, 5]);
 
-  // HashSet from
-  final kHashSetFrom = hashSetFrom([1, 2, 3, 4, 5]);
-  final dHashSetFrom = KHashSet.from([1, 2, 3, 4, 5]);
-  assert(kHashSetFrom == dHashSetFrom);
+  KLinkedSet<int>.empty();
+  KLinkedSet.of(1, 2, 3, 4, 5);
+  KLinkedSet.from([1, 2, 3, 4, 5]);
 }
 
 void map() {
-  // Map from
-  final kMap = mapFrom({1: "a", 2: "b"});
-  final dMap = KMap.from({1: "a", 2: "b"});
-  assert(kMap == dMap);
+  emptyMap<int, String>();
+  mapFrom({1: "a", 2: "b"});
 
-  // HashMap from
-  final kHashMap = hashMapFrom({1: "a", 2: "b"});
-  final dHashMap = KHashMap.from({1: "a", 2: "b"});
-  assert(kHashMap == dHashMap);
+  KMutableMap<int, String>.empty();
+  KMutableMap.from({1: "a", 2: "b"});
 
-  // LinkedHashMap from
-  final kLinkedHashMap = linkedMapFrom({1: "a", 2: "b"});
-  final dLinkedHashMap = KLinkedMap.from({1: "a", 2: "b"});
-  assert(kLinkedHashMap == dLinkedHashMap);
+  KHashMap<int, String>.empty();
+  KHashMap.from({1: "a", 2: "b"});
 
-  // MutableMap from
-  final kMutableMap = mutableMapFrom({1: "a", 2: "b"});
-  final dMutableMap = KMutableMap.from({1: "a", 2: "b"});
-  assert(kMutableMap == dMutableMap);
+  KLinkedMap<int, String>.empty();
+  KLinkedMap.from({1: "a", 2: "b"});
 }
