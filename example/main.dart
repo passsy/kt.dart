@@ -25,8 +25,8 @@ void main() {
   final dartListEquals = [12, 9, 6, 3] == [12, 9, 6, 3];
   print(dartListEquals); // false
 
-  final kMapEquals = mapOf({1: "Bulbasaur", 2: "Ivysaur"}) ==
-      mapOf({1: "Bulbasaur", 2: "Ivysaur"});
+  final kMapEquals = mapFrom({1: "Bulbasaur", 2: "Ivysaur"}) ==
+      mapFrom({1: "Bulbasaur", 2: "Ivysaur"});
   print(kMapEquals); // true
 
   final dartMapEquals =
@@ -41,7 +41,7 @@ void main() {
   /**
    * Maps
    */
-  final pokemon = mutableMapOf({
+  final pokemon = mutableMapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",
   });

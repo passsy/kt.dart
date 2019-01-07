@@ -102,7 +102,7 @@ abstract class KIterableExtensionsMixin<T>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (valueSelector == null)
         throw ArgumentError("valueSelector can't be null");
-      if (mutableMapOf<T, V>() is! M)
+      if (mutableMapFrom<T, V>() is! M)
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
@@ -573,7 +573,7 @@ abstract class KIterableExtensionsMixin<T>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
-      if (mutableMapOf<K, KMutableList<T>>() is! M)
+      if (mutableMapFrom<K, KMutableList<T>>() is! M)
         throw ArgumentError("groupByTo destination has wrong type parameters."
             "\nExpected: KMutableMap<K, KMutableList<$T>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "

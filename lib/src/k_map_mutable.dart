@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/map_mutable.dart';
 
@@ -14,12 +12,6 @@ abstract class KMutableMap<K, V>
   factory KMutableMap.empty() => DartMutableMap<K, V>();
 
   factory KMutableMap.from([Map<K, V> map = const {}]) => DartMutableMap(map);
-
-  factory KMutableMap.hashMapFrom([Map<K, V> map = const {}]) =>
-      DartMutableMap.noCopy(HashMap.from(map));
-
-  factory KMutableMap.linkedHashMapFrom([Map<K, V> map = const {}]) =>
-      DartMutableMap.noCopy(LinkedHashMap.from(map));
 
   // Modification Operations
   /**

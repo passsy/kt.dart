@@ -105,14 +105,14 @@ void dartLikeSyntax() {
 
   group("hashMapOf", () {
     test("empty is mutable", () {
-      final map = KMutableMap<int, String>.hashMapFrom();
+      final map = KHashMap<int, String>.from();
       map[1] = "a";
       expect(map.size, 1);
       expect(map, KMap.from({1: "a"}));
     });
 
     test("with empty map is mutable", () {
-      final map = KMutableMap<int, String>.hashMapFrom({});
+      final map = KHashMap<int, String>.from({});
       map[1] = "a";
       expect(map.size, 1);
       expect(map, KMap.from({1: "a"}));
@@ -123,7 +123,7 @@ void dartLikeSyntax() {
         1: "Bulbasaur",
         2: "Ivysaur",
       };
-      final map = KMutableMap.hashMapFrom(initialMap);
+      final map = KHashMap.from(initialMap);
       map[1] = "a";
       expect(map.size, 2);
       expect(map, KMap.from({1: "a", 2: "Ivysaur"}));
@@ -135,28 +135,28 @@ void dartLikeSyntax() {
 
   group('hashSetOf', () {
     test("empty is mutable", () {
-      final set = KMutableSet<String>.hashSetFrom();
+      final set = KHashSet<String>.from();
       set.add("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("with empty list is mutable", () {
-      final set = KMutableSet<String>.hashSetFrom([]);
+      final set = KMutableSet<String>.from([]);
       set.add("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("create with value", () {
-      final set = KMutableSet<String>.hashSetOf("test");
+      final set = KMutableSet<String>.of("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final kset = KMutableSet.hashSetFrom(originalList);
+      final kset = KMutableSet.from(originalList);
       expect(kset.size, equals(1));
       expect(kset, KSet.of("foo"));
 
@@ -169,28 +169,28 @@ void dartLikeSyntax() {
 
   group('linkedSetOf', () {
     test("empty is mutable", () {
-      final set = KMutableSet<String>.linkedSetOf();
+      final set = KLinkedSet<String>.from();
       set.add("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("empty is mutable", () {
-      final set = KMutableSet<String>.linkedSetFrom([]);
+      final set = KLinkedSet<String>.from([]);
       set.add("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("create with value", () {
-      final set = KMutableSet<String>.linkedSetOf("test");
+      final set = KLinkedSet<String>.of("test");
       expect(set.size, equals(1));
       expect(set, KSet.of("test"));
     });
 
     test("mutation of original list doesn't manipulate mutableList", () {
       final originalList = ["foo"];
-      final kset = KMutableSet.linkedSetFrom(originalList);
+      final kset = KLinkedSet.from(originalList);
       expect(kset.size, equals(1));
       expect(kset, KSet.of("foo"));
 
@@ -301,17 +301,17 @@ void kotlinLikeSyntax() {
 
   group("hashMapOf", () {
     test("empty is mutable", () {
-      final map = hashMapOf<int, String>();
+      final map = hashMapFrom<int, String>();
       map[1] = "a";
       expect(map.size, 1);
-      expect(map, mapOf({1: "a"}));
+      expect(map, mapFrom({1: "a"}));
     });
 
     test("with empty map is mutable", () {
-      final map = hashMapOf<int, String>({});
+      final map = hashMapFrom<int, String>({});
       map[1] = "a";
       expect(map.size, 1);
-      expect(map, mapOf({1: "a"}));
+      expect(map, mapFrom({1: "a"}));
     });
 
     test("mutation of original list doesn't manipulate original map", () {
@@ -319,10 +319,10 @@ void kotlinLikeSyntax() {
         1: "Bulbasaur",
         2: "Ivysaur",
       };
-      final map = hashMapOf<int, String>(initialMap);
+      final map = hashMapFrom<int, String>(initialMap);
       map[1] = "a";
       expect(map.size, 2);
-      expect(map, mapOf({1: "a", 2: "Ivysaur"}));
+      expect(map, mapFrom({1: "a", 2: "Ivysaur"}));
 
       // original is unchanged
       expect(initialMap[1], "Bulbasaur");

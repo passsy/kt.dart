@@ -82,7 +82,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associate", () {
       final list = iterableOf(["a", "b", "c"]);
       var result = list.associate((it) => KPair(it.toUpperCase(), it));
-      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associate on empty map", () {
@@ -101,7 +101,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateBy", () {
       final list = iterableOf(["a", "b", "c"]);
       var result = list.associateBy((it) => it.toUpperCase());
-      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associateBy on empty map", () {
@@ -137,7 +137,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final list = iterableOf(["a", "bb", "ccc"]);
       var result = list.associateByTransform(
           (it) => it.length, (it) => it.toUpperCase());
-      var expected = mapOf({1: "A", 2: "BB", 3: "CCC"});
+      var expected = mapFrom({1: "A", 2: "BB", 3: "CCC"});
       expect(result, equals(expected));
     });
     test("associateByTransform on empty map", () {
@@ -157,7 +157,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateWith", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final result = iterable.associateWith((it) => it.toUpperCase());
-      final expected = mapOf({"a": "A", "b": "B", "c": "C"});
+      final expected = mapFrom({"a": "A", "b": "B", "c": "C"});
       expect(result, equals(expected));
     });
     test("associateWith on empty map", () {
@@ -175,21 +175,21 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("associateWithTo", () {
     test("associateWithTo same type", () {
       final iterable = iterableOf(["a", "bb", "ccc"]);
-      final result = mutableMapOf<String, int>();
+      final result = mutableMapFrom<String, int>();
       final filtered = iterable.associateWithTo(result, (it) => it.length);
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+      expect(result, mapFrom({"a": 1, "bb": 2, "ccc": 3}));
     });
     test("associateWithTo super type", () {
       final iterable = iterableOf(["a", "bb", "ccc"]);
-      final result = mutableMapOf<String, num>();
+      final result = mutableMapFrom<String, num>();
       final filtered = iterable.associateWithTo(result, (it) => it.length);
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+      expect(result, mapFrom({"a": 1, "bb": 2, "ccc": 3}));
     });
     test("associateWithTo wrong type throws", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final result = mutableMapOf<String, String>();
+      final result = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(result, (entry) => entry.length));
       expect(
@@ -204,7 +204,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateWithTo requires valueSelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String item) predicate = null;
-      final other = mutableMapOf<String, String>();
+      final other = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("valueSelector")));
@@ -981,7 +981,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
         expect(
             iterable.groupBy((it) => it.length),
-            equals(mapOf({
+            equals(mapFrom({
               4: listOf("paul", "john", "lisa"),
               5: listOf("peter"),
             })));
@@ -992,7 +992,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         expect(
             iterable.groupByTransform(
                 (it) => it.length, (it) => it.toUpperCase()),
-            equals(mapOf({
+            equals(mapFrom({
               4: listOf("PAUL", "JOHN", "LISA"),
               5: listOf("PETER"),
             })));
@@ -1004,7 +1004,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
             iterable
                 .groupBy((it) => it.length)
                 .mapValues((it) => it.value.toSet()),
-            equals(mapOf({
+            equals(mapFrom({
               4: setOf("paul", "john", "lisa"),
               5: setOf("peter"),
             })));
@@ -1016,7 +1016,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
             iterable
                 .groupByTransform((it) => it.length, (it) => it.toUpperCase())
                 .mapValues((it) => it.value.toSet()),
-            equals(mapOf({
+            equals(mapFrom({
               4: setOf("PAUL", "JOHN", "LISA"),
               5: setOf("PETER"),
             })));
@@ -1033,31 +1033,31 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByTo", () {
     test("groupByTo same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KMutableList<String>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             4: iterableOf(["paul", "john", "lisa"]).toList(),
             5: listOf("peter"),
           }));
     });
     test("groupByTo super type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<Pattern>>();
+      final result = mutableMapFrom<int, KMutableList<Pattern>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             4: iterableOf(["paul", "john", "lisa"]).toList(),
             5: listOf("peter"),
           }));
     });
     test("groupByTo wrong type throws", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<int>>();
+      final result = mutableMapFrom<int, KMutableList<int>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(result, (it) => it.length));
       expect(
@@ -1078,7 +1078,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByTo requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(other, keySelector));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1111,14 +1111,14 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByToTransform", () {
     test("groupByToTransform same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KMutableList<String>>();
       final grouped = iterable.groupByToTransform(
           result, (it) => it.length, (it) => it.toUpperCase());
       expect(identical(result, grouped), isTrue);
       if (ordered) {
         expect(
             result,
-            mapOf({
+            mapFrom({
               4: listOf("PAUL", "JOHN", "LISA"),
               5: listOf("PETER"),
             }));
@@ -1137,7 +1137,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, keySelector, (it) => it.toUpperCase()));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1145,7 +1145,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires valueTransform to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) valueSelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, (it) => it.toUpperCase(), valueSelector));
       expect(e.message, allOf(contains("null"), contains("valueTransform")));

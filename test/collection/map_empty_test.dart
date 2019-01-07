@@ -74,7 +74,7 @@ void main() {
 
     test("is same as empty mutable map", () {
       final empty0 = emptyMap<int, String>();
-      final empty1 = mutableMapOf();
+      final empty1 = mutableMapFrom();
 
       expect(empty0, equals(empty1));
       expect(empty0.hashCode, equals(empty1.hashCode));
@@ -98,7 +98,7 @@ void main() {
       expect(emptyMap().getOrDefault(0, "Ditto"), equals("Ditto"));
     });
     test("isEmpty always returns true", () {
-      expect(mapOf().isEmpty(), isTrue);
+      expect(mapFrom().isEmpty(), isTrue);
     });
     test("values always is empty", () {
       expect(emptyMap().values.isEmpty(), isTrue);

@@ -6,7 +6,7 @@ import '../test/assert_dart.dart';
 void main() {
   group("clear", () {
     test("clear items", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -17,7 +17,7 @@ void main() {
 
   group("contains", () {
     test("contains key", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -26,7 +26,7 @@ void main() {
     });
 
     test("doesn't contain key", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -34,7 +34,7 @@ void main() {
       expect(pokemon.containsKey(-1), isFalse);
     });
     test("contains value", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -43,7 +43,7 @@ void main() {
     });
 
     test("doesn't contain value", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -54,7 +54,7 @@ void main() {
 
   group("get", () {
     test("get", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -62,7 +62,7 @@ void main() {
     });
 
     test("get not found returns null", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -70,7 +70,7 @@ void main() {
     });
 
     test("get operator", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -78,7 +78,7 @@ void main() {
     });
 
     test("getValue", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -86,7 +86,7 @@ void main() {
     });
 
     test("getValue not found throws", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -96,14 +96,14 @@ void main() {
 
   group("getOrDefault", () {
     test("get", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
       expect(pokemon.getOrDefault(1, "Ditto"), equals("Bulbasaur"));
     });
     test("return default", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -113,7 +113,7 @@ void main() {
 
   group("getOrPut", () {
     test("get", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -121,7 +121,7 @@ void main() {
     });
 
     test("put", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -130,7 +130,7 @@ void main() {
     });
 
     test("getOrPut doens't allow null as defaultValue function", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -141,7 +141,7 @@ void main() {
 
   group("put", () {
     test("put", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -150,7 +150,7 @@ void main() {
     });
 
     test("operator", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -161,18 +161,18 @@ void main() {
 
   group("putAll", () {
     test("putAll", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      pokemon.putAll(mapOf({1: "Ditto", 3: "Venusaur"}));
+      pokemon.putAll(mapFrom({1: "Ditto", 3: "Venusaur"}));
       expect(pokemon[1], "Ditto");
       expect(pokemon[2], "Ivysaur");
       expect(pokemon[3], "Venusaur");
     });
 
     test("can't use null for putAll", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -183,7 +183,7 @@ void main() {
 
   group("putAllPairs", () {
     test("add new ones", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -199,7 +199,7 @@ void main() {
     });
 
     test("override", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -211,7 +211,7 @@ void main() {
     });
 
     test("putAllPairs doens't allow null as argument", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -222,7 +222,7 @@ void main() {
 
   group("putIfAbsent", () {
     test("insert", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -232,7 +232,7 @@ void main() {
     });
 
     test("don't replace", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -242,7 +242,7 @@ void main() {
     });
 
     test("replace when mapped to null", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: null,
         2: "Ivysaur",
       });
@@ -254,16 +254,16 @@ void main() {
 
   group("removeMapping", () {
     test("remove", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
       expect(pokemon.removeMapping(2, "Ivysaur"), isTrue);
-      expect(pokemon, mapOf({1: "Bulbasaur"}));
+      expect(pokemon, mapFrom({1: "Bulbasaur"}));
     });
 
     test("don't remove when key doesn't match", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -272,7 +272,7 @@ void main() {
     });
 
     test("don't remove when value doesn't match", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -283,7 +283,7 @@ void main() {
 
   group("values", () {
     test("returns values", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -294,7 +294,7 @@ void main() {
     });
 
     test("values with null", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         0: null,
         1: "Bulbasaur",
         2: "Ivysaur",
@@ -305,7 +305,7 @@ void main() {
 
   group("iterator", () {
     test("iterator is iterates", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -325,7 +325,7 @@ void main() {
 
     group("remove doesn't work", () {
       test("iterator is iterates", () {
-        final pokemon = mutableMapOf({
+        final pokemon = mutableMapFrom({
           1: "Bulbasaur",
           2: "Ivysaur",
         });
@@ -339,7 +339,7 @@ void main() {
         final e = catchException(() => i.remove());
         expect(e, equals(const TypeMatcher<UnimplementedError>()));
         // removed first item
-        //expect(pokemon, mapOf({2: "Ivysaur"}));
+        //expect(pokemon, mapFrom({2: "Ivysaur"}));
       });
     });
   });

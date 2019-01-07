@@ -139,7 +139,7 @@ final jbShop = shop("jb test shop", [
 ]);
 
 final KMap<String, Customer> jbCustomers =
-    jbShop.customers.fold(hashMapOf<String, Customer>(), (map, customer) {
+    jbShop.customers.fold(hashMapFrom<String, Customer>(), (map, customer) {
   (map as KMutableMap<String, Customer>)[customer.name] = customer;
   return map;
 });
@@ -150,7 +150,7 @@ final orderedProducts =
 final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
     .map((it) => jbCustomers[it]);
 
-final groupedByCities = mapOf({
+final groupedByCities = mapFrom({
   Canberra: listOf(lucas, cooper),
   Vancouver: listOf(nathan),
   Budapest: listOf(reka),

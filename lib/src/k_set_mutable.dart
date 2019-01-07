@@ -30,46 +30,6 @@ abstract class KMutableSet<T> implements KSet<T>, KMutableCollection<T> {
     return KMutableSet.from(args);
   }
 
-  factory KMutableSet.hashSetFrom([Iterable<T> elements = const []]) {
-    return DartMutableSet.noCopy(HashSet<T>.of(elements));
-  }
-
-  factory KMutableSet.hashSetOf(
-      [T arg0,
-      T arg1,
-      T arg2,
-      T arg3,
-      T arg4,
-      T arg5,
-      T arg6,
-      T arg7,
-      T arg8,
-      T arg9]) {
-    final args =
-        argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-    return KMutableSet.hashSetFrom(args);
-  }
-
-  factory KMutableSet.linkedSetFrom([Iterable<T> elements = const []]) {
-    return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
-  }
-
-  factory KMutableSet.linkedSetOf(
-      [T arg0,
-      T arg1,
-      T arg2,
-      T arg3,
-      T arg4,
-      T arg5,
-      T arg6,
-      T arg7,
-      T arg8,
-      T arg9]) {
-    final args =
-        argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-    return KMutableSet.linkedSetFrom(args);
-  }
-
   // Query Operations
   @override
   KMutableIterator<T> iterator();

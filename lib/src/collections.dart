@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/collection/map_mutable.dart';
+import 'package:dart_kollection/src/k_set_linked.dart';
 import 'package:dart_kollection/src/util/arguments.dart';
 
 /**
@@ -62,7 +64,7 @@ KMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
  * Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
-KMap<K, V> mapOf<K, V>([Map<K, V> map = const {}]) => KMap.from(map);
+KMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KMap.from(map);
 
 /**
  * Returns an empty read-only map of specified type.
@@ -77,15 +79,15 @@ KMap<K, V> emptyMap<K, V>() => KMap.empty();
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map = const {}]) =>
+KMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
     KMutableMap.from(map);
 
 /**
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
-KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
-    KMutableMap.hashMapFrom(map);
+KMutableMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap(HashMap.from(map));
 
 /**
  * Returns a new [LinkedHashMap] with the specified contents, given as a list of pairs
@@ -96,7 +98,7 @@ KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
  * Entries of the map are iterated in the order they were specified.
  */
 KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
-    KMutableMap.linkedHashMapFrom(map);
+    DartMutableMap(LinkedHashMap.from(map));
 
 /**
  * Returns a new read-only set with the given elements.
@@ -163,7 +165,7 @@ KMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
-KMutableSet<T> linkedSetOf<T>(
+KLinkedSet<T> linkedSetOf<T>(
     [T arg0,
     T arg1,
     T arg2,
@@ -176,15 +178,15 @@ KMutableSet<T> linkedSetOf<T>(
     T arg9]) {
   final List<T> args =
       argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KMutableSet.from(args);
+  return KLinkedSet.from(args);
 }
 
 /**
  * Returns a new [LinkedHashSet] based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
-KMutableSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
-    KMutableSet.linkedSetFrom(elements);
+KLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
+    KLinkedSet.from(elements);
 
 /**
  * Returns a new [KMutableSet] based on [HashSet] with the given elements.
@@ -192,7 +194,7 @@ KMutableSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
  */
-KMutableSet<T> hashSetOf<T>(
+KHashSet<T> hashSetOf<T>(
     [T arg0,
     T arg1,
     T arg2,
@@ -205,7 +207,7 @@ KMutableSet<T> hashSetOf<T>(
     T arg9]) {
   final List<T> args =
       argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KMutableSet.hashSetFrom(args);
+  return KHashSet.from(args);
 }
 
 /**
@@ -213,4 +215,4 @@ KMutableSet<T> hashSetOf<T>(
  * Elements of the set are iterated in unpredictable order.
  */
 KMutableSet<T> hashSetFrom<T>([Iterable<T> elements = const []]) =>
-    KMutableSet.hashSetFrom(elements);
+    KHashSet.from(elements);

@@ -6,7 +6,7 @@ import '../test/assert_dart.dart';
 void main() {
   group("_MutableEntry", () {
     test("entries can be converted to pairs", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -15,7 +15,7 @@ void main() {
     });
 
     test("set value for mutable entry", () {
-      final pokemon = mutableMapOf({
+      final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -30,7 +30,7 @@ void main() {
       expect(e, TypeMatcher<UnimplementedError>());
       // expect(
       //    pokemon,
-      //     mapOf({
+      //     mapFrom({
       //       1: "BULBASAUR",
       //      2: "IVYSAUR",
       //    }));
