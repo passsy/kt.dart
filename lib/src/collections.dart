@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/map_mutable.dart';
 import 'package:dart_kollection/src/k_set_linked.dart';
-import 'package:dart_kollection/src/util/arguments.dart';
 
 /**
  * Returns a new read-only list of given elements.
@@ -49,9 +48,8 @@ KMutableList<T> mutableListOf<T>(
     T arg7,
     T arg8,
     T arg9]) {
-  final List<T> args =
-      argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KMutableList.from(args);
+  return KMutableList.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
 
 /**
@@ -147,9 +145,8 @@ KMutableSet<T> mutableSetOf<T>(
     T arg7,
     T arg8,
     T arg9]) {
-  final List<T> args =
-      argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KMutableSet.from(args);
+  return KMutableSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
 
 /**
@@ -176,9 +173,8 @@ KLinkedSet<T> linkedSetOf<T>(
     T arg7,
     T arg8,
     T arg9]) {
-  final List<T> args =
-      argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KLinkedSet.from(args);
+  return KLinkedSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
 
 /**
@@ -205,9 +201,8 @@ KHashSet<T> hashSetOf<T>(
     T arg7,
     T arg8,
     T arg9]) {
-  final List<T> args =
-      argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-  return KHashSet.from(args);
+  return KHashSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
 
 /**
