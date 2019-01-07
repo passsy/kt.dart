@@ -16,8 +16,7 @@ class DartMutableMap<K, V>
   ///
   /// Use with care!
   DartMutableMap.noCopy(Map<K, V> map)
-      : assert(map != null),
-        _map = map,
+      : _map = map,
         super();
 
   final Map<K, V> _map;
