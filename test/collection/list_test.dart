@@ -4,14 +4,103 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("list", () {
+    testList(
+        <T>() => emptyList<T>(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
+  });
+  group("KList", () {
+    testList(
+        <T>() => KList<T>.empty(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KList.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => KList.from(iterable));
+  });
+  group("mutableList", () {
+    testList(
+        <T>() => emptyList<T>(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            mutableListOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testList(
+        <T>() => KMutableList<T>.empty(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KMutableList.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => KMutableList.from(iterable));
+  });
+}
+
+void testList(
+    KList<T> Function<T>() emptyList,
+    KList<T> Function<T>(
+            [T arg0,
+            T arg1,
+            T arg2,
+            T arg3,
+            T arg4,
+            T arg5,
+            T arg6,
+            T arg7,
+            T arg8,
+            T arg9])
+        listOf,
+    KList<T> Function<T>([Iterable<T> iterable]) listFrom,
+    {bool ordered = true}) {
   group('basic methods', () {
     test("has no elements", () {
-      final list = listOf([]);
+      final list = listOf();
       expect(list.size, equals(0));
     });
 
     test("contains nothing", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
       expect(list.contains("a"), isTrue);
       expect(list.contains("b"), isTrue);
       expect(list.contains("c"), isTrue);
@@ -21,7 +110,7 @@ void main() {
     });
 
     test("iterator with 1 element has 1 next", () {
-      final list = listOf(["a"]);
+      final list = listOf("a");
       final iterator = list.iterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), equals("a"));
@@ -32,14 +121,14 @@ void main() {
     });
 
     test("is list", () {
-      final list = listOf(["asdf"]);
+      final list = listOf("asdf");
 
       expect(list.isEmpty(), isFalse);
       expect(list.isEmpty(), isFalse);
     });
 
     test("get returns elements", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(list.get(0), equals("a"));
       expect(list.get(1), equals("b"));
@@ -52,7 +141,7 @@ void main() {
     });
 
     test("[] returns elements", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(list[0], equals("a"));
       expect(list[1], equals("b"));
@@ -63,7 +152,7 @@ void main() {
     });
 
     test("indexOf returns first element or -1", () {
-      final list = listOf(["a", "b", "c", "a"]);
+      final list = listOf("a", "b", "c", "a");
 
       expect(list.indexOf(""), equals(-1));
       expect(list.indexOf("a"), equals(0));
@@ -74,7 +163,7 @@ void main() {
     });
 
     test("lastIndexOf returns last element or -1", () {
-      final list = listOf(["a", "b", "c", "a"]);
+      final list = listOf("a", "b", "c", "a");
 
       expect(list.lastIndexOf(""), equals(-1));
       expect(list.lastIndexOf("a"), equals(3));
@@ -85,9 +174,9 @@ void main() {
     });
 
     test("is equals to another list list", () {
-      final list0 = listOf(["a", "b", "c"]);
-      final list1 = listOf(["a", "b", "c"]);
-      final list2 = listOf(["a", "c"]);
+      final list0 = listOf("a", "b", "c");
+      final list1 = listOf("a", "b", "c");
+      final list2 = listOf("a", "c");
 
       expect(list0, equals(list1));
       expect(list0.hashCode, equals(list1.hashCode));
@@ -99,7 +188,7 @@ void main() {
     group("reduceRight", () {
       test("reduce", () {
         final result =
-            listOf([1, 2, 3, 4]).reduceRight((it, int acc) => it + acc);
+            listOf(1, 2, 3, 4).reduceRight((it, int acc) => it + acc);
         expect(result, 10);
       });
 
@@ -119,7 +208,7 @@ void main() {
       test("reduceRightIndexed", () {
         var i = 2;
         final result =
-            listOf([1, 2, 3, 4]).reduceRightIndexed((index, it, int acc) {
+            listOf(1, 2, 3, 4).reduceRightIndexed((index, it, int acc) {
           expect(index, i);
           i--;
           return it + acc;
@@ -143,13 +232,13 @@ void main() {
     });
 
     test("sublist works ", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
       final subList = list.subList(1, 3);
-      expect(subList, equals(listOf(["b", "c"])));
+      expect(subList, equals(listOf("b", "c")));
     });
 
     test("sublist throws for illegal ranges", () {
-      final list = listOf(["a", "b", "c"]);
+      final list = listOf("a", "b", "c");
 
       expect(
           catchException<IndexOutOfBoundsException>(() => list.subList(0, 10))
@@ -195,21 +284,58 @@ void main() {
     });
 
     test("access dart list", () {
-      List<String> list = listOf<String>(["a", "b", "c"]).list;
+      List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
     });
 
     test("listIterator requires index", () {
       ArgumentError e =
-          catchException(() => listOf(["a", "b", "c"]).listIterator(null));
+          catchException(() => listOf("a", "b", "c").listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
     });
 
     test("equals although differnt types (subtypes)", () {
-      expect(listOf<int>([1, 2, 3]), listOf<num>([1, 2, 3]));
-      expect(listOf<num>([1, 2, 3]), listOf<int>([1, 2, 3]));
+      expect(listOf<int>(1, 2, 3), listOf<num>(1, 2, 3));
+      expect(listOf<num>(1, 2, 3), listOf<int>(1, 2, 3));
+    });
+
+    test("list iterates with null value", () {
+      final list = listFrom([null, "b", "c"]);
+      // iterates correctly
+      var iterator = list.iterator();
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), null);
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "b");
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "c");
+      expect(iterator.hasNext(), isFalse);
+    });
+
+    test("list iterates with listIterator with null value", () {
+      final list = listFrom([null, "b", "c"]);
+      // iterates correctly
+      var iterator = list.listIterator();
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), null);
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "b");
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "c");
+      expect(iterator.hasNext(), isFalse);
+    });
+
+    test("list allows null as parameter", () {
+      final stringList = listFrom([null, "b", "c"]);
+      expect(stringList.first(), null);
+      expect(stringList.reversed().last(), null);
+      expect(stringList.contains(null), isTrue);
+      expect(stringList.indexOf(null), 0);
+      expect(stringList.lastIndexOf(null), 0);
+      expect(stringList.indexOfFirst((it) => it == null), 0);
+      expect(stringList.elementAtOrElse(0, (_) => "a"), null);
     });
   });
 }

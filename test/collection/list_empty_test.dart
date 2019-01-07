@@ -4,6 +4,45 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("emptyList", () {
+    testEmptyList(<T>() => emptyList<T>());
+  });
+  group("listOf", () {
+    testEmptyList(<T>() => listOf<T>());
+  });
+  group("listFrom", () {
+    testEmptyList(<T>() => listFrom<T>());
+  });
+  group("KList.empty", () {
+    testEmptyList(<T>() => KList<T>.empty());
+  });
+  group("KList.of", () {
+    testEmptyList(<T>() => KList<T>.of());
+  });
+  group("KList.of", () {
+    testEmptyList(<T>() => KList<T>.from());
+  });
+  group("mutableList", () {
+    testEmptyList(<T>() => emptyList<T>());
+  });
+  group("mutableListOf", () {
+    testEmptyList(<T>() => mutableListOf<T>());
+  });
+  group("mutableListFrom", () {
+    testEmptyList(<T>() => mutableListFrom<T>());
+  });
+  group("KMutableList.empty", () {
+    testEmptyList(<T>() => KMutableList<T>.empty());
+  });
+  group("KMutableList.of", () {
+    testEmptyList(<T>() => KMutableList<T>.of());
+  });
+  group("KMutableList.from", () {
+    testEmptyList(<T>() => KMutableList<T>.from());
+  });
+}
+
+void testEmptyList(KList<T> Function<T>() emptyList) {
   group('empty list', () {
     test("has no elements", () {
       final empty = emptyList<String>();
@@ -132,11 +171,11 @@ void main() {
       final list = emptyList();
 
       final e0 = catchException<IndexOutOfBoundsException>(() => list[0]);
-      expect(e0.message, contains("doesn't contain element at index 0"));
+      expect(e0.message, contains("doesn't contain element at index: 0"));
       final e1 = catchException<IndexOutOfBoundsException>(() => list[-1]);
-      expect(e1.message, contains("doesn't contain element at index -1"));
+      expect(e1.message, contains("doesn't contain element at index: -1"));
       final e2 = catchException<IndexOutOfBoundsException>(() => list[3]);
-      expect(e2.message, contains("doesn't contain element at index 3"));
+      expect(e2.message, contains("doesn't contain element at index: 3"));
 
       final e3 = catchException<ArgumentError>(() => list[null]);
       expect(e3.message, allOf(contains("null"), contains("index")));

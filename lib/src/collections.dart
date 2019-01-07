@@ -1,45 +1,73 @@
 import 'dart:collection';
 
 import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/collection/list.dart';
-import 'package:dart_kollection/src/collection/list_empty.dart';
-import 'package:dart_kollection/src/collection/list_mutable.dart';
-import 'package:dart_kollection/src/collection/map.dart';
-import 'package:dart_kollection/src/collection/map_empty.dart';
 import 'package:dart_kollection/src/collection/map_mutable.dart';
-import 'package:dart_kollection/src/collection/set.dart';
-import 'package:dart_kollection/src/collection/set_empty.dart';
-import 'package:dart_kollection/src/collection/set_mutable.dart';
+import 'package:dart_kollection/src/k_set_linked.dart';
 
 /**
  * Returns a new read-only list of given elements.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
  */
-KList<T> listOf<T>([Iterable<T> elements = const []]) {
-  if (elements.isEmpty) return emptyList();
-  return DartList(elements);
-}
+KList<T> listOf<T>(
+        [T arg0,
+        T arg1,
+        T arg2,
+        T arg3,
+        T arg4,
+        T arg5,
+        T arg6,
+        T arg7,
+        T arg8,
+        T arg9]) =>
+    KList.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+
+/**
+ * Returns a new read-only list based on [elements].
+ */
+KList<T> listFrom<T>([Iterable<T> elements = const []]) => KList.from(elements);
 
 /**
  * Returns an empty read-only list.
  */
-KList<T> emptyList<T>() => EmptyList<T>();
+KList<T> emptyList<T>() => KList.empty();
 
 /**
- * Returns an empty new [MutableList].
+ * Returns a new mutable list of given elements.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
  */
-KMutableList<T> mutableListOf<T>([Iterable<T> elements = const []]) =>
-    DartMutableList(elements);
+KMutableList<T> mutableListOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  return KMutableList.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+}
+
+/**
+ * Returns a new mutable list based on [elements].
+ */
+KMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
+    KMutableList.from(elements);
 
 /**
  * Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
-KMap<K, V> mapOf<K, V>([Map<K, V> map = const {}]) => DartMap(map);
+KMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KMap.from(map);
 
 /**
  * Returns an empty read-only map of specified type.
  */
-KMap<K, V> emptyMap<K, V>() => EmptyMap<K, V>();
+KMap<K, V> emptyMap<K, V>() => KMap.empty();
 
 /**
  * Returns a new [MutableMap] with the specified contents, given as a list of pairs
@@ -49,15 +77,15 @@ KMap<K, V> emptyMap<K, V>() => EmptyMap<K, V>();
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> mutableMapOf<K, V>([Map<K, V> map = const {}]) =>
-    DartMutableMap.noCopy(LinkedHashMap.of(map));
+KMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
+    KMutableMap.from(map);
 
 /**
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
-KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
-    DartMutableMap.noCopy(HashMap.of(map));
+KMutableMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap(HashMap.from(map));
 
 /**
  * Returns a new [LinkedHashMap] with the specified contents, given as a list of pairs
@@ -67,35 +95,119 @@ KMutableMap<K, V> hashMapOf<K, V>([Map<K, V> map = const {}]) =>
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
-    DartMutableMap.noCopy(LinkedHashMap.of(map));
+KMutableMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
+    DartMutableMap(LinkedHashMap.from(map));
 
 /**
  * Returns a new read-only set with the given elements.
  * Elements of the set are iterated in the order they were specified.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
  */
-KSet<T> setOf<T>([Iterable<T> elements = const []]) {
-  if (elements.isEmpty) return emptySet();
-  return DartSet(elements);
-}
+KSet<T> setOf<T>(
+        [T arg0,
+        T arg1,
+        T arg2,
+        T arg3,
+        T arg4,
+        T arg5,
+        T arg6,
+        T arg7,
+        T arg8,
+        T arg9]) =>
+    KSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+
+/**
+ * Returns a new read-only set based on [elements].
+ * Elements of the set are iterated in the order they were specified.
+ */
+KSet<T> setFrom<T>([Iterable<T> elements = const []]) => KSet.from(elements);
 
 /**
  * Returns an empty read-only set.
  */
-KSet<T> emptySet<T>() => EmptySet<T>();
+KSet<T> emptySet<T>() => KSet.empty();
 
 /**
  * Returns a new [KMutableSet] based on [LinkedHashSet] with the given elements.
  * Elements of the set are iterated in the order they were specified.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
-KMutableSet<T> linkedSetOf<T>([Iterable<T> elements = const []]) {
-  return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
+KMutableSet<T> mutableSetOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  return KMutableSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
+
+/**
+ * Returns a new [LinkedHashSet] based on [elements].
+ * Elements of the set are iterated in the order they were specified.
+ */
+KMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
+    KMutableSet.from(elements);
+
+/**
+ * Returns a new [KMutableSet] based on [LinkedHashSet] with the given elements.
+ * Elements of the set are iterated in the order they were specified.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
+ */
+KLinkedSet<T> linkedSetOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  return KLinkedSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+}
+
+/**
+ * Returns a new [LinkedHashSet] based on [elements].
+ * Elements of the set are iterated in the order they were specified.
+ */
+KLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
+    KLinkedSet.from(elements);
 
 /**
  * Returns a new [KMutableSet] based on [HashSet] with the given elements.
  * Elements of the set are iterated in unpredictable order.
+ *
+ * Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
  */
-KMutableSet<T> hashSetOf<T>([Iterable<T> elements = const []]) {
-  return DartMutableSet.noCopy(HashSet<T>.of(elements));
+KHashSet<T> hashSetOf<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) {
+  return KHashSet.of(
+      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
+
+/**
+ * Returns a new [HashSet] based on [elements].
+ * Elements of the set are iterated in unpredictable order.
+ */
+KMutableSet<T> hashSetFrom<T>([Iterable<T> elements = const []]) =>
+    KHashSet.from(elements);

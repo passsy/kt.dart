@@ -6,29 +6,51 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("iterable", () {
+    // TODO replace with Iterable.generate once implemented
     testIterable(<T>() => EmptyIterable<T>(),
         <T>(Iterable<T> iterable) => DartIterable(iterable));
   });
   group("list", () {
-    testIterable(
-        <T>() => emptyList<T>(), <T>(Iterable<T> iterable) => listOf(iterable));
+    testIterable(<T>() => emptyList<T>(),
+        <T>(Iterable<T> iterable) => listFrom(iterable));
+  });
+  group("KList", () {
+    testIterable(<T>() => KList<T>.empty(),
+        <T>(Iterable<T> iterable) => KList<T>.from(iterable));
   });
   group("mutableList", () {
     testIterable(<T>() => emptyList<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testIterable(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList<T>.from(iterable));
   });
   group("set", () {
     testIterable(
-        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setOf(iterable));
+        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
+  });
+  group("KSet", () {
+    testIterable(<T>() => KSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KSet<T>.from(iterable));
   });
   group("hashset", () {
     testIterable(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+        ordered: false);
+  });
+  group("KHashSet", () {
+    testIterable(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable),
         ordered: false);
   });
   group("linkedSet", () {
-    testIterable(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+    testIterable(<T>() => linkedSetOf<T>(),
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testIterable(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
   });
 }
 
@@ -82,7 +104,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associate", () {
       final list = iterableOf(["a", "b", "c"]);
       var result = list.associate((it) => KPair(it.toUpperCase(), it));
-      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associate on empty map", () {
@@ -101,7 +123,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateBy", () {
       final list = iterableOf(["a", "b", "c"]);
       var result = list.associateBy((it) => it.toUpperCase());
-      var expected = mapOf({"A": "a", "B": "b", "C": "c"});
+      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associateBy on empty map", () {
@@ -137,7 +159,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final list = iterableOf(["a", "bb", "ccc"]);
       var result = list.associateByTransform(
           (it) => it.length, (it) => it.toUpperCase());
-      var expected = mapOf({1: "A", 2: "BB", 3: "CCC"});
+      var expected = mapFrom({1: "A", 2: "BB", 3: "CCC"});
       expect(result, equals(expected));
     });
     test("associateByTransform on empty map", () {
@@ -157,7 +179,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateWith", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final result = iterable.associateWith((it) => it.toUpperCase());
-      final expected = mapOf({"a": "A", "b": "B", "c": "C"});
+      final expected = mapFrom({"a": "A", "b": "B", "c": "C"});
       expect(result, equals(expected));
     });
     test("associateWith on empty map", () {
@@ -175,21 +197,21 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("associateWithTo", () {
     test("associateWithTo same type", () {
       final iterable = iterableOf(["a", "bb", "ccc"]);
-      final result = mutableMapOf<String, int>();
+      final result = mutableMapFrom<String, int>();
       final filtered = iterable.associateWithTo(result, (it) => it.length);
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+      expect(result, mapFrom({"a": 1, "bb": 2, "ccc": 3}));
     });
     test("associateWithTo super type", () {
       final iterable = iterableOf(["a", "bb", "ccc"]);
-      final result = mutableMapOf<String, num>();
+      final result = mutableMapFrom<String, num>();
       final filtered = iterable.associateWithTo(result, (it) => it.length);
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({"a": 1, "bb": 2, "ccc": 3}));
+      expect(result, mapFrom({"a": 1, "bb": 2, "ccc": 3}));
     });
     test("associateWithTo wrong type throws", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final result = mutableMapOf<String, String>();
+      final result = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(result, (entry) => entry.length));
       expect(
@@ -204,7 +226,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("associateWithTo requires valueSelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String item) predicate = null;
-      final other = mutableMapOf<String, String>();
+      final other = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("valueSelector")));
@@ -244,17 +266,17 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     if (ordered) {
       test("distinct elements", () {
         final iterable = iterableOf(["a", "b", "c", "b"]);
-        expect(iterable.distinct(), equals(listOf(["a", "b", "c"])));
+        expect(iterable.distinct(), equals(listOf("a", "b", "c")));
       });
       test("distinct by ordered", () {
         final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
         expect(iterable.distinctBy((it) => it.length),
-            equals(listOf(["paul", "peter"])));
+            equals(listOf("paul", "peter")));
       });
     } else {
       test("distinct elements", () {
         final iterable = iterableOf(["a", "b", "c", "b"]);
-        expect(iterable.distinct().toSet(), equals(setOf(["a", "b", "c"])));
+        expect(iterable.distinct().toSet(), equals(setOf("a", "b", "c")));
       });
 
       test("distinct by unordered", () {
@@ -289,12 +311,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("chunked", () {
     test("chunk", () {
       final chunks = iterableOf([1, 2, 3, 4, 5]).chunked(3);
-      expect(
-          chunks,
-          listOf([
-            listOf([1, 2, 3]),
-            listOf([4, 5])
-          ]));
+      expect(chunks, listOf(listOf(1, 2, 3), listOf(4, 5)));
     });
 
     test("chunked doesn't allow null as size", () {
@@ -306,7 +323,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("chunkedTransform", () {
       final chunks =
           iterableOf([1, 2, 3, 4, 5]).chunkedTransform(3, (it) => it.sum());
-      expect(chunks, listOf([6, 9]));
+      expect(chunks, listOf(6, 9));
     });
 
     test("chunkedTransform doesn't allow null as size", () {
@@ -328,7 +345,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     if (ordered) {
       test("drop first value ordered", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        expect(iterable.drop(1), equals(listOf(["b", "c"])));
+        expect(iterable.drop(1), equals(listOf("b", "c")));
       });
     } else {
       test("drop on iterable returns a iterable", () {
@@ -361,12 +378,11 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     if (ordered) {
       test("dropWhile two", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        expect(iterable.dropWhile((it) => it != "c"), equals(listOf(["c"])));
+        expect(iterable.dropWhile((it) => it != "c"), equals(listOf("c")));
       });
       test("dropWhile one", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        expect(
-            iterable.dropWhile((it) => it != "b"), equals(listOf(["b", "c"])));
+        expect(iterable.dropWhile((it) => it != "b"), equals(listOf("b", "c")));
       });
     } else {
       test("dropWhile first value unordered", () {
@@ -407,11 +423,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     } else {
       test("returns all elements", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        final set = setOf([
-          iterable.elementAt(0),
-          iterable.elementAt(1),
-          iterable.elementAt(2)
-        ]);
+        final set = setOf(iterable.elementAt(0), iterable.elementAt(1),
+            iterable.elementAt(2));
         expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
@@ -445,11 +458,10 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     } else {
       test("returns all elements", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        final set = setOf([
-          iterable.elementAtOrElse(0, (i) => "x"),
-          iterable.elementAtOrElse(1, (i) => "x"),
-          iterable.elementAtOrElse(2, (i) => "x")
-        ]);
+        final set = setOf(
+            iterable.elementAtOrElse(0, (i) => "x"),
+            iterable.elementAtOrElse(1, (i) => "x"),
+            iterable.elementAtOrElse(2, (i) => "x"));
         expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
@@ -491,11 +503,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     } else {
       test("returns all elements", () {
         final iterable = iterableOf(["a", "b", "c"]);
-        final set = setOf([
-          iterable.elementAtOrNull(0),
-          iterable.elementAtOrNull(1),
-          iterable.elementAtOrNull(2)
-        ]);
+        final set = setOf(iterable.elementAtOrNull(0),
+            iterable.elementAtOrNull(1), iterable.elementAtOrNull(2));
         expect(set.containsAll(iterable.toSet()), isTrue);
       });
     }
@@ -518,7 +527,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("filter", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
       expect(iterable.filter((it) => it.contains("a")).toSet(),
-          equals(setOf(["paul", "lisa"])));
+          equals(setOf("paul", "lisa")));
     });
 
     test("filter doesn't allow null as predicate", () {
@@ -535,9 +544,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterTo(result, (it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, -12]));
+        expect(result, listOf(4, -12));
       } else {
-        expect(result.toSet(), setOf([4, -12]));
+        expect(result.toSet(), setOf(4, -12));
       }
     });
     test("filterTo super type", () {
@@ -546,9 +555,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterTo(result, (it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, -12]));
+        expect(result, listOf(4, -12));
       } else {
-        expect(result.toSet(), equals(setOf([4, -12])));
+        expect(result.toSet(), equals(setOf(4, -12)));
       }
     });
     test("filterTo wrong type throws", () {
@@ -591,7 +600,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
             i++;
             return it.contains("a");
           }).toSet(),
-          equals(setOf(["paul", "lisa"])));
+          equals(setOf("paul", "lisa")));
     });
 
     test("filterIndexed doesn't allow null as predicate", () {
@@ -619,9 +628,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, -12]));
+        expect(result, listOf(4, -12));
       } else {
-        expect(result.toSet(), setOf([4, -12]));
+        expect(result.toSet(), setOf(4, -12));
       }
     });
     test("filterIndexedTo super type", () {
@@ -630,9 +639,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterIndexedTo(result, (i, it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, -12]));
+        expect(result, listOf(4, -12));
       } else {
-        expect(result.toSet(), equals(setOf([4, -12])));
+        expect(result.toSet(), equals(setOf(4, -12)));
       }
     });
     test("filterIndexedTo wrong type throws", () {
@@ -669,7 +678,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("filterNot", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
       expect(iterable.filterNot((it) => it.contains("a")).toSet(),
-          equals(setOf(["peter", "john"])));
+          equals(setOf("peter", "john")));
     });
 
     test("filterNot doesn't allow null as predicate", () {
@@ -686,9 +695,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterNotTo(result, (it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([25, 10]));
+        expect(result, listOf(25, 10));
       } else {
-        expect(result.toSet(), setOf([25, 10]));
+        expect(result.toSet(), setOf(25, 10));
       }
     });
     test("filterNotTo super type", () {
@@ -697,9 +706,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterNotTo(result, (it) => it < 10);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([25, 10]));
+        expect(result, listOf(25, 10));
       } else {
-        expect(result.toSet(), equals(setOf([25, 10])));
+        expect(result.toSet(), equals(setOf(25, 10)));
       }
     });
     test("filterNotTo wrong type throws", () {
@@ -736,7 +745,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("filterNotNull", () {
       final iterable = iterableOf(["paul", null, "john", "lisa"]);
       expect(iterable.filterNotNull().toSet(),
-          equals(setOf(["paul", "john", "lisa"])));
+          equals(setOf("paul", "john", "lisa")));
     });
   });
 
@@ -747,9 +756,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterNotNullTo(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, 25, 10]));
+        expect(result, listOf(4, 25, 10));
       } else {
-        expect(result.toSet(), setOf([4, 25, 10]));
+        expect(result.toSet(), setOf(4, 25, 10));
       }
     });
     test("filterNotNullTo super type", () {
@@ -758,9 +767,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.filterNotNullTo(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, 25, 10]));
+        expect(result, listOf(4, 25, 10));
       } else {
-        expect(result.toSet(), equals(setOf([4, 25, 10])));
+        expect(result.toSet(), equals(setOf(4, 25, 10)));
       }
     });
     test("filterNotNullTo wrong type throws", () {
@@ -789,7 +798,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("filterIsInstance", () {
       final iterable = iterableOf<Object>(["paul", null, "john", 1, "lisa"]);
       expect(iterable.filterIsInstance<String>().toSet(),
-          equals(setOf(["paul", "john", "lisa"])));
+          equals(setOf("paul", "john", "lisa")));
     });
   });
 
@@ -879,7 +888,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf([1, 2, 3]);
       expect(
           iterable.flatMap((it) => iterableOf([it, it + 1, it + 2])).toList(),
-          listOf([1, 2, 3, 2, 3, 4, 3, 4, 5]));
+          listOf(1, 2, 3, 2, 3, 4, 3, 4, 5));
     });
 
     test("flatMap doesn't allow null as tranform function", () {
@@ -905,8 +914,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           [5, 6]
         ]);
         final result = iterable.fold(
-            listOf<int>(), (KList<int> acc, it) => acc + listOf(it));
-        expect(result, listOf([1, 2, 3, 4, 5, 6]));
+            listFrom<int>(), (KList<int> acc, it) => acc + listFrom(it));
+        expect(result, listOf(1, 2, 3, 4, 5, 6));
       });
     }
 
@@ -927,12 +936,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         ]);
         var i = 0;
         final result =
-            iterable.foldIndexed(listOf<int>(), (index, KList<int> acc, it) {
+            iterable.foldIndexed(listFrom<int>(), (index, KList<int> acc, it) {
           expect(index, i);
           i++;
-          return acc + listOf(it);
+          return acc + listFrom(it);
         });
-        expect(result, listOf([1, 2, 3, 4, 5, 6]));
+        expect(result, listOf(1, 2, 3, 4, 5, 6));
       });
     }
 
@@ -951,7 +960,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         result.add(it);
       });
       if (ordered) {
-        expect(result, listOf(["a", "b", "c", "d"]));
+        expect(result, listOf("a", "b", "c", "d"));
       } else {
         expect(result.size, 4);
         expect(result.toSet(), iterable.toSet());
@@ -973,7 +982,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         result.add("$index$it");
       });
       if (ordered) {
-        expect(result, listOf(["0a", "1b", "2c", "3d"]));
+        expect(result, listOf("0a", "1b", "2c", "3d"));
       } else {
         expect(result.size, 4);
         expect(result.toSet(),
@@ -994,9 +1003,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
         expect(
             iterable.groupBy((it) => it.length),
-            equals(mapOf({
-              4: listOf(["paul", "john", "lisa"]),
-              5: listOf(["peter"]),
+            equals(mapFrom({
+              4: listOf("paul", "john", "lisa"),
+              5: listOf("peter"),
             })));
       });
 
@@ -1005,9 +1014,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         expect(
             iterable.groupByTransform(
                 (it) => it.length, (it) => it.toUpperCase()),
-            equals(mapOf({
-              4: listOf(["PAUL", "JOHN", "LISA"]),
-              5: listOf(["PETER"]),
+            equals(mapFrom({
+              4: listOf("PAUL", "JOHN", "LISA"),
+              5: listOf("PETER"),
             })));
       });
     } else {
@@ -1017,9 +1026,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
             iterable
                 .groupBy((it) => it.length)
                 .mapValues((it) => it.value.toSet()),
-            equals(mapOf({
-              4: setOf(["paul", "john", "lisa"]),
-              5: setOf(["peter"]),
+            equals(mapFrom({
+              4: setOf("paul", "john", "lisa"),
+              5: setOf("peter"),
             })));
       });
 
@@ -1029,9 +1038,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
             iterable
                 .groupByTransform((it) => it.length, (it) => it.toUpperCase())
                 .mapValues((it) => it.value.toSet()),
-            equals(mapOf({
-              4: setOf(["PAUL", "JOHN", "LISA"]),
-              5: setOf(["PETER"]),
+            equals(mapFrom({
+              4: setOf("PAUL", "JOHN", "LISA"),
+              5: setOf("PETER"),
             })));
       });
     }
@@ -1046,31 +1055,31 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByTo", () {
     test("groupByTo same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KMutableList<String>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             4: iterableOf(["paul", "john", "lisa"]).toList(),
-            5: listOf(["peter"]),
+            5: listOf("peter"),
           }));
     });
     test("groupByTo super type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<Pattern>>();
+      final result = mutableMapFrom<int, KMutableList<Pattern>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             4: iterableOf(["paul", "john", "lisa"]).toList(),
-            5: listOf(["peter"]),
+            5: listOf("peter"),
           }));
     });
     test("groupByTo wrong type throws", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<int>>();
+      final result = mutableMapFrom<int, KMutableList<int>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(result, (it) => it.length));
       expect(
@@ -1091,7 +1100,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByTo requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(other, keySelector));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1124,21 +1133,21 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByToTransform", () {
     test("groupByToTransform same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapOf<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KMutableList<String>>();
       final grouped = iterable.groupByToTransform(
           result, (it) => it.length, (it) => it.toUpperCase());
       expect(identical(result, grouped), isTrue);
       if (ordered) {
         expect(
             result,
-            mapOf({
-              4: listOf(["PAUL", "JOHN", "LISA"]),
-              5: listOf(["PETER"]),
+            mapFrom({
+              4: listOf("PAUL", "JOHN", "LISA"),
+              5: listOf("PETER"),
             }));
       } else {
         expect(result.size, 2);
-        expect(result[4].toSet(), setOf(["PAUL", "JOHN", "LISA"]));
-        expect(result[5], listOf(["PETER"]));
+        expect(result[4].toSet(), setOf("PAUL", "JOHN", "LISA"));
+        expect(result[5], listOf("PETER"));
       }
     });
     test("groupByToTransform requires destination to be non null", () {
@@ -1150,7 +1159,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, keySelector, (it) => it.toUpperCase()));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1158,7 +1167,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires valueTransform to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) valueSelector = null;
-      final other = mutableMapOf<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, (it) => it.toUpperCase(), valueSelector));
       expect(e.message, allOf(contains("null"), contains("valueTransform")));
@@ -1229,7 +1238,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       var a = iterableOf(["paul", "john", "max", "lisa"]);
       var b = iterableOf(["julie", "richard", "john", "lisa"]);
       final result = a.intersect(b);
-      expect(result, setOf(["john", "lisa"]));
+      expect(result, setOf("john", "lisa"));
     });
 
     test("other can't be null", () {
@@ -1246,11 +1255,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         expect(s, "a, b, c");
       });
       test("joinToString calls childs toString", () {
-        final s = iterableOf([
-          listOf([1, 2, 3]),
-          KPair("a", "b"),
-          "test"
-        ]).joinToString();
+        final s = iterableOf([listOf(1, 2, 3), KPair("a", "b"), "test"])
+            .joinToString();
         expect(s, "[1, 2, 3], (a, b), test");
       });
       test("with transform", () {
@@ -1346,16 +1352,16 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("map", () {
     test("map int to string", () {
       final iterable = iterableOf([1, 2, 3]);
-      expect(iterable.map((it) => it.toString()).toList(),
-          listOf(["1", "2", "3"]));
+      expect(
+          iterable.map((it) => it.toString()).toList(), listOf("1", "2", "3"));
     });
   });
 
   group("map", () {
     test("map int to string", () {
       final iterable = iterableOf([1, 2, 3]);
-      expect(iterable.map((it) => it.toString()).toList(),
-          listOf(["1", "2", "3"]));
+      expect(
+          iterable.map((it) => it.toString()).toList(), listOf("1", "2", "3"));
     });
   });
 
@@ -1363,7 +1369,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("mapNotNull int to string", () {
       final iterable = iterableOf([1, null, 2, null, 3]);
       expect(iterable.mapNotNull((it) => it?.toString()).toList(),
-          listOf(["1", "2", "3"]));
+          listOf("1", "2", "3"));
     });
   });
 
@@ -1373,7 +1379,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf([1, null, 2, null, 3]);
       iterable.mapNotNullTo(list, (it) => it?.toString());
 
-      expect(list, listOf(["1", "2", "3"]));
+      expect(list, listOf("1", "2", "3"));
     });
 
     test("mapNotNullTo doesn't allow null as destination", () {
@@ -1398,7 +1404,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final iterable = iterableOf([1, 2, 3]);
       iterable.mapTo(list, (it) => it.toString());
 
-      expect(list, listOf(["1", "2", "3"]));
+      expect(list, listOf("1", "2", "3"));
     });
 
     test("mapTo doesn't allow null as destination", () {
@@ -1424,7 +1430,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         final iterable = iterableOf(["a", "b", "c"]);
         iterable.mapIndexedTo(list, (index, it) => "$index$it");
 
-        expect(list, listOf(["0a", "1b", "2c"]));
+        expect(list, listOf("0a", "1b", "2c"));
       });
 
       test("mapIndexedTo doesn't allow null as destination", () {
@@ -1450,7 +1456,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         final iterable = iterableOf(["a", "b", "c"]);
         final result = iterable.mapIndexed((index, it) => "$index$it");
 
-        expect(result, listOf(["0a", "1b", "2c"]));
+        expect(result, listOf("0a", "1b", "2c"));
       });
     });
   }
@@ -1464,7 +1470,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
               if (it == null) return null;
               return "$index$it";
             }).toList(),
-            listOf(["0a", "2b", "3c"]));
+            listOf("0a", "2b", "3c"));
       });
     });
   }
@@ -1478,7 +1484,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           if (it == null) return null;
           return "$index$it";
         }).toList();
-        expect(set, setOf(["0a", "2b", "3c"]));
+        expect(set, setOf("0a", "2b", "3c"));
       });
 
       test("mapIndexedNotNullTo doesn't allow null as destination", () {
@@ -1615,37 +1621,37 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       test("remove iterable", () {
         final result = iterableOf(["paul", "john", "max", "lisa"])
             .minus(iterableOf(["max", "john"]));
-        expect(result, listOf(["paul", "lisa"]));
+        expect(result, listOf("paul", "lisa"));
       });
 
       test("infix", () {
         final result =
             iterableOf(["paul", "john", "max", "lisa"]) - iterableOf(["max"]);
-        expect(result.toList(), listOf(["paul", "john", "lisa"]));
+        expect(result.toList(), listOf("paul", "john", "lisa"));
       });
 
       test("remove one item", () {
         final result =
             iterableOf(["paul", "john", "max", "lisa"]).minusElement("max");
-        expect(result.toList(), listOf(["paul", "john", "lisa"]));
+        expect(result.toList(), listOf("paul", "john", "lisa"));
       });
     } else {
       test("remove iterable", () {
         final result = iterableOf(["paul", "john", "max", "lisa"])
             .minus(iterableOf(["max", "john"]));
-        expect(result.toSet(), setOf(["paul", "lisa"]));
+        expect(result.toSet(), setOf("paul", "lisa"));
       });
 
       test("infix", () {
         final result =
             iterableOf(["paul", "john", "max", "lisa"]) - iterableOf(["max"]);
-        expect(result.toSet(), setOf(["paul", "john", "lisa"]));
+        expect(result.toSet(), setOf("paul", "john", "lisa"));
       });
 
       test("remove one item", () {
         final result =
             iterableOf(["paul", "john", "max", "lisa"]).minusElement("max");
-        expect(result.toSet(), setOf(["paul", "john", "lisa"]));
+        expect(result.toSet(), setOf("paul", "john", "lisa"));
       });
     }
 
@@ -1689,7 +1695,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         [5, 6]
       ]);
       iterable.onEach((it) => it.add(0));
-      expect(iterable.map((it) => it.last).toList(), listOf([0, 0, 0]));
+      expect(iterable.map((it) => it.last).toList(), listOf(0, 0, 0));
     });
 
     test("onEach doesn't allow null as action", () {
@@ -1703,8 +1709,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("partition", () {
       final result =
           iterableOf([7, 31, 4, 3, 92, 32]).partition((it) => it > 10);
-      expect(result.first.toSet(), setOf([31, 92, 32]));
-      expect(result.second.toSet(), setOf([7, 4, 3]));
+      expect(result.first.toSet(), setOf(31, 92, 32));
+      expect(result.second.toSet(), setOf(7, 4, 3));
     });
 
     test("partition doesn't allow null as predicate", () {
@@ -1717,12 +1723,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("plus", () {
     test("concat two iterables", () {
       final result = iterableOf([1, 2, 3]).plus(iterableOf([4, 5, 6]));
-      expect(result.toList(), listOf([1, 2, 3, 4, 5, 6]));
+      expect(result.toList(), listOf(1, 2, 3, 4, 5, 6));
     });
 
     test("infix", () {
       final result = iterableOf([1, 2, 3]) + iterableOf([4, 5, 6]);
-      expect(result.toList(), listOf([1, 2, 3, 4, 5, 6]));
+      expect(result.toList(), listOf(1, 2, 3, 4, 5, 6));
     });
 
     test("plus doesn't allow null as elements", () {
@@ -1735,12 +1741,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("plusElement", () {
     test("concat item", () {
       final result = iterableOf([1, 2, 3]).plusElement(5);
-      expect(result.toList(), listOf([1, 2, 3, 5]));
+      expect(result.toList(), listOf(1, 2, 3, 5));
     });
 
     test("element can be null", () {
       final result = iterableOf([1, 2, 3]).plusElement(null);
-      expect(result.toList(), listOf([1, 2, 3, null]));
+      expect(result.toList(), listFrom([1, 2, 3, null]));
     });
   });
 
@@ -1799,7 +1805,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("reversed", () {
     test("mutliple", () {
       final result = iterableOf([1, 2, 3, 4]).reversed();
-      expect(result.toList(), listOf([4, 3, 2, 1]));
+      expect(result.toList(), listOf(4, 3, 2, 1));
     });
 
     test("empty", () {
@@ -1807,7 +1813,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
 
     test("one", () {
-      expect(iterableOf<int>([1]).reversed().toList(), listOf<int>([1]));
+      expect(iterableOf<int>([1]).reversed().toList(), listFrom<int>([1]));
     });
   });
 
@@ -1874,12 +1880,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("sort", () {
     test("sort", () {
       final result = iterableOf([4, 2, 3, 1]).sorted();
-      expect(result.toList(), listOf([1, 2, 3, 4]));
+      expect(result.toList(), listOf(1, 2, 3, 4));
     });
 
     test("sortedDescending", () {
       final result = iterableOf([4, 2, 3, 1]).sortedDescending();
-      expect(result.toList(), listOf([4, 3, 2, 1]));
+      expect(result.toList(), listOf(4, 3, 2, 1));
     });
 
     var lastChar = (String it) {
@@ -1890,13 +1896,13 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("sortedBy", () {
       final result =
           iterableOf(["paul", "john", "max", "lisa"]).sortedBy(lastChar);
-      expect(result, listOf(["lisa", "paul", "john", "max"]));
+      expect(result, listOf("lisa", "paul", "john", "max"));
     });
 
     test("sortedByDescending", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .sortedByDescending(lastChar);
-      expect(result, listOf(["max", "john", "paul", "lisa"]));
+      expect(result, listOf("max", "john", "paul", "lisa"));
     });
 
     test("sortedBy doesn't allow null as selector", () {
@@ -1926,7 +1932,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("remove one item", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .subtract(iterableOf(["max"]));
-      expect(result, setOf(["paul", "john", "lisa"]));
+      expect(result, setOf("paul", "john", "lisa"));
     });
 
     test("subtract doesn't allow null as other", () {
@@ -1990,16 +1996,26 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(iterable.take(10).toList(), iterable.toList());
     });
 
-    test("take smaller list size returns first elements", () {
-      final iterable = iterableOf([1, 2, 3, 4]);
-      expect(iterable.take(2).toList(), listOf([1, 2]));
-    });
+    if (ordered) {
+      test("take smaller list size returns first elements", () {
+        final iterable = iterableOf([1, 2, 3, 4]);
+        expect(iterable.take(2).toList(), listOf(1, 2));
+      });
+    }
 
     test("take doesn't allow null as n", () {
       final iterable = emptyIterable<num>();
       var e = catchException<ArgumentError>(() => iterable.take(null));
       expect(e.message, allOf(contains("null"), contains("n")));
     });
+
+    if (ordered) {
+      test("take first element which is null", () {
+        final iterable = iterableOf([null, 1]);
+        expect(iterable.take(1).toList(), listFrom([null]));
+        expect(iterable.take(2).toList(), listFrom([null, 1]));
+      });
+    }
   });
 
   group("toHashSet", () {
@@ -2016,9 +2032,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.toCollection(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, 25, -12, 10]));
+        expect(result, listOf(4, 25, -12, 10));
       } else {
-        expect(result.toSet(), setOf([4, 25, -12, 10]));
+        expect(result.toSet(), setOf(4, 25, -12, 10));
       }
     });
     test("toCollection super type", () {
@@ -2027,9 +2043,9 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       final filtered = iterable.toCollection(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
-        expect(result, listOf([4, 25, -12, 10]));
+        expect(result, listOf(4, 25, -12, 10));
       } else {
-        expect(result.toSet(), equals(setOf([4, 25, -12, 10])));
+        expect(result.toSet(), equals(setOf(4, 25, -12, 10)));
       }
     });
     test("toCollection wrong type throws", () {
@@ -2057,7 +2073,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("union", () {
     test("concat two iterables", () {
       final result = iterableOf([1, 2, 3]).union(iterableOf([4, 5, 6]));
-      expect(result.toList(), listOf([1, 2, 3, 4, 5, 6]));
+      expect(result.toList(), listOf(1, 2, 3, 4, 5, 6));
     });
 
     test("union doesn't allow null as other", () {
@@ -2071,29 +2087,29 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("default step", () {
       expect(
           iterableOf([1, 2, 3, 4, 5]).windowed(3),
-          listOf([
-            listOf([1, 2, 3]),
-            listOf([2, 3, 4]),
-            listOf([3, 4, 5]),
-          ]));
+          listOf(
+            listOf(1, 2, 3),
+            listOf(2, 3, 4),
+            listOf(3, 4, 5),
+          ));
     });
 
     test("larger step", () {
       expect(
           iterableOf([1, 2, 3, 4, 5]).windowed(3, step: 2),
-          listOf([
-            listOf([1, 2, 3]),
-            listOf([3, 4, 5]),
-          ]));
+          listOf(
+            listOf(1, 2, 3),
+            listOf(3, 4, 5),
+          ));
     });
 
     test("step doesn't fit length", () {
       expect(
           iterableOf([1, 2, 3, 4, 5, 6]).windowed(3, step: 2),
-          listOf([
-            listOf([1, 2, 3]),
-            listOf([3, 4, 5]),
-          ]));
+          listOf(
+            listOf(1, 2, 3),
+            listOf(3, 4, 5),
+          ));
     });
 
     test("window can be smaller than length", () {
@@ -2104,22 +2120,19 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(
           iterableOf([1, 2, 3, 4, 5, 6])
               .windowed(3, step: 2, partialWindows: true),
-          listOf([
-            listOf([1, 2, 3]),
-            listOf([3, 4, 5]),
-            listOf([5, 6]),
-          ]));
+          listOf(
+            listOf(1, 2, 3),
+            listOf(3, 4, 5),
+            listOf(5, 6),
+          ));
     });
     test("partial doesn't crash on empty iterable", () {
       expect(emptyIterable().windowed(3, step: 2, partialWindows: true),
           emptyList());
     });
     test("window can be smaller than length, emitting partial only", () {
-      expect(
-          iterableOf([1]).windowed(3, step: 2, partialWindows: true),
-          listOf([
-            listOf([1]),
-          ]));
+      expect(iterableOf([1]).windowed(3, step: 2, partialWindows: true),
+          listOf(listOf(1)));
     });
 
     test("window doesn't allow null as size", () {
@@ -2146,21 +2159,21 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("windowedTransform", () {
     test("default step", () {
       expect(iterableOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()),
-          listOf([6, 9, 12]));
+          listOf(6, 9, 12));
     });
 
     test("larger step", () {
       expect(
           iterableOf([1, 2, 3, 4, 5])
               .windowedTransform(3, (l) => l.sum(), step: 2),
-          listOf([6, 12]));
+          listOf(6, 12));
     });
 
     test("step doesn't fit length", () {
       expect(
           iterableOf([1, 2, 3, 4, 5, 6])
               .windowedTransform(3, (l) => l.sum(), step: 2),
-          listOf([6, 12]));
+          listOf(6, 12));
     });
 
     test("window can be smaller than length", () {
@@ -2171,7 +2184,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(
           iterableOf([1, 2, 3, 4, 5, 6]).windowedTransform(3, (l) => l.sum(),
               step: 2, partialWindows: true),
-          listOf([6, 12, 11]));
+          listOf(6, 12, 11));
     });
     test("partial doesn't crash on empty iterable", () {
       expect(
@@ -2183,7 +2196,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
       expect(
           iterableOf([1]).windowedTransform(3, (l) => l.sum(),
               step: 2, partialWindows: true),
-          listOf([1]));
+          listOf(1));
     });
 
     test("windowedTransform doesn't allow null as size", () {
@@ -2218,12 +2231,12 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("zip", () {
     test("to pair", () {
       final result = iterableOf([1, 2, 3, 4, 5]).zip(iterableOf(["a", "b"]));
-      expect(result, listOf([KPair(1, "a"), KPair(2, "b")]));
+      expect(result, listFrom([KPair(1, "a"), KPair(2, "b")]));
     });
     test("transform", () {
       final result = iterableOf([1, 2, 3, 4, 5])
           .zipTransform(iterableOf(["a", "b"]), (a, b) => "$a$b");
-      expect(result, listOf(["1a", "2b"]));
+      expect(result, listOf("1a", "2b"));
     });
 
     test("zip doesn't allow null as other", () {
@@ -2249,7 +2262,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("zipWithNext", () {
     test("zipWithNext", () {
       final result = iterableOf([1, 2, 3]).zipWithNext();
-      expect(result, listOf([KPair(1, 2), KPair(2, 3)]));
+      expect(result, listOf(KPair(1, 2), KPair(2, 3)));
     });
   });
 
@@ -2257,7 +2270,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("zipWithNextTransform", () {
       final result =
           iterableOf([1, 2, 3, 4, 5]).zipWithNextTransform((a, b) => a + b);
-      expect(result, listOf([3, 5, 7, 9]));
+      expect(result, listOf(3, 5, 7, 9));
     });
     test("empty does nothing", () {
       final result = emptyIterable().zipWithNextTransform((a, b) => a + b);

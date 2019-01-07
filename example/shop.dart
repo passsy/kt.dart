@@ -1,17 +1,17 @@
 import 'package:dart_kollection/dart_kollection.dart';
 
 void main() {
-  final rekasPrducts = getOrderedProducts(jbCustomers[reka]);
-  print("reka bought $rekasPrducts");
+  final rekasProducts = getOrderedProducts(jbCustomers[reka]);
+  print("reka bought $rekasProducts");
 
   final allOrdersOfJbShop = getAllOrderedProducts(jbShop);
-  var formattedSales = allOrdersOfJbShop
+  final formattedSales = allOrdersOfJbShop
       .map((it) => "Sold ${it.second}x '${it.first}', revenue ${it.third}\$")
       .joinToString(separator: "\n");
-  print("total jbShop sales:\n${formattedSales}");
+  print("total jbShop sales:\n$formattedSales");
 
   final revenue = allOrdersOfJbShop.map((it) => it.third).sum();
-  print("total jbShop revenue ${revenue}\$");
+  print("total jbShop revenue $revenue\$");
 }
 
 KSet<Product> getOrderedProducts(Customer customer) {
@@ -48,7 +48,7 @@ class Customer {
 }
 
 class Order {
-  Order(this.products, this.isDelivered);
+  Order(this.products, {this.isDelivered});
 
   final KList<Product> products;
   final bool isDelivered;
@@ -104,13 +104,13 @@ final Ankara = City("Ankara");
 final Tokyo = City("Tokyo");
 
 Customer customer(String name, City city, [List<Order> orders = const []]) =>
-    Customer(name, city, listOf(orders));
+    Customer(name, city, listFrom(orders));
 
-Order order(List<Product> products, [bool isDelivered = true]) =>
-    Order(listOf(products), isDelivered);
+Order order(List<Product> products, {bool delivered = true}) =>
+    Order(listFrom(products), isDelivered: delivered);
 
 Shop shop(String name, List<Customer> customers) =>
-    Shop(name, listOf(customers));
+    Shop(name, listFrom(customers));
 
 final jbShop = shop("jb test shop", [
   customer(lucas, Canberra, [
@@ -122,8 +122,8 @@ final jbShop = shop("jb test shop", [
     order([rubyMine, webStorm])
   ]),
   customer(reka, Budapest, [
-    order([idea], false),
-    order([idea], false),
+    order([idea], delivered: false),
+    order([idea], delivered: false),
     order([idea])
   ]),
   customer(bajram, Ankara, [
@@ -139,22 +139,21 @@ final jbShop = shop("jb test shop", [
 ]);
 
 final KMap<String, Customer> jbCustomers =
-    jbShop.customers.fold(hashMapOf<String, Customer>(), (map, customer) {
+    jbShop.customers.fold(hashMapFrom<String, Customer>(), (map, customer) {
   (map as KMutableMap<String, Customer>)[customer.name] = customer;
   return map;
 });
 
 final orderedProducts =
-    setOf([idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm]);
+    setOf(idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm);
 
-final sortedCustomers =
-    listOf([cooper, nathan, bajram, asuka, lucas, riku, reka])
-        .map((it) => jbCustomers[it]);
+final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
+    .map((it) => jbCustomers[it]);
 
-final groupedByCities = mapOf({
-  Canberra: listOf([lucas, cooper]),
-  Vancouver: listOf([nathan]),
-  Budapest: listOf([reka]),
-  Ankara: listOf([bajram]),
-  Tokyo: listOf([asuka, riku]),
+final groupedByCities = mapFrom({
+  Canberra: listOf(lucas, cooper),
+  Vancouver: listOf(nathan),
+  Budapest: listOf(reka),
+  Ankara: listOf(bajram),
+  Tokyo: listOf(asuka, riku),
 }).mapValues((it) => it.value.map((name) => jbCustomers[name]));

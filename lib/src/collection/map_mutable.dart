@@ -16,8 +16,7 @@ class DartMutableMap<K, V>
   ///
   /// Use with care!
   DartMutableMap.noCopy(Map<K, V> map)
-      : assert(map != null),
-        _map = map,
+      : _map = map,
         super();
 
   final Map<K, V> _map;
@@ -33,7 +32,7 @@ class DartMutableMap<K, V>
 
   @override
   KMutableSet<KMutableMapEntry<K, V>> get entries =>
-      linkedSetOf(_map.entries.map((entry) => _MutableEntry.from(entry)));
+      linkedSetFrom(_map.entries.map((entry) => _MutableEntry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -48,13 +47,13 @@ class DartMutableMap<K, V>
   bool isEmpty() => _map.isEmpty;
 
   @override
-  KMutableSet<K> get keys => linkedSetOf(_map.keys);
+  KMutableSet<K> get keys => linkedSetFrom(_map.keys);
 
   @override
   int get size => _map.length;
 
   @override
-  KMutableCollection<V> get values => mutableListOf(_map.values);
+  KMutableCollection<V> get values => mutableListFrom(_map.values);
 
   @override
   void clear() => _map.clear();

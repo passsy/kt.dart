@@ -11,17 +11,26 @@ void main() {
   });
   group("mutableList", () {
     testIterable(<T>() => mutableListOf<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
 
   group("hashset", () {
     testIterable(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
+  group("KHashSet", () {
+    testIterable(<T>() => KHashSet<T>.of(),
+        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable));
+  });
+
   group("linkedSet", () {
     testIterable(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KHashSet", () {
+    testIterable(<T>() => KLinkedSet<T>.of(),
+        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
   });
 
   test("DartMutableIterable exposes dart Iterable via iter", () {
@@ -43,7 +52,7 @@ void testIterable(KMutableIterable<T> Function<T>() emptyIterable,
           () => iterable.removeAllWhere((it) => it.endsWith("x")));
       // TODO remove error assertion once implemented
       expect(e, const TypeMatcher<UnimplementedError>());
-      //expect(iterable.toList(), listOf(["paul", "john", "lisa"]));
+      //expect(iterable.toList(), listOf("paul", "john", "lisa"));
     });
 
     test("removeAllWhere requires predicate to be non null", () {
@@ -60,7 +69,7 @@ void testIterable(KMutableIterable<T> Function<T>() emptyIterable,
           () => iterable.retainAllWhere((it) => it.endsWith("x")));
       // TODO remove error assertion once implemented
       expect(e, const TypeMatcher<UnimplementedError>());
-      //expect(iterable.toList(), listOf(["max"]));
+      //expect(iterable.toList(), listOf("max"));
     });
 
     test("retainAllWhere requires predicate to be non null", () {

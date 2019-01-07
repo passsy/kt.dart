@@ -1,4 +1,6 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/collection/map.dart';
+import 'package:dart_kollection/src/collection/map_empty.dart';
 
 /**
  * A collection that holds pairs of objects (keys and values) and supports efficiently retrieving
@@ -10,6 +12,13 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param V the type of map values. The map is covariant on its value type.
  */
 abstract class KMap<K, V> implements KMapExtension<K, V> {
+  factory KMap.empty() => EmptyMap<K, V>();
+
+  factory KMap.from([Map<K, V> map = const {}]) {
+    if (map.isEmpty) return EmptyMap<K, V>();
+    return DartMap(map);
+  }
+
   /**
    * dart interop map for time critical operations such as sorting
    */

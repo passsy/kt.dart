@@ -4,7 +4,46 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
-  final pokemon = mapOf({
+  group("mapFrom", () {
+    testMap(<K, V>() => emptyMap<K, V>(),
+        <K, V>(Map<K, V> map) => mapFrom<K, V>(map));
+  });
+  group("KMap.from", () {
+    testMap(<K, V>() => emptyMap<K, V>(),
+        <K, V>(Map<K, V> map) => KMap<K, V>.from(map));
+  });
+  group("mutableMapFrom", () {
+    testMap(<K, V>() => mutableMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+  });
+  group("KMutableMap.from", () {
+    testMap(<K, V>() => KMutableMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  });
+  group("hashMapFrom", () {
+    testMap(<K, V>() => hashMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
+        ordered: false);
+  });
+  group("KHashMap", () {
+    testMap(<K, V>() => KHashMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+        ordered: false);
+  });
+  group("linkedMapFrom", () {
+    testMap(<K, V>() => linkedMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+  });
+  group("KLinkedMap", () {
+    testMap(<K, V>() => KLinkedMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+  });
+}
+
+void testMap(KMap<K, V> Function<K, V>() emptyMap,
+    KMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
+    {bool ordered = true}) {
+  final pokemon = mapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",
   });
@@ -12,7 +51,7 @@ void main() {
   group("filter", () {
     test("filter", () {
       final filtered = pokemon.filter((entry) => entry.value.startsWith("I"));
-      expect(filtered, mapOf({2: "Ivysaur"}));
+      expect(filtered, mapFrom({2: "Ivysaur"}));
     });
     test("filter requires predicate to be non null", () {
       final e = catchException<ArgumentError>(() => pokemon.filter(null));
@@ -24,7 +63,7 @@ void main() {
     test("filterNot", () {
       final filtered =
           pokemon.filterNot((entry) => entry.value.startsWith("I"));
-      expect(filtered, mapOf({1: "Bulbasaur"}));
+      expect(filtered, mapFrom({1: "Bulbasaur"}));
     });
     test("filterNot requires predicate to be non null", () {
       final e = catchException<ArgumentError>(() => pokemon.filterNot(null));
@@ -34,21 +73,21 @@ void main() {
 
   group("filterTo", () {
     test("filterTo same type", () {
-      final result = mutableMapOf<int, String>();
+      final result = mutableMapFrom<int, String>();
       final filtered =
           pokemon.filterTo(result, (entry) => entry.value.startsWith("I"));
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({2: "Ivysaur"}));
+      expect(result, mapFrom({2: "Ivysaur"}));
     });
     test("filterTo super type", () {
-      final result = mutableMapOf<num, String>();
+      final result = mutableMapFrom<num, String>();
       final filtered =
           pokemon.filterTo(result, (entry) => entry.value.startsWith("I"));
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({2: "Ivysaur"}));
+      expect(result, mapFrom({2: "Ivysaur"}));
     });
     test("filterTo wrong type throws", () {
-      final result = mutableMapOf<String, String>();
+      final result = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(() =>
           pokemon.filterTo(result, (entry) => entry.value.startsWith("I")));
       expect(
@@ -58,7 +97,7 @@ void main() {
     });
     test("filterTo requires predicate to be non null", () {
       bool Function(KMapEntry<int, String> entry) predicate = null;
-      var other = mutableMapOf<int, String>();
+      var other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("predicate")));
@@ -72,21 +111,21 @@ void main() {
 
   group("filterNotTo", () {
     test("filterNotTo same type", () {
-      final result = mutableMapOf<int, String>();
+      final result = mutableMapFrom<int, String>();
       final filtered =
           pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I"));
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({1: "Bulbasaur"}));
+      expect(result, mapFrom({1: "Bulbasaur"}));
     });
     test("filterNotTo super type", () {
-      final result = mutableMapOf<num, String>();
+      final result = mutableMapFrom<num, String>();
       final filtered =
           pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I"));
       expect(identical(result, filtered), isTrue);
-      expect(result, mapOf({1: "Bulbasaur"}));
+      expect(result, mapFrom({1: "Bulbasaur"}));
     });
     test("filterNotTo wrong type throws", () {
-      final result = mutableMapOf<String, String>();
+      final result = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(() =>
           pokemon.filterNotTo(result, (entry) => entry.value.startsWith("I")));
       expect(
@@ -96,7 +135,7 @@ void main() {
     });
     test("filterNotTo requires predicate to be non null", () {
       bool Function(KMapEntry<int, String> entry) predicate = null;
-      var other = mutableMapOf<int, String>();
+      var other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterNotTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("predicate")));
@@ -142,21 +181,21 @@ void main() {
 
   group("isEmpty", () {
     test("is empty", () {
-      expect(mutableMapOf({}).isEmpty(), true);
+      expect(mutableMapFrom({}).isEmpty(), true);
       expect(emptyMap().isEmpty(), true);
     });
     test("is not empty", () {
-      expect(mutableMapOf({1: "a"}).isEmpty(), false);
+      expect(mutableMapFrom({1: "a"}).isEmpty(), false);
     });
   });
 
   group("isNotEmpty", () {
     test("is empty", () {
-      expect(mutableMapOf({}).isNotEmpty(), false);
+      expect(mutableMapFrom({}).isNotEmpty(), false);
       expect(emptyMap().isNotEmpty(), false);
     });
     test("is not empty", () {
-      expect(mutableMapOf({1: "a"}).isNotEmpty(), true);
+      expect(mutableMapFrom({1: "a"}).isNotEmpty(), true);
     });
   });
 
@@ -180,29 +219,29 @@ void main() {
 
   group("mapKeysTo", () {
     test("mapKeysTo same type", () {
-      final result = mutableMapOf<int, String>();
+      final result = mutableMapFrom<int, String>();
       final filtered = pokemon.mapKeysTo(result, (entry) => entry.key + 1000);
       expect(identical(result, filtered), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             1001: "Bulbasaur",
             1002: "Ivysaur",
           }));
     });
     test("mapKeysTo super type", () {
-      final result = mutableMapOf<num, String>();
+      final result = mutableMapFrom<num, String>();
       final filtered = pokemon.mapKeysTo(result, (entry) => entry.key + 1000);
       expect(identical(result, filtered), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             1001: "Bulbasaur",
             1002: "Ivysaur",
           }));
     });
     test("mapKeysTo wrong type throws", () {
-      final result = mutableMapOf<String, String>();
+      final result = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(result, (entry) => entry.key + 1000));
       expect(
@@ -216,7 +255,7 @@ void main() {
     });
     test("mapKeysTo requires transform to be non null", () {
       bool Function(KMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapOf<int, String>();
+      final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("transform")));
@@ -239,31 +278,31 @@ void main() {
 
   group("mapValuesTo", () {
     test("mapValuesTo same type", () {
-      final result = mutableMapOf<int, String>();
+      final result = mutableMapFrom<int, String>();
       final filtered = pokemon.mapValuesTo(
           result, (entry) => "${entry.value}${entry.value.length}");
       expect(identical(result, filtered), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             1: "Bulbasaur9",
             2: "Ivysaur7",
           }));
     });
     test("mapValuesTo super type", () {
-      final result = mutableMapOf<num, String>();
+      final result = mutableMapFrom<num, String>();
       final filtered = pokemon.mapValuesTo(
           result, (entry) => "${entry.value}${entry.value.length}");
       expect(identical(result, filtered), isTrue);
       expect(
           result,
-          mapOf({
+          mapFrom({
             1: "Bulbasaur9",
             2: "Ivysaur7",
           }));
     });
     test("mapValuesTo wrong type throws", () {
-      final result = mutableMapOf<int, int>();
+      final result = mutableMapFrom<int, int>();
       final e = catchException<ArgumentError>(() => pokemon.mapValuesTo(
           result, (entry) => "${entry.value}${entry.value.length}"));
       expect(
@@ -277,7 +316,7 @@ void main() {
     });
     test("mapValuesTo requires transform to be non null", () {
       bool Function(KMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapOf<int, String>();
+      final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapValuesTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("transform")));
@@ -291,39 +330,39 @@ void main() {
 
   group("minus", () {
     test("remove element", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
       final result = map.minus(1);
       expect(result.size, 1);
-      expect(result, mapOf({2: "Ivysaur"}));
+      expect(result, mapFrom({2: "Ivysaur"}));
       expect(map.size, 2);
     });
 
     test("- (minus) operator", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
       final result = map - 1;
       expect(result.size, 1);
-      expect(result, mapOf({2: "Ivysaur"}));
+      expect(result, mapFrom({2: "Ivysaur"}));
       expect(map.size, 2);
     });
 
     test("-= (minusAssign) operator", () {
-      var map = mapOf({
+      var map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
       map -= 1;
       expect(map.size, 1);
-      expect(map, mapOf({2: "Ivysaur"}));
+      expect(map, mapFrom({2: "Ivysaur"}));
     });
 
     test("do nothing when key doesn't exist", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -334,18 +373,18 @@ void main() {
 
   group("plus", () {
     test("add element", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      final result = map.plus(mapOf({3: "Venusaur"}));
+      final result = map.plus(mapFrom({3: "Venusaur"}));
       expect(result.size, 3);
       expect(result[3], "Venusaur");
       expect(map.size, 2);
     });
 
     test("plus doesn't allow null as argument", () {
-      final pokemon = mapOf({
+      final pokemon = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -354,33 +393,33 @@ void main() {
     });
 
     test("+ (plus) operator", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      final result = map + mapOf({3: "Venusaur"});
+      final result = map + mapFrom({3: "Venusaur"});
       expect(result.size, 3);
       expect(result[3], "Venusaur");
       expect(map.size, 2);
     });
 
     test("+= (plusAssign) operator", () {
-      var map = mapOf({
+      var map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      map += mapOf({3: "Venusaur"});
+      map += mapFrom({3: "Venusaur"});
       expect(map.size, 3);
       expect(map[3], "Venusaur");
       expect(map.size, 3);
     });
 
     test("override existing mapping", () {
-      final map = mapOf({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      final result = map.plus(mapOf({2: "Dito"}));
+      final result = map.plus(mapFrom({2: "Dito"}));
       expect(result.size, 2);
       expect(map.size, 2);
       expect(result[2], "Dito");
@@ -391,7 +430,7 @@ void main() {
 
   group("toMap", () {
     test("makes a copy which doesn't share memory", () {
-      final map = mutableMapOf({
+      final map = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -411,7 +450,7 @@ void main() {
 
   group("toMutableMap", () {
     test("makes a copy", () {
-      var map = mapOf({
+      var map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });

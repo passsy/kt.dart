@@ -32,7 +32,7 @@ class EmptyList<T>
       return true;
     }());
     throw IndexOutOfBoundsException(
-        "Empty list doesn't contain element at index $index.");
+        "Empty list doesn't contain element at index: $index.");
   }
 
   @override
@@ -42,7 +42,7 @@ class EmptyList<T>
       return true;
     }());
     throw IndexOutOfBoundsException(
-        "Empty list doesn't contain element at index $index.");
+        "Empty list doesn't contain element at index: $index.");
   }
 
   @override

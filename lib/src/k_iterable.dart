@@ -543,7 +543,7 @@ abstract class KIterableExtension<T> {
   /**
    * Performs the given [action] on each element. Use with cascade syntax to return self.
    *
-   *       (listOf(["a", "b", "c"])
+   *       (listOf("a", "b", "c")
    *          ..onEach(print))
    *          .map((it) => it.toUpperCase())
    *          .getOrNull(0); // prints: a

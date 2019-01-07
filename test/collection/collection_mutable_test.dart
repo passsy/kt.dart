@@ -6,16 +6,29 @@ import '../test/assert_dart.dart';
 void main() {
   group("mutableList", () {
     testCollection(<T>() => mutableListOf<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testCollection(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList.from(iterable));
   });
   group("hashset", () {
     testCollection(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+        ordered: false);
+  });
+  group("KHashSet", () {
+    testCollection(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet.from(iterable),
         ordered: false);
   });
   group("linkedSet", () {
     testCollection(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testCollection(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet.from(iterable));
   });
 }
 
@@ -41,7 +54,7 @@ void testCollection(
   group("addAll", () {
     test("add all items", () {
       final list = mutableCollectionOf(["a"]);
-      list.addAll(listOf(["b", "c"]));
+      list.addAll(listOf("b", "c"));
       expect(list.size, equals(3));
       expect(list, equals(mutableCollectionOf(["a", "b", "c"])));
     });
@@ -55,7 +68,7 @@ void testCollection(
   group("removeAll", () {
     test("remove items", () {
       final list = mutableCollectionOf(["a", "b", "c", "d"]);
-      list.removeAll(listOf(["b", "c"]));
+      list.removeAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["a", "d"]));
     });
     test("elements can't be null", () {
@@ -68,7 +81,7 @@ void testCollection(
   group("retainAll", () {
     test("retain items", () {
       final list = mutableCollectionOf(["a", "b", "c", "d", "a", "b"]);
-      list.retainAll(listOf(["b", "c"]));
+      list.retainAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["b", "c", "b"]));
     });
 

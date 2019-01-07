@@ -4,30 +4,29 @@ void main() {
   /**
    * Lists
    */
-  final numbers1 = listOf([1, 2, 3, 4]).map((it) => ">$it<");
-  print(numbers1); // [>1<, >2<, >3<, >4<]
+  final mapped = listOf(1, 2, 3, 4).map((it) => ">$it<");
+  print(mapped); // [>1<, >2<, >3<, >4<]
 
-  final numbers2 =
-      listOf([1, 2, 3, 4]).flatMap((it) => listOf([it * 2, it * 3]));
-  print(numbers2); // [2, 3, 4, 6, 6, 9, 8, 12]
+  final flatMapped = listOf(1, 2, 3, 4).flatMap((it) => listOf(it * 2, it * 3));
+  print(flatMapped); // [2, 3, 4, 6, 6, 9, 8, 12]
 
-  final numbers3 = numbers2.filter((it) => it % 3 == 0);
-  print(numbers3); // [3, 6, 6, 9, 12]
+  final filtered = flatMapped.filter((it) => it % 3 == 0);
+  print(filtered); // [3, 6, 6, 9, 12]
 
-  final numbers4 = numbers3.distinct();
-  print(numbers4); //[3, 6, 9, 12]
+  final distinct = listFrom([1, 2, 3, 1, 2, 3]).distinct();
+  print(distinct); //[1, 2, 3]
 
   /**
    * Better equals
    */
-  final klistEquals = listOf([12, 9, 6, 3]) == listOf([12, 9, 6, 3]);
-  print(klistEquals); // true
+  final kListEquals = listOf(12, 9, 6, 3) == listOf(12, 9, 6, 3);
+  print(kListEquals); // true
 
   final dartListEquals = [12, 9, 6, 3] == [12, 9, 6, 3];
   print(dartListEquals); // false
 
-  final kMapEquals = mapOf({1: "Bulbasaur", 2: "Ivysaur"}) ==
-      mapOf({1: "Bulbasaur", 2: "Ivysaur"});
+  final kMapEquals = mapFrom({1: "Bulbasaur", 2: "Ivysaur"}) ==
+      mapFrom({1: "Bulbasaur", 2: "Ivysaur"});
   print(kMapEquals); // true
 
   final dartMapEquals =
@@ -37,28 +36,33 @@ void main() {
   /**
    * Sets
    */
-  print(setOf([1, 1, 2, 2, 3])); // [1, 2, 3]
+  print(setOf(1, 2, 3, 1, 2, 3)); // [1, 2, 3]
 
   /**
    * Maps
    */
-  final pokemon = mutableMapOf({
+  final pokemon = mutableMapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",
   });
-  pokemon[1] = "Dito";
-  print(pokemon); // {1=Dito, 2=Ivysaur}
+  pokemon[1] = "Ditto";
+  print(pokemon); // {1=Ditto, 2=Ivysaur}
 
   /**
    * Tons of useful operators which *should* be part of the dart std lib
    */
-  final numbers = listOf([1, 2, 3, 4]);
+  final numbers = listOf(1, 2, 3, 4);
   print(numbers.sum()); // 10
 
-  final numbers5 = listOf([1, 2, 3, 4]).sortedDescending();
+  final numbers5 = listOf(1, 2, 3, 4).sortedDescending();
   print(numbers5); // [4, 3, 2, 1]
 
-  final beatles = setOf(["John", "Paul", "George", "Ringo"]);
+  final beatles = setOf("John", "Paul", "George", "Ringo");
   print(beatles); // [John, Paul, George, Ringo]
-  print(beatles.joinToString(separator: "/")); // John/Paul/George/Ringo
+  print(beatles.joinToString(
+      separator: "/",
+      transform: (it) => it.toUpperCase())); // JOHN/PAUL/GEORGE/RINGO
+
+  final grouped = beatles.groupBy((it) => it.length);
+  print(grouped); // {4=[John, Paul], 6=[George], 5=[Ringo]}
 }

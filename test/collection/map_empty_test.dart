@@ -2,6 +2,45 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group("mapFrom", () {
+    testMap(<K, V>() => emptyMap<K, V>());
+  });
+  group("KMap.from", () {
+    testMap(<K, V>() => KMap<K, V>.from());
+  });
+  group("KMap.empty", () {
+    testMap(<K, V>() => KMap<K, V>.empty());
+  });
+  group("mutableMapFrom", () {
+    testMap(<K, V>() => mutableMapFrom<K, V>());
+  });
+  group("KMutableMap.empty", () {
+    testMap(<K, V>() => KMutableMap<K, V>.empty());
+  });
+  group("KMutableMap.from", () {
+    testMap(<K, V>() => KMutableMap<K, V>.from());
+  });
+  group("hashMapFrom", () {
+    testMap(<K, V>() => hashMapFrom<K, V>());
+  });
+  group("KHashMap.empty", () {
+    testMap(<K, V>() => KHashMap<K, V>.empty());
+  });
+  group("KHashMap.from", () {
+    testMap(<K, V>() => KHashMap<K, V>.from());
+  });
+  group("linkedMapFrom", () {
+    testMap(<K, V>() => linkedMapFrom<K, V>());
+  });
+  group("KLinkedMap.empty", () {
+    testMap(<K, V>() => KLinkedMap<K, V>.empty());
+  });
+  group("KLinkedMap.from", () {
+    testMap(<K, V>() => KLinkedMap<K, V>.from());
+  });
+}
+
+void testMap(KMap<K, V> Function<K, V>() emptyMap) {
   group('empty map', () {
     test("has no elements", () {
       final empty = emptyMap<String, Object>();
@@ -74,7 +113,7 @@ void main() {
 
     test("is same as empty mutable map", () {
       final empty0 = emptyMap<int, String>();
-      final empty1 = mutableMapOf();
+      final empty1 = mutableMapFrom();
 
       expect(empty0, equals(empty1));
       expect(empty0.hashCode, equals(empty1.hashCode));
@@ -98,7 +137,7 @@ void main() {
       expect(emptyMap().getOrDefault(0, "Ditto"), equals("Ditto"));
     });
     test("isEmpty always returns true", () {
-      expect(mapOf().isEmpty(), isTrue);
+      expect(mapFrom().isEmpty(), isTrue);
     });
     test("values always is empty", () {
       expect(emptyMap().values.isEmpty(), isTrue);

@@ -7,25 +7,46 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("list", () {
-    testCollection(
-        <T>() => emptyList<T>(), <T>(Iterable<T> iterable) => listOf(iterable));
+    testCollection(<T>() => emptyList<T>(),
+        <T>(Iterable<T> iterable) => listFrom(iterable));
+  });
+  group("KList", () {
+    testCollection(<T>() => KList<T>.empty(),
+        <T>(Iterable<T> iterable) => KList.from(iterable));
   });
   group("mutableList", () {
-    testCollection(<T>() => emptyList<T>(),
-        <T>(Iterable<T> iterable) => mutableListOf(iterable));
+    testCollection(<T>() => mutableListOf<T>(),
+        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testCollection(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList.from(iterable));
   });
   group("set", () {
     testCollection(
-        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setOf(iterable));
+        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
+  });
+  group("KSet", () {
+    testCollection(<T>() => KSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KSet.from(iterable));
   });
   group("hashset", () {
-    testCollection(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => hashSetOf(iterable),
+    testCollection(<T>() => hashSetOf<T>(),
+        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+        ordered: false);
+  });
+  group("KHashSet", () {
+    testCollection(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet.from(iterable),
         ordered: false);
   });
   group("linkedSet", () {
-    testCollection(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => linkedSetOf(iterable));
+    testCollection(<T>() => linkedSetOf<T>(),
+        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testCollection(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet.from(iterable));
   });
 }
 
@@ -55,20 +76,20 @@ void testCollection(KCollection<T> Function<T>() emptyCollection,
   group('containsAll', () {
     test("no elements", () {
       var list = emptyCollection<String>();
-      expect(list.containsAll(listOf(["a"])), isFalse);
-      expect(list.containsAll(listOf([])), isTrue);
+      expect(list.containsAll(listOf("a")), isFalse);
+      expect(list.containsAll(listOf()), isTrue);
     });
 
     test("contains all", () {
       var list = collectionOf(["a", "b", "c", "d", "e"]);
-      expect(list.containsAll(listOf(["a"])), isTrue);
-      expect(list.containsAll(listOf(["c", "d"])), isTrue);
+      expect(list.containsAll(listOf("a")), isTrue);
+      expect(list.containsAll(listOf("c", "d")), isTrue);
     });
 
     test("doesn't contain all", () {
       var list = collectionOf(["a", "b", "c", "d", "e"]);
-      expect(list.containsAll(listOf(["x"])), isFalse);
-      expect(list.containsAll(listOf(["c", "x", "d"])), isFalse);
+      expect(list.containsAll(listOf("x")), isFalse);
+      expect(list.containsAll(listOf("c", "x", "d")), isFalse);
     });
 
     test("containsAll doesn't allow null as argument", () {

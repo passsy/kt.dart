@@ -6,7 +6,7 @@ abstract class KMapExtensionsMixin<K, V>
     implements KMapExtension<K, V>, KMap<K, V> {
   @override
   KMap<K, V> filter(bool Function(KMapEntry<K, V> entry) predicate) {
-    final filtered = filterTo(linkedMapOf<K, V>(), predicate);
+    final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
@@ -17,7 +17,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (mutableMapOf<K, V>() is! M)
+      if (mutableMapFrom<K, V>() is! M)
         throw ArgumentError("filterTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
@@ -35,7 +35,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, V> filterNot(bool Function(KMapEntry<K, V> entry) predicate) {
-    final filtered = filterNotTo(linkedMapOf<K, V>(), predicate);
+    final filtered = filterNotTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
@@ -46,7 +46,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (mutableMapOf<K, V>() is! M)
+      if (mutableMapFrom<K, V>() is! M)
         throw ArgumentError("filterNotTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
@@ -89,7 +89,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<R, V> mapKeys<R>(R Function(KMapEntry<K, V>) transform) {
-    final mapped = mapKeysTo(linkedMapOf<R, V>(), transform);
+    final mapped = mapKeysTo(linkedMapFrom<R, V>(), transform);
     return mapped;
   }
 
@@ -99,7 +99,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
-      if (mutableMapOf<R, V>() is! M)
+      if (mutableMapFrom<R, V>() is! M)
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KMapEntry<$R, $V> "
@@ -115,7 +115,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, R> mapValues<R>(R Function(KMapEntry<K, V>) transform) {
-    final mapped = mapValuesTo(linkedMapOf<K, R>(), transform);
+    final mapped = mapValuesTo(linkedMapFrom<K, R>(), transform);
     return mapped;
   }
 
@@ -125,7 +125,7 @@ abstract class KMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
-      if (mutableMapOf<K, R>() is! M)
+      if (mutableMapFrom<K, R>() is! M)
         throw ArgumentError("mapValuesTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KMapEntry<$K, $R> "
@@ -167,7 +167,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMutableMap<K, V> toMutableMap() {
-    return mutableMapOf(map);
+    return mutableMapFrom(map);
   }
 
   @override

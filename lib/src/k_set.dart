@@ -1,4 +1,7 @@
 import 'package:dart_kollection/dart_kollection.dart';
+import 'package:dart_kollection/src/collection/set.dart';
+import 'package:dart_kollection/src/collection/set_empty.dart';
+import 'package:dart_kollection/src/util/arguments.dart';
 
 /**
  * A generic unordered collection of elements that does not support duplicate elements.
@@ -7,6 +10,29 @@ import 'package:dart_kollection/dart_kollection.dart';
  * @param E the type of elements contained in the set. The set is covariant on its element type.
  */
 abstract class KSet<T> implements KCollection<T> {
+  factory KSet.empty() => EmptySet<T>();
+
+  factory KSet.from([Iterable<T> elements = const []]) {
+    if (elements.isEmpty) return EmptySet<T>();
+    return DartSet(elements);
+  }
+
+  factory KSet.of(
+      [T arg0,
+      T arg1,
+      T arg2,
+      T arg3,
+      T arg4,
+      T arg5,
+      T arg6,
+      T arg7,
+      T arg8,
+      T arg9]) {
+    final args =
+        argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    return KSet.from(args);
+  }
+
   /**
    * dart interop set for time critical operations such as sorting
    */

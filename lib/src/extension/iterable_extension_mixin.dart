@@ -40,19 +40,19 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform) {
-    return associateTo(linkedMapOf<K, V>(), transform);
+    return associateTo(linkedMapFrom<K, V>(), transform);
   }
 
   @override
   KMap<K, T> associateBy<K>(K Function(T) keySelector) {
     return associateByTo<K, T, KMutableMap<K, T>>(
-        linkedMapOf<K, T>(), keySelector, null);
+        linkedMapFrom<K, T>(), keySelector, null);
   }
 
   @override
   KMap<K, V> associateByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
-    return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
+    return associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
   }
 
   @override
@@ -89,7 +89,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
-    final associated = associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return associated;
@@ -102,7 +102,7 @@ abstract class KIterableExtensionsMixin<T>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (valueSelector == null)
         throw ArgumentError("valueSelector can't be null");
-      if (mutableMapOf<T, V>() is! M)
+      if (mutableMapFrom<T, V>() is! M)
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
             "\nExpected: KMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
@@ -241,7 +241,7 @@ abstract class KIterableExtensionsMixin<T>
 
     return elementAtOrElse(index, (int index) {
       throw IndexOutOfBoundsException(
-          "Collection doesn't contain element at index $index.");
+          "Collection doesn't contain element at index: $index.");
     });
   }
 
@@ -555,7 +555,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<K, KList<T>> groupBy<K>(K Function(T) keySelector) {
-    final groups = groupByTo(linkedMapOf<K, KMutableList<T>>(), keySelector);
+    final groups = groupByTo(linkedMapFrom<K, KMutableList<T>>(), keySelector);
     return groups;
   }
 
@@ -563,7 +563,7 @@ abstract class KIterableExtensionsMixin<T>
   KMap<K, KList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final groups = groupByToTransform(
-        linkedMapOf<K, KMutableList<V>>(), keySelector, valueTransform);
+        linkedMapFrom<K, KMutableList<V>>(), keySelector, valueTransform);
     return groups;
   }
 
@@ -573,7 +573,7 @@ abstract class KIterableExtensionsMixin<T>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
-      if (mutableMapOf<K, KMutableList<T>>() is! M)
+      if (mutableMapFrom<K, KMutableList<T>>() is! M)
         throw ArgumentError("groupByTo destination has wrong type parameters."
             "\nExpected: KMutableMap<K, KMutableList<$T>, Actual: ${destination.runtimeType}"
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
@@ -1279,7 +1279,11 @@ abstract class KIterableExtensionsMixin<T>
     if (this is KCollection) {
       final collection = this as KCollection;
       if (n >= collection.size) return toList();
-      if (n == 1) return listOf([first()]);
+
+      if (n == 1) {
+        // can't use listOf here because first() might return null
+        return listFrom([first()]);
+      }
     }
     var count = 0;
     final list = mutableListOf<T>();
@@ -1312,19 +1316,19 @@ abstract class KIterableExtensionsMixin<T>
   }
 
   @override
-  KMutableSet<T> toHashSet() => hashSetOf(iter);
+  KMutableSet<T> toHashSet() => hashSetFrom(iter);
 
   @override
-  KList<T> toList() => listOf(iter);
+  KList<T> toList() => listFrom(iter);
 
   @override
-  KMutableList<T> toMutableList() => mutableListOf(iter);
+  KMutableList<T> toMutableList() => mutableListFrom(iter);
 
   @override
-  KMutableSet<T> toMutableSet() => linkedSetOf(iter);
+  KMutableSet<T> toMutableSet() => linkedSetFrom(iter);
 
   @override
-  KSet<T> toSet() => linkedSetOf(iter);
+  KSet<T> toSet() => linkedSetFrom(iter);
 
   @override
   KSet<T> union(KIterable<T> other) {

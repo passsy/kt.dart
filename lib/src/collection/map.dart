@@ -23,7 +23,7 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
 
   @override
   KSet<KMapEntry<K, V>> get entries =>
-      setOf(_map.entries.map((entry) => _Entry.from(entry)));
+      setFrom(_map.entries.map((entry) => _Entry.from(entry)));
 
   @override
   V get(K key) => _map[key];
@@ -38,13 +38,13 @@ class DartMap<K, V> with KMapExtensionsMixin<K, V> implements KMap<K, V> {
   bool isEmpty() => _map.isEmpty;
 
   @override
-  KSet<K> get keys => setOf(_map.keys);
+  KSet<K> get keys => setFrom(_map.keys);
 
   @override
   int get size => _map.length;
 
   @override
-  KCollection<V> get values => listOf(_map.values);
+  KCollection<V> get values => listFrom(_map.values);
 
   @override
   bool operator ==(dynamic other) {

@@ -2,6 +2,69 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group("mutableSet", () {
+    testSet(
+      <T>() => mutableSetOf<T>(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          mutableSetOf(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => mutableSetFrom(iterable),
+    );
+  });
+  group("KSet", () {
+    testSet(
+      <T>() => KSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KSet.from(iterable),
+    );
+  });
+  group("KMutableSet", () {
+    testSet(
+      <T>() => KMutableSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KMutableSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KMutableSet.from(iterable),
+    );
+  });
+  group("KHashSet", () {
+    testSet(
+      <T>() => KHashSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KHashSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KHashSet.from(iterable),
+      ordered: false,
+    );
+  });
+  group("KLinkedSet", () {
+    testSet(
+      <T>() => KLinkedSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KLinkedSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KLinkedSet.from(iterable),
+    );
+  });
+}
+
+void testSet(
+    KSet<T> Function<T>() emptySet,
+    KSet<T> Function<T>(
+            [T arg0,
+            T arg1,
+            T arg2,
+            T arg3,
+            T arg4,
+            T arg5,
+            T arg6,
+            T arg7,
+            T arg8,
+            T arg9])
+        mutableSetOf,
+    KSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
+    {bool ordered = true}) {
   group('basic methods', () {
     test("hashCode is 0", () {
       expect(emptySet().hashCode, 0);
@@ -19,12 +82,12 @@ void main() {
     });
 
     test("has no elements", () {
-      final set = setOf([]);
+      final set = setOf();
       expect(set.size, equals(0));
     });
 
     test("contains nothing", () {
-      final set = setOf(["a", "b", "c"]);
+      final set = setOf("a", "b", "c");
       expect(set.contains("a"), isTrue);
       expect(set.contains("b"), isTrue);
       expect(set.contains("c"), isTrue);
@@ -42,7 +105,7 @@ void main() {
     });
 
     test("iterator with 1 element has 1 next", () {
-      final set = setOf(["a"]);
+      final set = setOf("a");
       final iterator = set.iterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), equals("a"));
@@ -53,7 +116,7 @@ void main() {
     });
 
     test("iterator with items", () {
-      final iterator = setOf([1, 2, 3]).iterator();
+      final iterator = setOf(1, 2, 3).iterator();
 
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), isNotNull);
@@ -69,17 +132,17 @@ void main() {
     });
 
     test("is empty", () {
-      final set = setOf(["asdf"]);
+      final set = setOf("asdf");
 
       expect(set.isEmpty(), isFalse);
       expect(set.isEmpty(), isFalse);
     });
 
     test("is equal to another set", () {
-      final set0 = setOf(["a", "b", "c"]);
-      final set1 = setOf(["b", "a", "c"]);
-      final set2 = setOf(["a", "c"]);
-      final set3 = setOf([]);
+      final set0 = setOf("a", "b", "c");
+      final set1 = setOf("b", "a", "c");
+      final set2 = setOf("a", "c");
+      final set3 = setOf();
 
       expect(set0, equals(set1));
       expect(set0.hashCode, equals(set1.hashCode));
@@ -91,14 +154,14 @@ void main() {
     });
 
     test("access dart set", () {
-      final Set<String> set = setOf<String>(["a", "b", "c"]).set;
+      final Set<String> set = setOf<String>("a", "b", "c").set;
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
     });
 
     test("equals although differnt types (subtypes)", () {
-      expect(setOf<int>([1, 2, 3]), setOf<num>([1, 2, 3]));
-      expect(setOf<num>([1, 2, 3]), setOf<int>([1, 2, 3]));
+      expect(setOf<int>(1, 2, 3), setOf<num>(1, 2, 3));
+      expect(setOf<num>(1, 2, 3), setOf<int>(1, 2, 3));
     });
 
     test("using the dart set doesn't allow mutation - empty", () {
@@ -110,11 +173,11 @@ void main() {
     });
 
     test("using the dart set doesn't allow mutation", () {
-      final kset = setOf(["a"]);
-      expect(kset, setOf(["a"]));
+      final kset = setOf("a");
+      expect(kset, setOf("a"));
       kset.set.add("b");
       // unchanged
-      expect(kset, setOf(["a"]));
+      expect(kset, setOf("a"));
     });
   });
 }
