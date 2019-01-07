@@ -24,6 +24,7 @@ import 'comparisons_test.dart' as comparisons_test;
 import 'exceptions_test.dart' as exceptions_test;
 import 'tuples_test.dart' as tuples_test;
 import 'util/annotation_test.dart' as annotation_test;
+import 'util/arguments_test.dart' as arguments_test;
 import 'util/hash_test.dart' as hash_test;
 
 void main() {
@@ -50,5 +51,6 @@ void main() {
   exceptions_test.main();
   tuples_test.main();
   annotation_test.main();
+  arguments_test.main();
   hash_test.main();
 }
