@@ -4,24 +4,25 @@ import 'package:dart_kollection/src/k_iterator_mutable.dart';
 class InterOpKIterator<T> implements KIterator<T> {
   InterOpKIterator(this.iterator) {
     lastReturned = null;
-    iterator.moveNext();
+    _hasNext = iterator.moveNext();
     nextValue = iterator.current;
   }
 
   final Iterator<T> iterator;
   T nextValue;
   T lastReturned;
+  var _hasNext = false;
 
   @override
   bool hasNext() {
-    return nextValue != null;
+    return _hasNext;
   }
 
   @override
   T next() {
+    if (!_hasNext) throw NoSuchElementException();
     final e = nextValue;
-    if (e == null) throw NoSuchElementException();
-    iterator.moveNext();
+    _hasNext = iterator.moveNext();
     nextValue = iterator.current;
     lastReturned = e;
     return e;

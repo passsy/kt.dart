@@ -211,5 +211,42 @@ void main() {
       expect(listOf<int>(1, 2, 3), listOf<num>(1, 2, 3));
       expect(listOf<num>(1, 2, 3), listOf<int>(1, 2, 3));
     });
+
+    test("list iterates with null value", () {
+      final list = listFrom([null, "b", "c"]);
+      // iterates correctly
+      var iterator = list.iterator();
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), null);
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "b");
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "c");
+      expect(iterator.hasNext(), isFalse);
+    });
+
+    test("list iterates with listIterator with null value", () {
+      final list = listFrom([null, "b", "c"]);
+      // iterates correctly
+      var iterator = list.listIterator();
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), null);
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "b");
+      expect(iterator.hasNext(), isTrue);
+      expect(iterator.next(), "c");
+      expect(iterator.hasNext(), isFalse);
+    });
+
+    test("list allows null as parameter", () {
+      final stringList = listFrom([null, "b", "c"]);
+      expect(stringList.first(), null);
+      expect(stringList.reversed().last(), null);
+      expect(stringList.contains(null), isTrue);
+      expect(stringList.indexOf(null), 0);
+      expect(stringList.lastIndexOf(null), 0);
+      expect(stringList.indexOfFirst((it) => it == null), 0);
+      expect(stringList.elementAtOrElse(0, (_) => "a"), null);
+    });
   });
 }
