@@ -63,7 +63,7 @@ void map() {
   assert(kHashMap == dHashMap);
 
   // LinkedHashMap from
-  final kLinkedHashMap = linkedMapOf({1: "a", 2: "b"});
+  final kLinkedHashMap = linkedMapFrom({1: "a", 2: "b"});
   final dLinkedHashMap = KLinkedMap.from({1: "a", 2: "b"});
   assert(kLinkedHashMap == dLinkedHashMap);
 

@@ -6,7 +6,7 @@ abstract class KMapExtensionsMixin<K, V>
     implements KMapExtension<K, V>, KMap<K, V> {
   @override
   KMap<K, V> filter(bool Function(KMapEntry<K, V> entry) predicate) {
-    final filtered = filterTo(linkedMapOf<K, V>(), predicate);
+    final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
@@ -35,7 +35,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, V> filterNot(bool Function(KMapEntry<K, V> entry) predicate) {
-    final filtered = filterNotTo(linkedMapOf<K, V>(), predicate);
+    final filtered = filterNotTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
@@ -89,7 +89,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<R, V> mapKeys<R>(R Function(KMapEntry<K, V>) transform) {
-    final mapped = mapKeysTo(linkedMapOf<R, V>(), transform);
+    final mapped = mapKeysTo(linkedMapFrom<R, V>(), transform);
     return mapped;
   }
 
@@ -115,7 +115,7 @@ abstract class KMapExtensionsMixin<K, V>
 
   @override
   KMap<K, R> mapValues<R>(R Function(KMapEntry<K, V>) transform) {
-    final mapped = mapValuesTo(linkedMapOf<K, R>(), transform);
+    final mapped = mapValuesTo(linkedMapFrom<K, R>(), transform);
     return mapped;
   }
 

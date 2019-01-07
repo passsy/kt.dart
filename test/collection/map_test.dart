@@ -2,6 +2,34 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group("mapFrom", () {
+    testMap(<K, V>(Map<K, V> map) => mapFrom<K, V>(map));
+  });
+  group("KMap.from", () {
+    testMap(<K, V>(Map<K, V> map) => KMap<K, V>.from(map));
+  });
+  group("mutableMapFrom", () {
+    testMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+  });
+  group("KMutableMap.from", () {
+    testMap(<K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  });
+  group("hashMapFrom", () {
+    testMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map));
+  });
+  group("KHashMap", () {
+    testMap(<K, V>(Map<K, V> map) => KHashMap<K, V>.from(map));
+  });
+  group("linkedMapOf", () {
+    testMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+  });
+  group("KLinkedMap", () {
+    testMap(<K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+  });
+}
+
+void testMap(KMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
+    {bool ordered = true}) {
   group('basic methods', () {
     test("access dart map", () {
       Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).map;
@@ -94,7 +122,7 @@ void main() {
 
   group("isEmpty", () {
     test("isEmpty", () {
-      expect(mapFrom().isEmpty(), isTrue);
+      expect(emptyMap().isEmpty(), isTrue);
     });
     test("is not empty", () {
       expect(mapFrom({1: "a"}).isEmpty(), isFalse);

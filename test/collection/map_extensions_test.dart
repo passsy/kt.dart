@@ -4,6 +4,45 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("mapFrom", () {
+    testMap(<K, V>() => emptyMap<K, V>(),
+        <K, V>(Map<K, V> map) => mapFrom<K, V>(map));
+  });
+  group("KMap.from", () {
+    testMap(<K, V>() => emptyMap<K, V>(),
+        <K, V>(Map<K, V> map) => KMap<K, V>.from(map));
+  });
+  group("mutableMapFrom", () {
+    testMap(<K, V>() => mutableMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+  });
+  group("KMutableMap.from", () {
+    testMap(<K, V>() => KMutableMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  });
+  group("hashMapFrom", () {
+    testMap(<K, V>() => hashMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
+        ordered: false);
+  });
+  group("KHashMap", () {
+    testMap(<K, V>() => KHashMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+        ordered: false);
+  });
+  group("linkedMapFrom", () {
+    testMap(<K, V>() => linkedMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+  });
+  group("KLinkedMap", () {
+    testMap(<K, V>() => KLinkedMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+  });
+}
+
+void testMap(KMap<K, V> Function<K, V>() emptyMap,
+    KMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
+    {bool ordered = true}) {
   final pokemon = mapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",

@@ -19,9 +19,18 @@ void main() {
         <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
+  group("KHashSet", () {
+    testIterable(<T>() => KHashSet<T>.of(),
+        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable));
+  });
+
   group("linkedSet", () {
     testIterable(<T>() => linkedSetOf<T>(),
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KHashSet", () {
+    testIterable(<T>() => KLinkedSet<T>.of(),
+        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
   });
 
   test("DartMutableIterable exposes dart Iterable via iter", () {

@@ -4,6 +4,95 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("list", () {
+    testList(
+        <T>() => emptyList<T>(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
+  });
+  group("KList", () {
+    testList(
+        <T>() => KList<T>.empty(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KList.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => KList.from(iterable));
+  });
+  group("mutableList", () {
+    testList(
+        <T>() => emptyList<T>(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            mutableListOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testList(
+        <T>() => KMutableList<T>.empty(),
+        <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KMutableList.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>([Iterable<T> iterable = const []]) => KMutableList.from(iterable));
+  });
+}
+
+void testList(
+    KList<T> Function<T>() emptyList,
+    KList<T> Function<T>(
+            [T arg0,
+            T arg1,
+            T arg2,
+            T arg3,
+            T arg4,
+            T arg5,
+            T arg6,
+            T arg7,
+            T arg8,
+            T arg9])
+        listOf,
+    KList<T> Function<T>([Iterable<T> iterable]) listFrom,
+    {bool ordered = true}) {
   group('basic methods', () {
     test("has no elements", () {
       final list = listOf();

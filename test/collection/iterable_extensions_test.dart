@@ -6,6 +6,7 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("iterable", () {
+    // TODO replace with Iterable.generate once implemented
     testIterable(<T>() => EmptyIterable<T>(),
         <T>(Iterable<T> iterable) => DartIterable(iterable));
   });
@@ -13,22 +14,43 @@ void main() {
     testIterable(<T>() => emptyList<T>(),
         <T>(Iterable<T> iterable) => listFrom(iterable));
   });
+  group("KList", () {
+    testIterable(<T>() => KList<T>.empty(),
+        <T>(Iterable<T> iterable) => KList<T>.from(iterable));
+  });
   group("mutableList", () {
     testIterable(<T>() => emptyList<T>(),
         <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
+  group("KMutableList", () {
+    testIterable(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList<T>.from(iterable));
+  });
   group("set", () {
     testIterable(
         <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
+  });
+  group("KSet", () {
+    testIterable(<T>() => KSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KSet<T>.from(iterable));
   });
   group("hashset", () {
     testIterable(<T>() => emptySet<T>(),
         <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
+  group("KHashSet", () {
+    testIterable(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable),
+        ordered: false);
+  });
   group("linkedSet", () {
-    testIterable(<T>() => emptySet<T>(),
+    testIterable(<T>() => linkedSetOf<T>(),
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testIterable(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
   });
 }
 

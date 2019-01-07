@@ -3,6 +3,8 @@ import 'package:dart_kollection/src/collection/set_hash_linked.dart';
 import 'package:dart_kollection/src/util/arguments.dart';
 
 abstract class KLinkedSet<T> implements KMutableSet<T> {
+  factory KLinkedSet.empty() => KLinkedSet.from();
+
   factory KLinkedSet.from([Iterable<T> elements = const []]) {
     return DartLinkedSet<T>(elements);
   }

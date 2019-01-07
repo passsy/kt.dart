@@ -95,7 +95,7 @@ KMutableMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
  *
  * Entries of the map are iterated in the order they were specified.
  */
-KMutableMap<K, V> linkedMapOf<K, V>([Map<K, V> map = const {}]) =>
+KMutableMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
     DartMutableMap(LinkedHashMap.from(map));
 
 /**

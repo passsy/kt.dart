@@ -10,22 +10,43 @@ void main() {
     testCollection(<T>() => emptyList<T>(),
         <T>(Iterable<T> iterable) => listFrom(iterable));
   });
+  group("KList", () {
+    testCollection(<T>() => KList<T>.empty(),
+        <T>(Iterable<T> iterable) => KList.from(iterable));
+  });
   group("mutableList", () {
-    testCollection(<T>() => emptyList<T>(),
+    testCollection(<T>() => mutableListOf<T>(),
         <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testCollection(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList.from(iterable));
   });
   group("set", () {
     testCollection(
         <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
   });
+  group("KSet", () {
+    testCollection(<T>() => KSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KSet.from(iterable));
+  });
   group("hashset", () {
-    testCollection(<T>() => emptySet<T>(),
+    testCollection(<T>() => hashSetOf<T>(),
         <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
+  group("KHashSet", () {
+    testCollection(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet.from(iterable),
+        ordered: false);
+  });
   group("linkedSet", () {
-    testCollection(<T>() => emptySet<T>(),
+    testCollection(<T>() => linkedSetOf<T>(),
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testCollection(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet.from(iterable));
   });
 }
 

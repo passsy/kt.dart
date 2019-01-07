@@ -40,19 +40,19 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform) {
-    return associateTo(linkedMapOf<K, V>(), transform);
+    return associateTo(linkedMapFrom<K, V>(), transform);
   }
 
   @override
   KMap<K, T> associateBy<K>(K Function(T) keySelector) {
     return associateByTo<K, T, KMutableMap<K, T>>(
-        linkedMapOf<K, T>(), keySelector, null);
+        linkedMapFrom<K, T>(), keySelector, null);
   }
 
   @override
   KMap<K, V> associateByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
-    return associateByTo(linkedMapOf<K, V>(), keySelector, valueTransform);
+    return associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
   }
 
   @override
@@ -89,7 +89,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<T, V> associateWith<V>(V Function(T) valueSelector) {
-    final associated = associateWithTo(linkedMapOf<T, V>(), valueSelector);
+    final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return associated;
@@ -241,7 +241,7 @@ abstract class KIterableExtensionsMixin<T>
 
     return elementAtOrElse(index, (int index) {
       throw IndexOutOfBoundsException(
-          "Collection doesn't contain element at index $index.");
+          "Collection doesn't contain element at index: $index.");
     });
   }
 
@@ -555,7 +555,7 @@ abstract class KIterableExtensionsMixin<T>
 
   @override
   KMap<K, KList<T>> groupBy<K>(K Function(T) keySelector) {
-    final groups = groupByTo(linkedMapOf<K, KMutableList<T>>(), keySelector);
+    final groups = groupByTo(linkedMapFrom<K, KMutableList<T>>(), keySelector);
     return groups;
   }
 
@@ -563,7 +563,7 @@ abstract class KIterableExtensionsMixin<T>
   KMap<K, KList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final groups = groupByToTransform(
-        linkedMapOf<K, KMutableList<V>>(), keySelector, valueTransform);
+        linkedMapFrom<K, KMutableList<V>>(), keySelector, valueTransform);
     return groups;
   }
 

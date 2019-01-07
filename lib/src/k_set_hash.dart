@@ -3,6 +3,8 @@ import 'package:dart_kollection/src/collection/set_hash.dart';
 import 'package:dart_kollection/src/util/arguments.dart';
 
 abstract class KHashSet<T> implements KMutableSet<T> {
+  factory KHashSet.empty() => KHashSet.from();
+
   factory KHashSet.from([Iterable<T> elements = const []]) {
     return DartHashSet<T>(elements);
   }

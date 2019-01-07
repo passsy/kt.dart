@@ -53,7 +53,8 @@ class DartMutableList<T>
       return true;
     }());
     if (index < 0 || index >= size) {
-      throw IndexOutOfBoundsException("index: $index, size: $size");
+      throw IndexOutOfBoundsException(
+          "List doesn't contain element at index: $index, size: $size");
     }
     return _list[index];
   }

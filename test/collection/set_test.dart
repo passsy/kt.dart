@@ -2,6 +2,69 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group("mutableSet", () {
+    testSet(
+      <T>() => mutableSetOf<T>(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          mutableSetOf(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => mutableSetFrom(iterable),
+    );
+  });
+  group("KSet", () {
+    testSet(
+      <T>() => KSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KSet.from(iterable),
+    );
+  });
+  group("KMutableSet", () {
+    testSet(
+      <T>() => KMutableSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KMutableSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KMutableSet.from(iterable),
+    );
+  });
+  group("KHashSet", () {
+    testSet(
+      <T>() => KHashSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KHashSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KHashSet.from(iterable),
+      ordered: false,
+    );
+  });
+  group("KLinkedSet", () {
+    testSet(
+      <T>() => KLinkedSet<T>.empty(),
+      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+          KLinkedSet.of(
+              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KLinkedSet.from(iterable),
+    );
+  });
+}
+
+void testSet(
+    KSet<T> Function<T>() emptySet,
+    KSet<T> Function<T>(
+            [T arg0,
+            T arg1,
+            T arg2,
+            T arg3,
+            T arg4,
+            T arg5,
+            T arg6,
+            T arg7,
+            T arg8,
+            T arg9])
+        mutableSetOf,
+    KSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
+    {bool ordered = true}) {
   group('basic methods', () {
     test("hashCode is 0", () {
       expect(emptySet().hashCode, 0);

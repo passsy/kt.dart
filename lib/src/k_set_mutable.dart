@@ -10,6 +10,8 @@ import 'package:dart_kollection/src/util/arguments.dart';
  * @param [T] the type of elements contained in the set. The mutable set is invariant on its element type.
  */
 abstract class KMutableSet<T> implements KSet<T>, KMutableCollection<T> {
+  factory KMutableSet.empty() => KMutableSet.from();
+
   factory KMutableSet.from([Iterable<T> elements = const []]) {
     return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
   }

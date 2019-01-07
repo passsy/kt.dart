@@ -4,6 +4,37 @@ import 'package:test/test.dart';
 import '../test/assert_dart.dart';
 
 void main() {
+  group("mutableMapFrom", () {
+    testMutableMap(<K, V>() => mutableMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+  });
+  group("KMutableMap", () {
+    testMutableMap(<K, V>() => KMutableMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  });
+  group("hashMapFrom", () {
+    testMutableMap(<K, V>() => hashMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
+        ordered: false);
+  });
+  group("KHashMap", () {
+    testMutableMap(<K, V>() => KHashMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+        ordered: false);
+  });
+  group("linkedMapFrom", () {
+    testMutableMap(<K, V>() => linkedMapFrom<K, V>(),
+        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+  });
+  group("KLinkedMap", () {
+    testMutableMap(<K, V>() => KLinkedMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+  });
+}
+
+void testMutableMap(KMutableMap<K, V> Function<K, V>() emptyMap,
+    KMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
+    {bool ordered = true}) {
   group("clear", () {
     test("clear items", () {
       final pokemon = mutableMapFrom({

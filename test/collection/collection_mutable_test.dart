@@ -5,17 +5,30 @@ import '../test/assert_dart.dart';
 
 void main() {
   group("mutableList", () {
-    testCollection(<T>() => mutableListFrom<T>([]),
+    testCollection(<T>() => mutableListOf<T>(),
         <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+  });
+  group("KMutableList", () {
+    testCollection(<T>() => KMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KMutableList.from(iterable));
   });
   group("hashset", () {
     testCollection(<T>() => hashSetOf<T>(),
         <T>(Iterable<T> iterable) => hashSetFrom(iterable),
         ordered: false);
   });
+  group("KHashSet", () {
+    testCollection(<T>() => KHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KHashSet.from(iterable),
+        ordered: false);
+  });
   group("linkedSet", () {
     testCollection(<T>() => linkedSetOf<T>(),
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+  });
+  group("KLinkedSet", () {
+    testCollection(<T>() => KLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KLinkedSet.from(iterable));
   });
 }
 
