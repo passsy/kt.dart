@@ -10,7 +10,7 @@ script:
   - set -e
   - sh tool/check_format.sh
   - dartanalyzer --fatal-infos --fatal-warnings ./
-  - pub run test test/dart_kollection_test.dart
+  - pub run test test/kt_stdlib_test.dart
   - pub global activate coverage
   - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
   - dart --observe=8111 --enable-asserts test/kt_stdlib_test.dart
