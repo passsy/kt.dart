@@ -18,8 +18,7 @@ class DartMutableSet<T>
   ///
   /// Use with care!
   DartMutableSet.noCopy(Set<T> set)
-      : assert(set != null),
-        _set = set,
+      : _set = set,
         super();
 
   final Set<T> _set;

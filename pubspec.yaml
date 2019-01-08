@@ -1,5 +1,5 @@
 name: kt_stdlib
-description: Brings Kotlins standard library to Dart, including colletions (List, Set, Map). Unlike Darts these collections are immutable by default but offer special `Mutable` types.
+description: Brings Kotlins standard library to Dart, including colletions (KtList, KtSet, KtMap). Unlike Darts these collections are immutable by default but offer special `Mutable` types.
 version: 0.4.0-alpha1
 homepage: https://github.com/passsy/kt_stdlib
 author: Pascal Welsch <pascal.welsch@gmail.com>
