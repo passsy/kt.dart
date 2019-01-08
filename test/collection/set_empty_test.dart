@@ -1,18 +1,18 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 void main() {
   group("emptySet", () {
     testEmptySet(<T>() => emptySet<T>());
   });
-  group("KSet.empty", () {
-    testEmptySet(<T>() => KSet<T>.empty());
+  group("KtSet.empty", () {
+    testEmptySet(<T>() => KtSet<T>.empty());
   });
-  group("KSet.of", () {
-    testEmptySet(<T>() => KSet<T>.of());
+  group("KtSet.of", () {
+    testEmptySet(<T>() => KtSet<T>.of());
   });
-  group("KSet.from", () {
-    testEmptySet(<T>() => KSet<T>.from());
+  group("KtSet.from", () {
+    testEmptySet(<T>() => KtSet<T>.from());
   });
   group("mutableSetFrom", () {
     testEmptySet(<T>() => mutableSetFrom<T>(), mutable: true);
@@ -21,26 +21,26 @@ void main() {
     testEmptySet(<T>() => mutableSetOf<T>(), mutable: true);
   });
   group("KMutableSet.of", () {
-    testEmptySet(<T>() => KMutableSet<T>.of(), mutable: true);
+    testEmptySet(<T>() => KtMutableSet<T>.of(), mutable: true);
   });
   group("KMutableSet.from", () {
-    testEmptySet(<T>() => KMutableSet<T>.from(), mutable: true);
+    testEmptySet(<T>() => KtMutableSet<T>.from(), mutable: true);
   });
   group("KHashSet.from", () {
-    testEmptySet(<T>() => KHashSet<T>.from(), mutable: true);
+    testEmptySet(<T>() => KtHashSet<T>.from(), mutable: true);
   });
   group("KHashSet.of", () {
-    testEmptySet(<T>() => KHashSet<T>.of(), mutable: true);
+    testEmptySet(<T>() => KtHashSet<T>.of(), mutable: true);
   });
   group("KLinkedSet.from", () {
-    testEmptySet(<T>() => KLinkedSet<T>.from(), mutable: true);
+    testEmptySet(<T>() => KtLinkedSet<T>.from(), mutable: true);
   });
   group("KLinkedSet.of", () {
-    testEmptySet(<T>() => KLinkedSet<T>.of(), mutable: true);
+    testEmptySet(<T>() => KtLinkedSet<T>.of(), mutable: true);
   });
 }
 
-void testEmptySet(KSet<T> Function<T>() emptySet, {bool mutable = false}) {
+void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
   group('basic methods', () {
     test("empty iterator", () {
       final iterator = emptySet().iterator();

@@ -1,4 +1,6 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
+import 'package:kt_stdlib/src/collection/extension/map_extensions_mixin.dart';
+import 'package:kt_stdlib/src/util/hash.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -8,17 +10,17 @@ void main() {
     testMap(<K, V>() => emptyMap<K, V>(),
         <K, V>(Map<K, V> map) => mapFrom<K, V>(map));
   });
-  group("KMap.from", () {
+  group("KtMap.from", () {
     testMap(<K, V>() => emptyMap<K, V>(),
-        <K, V>(Map<K, V> map) => KMap<K, V>.from(map));
+        <K, V>(Map<K, V> map) => KtMap<K, V>.from(map));
   });
   group("mutableMapFrom", () {
     testMap(<K, V>() => mutableMapFrom<K, V>(),
         <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
   });
-  group("KMutableMap.from", () {
-    testMap(<K, V>() => KMutableMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  group("KtMutableMap.from", () {
+    testMap(<K, V>() => KtMutableMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
   });
   group("hashMapFrom", () {
     testMap(<K, V>() => hashMapFrom<K, V>(),
@@ -26,8 +28,8 @@ void main() {
         ordered: false);
   });
   group("KHashMap", () {
-    testMap(<K, V>() => KHashMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+    testMap(<K, V>() => KtHashMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
         ordered: false);
   });
   group("linkedMapFrom", () {
@@ -35,13 +37,17 @@ void main() {
         <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
   });
   group("KLinkedMap", () {
-    testMap(<K, V>() => KLinkedMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+    testMap(<K, V>() => KtLinkedMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+  });
+  group("ThirdPartyMap", () {
+    testMap(<K, V>() => ThirdPartyMap<K, V>(),
+        <K, V>(Map<K, V> map) => ThirdPartyMap<K, V>(map));
   });
 }
 
-void testMap(KMap<K, V> Function<K, V>() emptyMap,
-    KMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
+void testMap(KtMap<K, V> Function<K, V>() emptyMap,
+    KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
   final pokemon = mapFrom({
     1: "Bulbasaur",
@@ -96,7 +102,7 @@ void testMap(KMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterTo requires predicate to be non null", () {
-      bool Function(KMapEntry<int, String> entry) predicate = null;
+      bool Function(KtMapEntry<int, String> entry) predicate = null;
       var other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterTo(other, predicate));
@@ -134,7 +140,7 @@ void testMap(KMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterNotTo requires predicate to be non null", () {
-      bool Function(KMapEntry<int, String> entry) predicate = null;
+      bool Function(KtMapEntry<int, String> entry) predicate = null;
       var other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterNotTo(other, predicate));
@@ -254,7 +260,7 @@ void testMap(KMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapKeysTo requires transform to be non null", () {
-      bool Function(KMapEntry<int, String> entry) predicate = null;
+      bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(other, predicate));
@@ -315,7 +321,7 @@ void testMap(KMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapValuesTo requires transform to be non null", () {
-      bool Function(KMapEntry<int, String> entry) predicate = null;
+      bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapValuesTo(other, predicate));
@@ -461,4 +467,87 @@ void testMap(KMap<K, V> Function<K, V>() emptyMap,
       expect(map.size, 2);
     });
   });
+}
+
+class ThirdPartyMap<K, V>
+    with KtMapExtensionsMixin<K, V>
+    implements KtMap<K, V> {
+  ThirdPartyMap([Map<K, V> map = const {}])
+      :
+// copy list to prevent external modification
+        _map = Map.unmodifiable(map),
+        super();
+
+  final Map<K, V> _map;
+  int _hashCode;
+
+  @override
+  Map<K, V> get map => _map;
+
+  @override
+  bool containsKey(K key) => _map.containsKey(key);
+
+  @override
+  bool containsValue(V value) => _map.containsValue(value);
+
+  @override
+  KtSet<KtMapEntry<K, V>> get entries =>
+      setFrom(_map.entries.map((entry) => _Entry.from(entry)));
+
+  @override
+  V get(K key) => _map[key];
+
+  @override
+  V operator [](K key) => get(key);
+
+  @override
+  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
+
+  @override
+  bool isEmpty() => _map.isEmpty;
+
+  @override
+  KtSet<K> get keys => setFrom(_map.keys);
+
+  @override
+  int get size => _map.length;
+
+  @override
+  KtCollection<V> get values => listFrom(_map.values);
+
+  @override
+  bool operator ==(dynamic other) {
+    if (identical(other, this)) return true;
+    if (other is! KtMap) return false;
+    if (other.size != size) return false;
+    if (other.hashCode != hashCode) return false;
+    for (final key in keys.iter) {
+      if (other[key] != this[key]) return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    return _hashCode ??= hashObjects(_map.keys
+        .map((key) => hash2(key.hashCode, _map[key].hashCode))
+        .toList(growable: false)
+          ..sort());
+  }
+}
+
+class _Entry<K, V> extends KtMapEntry<K, V> {
+  _Entry(this.key, this.value);
+
+  _Entry.from(MapEntry<K, V> entry)
+      : key = entry.key,
+        value = entry.value;
+  @override
+  final K key;
+
+  @override
+  final V value;
+
+  @override
+  KPair<K, V> toPair() => KPair(key, value);
 }

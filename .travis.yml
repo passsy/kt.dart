@@ -13,7 +13,7 @@ script:
   - pub run test test/dart_kollection_test.dart
   - pub global activate coverage
   - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
-  - dart --observe=8111 --enable-asserts test/dart_kollection_test.dart
+  - dart --observe=8111 --enable-asserts test/kt_stdlib_test.dart
   - pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -8,9 +8,9 @@ void main() {
     testCollection(<T>() => mutableListOf<T>(),
         <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
-  group("KMutableList", () {
-    testCollection(<T>() => KMutableList<T>.empty(),
-        <T>(Iterable<T> iterable) => KMutableList.from(iterable));
+  group("KtMutableList", () {
+    testCollection(<T>() => KtMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KtMutableList.from(iterable));
   });
   group("hashset", () {
     testCollection(<T>() => hashSetOf<T>(),
@@ -18,8 +18,8 @@ void main() {
         ordered: false);
   });
   group("KHashSet", () {
-    testCollection(<T>() => KHashSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KHashSet.from(iterable),
+    testCollection(<T>() => KtHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KtHashSet.from(iterable),
         ordered: false);
   });
   group("linkedSet", () {
@@ -27,14 +27,14 @@ void main() {
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
   group("KLinkedSet", () {
-    testCollection(<T>() => KLinkedSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KLinkedSet.from(iterable));
+    testCollection(<T>() => KtLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KtLinkedSet.from(iterable));
   });
 }
 
 void testCollection(
-    KMutableCollection<T> Function<T>() emptyCollection,
-    KMutableCollection<T> Function<T>(Iterable<T> collection)
+    KtMutableCollection<T> Function<T>() emptyCollection,
+    KtMutableCollection<T> Function<T>(Iterable<T> collection)
         mutableCollectionOf,
     {bool ordered = true}) {
   group("add", () {

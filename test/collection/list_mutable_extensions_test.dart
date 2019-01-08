@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -22,9 +22,9 @@ void main() {
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
         <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
   });
-  group("KMutableList", () {
+  group("KtMutableList", () {
     testList(
-        <T>() => KMutableList<T>.empty(),
+        <T>() => KtMutableList<T>.empty(),
         <T>(
                 [T arg0,
                 T arg1,
@@ -36,15 +36,15 @@ void main() {
                 T arg7,
                 T arg8,
                 T arg9]) =>
-            KMutableList.of(
+            KtMutableList.of(
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KMutableList.from(iterable));
+        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable));
   });
 }
 
 void testList(
-    KMutableList<T> Function<T>() emptyList,
-    KMutableList<T> Function<T>(
+    KtMutableList<T> Function<T>() emptyList,
+    KtMutableList<T> Function<T>(
             [T arg0,
             T arg1,
             T arg2,
@@ -56,7 +56,7 @@ void testList(
             T arg8,
             T arg9])
         mutableListOf,
-    KMutableList<T> Function<T>([Iterable<T> iterable]) mutableListFrom,
+    KtMutableList<T> Function<T>([Iterable<T> iterable]) mutableListFrom,
     {bool ordered = true}) {
   group("clear", () {
     test("clear list", () {

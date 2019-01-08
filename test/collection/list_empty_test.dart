@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -13,14 +13,14 @@ void main() {
   group("listFrom", () {
     testEmptyList(<T>() => listFrom<T>());
   });
-  group("KList.empty", () {
-    testEmptyList(<T>() => KList<T>.empty());
+  group("KtList.empty", () {
+    testEmptyList(<T>() => KtList<T>.empty());
   });
-  group("KList.of", () {
-    testEmptyList(<T>() => KList<T>.of());
+  group("KtList.of", () {
+    testEmptyList(<T>() => KtList<T>.of());
   });
-  group("KList.of", () {
-    testEmptyList(<T>() => KList<T>.from());
+  group("KtList.of", () {
+    testEmptyList(<T>() => KtList<T>.from());
   });
   group("mutableList", () {
     testEmptyList(<T>() => emptyList<T>());
@@ -31,18 +31,18 @@ void main() {
   group("mutableListFrom", () {
     testEmptyList(<T>() => mutableListFrom<T>());
   });
-  group("KMutableList.empty", () {
-    testEmptyList(<T>() => KMutableList<T>.empty());
+  group("KtMutableList.empty", () {
+    testEmptyList(<T>() => KtMutableList<T>.empty());
   });
-  group("KMutableList.of", () {
-    testEmptyList(<T>() => KMutableList<T>.of());
+  group("KtMutableList.of", () {
+    testEmptyList(<T>() => KtMutableList<T>.of());
   });
-  group("KMutableList.from", () {
-    testEmptyList(<T>() => KMutableList<T>.from());
+  group("KtMutableList.from", () {
+    testEmptyList(<T>() => KtMutableList<T>.from());
   });
 }
 
-void testEmptyList(KList<T> Function<T>() emptyList) {
+void testEmptyList(KtList<T> Function<T>() emptyList) {
   group('empty list', () {
     test("has no elements", () {
       final empty = emptyList<String>();

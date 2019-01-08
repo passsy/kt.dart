@@ -1,4 +1,4 @@
-import 'package:dart_kollection/src/util/annotations.dart';
+import 'package:kt_stdlib/src/annotation/annotations.dart';
 import 'package:test/test.dart';
 
 void main() {

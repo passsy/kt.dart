@@ -5,8 +5,8 @@ T catchException<T>(Function block) {
   try {
     block();
     fail("block did not throw");
-  } catch (e) {
-    expect(e, TypeMatcher<T>());
+  } catch (e, stack) {
+    expect(e, TypeMatcher<T>(), reason: stack.toString());
     return e as T;
   }
 }

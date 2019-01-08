@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -8,9 +8,9 @@ void main() {
     testMutableMap(<K, V>() => mutableMapFrom<K, V>(),
         <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
   });
-  group("KMutableMap", () {
-    testMutableMap(<K, V>() => KMutableMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  group("KtMutableMap", () {
+    testMutableMap(<K, V>() => KtMutableMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
   });
   group("hashMapFrom", () {
     testMutableMap(<K, V>() => hashMapFrom<K, V>(),
@@ -18,8 +18,8 @@ void main() {
         ordered: false);
   });
   group("KHashMap", () {
-    testMutableMap(<K, V>() => KHashMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+    testMutableMap(<K, V>() => KtHashMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
         ordered: false);
   });
   group("linkedMapFrom", () {
@@ -27,13 +27,13 @@ void main() {
         <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
   });
   group("KLinkedMap", () {
-    testMutableMap(<K, V>() => KLinkedMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+    testMutableMap(<K, V>() => KtLinkedMap<K, V>.empty(),
+        <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
   });
 }
 
-void testMutableMap(KMutableMap<K, V> Function<K, V>() emptyMap,
-    KMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
+void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
+    KtMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
     {bool ordered = true}) {
   group("clear", () {
     test("clear items", () {
@@ -340,7 +340,7 @@ void testMutableMap(KMutableMap<K, V> Function<K, V>() emptyMap,
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      KMutableIterator<KMapEntry<int, String>> i = pokemon.iterator();
+      KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
       expect(i.hasNext(), isTrue);
       var next = i.next();
       expect(next.key, 1);
@@ -360,7 +360,7 @@ void testMutableMap(KMutableMap<K, V> Function<K, V>() emptyMap,
           1: "Bulbasaur",
           2: "Ivysaur",
         });
-        KMutableIterator<KMapEntry<int, String>> i = pokemon.iterator();
+        KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
         expect(i.hasNext(), isTrue);
         var next = i.next();
         expect(next.key, 1);

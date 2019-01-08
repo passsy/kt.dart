@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -15,32 +15,32 @@ void main() {
   group("KMutableSet", () {
     testMutableSet(
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KMutableSet.of(
+          KtMutableSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KMutableSet.from(iterable),
+      <T>(iterable) => KtMutableSet.from(iterable),
     );
   });
   group("KHashSet", () {
     testMutableSet(
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KHashSet.of(
+          KtHashSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KHashSet.from(iterable),
+      <T>(iterable) => KtHashSet.from(iterable),
       ordered: false,
     );
   });
   group("KLinkedSet", () {
     testMutableSet(
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KLinkedSet.of(
+          KtLinkedSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KLinkedSet.from(iterable),
+      <T>(iterable) => KtLinkedSet.from(iterable),
     );
   });
 }
 
 void testMutableSet(
-    KMutableSet<T> Function<T>(
+    KtMutableSet<T> Function<T>(
             [T arg0,
             T arg1,
             T arg2,
@@ -52,7 +52,7 @@ void testMutableSet(
             T arg8,
             T arg9])
         mutableSetOf,
-    KMutableSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
+    KtMutableSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
     {bool ordered = true}) {
   test("mutableSetOf automatically removes duplicates", () {
     final set = mutableSetOf("a", "b", "a", "c");

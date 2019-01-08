@@ -1,5 +1,5 @@
-import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:kt_stdlib/collection.dart';
+import 'package:kt_stdlib/src/collection/impl/iterable.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -20,8 +20,8 @@ void main() {
         ordered: false);
   });
   group("KHashSet", () {
-    testIterable(<T>() => KHashSet<T>.of(),
-        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable));
+    testIterable(<T>() => KtHashSet<T>.of(),
+        <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable));
   });
 
   group("linkedSet", () {
@@ -29,8 +29,8 @@ void main() {
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
   group("KHashSet", () {
-    testIterable(<T>() => KLinkedSet<T>.of(),
-        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
+    testIterable(<T>() => KtLinkedSet<T>.of(),
+        <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
   });
 
   test("DartMutableIterable exposes dart Iterable via iter", () {
@@ -40,8 +40,8 @@ void main() {
   });
 }
 
-void testIterable(KMutableIterable<T> Function<T>() emptyIterable,
-    KMutableIterable<T> Function<T>(Iterable<T> iterable) mutableIterableOf,
+void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
+    KtMutableIterable<T> Function<T>(Iterable<T> iterable) mutableIterableOf,
     {bool ordered = true}) {
   group("removal functions throw", () {});
 

@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -7,27 +7,27 @@ void main() {
   group("mutableMapFrom", () {
     testMutableMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
   });
-  group("KMutableMap.from", () {
-    testMutableMap(<K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  group("KtMutableMap.from", () {
+    testMutableMap(<K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
   });
   group("hashMapFrom", () {
     testMutableMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
         ordered: false);
   });
   group("KHashMap", () {
-    testMutableMap(<K, V>(Map<K, V> map) => KHashMap<K, V>.from(map),
+    testMutableMap(<K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
         ordered: false);
   });
   group("linkedMapFrom", () {
     testMutableMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
   });
   group("KLinkedMap", () {
-    testMutableMap(<K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+    testMutableMap(<K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
   });
 }
 
 void testMutableMap(
-    KMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
+    KtMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
     {bool ordered = true}) {
   group("add item", () {
     test("add item", () {
