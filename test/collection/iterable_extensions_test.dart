@@ -1,5 +1,5 @@
-import 'package:dart_kollection/dart_kollection.dart';
-import 'package:dart_kollection/src/collection/iterable.dart';
+import 'package:kt_stdlib/collection.dart';
+import 'package:kt_stdlib/src/collection/impl/iterable.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -14,25 +14,25 @@ void main() {
     testIterable(<T>() => emptyList<T>(),
         <T>(Iterable<T> iterable) => listFrom(iterable));
   });
-  group("KList", () {
-    testIterable(<T>() => KList<T>.empty(),
-        <T>(Iterable<T> iterable) => KList<T>.from(iterable));
+  group("KtList", () {
+    testIterable(<T>() => KtList<T>.empty(),
+        <T>(Iterable<T> iterable) => KtList<T>.from(iterable));
   });
   group("mutableList", () {
     testIterable(<T>() => emptyList<T>(),
         <T>(Iterable<T> iterable) => mutableListFrom(iterable));
   });
-  group("KMutableList", () {
-    testIterable(<T>() => KMutableList<T>.empty(),
-        <T>(Iterable<T> iterable) => KMutableList<T>.from(iterable));
+  group("KtMutableList", () {
+    testIterable(<T>() => KtMutableList<T>.empty(),
+        <T>(Iterable<T> iterable) => KtMutableList<T>.from(iterable));
   });
   group("set", () {
     testIterable(
         <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
   });
-  group("KSet", () {
-    testIterable(<T>() => KSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KSet<T>.from(iterable));
+  group("KtSet", () {
+    testIterable(<T>() => KtSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KtSet<T>.from(iterable));
   });
   group("hashset", () {
     testIterable(<T>() => emptySet<T>(),
@@ -40,8 +40,8 @@ void main() {
         ordered: false);
   });
   group("KHashSet", () {
-    testIterable(<T>() => KHashSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KHashSet<T>.from(iterable),
+    testIterable(<T>() => KtHashSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable),
         ordered: false);
   });
   group("linkedSet", () {
@@ -49,13 +49,13 @@ void main() {
         <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
   });
   group("KLinkedSet", () {
-    testIterable(<T>() => KLinkedSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KLinkedSet<T>.from(iterable));
+    testIterable(<T>() => KtLinkedSet<T>.empty(),
+        <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
   });
 }
 
-void testIterable(KIterable<T> Function<T>() emptyIterable,
-    KIterable<T> Function<T>(Iterable<T> iterable) iterableOf,
+void testIterable(KtIterable<T> Function<T>() emptyIterable,
+    KtIterable<T> Function<T>(Iterable<T> iterable) iterableOf,
     {bool ordered = true}) {
   group('all', () {
     test("matches all", () {
@@ -350,7 +350,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     } else {
       test("drop on iterable returns a iterable", () {
         final iterable = emptyIterable<int>();
-        expect(iterable.drop(1), TypeMatcher<KList<int>>());
+        expect(iterable.drop(1), TypeMatcher<KtList<int>>());
       });
     }
     test("drop empty does nothing", () {
@@ -359,7 +359,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
     test("drop on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.drop(1), TypeMatcher<KList<int>>());
+      expect(iterable.drop(1), TypeMatcher<KtList<int>>());
     });
 
     test("drop negative, drops nothing", () {
@@ -403,7 +403,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
     test("dropWhile on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.dropWhile((_) => false), TypeMatcher<KList<int>>());
+      expect(iterable.dropWhile((_) => false), TypeMatcher<KtList<int>>());
     });
     test("dropWhile doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
@@ -914,7 +914,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           [5, 6]
         ]);
         final result = iterable.fold(
-            listFrom<int>(), (KList<int> acc, it) => acc + listFrom(it));
+            listFrom<int>(), (KtList<int> acc, it) => acc + listFrom(it));
         expect(result, listOf(1, 2, 3, 4, 5, 6));
       });
     }
@@ -936,7 +936,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
         ]);
         var i = 0;
         final result =
-            iterable.foldIndexed(listFrom<int>(), (index, KList<int> acc, it) {
+            iterable.foldIndexed(listFrom<int>(), (index, KtList<int> acc, it) {
           expect(index, i);
           i++;
           return acc + listFrom(it);
@@ -1055,7 +1055,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByTo", () {
     test("groupByTo same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapFrom<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KtMutableList<String>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
@@ -1067,7 +1067,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
     test("groupByTo super type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapFrom<int, KMutableList<Pattern>>();
+      final result = mutableMapFrom<int, KtMutableList<Pattern>>();
       final grouped = iterable.groupByTo(result, (it) => it.length);
       expect(identical(result, grouped), isTrue);
       expect(
@@ -1079,7 +1079,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     });
     test("groupByTo wrong type throws", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapFrom<int, KMutableList<int>>();
+      final result = mutableMapFrom<int, KtMutableList<int>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(result, (it) => it.length));
       expect(
@@ -1087,8 +1087,8 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
           allOf(
             contains("groupByTo"),
             contains("destination"),
-            contains("KMutableList<int>"),
-            contains("KMutableList<String>"),
+            contains("KtMutableList<int>"),
+            contains("KtMutableList<String>"),
           ));
     });
     test("groupByTo requires destination to be non null", () {
@@ -1100,7 +1100,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByTo requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapFrom<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(other, keySelector));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1133,7 +1133,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
   group("groupByToTransform", () {
     test("groupByToTransform same type", () {
       final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-      final result = mutableMapFrom<int, KMutableList<String>>();
+      final result = mutableMapFrom<int, KtMutableList<String>>();
       final grouped = iterable.groupByToTransform(
           result, (it) => it.length, (it) => it.toUpperCase());
       expect(identical(result, grouped), isTrue);
@@ -1159,7 +1159,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) keySelector = null;
-      final other = mutableMapFrom<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, keySelector, (it) => it.toUpperCase()));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
@@ -1167,7 +1167,7 @@ void testIterable(KIterable<T> Function<T>() emptyIterable,
     test("groupByToTransform requires valueTransform to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final String Function(String) valueSelector = null;
-      final other = mutableMapFrom<String, KMutableList<String>>();
+      final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, (it) => it.toUpperCase(), valueSelector));
       expect(e.message, allOf(contains("null"), contains("valueTransform")));

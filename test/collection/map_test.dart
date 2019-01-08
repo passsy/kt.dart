@@ -1,34 +1,34 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 void main() {
   group("mapFrom", () {
     testMap(<K, V>(Map<K, V> map) => mapFrom<K, V>(map));
   });
-  group("KMap.from", () {
-    testMap(<K, V>(Map<K, V> map) => KMap<K, V>.from(map));
+  group("KtMap.from", () {
+    testMap(<K, V>(Map<K, V> map) => KtMap<K, V>.from(map));
   });
   group("mutableMapFrom", () {
     testMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
   });
-  group("KMutableMap.from", () {
-    testMap(<K, V>(Map<K, V> map) => KMutableMap<K, V>.from(map));
+  group("KtMutableMap.from", () {
+    testMap(<K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
   });
   group("hashMapFrom", () {
     testMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map));
   });
   group("KHashMap", () {
-    testMap(<K, V>(Map<K, V> map) => KHashMap<K, V>.from(map));
+    testMap(<K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map));
   });
   group("linkedMapOf", () {
     testMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
   });
   group("KLinkedMap", () {
-    testMap(<K, V>(Map<K, V> map) => KLinkedMap<K, V>.from(map));
+    testMap(<K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
   });
 }
 
-void testMap(KMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
+void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
   group('basic methods', () {
     test("access dart map", () {

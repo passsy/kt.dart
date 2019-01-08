@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 
 void main() {
   final rekasProducts = getOrderedProducts(jbCustomers[reka]);
@@ -14,11 +14,11 @@ void main() {
   print("total jbShop revenue $revenue\$");
 }
 
-KSet<Product> getOrderedProducts(Customer customer) {
+KtSet<Product> getOrderedProducts(Customer customer) {
   return customer.orders.flatMap((it) => it.products).toSet();
 }
 
-KList<KTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
+KtList<KTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
   return shop.customers
       .flatMap((it) => getOrderedProducts(it))
       .groupBy((it) => it)
@@ -33,7 +33,7 @@ class Shop {
   Shop(this.name, this.customers);
 
   final String name;
-  final KList<Customer> customers;
+  final KtList<Customer> customers;
 }
 
 class Customer {
@@ -41,7 +41,7 @@ class Customer {
 
   final String name;
   final City city;
-  final KList<Order> orders;
+  final KtList<Order> orders;
 
   @override
   String toString() => '$name from ${city.name}';
@@ -50,7 +50,7 @@ class Customer {
 class Order {
   Order(this.products, {this.isDelivered});
 
-  final KList<Product> products;
+  final KtList<Product> products;
   final bool isDelivered;
 }
 
@@ -138,9 +138,9 @@ final jbShop = shop("jb test shop", [
   ])
 ]);
 
-final KMap<String, Customer> jbCustomers =
+final KtMap<String, Customer> jbCustomers =
     jbShop.customers.fold(hashMapFrom<String, Customer>(), (map, customer) {
-  (map as KMutableMap<String, Customer>)[customer.name] = customer;
+  (map as KtMutableMap<String, Customer>)[customer.name] = customer;
   return map;
 });
 

@@ -1,4 +1,4 @@
-import 'package:dart_kollection/src/util/hash.dart';
+import 'package:kt_stdlib/src/util/hash.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -11,47 +11,47 @@ void main() {
       <T>(iterable) => mutableSetFrom(iterable),
     );
   });
-  group("KSet", () {
+  group("KtSet", () {
     testSet(
-      <T>() => KSet<T>.empty(),
+      <T>() => KtSet<T>.empty(),
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KSet.from(iterable),
+          KtSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>(iterable) => KtSet.from(iterable),
     );
   });
   group("KMutableSet", () {
     testSet(
-      <T>() => KMutableSet<T>.empty(),
+      <T>() => KtMutableSet<T>.empty(),
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KMutableSet.of(
+          KtMutableSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KMutableSet.from(iterable),
+      <T>(iterable) => KtMutableSet.from(iterable),
     );
   });
   group("KHashSet", () {
     testSet(
-      <T>() => KHashSet<T>.empty(),
+      <T>() => KtHashSet<T>.empty(),
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KHashSet.of(
+          KtHashSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KHashSet.from(iterable),
+      <T>(iterable) => KtHashSet.from(iterable),
       ordered: false,
     );
   });
   group("KLinkedSet", () {
     testSet(
-      <T>() => KLinkedSet<T>.empty(),
+      <T>() => KtLinkedSet<T>.empty(),
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KLinkedSet.of(
+          KtLinkedSet.of(
               arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KLinkedSet.from(iterable),
+      <T>(iterable) => KtLinkedSet.from(iterable),
     );
   });
 }
 
 void testSet(
-    KSet<T> Function<T>() emptySet,
-    KSet<T> Function<T>(
+    KtSet<T> Function<T>() emptySet,
+    KtSet<T> Function<T>(
             [T arg0,
             T arg1,
             T arg2,
@@ -63,7 +63,7 @@ void testSet(
             T arg8,
             T arg9])
         mutableSetOf,
-    KSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
+    KtSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
     {bool ordered = true}) {
   group('basic methods', () {
     test("hashCode is 0", () {

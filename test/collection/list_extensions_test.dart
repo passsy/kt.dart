@@ -1,4 +1,4 @@
-import 'package:dart_kollection/dart_kollection.dart';
+import 'package:kt_stdlib/collection.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
@@ -21,9 +21,9 @@ void main() {
             listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
         <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
   });
-  group("KList", () {
+  group("KtList", () {
     testList(
-        <T>() => KList<T>.empty(),
+        <T>() => KtList<T>.empty(),
         <T>(
                 [T arg0,
                 T arg1,
@@ -35,9 +35,9 @@ void main() {
                 T arg7,
                 T arg8,
                 T arg9]) =>
-            KList.of(
+            KtList.of(
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KList.from(iterable));
+        <T>([Iterable<T> iterable = const []]) => KtList.from(iterable));
   });
   group("mutableList", () {
     testList(
@@ -57,9 +57,9 @@ void main() {
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
         <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
   });
-  group("KMutableList", () {
+  group("KtMutableList", () {
     testList(
-        <T>() => KMutableList<T>.empty(),
+        <T>() => KtMutableList<T>.empty(),
         <T>(
                 [T arg0,
                 T arg1,
@@ -71,15 +71,15 @@ void main() {
                 T arg7,
                 T arg8,
                 T arg9]) =>
-            KMutableList.of(
+            KtMutableList.of(
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KMutableList.from(iterable));
+        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable));
   });
 }
 
 void testList(
-    KList<T> Function<T>() emptyList,
-    KList<T> Function<T>(
+    KtList<T> Function<T>() emptyList,
+    KtList<T> Function<T>(
             [T arg0,
             T arg1,
             T arg2,
@@ -91,7 +91,7 @@ void testList(
             T arg8,
             T arg9])
         listOf,
-    KList<T> Function<T>([Iterable<T> iterable]) listFrom,
+    KtList<T> Function<T>([Iterable<T> iterable]) listFrom,
     {bool ordered = true}) {
   group("dropLast", () {
     test("drop last 3 items", () {
@@ -145,7 +145,7 @@ void testList(
     test("foldRight division", () {
       final iterable = listOf([1, 2], [3, 4], [5, 6]);
       final result = iterable.foldRight(
-          listFrom<int>(), (it, KList<int> acc) => acc + listFrom(it));
+          listFrom<int>(), (it, KtList<int> acc) => acc + listFrom(it));
       expect(result, listOf(5, 6, 3, 4, 1, 2));
     });
 
@@ -161,7 +161,7 @@ void testList(
       final iterable = listOf([1, 2], [3, 4], [5, 6]);
       var i = 2;
       final result = iterable.foldRightIndexed(listFrom<int>(),
-          (index, it, KList<int> acc) {
+          (index, it, KtList<int> acc) {
         expect(index, i);
         i--;
         return acc + listFrom(it);
