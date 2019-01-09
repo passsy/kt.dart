@@ -1,3 +1,3 @@
 library kt_exception;
 
-export 'package:kt_stdlib/src/exception/exceptions.dart';
+export 'package:kotlin_dart/src/exception/exceptions.dart';

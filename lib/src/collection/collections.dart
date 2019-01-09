@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:kt_stdlib/kt_stdlib.dart';
+import 'package:kotlin_dart/kotlin.dart';
 
 /**
  * Returns a new read-only list of given elements.

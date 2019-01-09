@@ -1,7 +1,7 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/impl/list.dart';
-import 'package:kt_stdlib/src/collection/impl/list_empty.dart';
-import 'package:kt_stdlib/src/util/arguments.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/impl/list.dart';
+import 'package:kotlin_dart/src/collection/impl/list_empty.dart';
+import 'package:kotlin_dart/src/util/arguments.dart';
 
 /**
  * A generic ordered collection of elements. Methods in this interface support only read-only access to the list;

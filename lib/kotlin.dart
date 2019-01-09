@@ -1,3 +1,3 @@
-library kt_stdlib;
+library kotlin_dart;
 
 export 'collection.dart';

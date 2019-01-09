@@ -1,4 +1,4 @@
-import 'package:kt_stdlib/src/util/arguments.dart';
+import 'package:kotlin_dart/src/util/arguments.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';

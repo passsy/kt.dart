@@ -1,4 +1,4 @@
-import 'package:kt_stdlib/collection.dart';
+import 'package:kotlin_dart/collection.dart';
 
 /**
  * An iterator over a mutable collection. Provides the ability to remove elements while iterating.

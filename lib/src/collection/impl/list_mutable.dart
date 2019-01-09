@@ -1,12 +1,12 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/extension/collection_mutable_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/extension/iterable_mutable_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/extension/list_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/extension/list_mutable_extension_mixin.dart';
-import 'package:kt_stdlib/src/collection/impl/iterator.dart';
-import 'package:kt_stdlib/src/util/hash.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/extension/collection_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/extension/collection_mutable_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/extension/iterable_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/extension/iterable_mutable_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/extension/list_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/extension/list_mutable_extension_mixin.dart';
+import 'package:kotlin_dart/src/collection/impl/iterator.dart';
+import 'package:kotlin_dart/src/util/hash.dart';
 
 /**
  * [KtList] based on a dart [List]

@@ -1,6 +1,6 @@
 import 'dart:math' as math show Random;
 
-import 'package:kt_stdlib/collection.dart';
+import 'package:kotlin_dart/collection.dart';
 
 abstract class KtCollectionExtensionMixin<T>
     implements KCollectionExtension<T>, KtCollection<T> {
