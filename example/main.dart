@@ -1,5 +1,4 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:collection/collection.dart';
+import 'package:kotlin_dart/kotlin.dart';
 
 void main() {
   /**

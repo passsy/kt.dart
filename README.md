@@ -1,6 +1,6 @@
 # kotlin.dart
 
-[![Pub](https://img.shields.io/pub/v/kt_stdlib.svg)](https://pub.dartlang.org/packages/kt_stdlib)
+[![Pub](https://img.shields.io/pub/v/kotlin_dart.svg)](https://pub.dartlang.org/packages/kotlin_dart)
 
 This project is a port of Kotlins [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which can improve every Dart/Flutter app. 
 
@@ -117,7 +117,7 @@ print(x == y); // deep equals by default
 <details>
   <summary>Common methods</summary>
 
-Some of Dart's method names feel unfamiliar. That's because modern languages and frameworks (Kotlin, Swift, TypeScript, ReactiveExtensions) kind of agreed on naming methods when it comes to collections. This makes it easy to switch platforms and discuss implementations with coworkers working with a different languages.
+Some of Dart's method names feel unfamiliar. That's because modern languages and frameworks (Kotlin, Swift, TypeScript, ReactiveExtensions) kind of agreed on naming methods when it comes to collections. This makes it easy to switch platforms and discuss implementations with coworkers working with a different language.
 
 ### expand -> flatMap
 ```dart
@@ -163,14 +163,16 @@ kNames.firstOrNull((name) => name.contains("x")); // null
 kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 ```
 
-</details>
-
-<details>
-  <summary>Useful Helpers</summary>
-</details>
-
 
 # Packages
+
+> ## [annotation](https://github.com/passsy/kotlin.dart/tree/master/lib/src/annotation)
+>
+> `import 'package:kotlin_dart/annotation.dart';`
+> 
+> Annotations such as `@nullable` or `@nonNull` giving hints about method return and argument types
+>
+
 
 > ## [collection](https://github.com/passsy/kt_stdlib/tree/master/lib/src/collection)
 >
@@ -179,6 +181,10 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 > Collection types, such as `KtIterable`, `KtCollection`, `KtList`, `KtSet`, `KtMap`  with over 150 methods as well as related top-level functions.
 The collections are immutable by default but offer a mutable counterpart i.e. `KtMutableList`.
 >
+
+### Planned
+
+Planned modules for the future are `async`, `tuples`, `comparison`, `range`, `sequence`, `text`
 
 ## License
 
