@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/comparisons.dart';
-import 'package:kt_stdlib/src/util/errors.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/comparisons.dart';
+import 'package:kotlin_dart/src/util/errors.dart';
 
 abstract class KtIterableExtensionsMixin<T>
     implements KtIterableExtension<T>, KtIterable<T> {

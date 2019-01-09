@@ -1,5 +1,5 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/kt_iterator_mutable.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/kt_iterator_mutable.dart';
 
 class InterOpKIterator<T> implements KtIterator<T> {
   InterOpKIterator(this.iterator) {

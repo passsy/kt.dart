@@ -174,7 +174,7 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 
 > ## [collection](https://github.com/passsy/kt_stdlib/tree/master/lib/src/collection)
 >
-> `import 'package:kt_stdlib/collection.dart';`
+> `import 'package:kotlin_dart/collection.dart';`
 > 
 > Collection types, such as `KtIterable`, `KtCollection`, `KtList`, `KtSet`, `KtMap`  with over 150 methods as well as related top-level functions.
 The collections are immutable by default but offer a mutable counterpart i.e. `KtMutableList`.

@@ -1,4 +1,4 @@
-import 'package:kt_stdlib/collection.dart';
+import 'package:kotlin_dart/collection.dart';
 
 abstract class KtMutableListExtensionsMixin<T>
     implements KtMutableListExtension<T>, KtMutableList<T> {

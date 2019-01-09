@@ -1,6 +1,6 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/impl/set_hash.dart';
-import 'package:kt_stdlib/src/util/arguments.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/impl/set_hash.dart';
+import 'package:kotlin_dart/src/util/arguments.dart';
 
 abstract class KtHashSet<T> implements KtMutableSet<T> {
   factory KtHashSet.empty() => KtHashSet.from();

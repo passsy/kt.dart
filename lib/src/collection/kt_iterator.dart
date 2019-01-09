@@ -1,4 +1,4 @@
-import 'package:kt_stdlib/collection.dart';
+import 'package:kotlin_dart/collection.dart';
 
 /**
  * An iterator over a collection or another entity that can be represented as a sequence of elements.

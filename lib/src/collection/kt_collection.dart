@@ -1,6 +1,6 @@
 import 'dart:math' as math show Random;
 
-import 'package:kt_stdlib/collection.dart';
+import 'package:kotlin_dart/collection.dart';
 
 /**
  * A generic collection of elements. Methods in this interface support only read-only access to the collection;

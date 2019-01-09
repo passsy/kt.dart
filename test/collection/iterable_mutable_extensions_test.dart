@@ -1,5 +1,5 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/impl/iterable.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/impl/iterable.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';

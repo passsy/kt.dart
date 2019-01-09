@@ -1,5 +1,5 @@
-import 'package:kt_stdlib/collection.dart';
-import 'package:kt_stdlib/src/collection/impl/map_mutable.dart';
+import 'package:kotlin_dart/collection.dart';
+import 'package:kotlin_dart/src/collection/impl/map_mutable.dart';
 
 /**
  * A modifiable collection that holds pairs of objects (keys and values) and supports efficiently retrieving
