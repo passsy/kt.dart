@@ -162,7 +162,7 @@ kNames.first((name) => name.contains("k")); // Jake
 kNames.firstOrNull((name) => name.contains("x")); // null
 kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 ```
-
+</details>
 
 # Packages
 
