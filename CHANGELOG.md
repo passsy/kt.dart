@@ -1,4 +1,4 @@
-## 0.5.0
+## 0.5.0 (unreleased)
 
 [diff v0.4.1...master](https://github.com/passsy/kotlin.dart/compare/v0.4.1...master)
 
