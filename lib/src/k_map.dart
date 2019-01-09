@@ -11,9 +11,15 @@ import 'package:dart_kollection/src/collection/map_empty.dart';
  *          can accept key as a parameter (of [containsKey] for example) and return it in [keys] set.
  * @param V the type of map values. The map is covariant on its value type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KMap<K, V> implements KMapExtension<K, V> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMap.empty() => EmptyMap<K, V>();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMap.from([Map<K, V> map = const {}]) {
     if (map.isEmpty) return EmptyMap<K, V>();
     return DartMap(map);

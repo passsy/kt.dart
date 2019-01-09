@@ -8,15 +8,21 @@ import 'package:dart_kollection/src/util/arguments.dart';
  * read/write access is supported through the [KMutableList] interface.
  * @param [T] the type of elements contained in the list. The list is covariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KList<T> implements KCollection<T>, KListExtension<T> {
   /**
    * Returns an empty read-only list.
    */
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KList.empty() => EmptyList<T>();
 
   /**
    * Returns a new read-only list based on [elements].
    */
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KList.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptyList();
     return DartList(elements);
@@ -27,6 +33,8 @@ abstract class KList<T> implements KCollection<T>, KListExtension<T> {
    *
    * Elements aren't allowed to be `null`. If your list requires `null` values use [KList.from]
    */
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KList.of(
       [T arg0,
       T arg1,

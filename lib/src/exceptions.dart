@@ -1,3 +1,5 @@
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 class IndexOutOfBoundsException implements Exception {
   IndexOutOfBoundsException([this.message]);
 
@@ -9,6 +11,8 @@ class IndexOutOfBoundsException implements Exception {
       : 'IndexOutOfBoundsException: $message';
 }
 
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 class NoSuchElementException implements Exception {
   NoSuchElementException([this.message]);
 

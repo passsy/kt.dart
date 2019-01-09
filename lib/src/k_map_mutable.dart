@@ -7,10 +7,16 @@ import 'package:dart_kollection/src/collection/map_mutable.dart';
  * @param K the type of map keys. The map is invariant on its key type.
  * @param V the type of map values. The mutable map is invariant on its value type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KMutableMap<K, V>
     implements KMap<K, V>, KMutableMapExtension<K, V> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMutableMap.empty() => DartMutableMap<K, V>();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMutableMap.from([Map<K, V> map = const {}]) => DartMutableMap(map);
 
   // Modification Operations

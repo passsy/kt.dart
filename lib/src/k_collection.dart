@@ -7,6 +7,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  * read/write access is supported through the [KMutableCollection] interface.
  * @param E the type of elements contained in the collection. The collection is covariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KCollection<T> implements KIterable<T>, KCollectionExtension<T> {
   // Query Operations
   /**

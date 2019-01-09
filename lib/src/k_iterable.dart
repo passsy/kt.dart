@@ -5,6 +5,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  * be iterated over.
  * @param T the type of element being iterated over. The iterator is covariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KIterable<T> implements KIterableExtension<T> {
   /**
    * dart interop iterable for loops

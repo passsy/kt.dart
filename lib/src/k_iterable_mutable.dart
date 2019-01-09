@@ -5,6 +5,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  * be iterated over and that supports removing elements during iteration.
  * @param T the type of element being iterated over. The mutable iterator is invariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KMutableIterable<T>
     implements KIterable<T>, KMutableIterableExtension<T> {
   /**

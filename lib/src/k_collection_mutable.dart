@@ -5,6 +5,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  *
  * @param E the type of elements contained in the collection. The mutable collection is invariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KMutableCollection<T>
     implements
         KCollection<T>,

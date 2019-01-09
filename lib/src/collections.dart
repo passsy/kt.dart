@@ -9,6 +9,8 @@ import 'package:dart_kollection/src/k_set_linked.dart';
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KList<T> listOf<T>(
         [T arg0,
         T arg1,
@@ -25,11 +27,15 @@ KList<T> listOf<T>(
 /**
  * Returns a new read-only list based on [elements].
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KList<T> listFrom<T>([Iterable<T> elements = const []]) => KList.from(elements);
 
 /**
  * Returns an empty read-only list.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KList<T> emptyList<T>() => KList.empty();
 
 /**
@@ -37,6 +43,8 @@ KList<T> emptyList<T>() => KList.empty();
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableList<T> mutableListOf<T>(
     [T arg0,
     T arg1,
@@ -55,6 +63,8 @@ KMutableList<T> mutableListOf<T>(
 /**
  * Returns a new mutable list based on [elements].
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
     KMutableList.from(elements);
 
@@ -62,11 +72,15 @@ KMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
  * Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KMap.from(map);
 
 /**
  * Returns an empty read-only map of specified type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMap<K, V> emptyMap<K, V>() => KMap.empty();
 
 /**
@@ -77,6 +91,8 @@ KMap<K, V> emptyMap<K, V>() => KMap.empty();
  *
  * Entries of the map are iterated in the order they were specified.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
     KMutableMap.from(map);
 
@@ -84,6 +100,8 @@ KMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
     DartMutableMap(HashMap.from(map));
 
@@ -95,6 +113,8 @@ KMutableMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
  *
  * Entries of the map are iterated in the order they were specified.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
     DartMutableMap(LinkedHashMap.from(map));
 
@@ -104,6 +124,8 @@ KMutableMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KSet<T> setOf<T>(
         [T arg0,
         T arg1,
@@ -121,11 +143,15 @@ KSet<T> setOf<T>(
  * Returns a new read-only set based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KSet<T> setFrom<T>([Iterable<T> elements = const []]) => KSet.from(elements);
 
 /**
  * Returns an empty read-only set.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KSet<T> emptySet<T>() => KSet.empty();
 
 /**
@@ -134,6 +160,8 @@ KSet<T> emptySet<T>() => KSet.empty();
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableSet<T> mutableSetOf<T>(
     [T arg0,
     T arg1,
@@ -153,6 +181,8 @@ KMutableSet<T> mutableSetOf<T>(
  * Returns a new [LinkedHashSet] based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
     KMutableSet.from(elements);
 
@@ -162,6 +192,8 @@ KMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KLinkedSet<T> linkedSetOf<T>(
     [T arg0,
     T arg1,
@@ -181,6 +213,8 @@ KLinkedSet<T> linkedSetOf<T>(
  * Returns a new [LinkedHashSet] based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
     KLinkedSet.from(elements);
 
@@ -190,6 +224,8 @@ KLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KHashSet<T> hashSetOf<T>(
     [T arg0,
     T arg1,
@@ -209,5 +245,7 @@ KHashSet<T> hashSetOf<T>(
  * Returns a new [HashSet] based on [elements].
  * Elements of the set are iterated in unpredictable order.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 KMutableSet<T> hashSetFrom<T>([Iterable<T> elements = const []]) =>
     KHashSet.from(elements);

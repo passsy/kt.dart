@@ -9,13 +9,21 @@ import 'package:dart_kollection/src/util/arguments.dart';
  * adding and removing elements.
  * @param [T] the type of elements contained in the set. The mutable set is invariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KMutableSet<T> implements KSet<T>, KMutableCollection<T> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMutableSet.empty() => KMutableSet.from();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMutableSet.from([Iterable<T> elements = const []]) {
     return DartMutableSet.noCopy(LinkedHashSet<T>.of(elements));
   }
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KMutableSet.of(
       [T arg0,
       T arg1,

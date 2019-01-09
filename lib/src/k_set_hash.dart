@@ -2,13 +2,21 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/set_hash.dart';
 import 'package:dart_kollection/src/util/arguments.dart';
 
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KHashSet<T> implements KMutableSet<T> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KHashSet.empty() => KHashSet.from();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KHashSet.from([Iterable<T> elements = const []]) {
     return DartHashSet<T>(elements);
   }
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KHashSet.of(
       [T arg0,
       T arg1,

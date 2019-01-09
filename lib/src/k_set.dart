@@ -9,14 +9,22 @@ import 'package:dart_kollection/src/util/arguments.dart';
  * read/write access is supported through the [KMutableSet] interface.
  * @param E the type of elements contained in the set. The set is covariant on its element type.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KSet<T> implements KCollection<T> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KSet.empty() => EmptySet<T>();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KSet.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptySet<T>();
     return DartSet(elements);
   }
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KSet.of(
       [T arg0,
       T arg1,

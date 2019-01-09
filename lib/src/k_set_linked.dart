@@ -2,13 +2,21 @@ import 'package:dart_kollection/dart_kollection.dart';
 import 'package:dart_kollection/src/collection/set_hash_linked.dart';
 import 'package:dart_kollection/src/util/arguments.dart';
 
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KLinkedSet<T> implements KMutableSet<T> {
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KLinkedSet.empty() => KLinkedSet.from();
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KLinkedSet.from([Iterable<T> elements = const []]) {
     return DartLinkedSet<T>(elements);
   }
 
+  @Deprecated(
+      "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
   factory KLinkedSet.of(
       [T arg0,
       T arg1,

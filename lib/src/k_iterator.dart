@@ -4,6 +4,8 @@ import 'package:dart_kollection/dart_kollection.dart';
  * An iterator over a collection or another entity that can be represented as a sequence of elements.
  * Allows to sequentially access the elements.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KIterator<T> {
   /**
    * Returns the next element in the iteration.
@@ -27,6 +29,8 @@ abstract class KIterator<T> {
 /**
  * An iterator over a collection that supports indexed access.
  */
+@Deprecated(
+    "Please migrate to kotlin.dart https://github.com/passsy/kotlin.dart")
 abstract class KListIterator<T> implements KIterator<T> {
   /**
    * Returns `true` if this list iterator has more elements when
