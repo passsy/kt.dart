@@ -1,7 +1,7 @@
 name: kotlin_dart
-description: Brings Kotlins standard library to Dart, including colletions (KtList, KtSet, KtMap). Unlike Darts these collections are immutable by default but offer special `Mutable` types.
-version: 0.4.0-alpha1
-homepage: https://github.com/passsy/kt_stdlib
+description: This project is a port of Kotlins Standard library for Dart/Flutter projects. It includes collections (KtList, KtMap, KtSet) as well as other packages useful for every Dart/Flutter project.
+version: 0.4.0
+homepage: https://github.com/passsy/kotlin.dart
 author: Pascal Welsch <pascal.welsch@gmail.com>
 
 environment:
