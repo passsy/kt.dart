@@ -1,6 +1,13 @@
 ## 0.5.0 (unreleased)
 
-[diff v0.4.1...master](https://github.com/passsy/kotlin.dart/compare/v0.4.1...master)
+[diff v0.4.2...master](https://github.com/passsy/kotlin.dart/compare/v0.4.2...master)
+
+
+## 0.4.2
+
+[diff v0.4.1...v0.4.2](https://github.com/passsy/kotlin.dart/compare/v0.4.1...v0.4.2)
+
+Shorten pub project description to make pana happy.
 
 ## 0.4.1
 
@@ -110,6 +117,12 @@ Here is a list of all collection creation APIs.
   KLinkedMap<int, String>.empty();
   KLinkedMap.from({1: "a", 2: "b"});
 ```
+
+## 0.3.1
+
+[diff v0.3.0...v0.3.1](https://github.com/passsy/kotlin.dart/compare/v0.3.0...v0.3.1)
+
+Deprecate all APIs and advise users to upgrade to `kotlin.dart`
 
 
 ## 0.3.0
