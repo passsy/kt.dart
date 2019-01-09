@@ -1,6 +1,12 @@
+## 0.5.0
+
+[diff v0.4.1...master](https://github.com/passsy/kotlin.dart/compare/v0.4.1...master)
+
 ## 0.4.1
 
 [diff v0.4.0...v0.4.1](https://github.com/passsy/kotlin.dart/compare/v0.4.0...v0.4.1)
+
+Improve Readme which renders correctly on pub.
 
 ## 0.4.0
 
