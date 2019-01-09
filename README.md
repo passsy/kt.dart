@@ -1,12 +1,12 @@
-# kt_stdlib: Kotlin Standard Library ported to Dart
+# kotlin.dart
 
 [![Pub](https://img.shields.io/pub/v/kt_stdlib.svg)](https://pub.dartlang.org/packages/kt_stdlib)
 
-This project brings Kotlins beautiful [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) to Dart/Flutter projects. It's a great addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which are useful in every Dart/Flutter app. 
+This project is a port of Kotlins [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which can improve every Dart/Flutter app. 
 
 ## Motivation
 
-Dart's [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) package is great but sometimes not as straight-forward as Kotlins `kotlin-stdlib`.
+Dart's [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) package provides basic building blocks. But sometimes they are too low leven and not as straight-forward as Kotlins [`kotlin-stdlib`](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
 
 Here are a few examples what this project offers: _(click to expand)_
 
@@ -36,7 +36,7 @@ void addDevice(List<Widget> widgets, Device device) {
 }
 ```
 
-### `kt_stdlib` collections
+### `kotlin.dart` collections
 
 `KtList` and `KtMutableList` are two different Types. `KtList` is immutable by default and has no mutation methods (such as `add`). Methods like `map((T)->R)` or `plusElement(T)` return a new `KtList` leaving the old one unmodified.
 ```dart
@@ -76,8 +76,8 @@ All collection types has mutable counterparts:
 
 ### `dart:core` collections
 
-Dart's `List` works like `Array` in Java. Equals doesn't compare the items. Equals only checks the identity.
-To compare the contents you can use `Equality` helper methods from `'package:collection/collection.dart'`. Something one might forget accidentally.
+Dart's `List` works like a `Array` in Java. Equals doesn't compare the items, equals only checks the identity.
+To compare the contents you have to use helper methods methods from `'package:collection/collection.dart'`.
 
 ```dart
 // Comparing two Dart Lists works only by identity
@@ -99,7 +99,7 @@ Function deepEq = const DeepCollectionEquality().equals;
 print(deepEq(x, y)); // true, finally
 ```
 
-### `kt_stdlib` collections
+### `kotlin.dart` collections
 
 `KtList` and all other collection types implement `equals` by deeply comparing all items.
 
@@ -116,6 +116,53 @@ print(x == y); // deep equals by default
 
 <details>
   <summary>Common methods</summary>
+
+Some of Dart's method names feel unfamiliar. That's because modern languages and frameworks (Kotlin, Swift, TypeScript, ReactiveExtensions) kind of agreed on naming methods when it comes to collections. This makes it easy to switch platforms and discuss implementations with coworkers working with a different languages.
+
+### expand -> flatMap
+```dart
+final dList = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+final kList = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9));
+
+// dart:core
+final dFlat = dList.expand((l) => l).toList();
+print(dFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+// kotlin.dart
+final kFlat = kList.flatMap((l) => l);
+print(kFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+### where -> filter
+```dart
+final dNames = ["Chet", "Tor", "Romain", "Jake", "Dianne"];
+final kNames = listFrom(dNames);
+
+// dart:core
+final dShortNames = dNames.where((name) => name.length <= 4).toList();
+print(dShortNames); // [Chet, Tor, Jake]
+
+// kotlin.dart
+final kShortNames = kNames.filter((name) => name.length <= 4);
+print(kShortNames); // [Chet, Tor, Jake]
+```
+
+### firstWhere -> first, firstOrNull
+```dart
+final dNames = ["Chet", "Tor", "Romain", "Jake", "Dianne"];
+final kNames = listFrom(dNames);
+
+// dart:core
+dNames.firstWhere((name) => name.contains("k")); // Jake
+dNames.firstWhere((name) => name.contains("x"), orElse: () => null); // null
+dNames.firstWhere((name) => name.contains("x"), orElse: () => "Nobody"); // Nobody
+
+// kotlin.dart
+kNames.first((name) => name.contains("k")); // Jake
+kNames.firstOrNull((name) => name.contains("x")); // null
+kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
+```
+
 </details>
 
 <details>
