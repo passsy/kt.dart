@@ -189,7 +189,7 @@ Planned modules for the future are `async`, `tuples`, `comparison`, `range`, `se
 ## License
 
 ```
-Copyright 2018 Pascal Welsch
+Copyright 2019 Pascal Welsch
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
