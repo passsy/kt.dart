@@ -61,6 +61,7 @@ assert(mutableKtList.size == 4);
 ```
 
 All collection types has mutable counterparts:
+
 |Immutable|Mutable|
 |---|---|
 |`KtList` | `KtMutableList` |
