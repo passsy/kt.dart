@@ -1,8 +1,12 @@
 # kotlin.dart
 
 [![Pub](https://img.shields.io/pub/v/kotlin_dart.svg)](https://pub.dartlang.org/packages/kotlin_dart)
+[![codecov](https://codecov.io/gh/passsy/kotlin.dart/branch/master/graph/badge.svg)](https://codecov.io/gh/passsy/kotlin.dart)
+
+![](https://user-images.githubusercontent.com/1096485/50977811-56f4c100-14f3-11e9-8b44-389fa97f63b0.png)
 
 This project is a port of Kotlins [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which can improve every Dart/Flutter app. 
+
 
 ## Motivation
 
