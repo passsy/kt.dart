@@ -1,4 +1,4 @@
-# kotlin.dart - collection
+# kt.dart - collection
 
 Here is a list of all collection creation APIs.
 Both APIs, factory constructor and function based one, **are equally supported.** It only depends on your personal taste.
