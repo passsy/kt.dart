@@ -141,5 +141,5 @@ class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
   }
 
   @override
-  KPair<K, V> toPair() => KPair(_key, _value);
+  KtPair<K, V> toPair() => KtPair(_key, _value);
 }

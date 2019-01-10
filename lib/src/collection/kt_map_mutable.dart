@@ -105,7 +105,7 @@ abstract class KtMutableMapExtension<K, V> {
   /**
    * Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
    */
-  void putAllPairs(KtIterable<KPair<K, V>> pairs);
+  void putAllPairs(KtIterable<KtPair<K, V>> pairs);
 
   /**
    * If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.
