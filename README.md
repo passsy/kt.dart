@@ -173,7 +173,7 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 
 > ## [annotation](https://github.com/passsy/kotlin.dart/tree/master/lib/src/annotation)
 >
-> `import 'package:kotlin_dart/annotation.dart';`
+> `import 'package:kt_dart/annotation.dart';`
 > 
 > Annotations such as `@nullable` or `@nonNull` giving hints about method return and argument types
 >
@@ -181,7 +181,7 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 
 > ## [collection](https://github.com/passsy/kt_stdlib/tree/master/lib/src/collection)
 >
-> `import 'package:kotlin_dart/collection.dart';`
+> `import 'package:kt_dart/collection.dart';`
 > 
 > Collection types, such as `KtIterable`, `KtCollection`, `KtList`, `KtSet`, `KtMap`  with over 150 methods as well as related top-level functions.
 The collections are immutable by default but offer a mutable counterpart i.e. `KtMutableList`.

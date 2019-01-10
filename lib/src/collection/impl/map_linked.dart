@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:kotlin_dart/src/collection/impl/map_mutable.dart';
-import 'package:kotlin_dart/src/collection/kt_map_linked.dart';
+import 'package:kt_dart/src/collection/impl/map_mutable.dart';
+import 'package:kt_dart/src/collection/kt_map_linked.dart';
 
 class DartLinkedHashMap<K, V> extends DartMutableMap<K, V>
     implements KtLinkedMap<K, V> {

@@ -1,5 +1,5 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/util/errors.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/util/errors.dart';
 
 abstract class KtMapExtensionsMixin<K, V>
     implements KtMapExtension<K, V>, KtMap<K, V> {

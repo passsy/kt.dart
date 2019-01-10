@@ -1,4 +1,4 @@
-import 'package:kotlin_dart/src/annotation/annotations.dart';
+import 'package:kt_dart/src/annotation/annotations.dart';
 import 'package:test/test.dart';
 
 void main() {

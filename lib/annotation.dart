@@ -1,3 +1,3 @@
 library kt_annotation;
 
-export 'package:kotlin_dart/src/annotation/annotations.dart';
+export 'package:kt_dart/src/annotation/annotations.dart';

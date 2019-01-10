@@ -1,6 +1,6 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/collection/impl/list_mutable.dart';
-import 'package:kotlin_dart/src/util/arguments.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/list_mutable.dart';
+import 'package:kt_dart/src/util/arguments.dart';
 
 /**
  * A generic ordered collection of elements that supports adding and removing elements.

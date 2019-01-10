@@ -1,7 +1,7 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/collection/impl/set.dart';
-import 'package:kotlin_dart/src/collection/impl/set_empty.dart';
-import 'package:kotlin_dart/src/util/arguments.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/set.dart';
+import 'package:kt_dart/src/collection/impl/set_empty.dart';
+import 'package:kt_dart/src/util/arguments.dart';
 
 /**
  * A generic unordered collection of elements that does not support duplicate elements.

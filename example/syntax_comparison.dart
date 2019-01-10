@@ -1,4 +1,4 @@
-import 'package:kotlin_dart/kotlin.dart';
+import 'package:kt_dart/kt.dart';
 
 void main() {
   /**
