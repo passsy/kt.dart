@@ -65,7 +65,7 @@ void testMutableMap(
         2: "Ivysaur",
       });
       expect(pokemon.entries.map((it) => it.toPair()),
-          listOf(KPair(1, "Bulbasaur"), KPair(2, "Ivysaur")));
+          listOf(KtPair(1, "Bulbasaur"), KtPair(2, "Ivysaur")));
     });
 
     test("set value for mutable entry", () {

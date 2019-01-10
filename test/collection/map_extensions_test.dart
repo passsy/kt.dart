@@ -549,5 +549,5 @@ class _Entry<K, V> extends KtMapEntry<K, V> {
   final V value;
 
   @override
-  KPair<K, V> toPair() => KPair(key, value);
+  KtPair<K, V> toPair() => KtPair(key, value);
 }

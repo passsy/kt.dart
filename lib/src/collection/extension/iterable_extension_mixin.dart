@@ -38,7 +38,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtIterable<T> asIterable() => this;
 
   @override
-  KtMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform) {
+  KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform) {
     return associateTo(linkedMapFrom<K, V>(), transform);
   }
 
@@ -74,7 +74,7 @@ abstract class KtIterableExtensionsMixin<T>
 
   @override
   M associateTo<K, V, M extends KtMutableMap<K, V>>(
-      M destination, KPair<K, V> Function(T) transform) {
+      M destination, KtPair<K, V> Function(T) transform) {
     assert(() {
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
@@ -1030,7 +1030,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  KPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate) {
+  KtPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -1044,7 +1044,7 @@ abstract class KtIterableExtensionsMixin<T>
         second.add(element);
       }
     }
-    return KPair(first, second);
+    return KtPair(first, second);
   }
 
   @override
@@ -1393,8 +1393,8 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  KtList<KPair<T, R>> zip<R>(KtIterable<R> other) =>
-      zipTransform(other, (T a, R b) => KPair(a, b));
+  KtList<KtPair<T, R>> zip<R>(KtIterable<R> other) =>
+      zipTransform(other, (T a, R b) => KtPair(a, b));
 
   @override
   KtList<V> zipTransform<R, V>(
@@ -1414,8 +1414,8 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  KtList<KPair<T, T>> zipWithNext<R>() =>
-      zipWithNextTransform((a, b) => KPair(a, b));
+  KtList<KtPair<T, T>> zipWithNext<R>() =>
+      zipWithNextTransform((a, b) => KtPair(a, b));
 
   @override
   KtList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {

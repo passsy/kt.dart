@@ -9,8 +9,8 @@
  * @property first First value.
  * @property second Second value.
  */
-class KPair<A, B> {
-  KPair(this.first, this.second);
+class KtPair<A, B> {
+  KtPair(this.first, this.second);
 
   final A first;
   final B second;
@@ -21,7 +21,7 @@ class KPair<A, B> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KPair &&
+      other is KtPair &&
           runtimeType == other.runtimeType &&
           first == other.first &&
           second == other.second;
@@ -43,8 +43,8 @@ class KPair<A, B> {
  * @property second Second value.
  * @property third Third value.
  */
-class KTriple<A, B, C> {
-  KTriple(this.first, this.second, this.third);
+class KtTriple<A, B, C> {
+  KtTriple(this.first, this.second, this.third);
 
   final A first;
   final B second;
@@ -56,7 +56,7 @@ class KTriple<A, B, C> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KTriple &&
+      other is KtTriple &&
           runtimeType == other.runtimeType &&
           first == other.first &&
           second == other.second &&

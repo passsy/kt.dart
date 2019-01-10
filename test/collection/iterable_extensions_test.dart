@@ -103,13 +103,13 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('associate', () {
     test("associate", () {
       final list = iterableOf(["a", "b", "c"]);
-      var result = list.associate((it) => KPair(it.toUpperCase(), it));
+      var result = list.associate((it) => KtPair(it.toUpperCase(), it));
       var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associate on empty map", () {
       final list = emptyIterable<String>();
-      var result = list.associate((it) => KPair(it.toUpperCase(), it));
+      var result = list.associate((it) => KtPair(it.toUpperCase(), it));
       expect(result, equals(emptyMap()));
     });
     test("associate doesn't allow null as transform function", () {
@@ -1255,7 +1255,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
         expect(s, "a, b, c");
       });
       test("joinToString calls childs toString", () {
-        final s = iterableOf([listOf(1, 2, 3), KPair("a", "b"), "test"])
+        final s = iterableOf([listOf(1, 2, 3), KtPair("a", "b"), "test"])
             .joinToString();
         expect(s, "[1, 2, 3], (a, b), test");
       });
@@ -2231,7 +2231,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zip", () {
     test("to pair", () {
       final result = iterableOf([1, 2, 3, 4, 5]).zip(iterableOf(["a", "b"]));
-      expect(result, listFrom([KPair(1, "a"), KPair(2, "b")]));
+      expect(result, listFrom([KtPair(1, "a"), KtPair(2, "b")]));
     });
     test("transform", () {
       final result = iterableOf([1, 2, 3, 4, 5])
@@ -2262,7 +2262,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zipWithNext", () {
     test("zipWithNext", () {
       final result = iterableOf([1, 2, 3]).zipWithNext();
-      expect(result, listOf(KPair(1, 2), KPair(2, 3)));
+      expect(result, listOf(KtPair(1, 2), KtPair(2, 3)));
     });
   });
 

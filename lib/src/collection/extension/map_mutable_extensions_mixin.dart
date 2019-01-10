@@ -20,7 +20,7 @@ abstract class KtMutableMapExtensionsMixin<K, V>
   KtMutableIterator<KtMutableMapEntry<K, V>> iterator() => entries.iterator();
 
   @override
-  void putAllPairs(KtIterable<KPair<K, V>> pairs) {
+  void putAllPairs(KtIterable<KtPair<K, V>> pairs) {
     assert(() {
       if (pairs == null) throw ArgumentError("pairs can't be null");
       return true;

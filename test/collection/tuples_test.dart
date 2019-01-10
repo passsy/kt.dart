@@ -2,60 +2,63 @@ import 'package:kotlin_dart/collection.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group("KPair", () {
+  group("KtPair", () {
     test("returns values put inside", () {
-      final pair = KPair("a", "b");
+      final pair = KtPair("a", "b");
       expect(pair.first, "a");
       expect(pair.second, "b");
     });
 
     test("equals based on items", () {
-      expect(KPair("a", "b"), KPair("a", "b"));
-      expect(KPair("a", "b").hashCode, KPair("a", "b").hashCode);
-      expect(KPair("a", "b"), isNot(equals(KPair("a", "c"))));
-      expect(KPair("a", "b").hashCode, isNot(equals(KPair("a", "c").hashCode)));
-      expect(KPair("a", "b"), isNot(equals(KPair("c", "b"))));
-      expect(KPair("a", "b").hashCode, isNot(equals(KPair("c", "b").hashCode)));
+      expect(KtPair("a", "b"), KtPair("a", "b"));
+      expect(KtPair("a", "b").hashCode, KtPair("a", "b").hashCode);
+      expect(KtPair("a", "b"), isNot(equals(KtPair("a", "c"))));
+      expect(
+          KtPair("a", "b").hashCode, isNot(equals(KtPair("a", "c").hashCode)));
+      expect(KtPair("a", "b"), isNot(equals(KtPair("c", "b"))));
+      expect(
+          KtPair("a", "b").hashCode, isNot(equals(KtPair("c", "b").hashCode)));
 
-      expect(KPair(null, null), KPair(null, null));
-      expect(KPair(null, null).hashCode, KPair(null, null).hashCode);
+      expect(KtPair(null, null), KtPair(null, null));
+      expect(KtPair(null, null).hashCode, KtPair(null, null).hashCode);
     });
 
     test("toString", () {
-      expect(KPair("a", "b").toString(), "(a, b)");
-      expect(KPair(null, null).toString(), "(null, null)");
+      expect(KtPair("a", "b").toString(), "(a, b)");
+      expect(KtPair(null, null).toString(), "(null, null)");
     });
   });
 
-  group("KTriple", () {
+  group("KtTriple", () {
     test("returns values put inside", () {
-      final pair = KTriple("a", "b", "c");
+      final pair = KtTriple("a", "b", "c");
       expect(pair.first, "a");
       expect(pair.second, "b");
       expect(pair.third, "c");
     });
 
     test("equals based on items", () {
-      expect(KTriple("a", "b", "c"), KTriple("a", "b", "c"));
-      expect(KTriple("a", "b", "c").hashCode, KTriple("a", "b", "c").hashCode);
-      expect(KTriple("a", "b", "c"), isNot(equals(KTriple("x", "b", "c"))));
-      expect(KTriple("a", "b", "c").hashCode,
-          isNot(equals(KTriple("x", "b", "c").hashCode)));
-      expect(KTriple("a", "b", "c"), isNot(equals(KTriple("a", "x", "c"))));
-      expect(KTriple("a", "b", "c").hashCode,
-          isNot(equals(KTriple("a", "x", "c").hashCode)));
-      expect(KTriple("a", "b", "c"), isNot(equals(KTriple("a", "b", "x"))));
-      expect(KTriple("a", "b", "c").hashCode,
-          isNot(equals(KTriple("a", "b", "x").hashCode)));
+      expect(KtTriple("a", "b", "c"), KtTriple("a", "b", "c"));
+      expect(
+          KtTriple("a", "b", "c").hashCode, KtTriple("a", "b", "c").hashCode);
+      expect(KtTriple("a", "b", "c"), isNot(equals(KtTriple("x", "b", "c"))));
+      expect(KtTriple("a", "b", "c").hashCode,
+          isNot(equals(KtTriple("x", "b", "c").hashCode)));
+      expect(KtTriple("a", "b", "c"), isNot(equals(KtTriple("a", "x", "c"))));
+      expect(KtTriple("a", "b", "c").hashCode,
+          isNot(equals(KtTriple("a", "x", "c").hashCode)));
+      expect(KtTriple("a", "b", "c"), isNot(equals(KtTriple("a", "b", "x"))));
+      expect(KtTriple("a", "b", "c").hashCode,
+          isNot(equals(KtTriple("a", "b", "x").hashCode)));
 
-      expect(KTriple(null, null, null), KTriple(null, null, null));
-      expect(KTriple(null, null, null).hashCode,
-          KTriple(null, null, null).hashCode);
+      expect(KtTriple(null, null, null), KtTriple(null, null, null));
+      expect(KtTriple(null, null, null).hashCode,
+          KtTriple(null, null, null).hashCode);
     });
 
     test("toString", () {
-      expect(KTriple("a", "b", "c").toString(), "(a, b, c)");
-      expect(KTriple(null, "b", null).toString(), "(null, b, null)");
+      expect(KtTriple("a", "b", "c").toString(), "(a, b, c)");
+      expect(KtTriple(null, "b", null).toString(), "(null, b, null)");
     });
   });
 }

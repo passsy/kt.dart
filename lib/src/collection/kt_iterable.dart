@@ -43,7 +43,7 @@ abstract class KtIterableExtension<T> {
    *
    * The returned map preserves the entry iteration order of the original collection.
    */
-  KtMap<K, V> associate<K, V>(KPair<K, V> Function(T) transform);
+  KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform);
 
   /**
    * Returns a [Map] containing the elements from the given collection indexed by the key
@@ -84,7 +84,7 @@ abstract class KtIterableExtension<T> {
    * If any of two pairs would have the same key the last one gets added to the map.
    */
   M associateTo<K, V, M extends KtMutableMap<K, V>>(
-      M destination, KPair<K, V> Function(T) transform);
+      M destination, KtPair<K, V> Function(T) transform);
 
   /**
    * Returns a [Map] where keys are elements from the given collection and values are
@@ -557,7 +557,7 @@ abstract class KtIterableExtension<T> {
    * where *first* list contains elements for which [predicate] yielded `true`,
    * while *second* list contains elements for which [predicate] yielded `false`.
    */
-  KPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate);
+  KtPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate);
 
   /**
    * Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
@@ -746,7 +746,7 @@ abstract class KtIterableExtension<T> {
    * Returns a list of pairs built from the elements of `this` collection and [other] collection with the same index.
    * The returned list has length of the shortest collection.
    */
-  KtList<KPair<T, R>> zip<R>(KtIterable<R> other);
+  KtList<KtPair<T, R>> zip<R>(KtIterable<R> other);
 
   /**
    * Returns a list of values built from the elements of `this` collection and the [other] collection with the same index
@@ -761,7 +761,7 @@ abstract class KtIterableExtension<T> {
    *
    * The returned list is empty if this collection contains less than two elements.
    */
-  KtList<KPair<T, T>> zipWithNext<R>();
+  KtList<KtPair<T, T>> zipWithNext<R>();
 
   /**
    * Returns a list containing the results of applying the given [transform] function
