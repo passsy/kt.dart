@@ -219,9 +219,9 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
       });
       pokemon.putAllPairs(listFrom([
-        KPair(2, "Dito"),
-        KPair(3, "Venusaur"),
-        KPair(4, "Charmander"),
+        KtPair(2, "Dito"),
+        KtPair(3, "Venusaur"),
+        KtPair(4, "Charmander"),
       ]));
       expect(pokemon.size, 4);
       expect(pokemon[3], "Venusaur");
@@ -235,7 +235,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
       });
       pokemon.putAllPairs(listFrom([
-        KPair(2, "Dito"),
+        KtPair(2, "Dito"),
       ]));
       expect(pokemon.size, 2);
       expect(pokemon[2], "Dito");

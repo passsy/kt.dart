@@ -18,13 +18,13 @@ KtSet<Product> getOrderedProducts(Customer customer) {
   return customer.orders.flatMap((it) => it.products).toSet();
 }
 
-KtList<KTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
+KtList<KtTriple<Product, int, int>> getAllOrderedProducts(Shop shop) {
   return shop.customers
       .flatMap((it) => getOrderedProducts(it))
       .groupBy((it) => it)
       .mapValues((entry) => entry.value.count())
       .entries
-      .map((entry) => KTriple(
+      .map((entry) => KtTriple(
           entry.key, entry.value, (entry.value * entry.key.price).toInt()))
       .sortedByDescending<num>((entry) => entry.third);
 }
