@@ -1,4 +1,4 @@
-import 'package:kotlin_dart/collection.dart';
+import 'package:kt_dart/collection.dart';
 
 abstract class KtMutableMapExtensionsMixin<K, V>
     implements KtMutableMapExtension<K, V>, KtMutableMap<K, V> {

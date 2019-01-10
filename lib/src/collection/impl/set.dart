@@ -1,7 +1,7 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kotlin_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kotlin_dart/src/util/hash.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
+import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
+import 'package:kt_dart/src/util/hash.dart';
 
 class DartSet<T>
     with KtIterableExtensionsMixin<T>, KtCollectionExtensionMixin<T>

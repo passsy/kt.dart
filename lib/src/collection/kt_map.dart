@@ -1,6 +1,6 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/collection/impl/map.dart';
-import 'package:kotlin_dart/src/collection/impl/map_empty.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/map.dart';
+import 'package:kt_dart/src/collection/impl/map_empty.dart';
 
 /**
  * A collection that holds pairs of objects (keys and values) and supports efficiently retrieving

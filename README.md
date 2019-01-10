@@ -1,9 +1,11 @@
-# kotlin.dart
+# kt.dart
 
-[![Pub](https://img.shields.io/pub/v/kotlin_dart.svg)](https://pub.dartlang.org/packages/kotlin_dart)
-[![codecov](https://codecov.io/gh/passsy/kotlin.dart/branch/master/graph/badge.svg)](https://codecov.io/gh/passsy/kotlin.dart)
+[![Pub](https://img.shields.io/pub/v/kt_dart.svg)](https://pub.dartlang.org/packages/kt_dart)
+[![codecov](https://codecov.io/gh/passsy/kt.dart/branch/master/graph/badge.svg)](https://codecov.io/gh/passsy/kt.dart)
 
-![](https://user-images.githubusercontent.com/1096485/50977811-56f4c100-14f3-11e9-8b44-389fa97f63b0.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/1096485/50989937-068c5c00-1511-11e9-98c4-674fd64caa27.png">
+</p>
 
 This project is a port of Kotlins [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which can improve every Dart/Flutter app. 
 
@@ -40,7 +42,7 @@ void addDevice(List<Widget> widgets, Device device) {
 }
 ```
 
-### `kotlin.dart` collections
+### `kt.dart` collections
 
 `KtList` and `KtMutableList` are two different Types. `KtList` is immutable by default and has no mutation methods (such as `add`). Methods like `map((T)->R)` or `plusElement(T)` return a new `KtList` leaving the old one unmodified.
 ```dart
@@ -104,7 +106,7 @@ Function deepEq = const DeepCollectionEquality().equals;
 print(deepEq(x, y)); // true, finally
 ```
 
-### `kotlin.dart` collections
+### `kt.dart` collections
 
 `KtList` and all other collection types implement `equals` by deeply comparing all items.
 
@@ -133,7 +135,7 @@ final kList = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9));
 final dFlat = dList.expand((l) => l).toList();
 print(dFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-// kotlin.dart
+// kt.dart
 final kFlat = kList.flatMap((l) => l);
 print(kFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
@@ -147,7 +149,7 @@ final kNames = listFrom(dNames);
 final dShortNames = dNames.where((name) => name.length <= 4).toList();
 print(dShortNames); // [Chet, Tor, Jake]
 
-// kotlin.dart
+// kt.dart
 final kShortNames = kNames.filter((name) => name.length <= 4);
 print(kShortNames); // [Chet, Tor, Jake]
 ```
@@ -162,7 +164,7 @@ dNames.firstWhere((name) => name.contains("k")); // Jake
 dNames.firstWhere((name) => name.contains("x"), orElse: () => null); // null
 dNames.firstWhere((name) => name.contains("x"), orElse: () => "Nobody"); // Nobody
 
-// kotlin.dart
+// kt.dart
 kNames.first((name) => name.contains("k")); // Jake
 kNames.firstOrNull((name) => name.contains("x")); // null
 kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
@@ -171,9 +173,9 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 
 # Packages
 
-> ## [annotation](https://github.com/passsy/kotlin.dart/tree/master/lib/src/annotation)
+> ## [annotation](https://github.com/passsy/kt.dart/tree/master/lib/src/annotation)
 >
-> `import 'package:kotlin_dart/annotation.dart';`
+> `import 'package:kt_dart/annotation.dart';`
 > 
 > Annotations such as `@nullable` or `@nonNull` giving hints about method return and argument types
 >
@@ -181,7 +183,7 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 
 > ## [collection](https://github.com/passsy/kt_stdlib/tree/master/lib/src/collection)
 >
-> `import 'package:kotlin_dart/collection.dart';`
+> `import 'package:kt_dart/collection.dart';`
 > 
 > Collection types, such as `KtIterable`, `KtCollection`, `KtList`, `KtSet`, `KtMap`  with over 150 methods as well as related top-level functions.
 The collections are immutable by default but offer a mutable counterpart i.e. `KtMutableList`.

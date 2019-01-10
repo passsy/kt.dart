@@ -1,4 +1,4 @@
-import 'package:kotlin_dart/collection.dart';
+import 'package:kt_dart/collection.dart';
 
 /**
  * A generic collection of elements that supports adding and removing elements.

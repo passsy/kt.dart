@@ -1,6 +1,6 @@
-import 'package:kotlin_dart/collection.dart';
-import 'package:kotlin_dart/src/collection/extension/map_extensions_mixin.dart';
-import 'package:kotlin_dart/src/util/hash.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
+import 'package:kt_dart/src/util/hash.dart';
 import 'package:test/test.dart';
 
 import '../test/assert_dart.dart';
