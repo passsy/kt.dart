@@ -4,9 +4,13 @@
 
 # Deprecated 
 
+>## Notice
+>This project does **not** convert Kotlin to Dart. To prevent that confusion it was renamed.
+
 ### Please migrate to [kt.dart](https://github.com/passsy/kt.dart)
 
-This package has been discontinued. It was renamed to [`kt.dart`](https://github.com/passsy/kt.dart). All code can be found [here](https://github.com/passsy/kt.dart).
+This package has been renamed to [`kt.dart`](https://github.com/passsy/kt.dart).
+All code can be found [here](https://github.com/passsy/kt.dart).
 
 
 ### Upgrade
@@ -23,6 +27,7 @@ dependencies:
 - import 'package:kotlin_dart/kotlin.dart';
 + import 'package:kt_dart/kt.dart';
 ```
+
 
 ## License
 
