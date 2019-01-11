@@ -1,6 +1,6 @@
 name: dart_kollection
 description: Brings Kotlins colletions (List, Set, Map) to Dart. Unlike Darts collections kollections are immutable by default but offer special `Mutable` types.
-version: 0.3.1
+version: 0.3.2
 homepage: https://github.com/passsy/dart_kollection
 author: Pascal Welsch <pascal.welsch@gmail.com>
 
