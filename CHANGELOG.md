@@ -1,23 +1,48 @@
 ## 0.5.0 (unreleased)
 
-[diff v0.4.2...master](https://github.com/passsy/kotlin.dart/compare/v0.4.2...master)
+[diff v0.4.2...v0.5.0](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.5.0)
 
+Project has been renamed to `kt.dart`. If you're using a previous version upgrade like this:
+
+`pubspec.yaml`
+```diff
+dependencies:
+-  dart_kollection: ^0.3.0
+-  kotlin_dart: ^0.4.0
++  kt_dart: ^0.5.0
+```
+
+`your_source.dart`
+```diff
+- import 'package:dart_kollection/dart_kollection.dart';
+- import 'package:kotlin_dart/kotlin.dart';
++ import 'package:kt_dart/kt.dart';
+```
+
+- [#66](https://github.com/passsy/kt.dart/pull/66) Rename `KPair` -> `KtPair` and `KTriple` -> `KtTriple`
+- [#67](https://github.com/passsy/kt.dart/pull/67) Rename package `kotlin_dart` -> `kt_dart`
+
+## 0.4.3
+
+[diff v0.4.2...v0.4.3](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.4.3)
+
+Deprecate package `kotlin.dart` and recommend users to migrate to `kt.dart`.
 
 ## 0.4.2
 
-[diff v0.4.1...v0.4.2](https://github.com/passsy/kotlin.dart/compare/v0.4.1...v0.4.2)
+[diff v0.4.1...v0.4.2](https://github.com/passsy/kt.dart/compare/v0.4.1...v0.4.2)
 
 Shorten pub project description to make pana happy.
 
 ## 0.4.1
 
-[diff v0.4.0...v0.4.1](https://github.com/passsy/kotlin.dart/compare/v0.4.0...v0.4.1)
+[diff v0.4.0...v0.4.1](https://github.com/passsy/kt.dart/compare/v0.4.0...v0.4.1)
 
 Improve Readme which renders correctly on pub.
 
 ## 0.4.0
 
-[diff v0.3.0...v0.4.0](https://github.com/passsy/kotlin.dart/compare/v0.3.0...v0.4.0)
+[diff v0.3.0...v0.4.0](https://github.com/passsy/kt.dart/compare/v0.3.0...v0.4.0)
 
 The `kollection` project was migrated to `kotlin.dart` where `kollection` becomes the `collection` module.
 
@@ -120,14 +145,14 @@ Here is a list of all collection creation APIs.
 
 ## 0.3.1
 
-[diff v0.3.0...v0.3.1](https://github.com/passsy/kotlin.dart/compare/v0.3.0...v0.3.1)
+[diff v0.3.0...v0.3.1](https://github.com/passsy/kt.dart/compare/v0.3.0...v0.3.1)
 
 Deprecate all APIs and advise users to upgrade to `kotlin.dart`
 
 
 ## 0.3.0
 
-[diff v0.2.0...v0.3.0](https://github.com/passsy/kotlin.dart/compare/v0.2.0...v0.3.0)
+[diff v0.2.0...v0.3.0](https://github.com/passsy/kt.dart/compare/v0.2.0...v0.3.0)
 
 ### Summary
 
@@ -190,7 +215,7 @@ expect(result, listOf([4, -12]));
 
 ## 0.2.0
 
-[diff v0.1.0...v0.2.0](https://github.com/passsy/dart_kollection/compare/v0.1.0...v0.2.0)
+[diff v0.1.0...v0.2.0](https://github.com/passsy/kt.dart/compare/v0.1.0...v0.2.0)
 
 ### Behavior change
 - [#6](https://github.com/passsy/dart_kollection/pull/6) Breaking: `KMutableIterator.remove` now throws `UnimplementedError` because of bug [#5](https://github.com/passsy/dart_kollection/issues/5)
