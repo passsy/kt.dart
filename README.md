@@ -4,9 +4,10 @@
 
 # Deprecated 
 
-### Please migrate to [kotlin.dart](https://github.com/passsy/kotlin.dart)
+### Please migrate to [kt.dart](https://github.com/passsy/kt.dart)
 
-This project has been discontinued. It became a part of [`kotlin.dart`](https://github.com/passsy/kotlin.dart). All code can be found [there](https://github.com/passsy/kotlin.dart/tree/master/lib/src/collection).
+This package has been renamed to [`kt.dart`](https://github.com/passsy/kt.dart).
+All code can be found [here](https://github.com/passsy/kt.dart).
 
 
 ### Upgrade
@@ -15,13 +16,13 @@ This project has been discontinued. It became a part of [`kotlin.dart`](https://
 ```diff
 dependencies:
 -  dart_kollection: ^0.3.0
-+  kotlin_dart: ^0.4.0
++  kt_dart: ^0.5.0
 ```
 
 `your_source.dart`
 ```diff
 - import 'package:dart_kollection/dart_kollection.dart';
-+ import 'package:kotlin_dart/kotlin.dart';
++ import 'package:kt_dart/kt.dart';
 ```
 
 ## License
