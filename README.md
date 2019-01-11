@@ -1,6 +1,6 @@
 # kotlin.dart
 
-[![Pub](https://img.shields.io/pub/v/kotlin.dart.svg)](https://pub.dartlang.org/packages/kotlin_dart)
+[![Pub](https://img.shields.io/pub/v/kotlin_dart.svg)](https://pub.dartlang.org/packages/kotlin_dart)
 
 # Deprecated 
 
