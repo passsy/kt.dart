@@ -1,6 +1,6 @@
 name: kotlin_dart
 description: This project is a port of kotlin-stdlib for Dart/Flutter projects. It includes collections (KtList, KtMap, KtSet) with 150+ methods as well as other useful packages.
-version: 0.4.2
+version: 0.4.3
 homepage: https://github.com/passsy/kotlin.dart
 author: Pascal Welsch <pascal.welsch@gmail.com>
 
