@@ -7,6 +7,7 @@ import 'package:kotlin_dart/kotlin.dart';
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtList<T> listOf<T>(
         [T arg0,
         T arg1,
@@ -23,12 +24,14 @@ KtList<T> listOf<T>(
 /**
  * Returns a new read-only list based on [elements].
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtList<T> listFrom<T>([Iterable<T> elements = const []]) =>
     KtList.from(elements);
 
 /**
  * Returns an empty read-only list.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtList<T> emptyList<T>() => KtList.empty();
 
 /**
@@ -36,6 +39,7 @@ KtList<T> emptyList<T>() => KtList.empty();
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableList<T> mutableListOf<T>(
     [T arg0,
     T arg1,
@@ -54,6 +58,7 @@ KtMutableList<T> mutableListOf<T>(
 /**
  * Returns a new mutable list based on [elements].
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
     KtMutableList.from(elements);
 
@@ -61,11 +66,13 @@ KtMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
  * Returns an immutable map, mapping only the specified key to the
  * specified value.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KtMap.from(map);
 
 /**
  * Returns an empty read-only map of specified type.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMap<K, V> emptyMap<K, V>() => KtMap.empty();
 
 /**
@@ -76,6 +83,7 @@ KtMap<K, V> emptyMap<K, V>() => KtMap.empty();
  *
  * Entries of the map are iterated in the order they were specified.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
     KtMutableMap.from(map);
 
@@ -83,6 +91,7 @@ KtMutableMap<K, V> mutableMapFrom<K, V>([Map<K, V> map = const {}]) =>
  * Returns a new [HashMap] with the specified contents, given as a list of pairs
  * where the first component is the key and the second is the value.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtHashMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
     KtHashMap.from(map);
 
@@ -94,6 +103,7 @@ KtHashMap<K, V> hashMapFrom<K, V>([Map<K, V> map = const {}]) =>
  *
  * Entries of the map are iterated in the order they were specified.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
     KtLinkedMap.from(map);
 
@@ -103,6 +113,7 @@ KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtSet<T> setOf<T>(
         [T arg0,
         T arg1,
@@ -120,11 +131,13 @@ KtSet<T> setOf<T>(
  * Returns a new read-only set based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtSet<T> setFrom<T>([Iterable<T> elements = const []]) => KtSet.from(elements);
 
 /**
  * Returns an empty read-only set.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtSet<T> emptySet<T>() => KtSet.empty();
 
 /**
@@ -133,6 +146,7 @@ KtSet<T> emptySet<T>() => KtSet.empty();
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableSet<T> mutableSetOf<T>(
     [T arg0,
     T arg1,
@@ -152,6 +166,7 @@ KtMutableSet<T> mutableSetOf<T>(
  * Returns a new [LinkedHashSet] based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
     KtMutableSet.from(elements);
 
@@ -161,6 +176,7 @@ KtMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtLinkedSet<T> linkedSetOf<T>(
     [T arg0,
     T arg1,
@@ -180,6 +196,7 @@ KtLinkedSet<T> linkedSetOf<T>(
  * Returns a new [LinkedHashSet] based on [elements].
  * Elements of the set are iterated in the order they were specified.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
     KtLinkedSet.from(elements);
 
@@ -189,6 +206,7 @@ KtLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
  *
  * Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtHashSet<T> hashSetOf<T>(
     [T arg0,
     T arg1,
@@ -208,5 +226,6 @@ KtHashSet<T> hashSetOf<T>(
  * Returns a new [HashSet] based on [elements].
  * Elements of the set are iterated in unpredictable order.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 KtMutableSet<T> hashSetFrom<T>([Iterable<T> elements = const []]) =>
     KtHashSet.from(elements);

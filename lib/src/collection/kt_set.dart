@@ -10,13 +10,16 @@ import 'package:kotlin_dart/src/util/arguments.dart';
  * @param E the type of elements contained in the set. The set is covariant on its element type.
  */
 abstract class KtSet<T> implements KtCollection<T> {
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtSet.empty() => EmptySet<T>();
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtSet.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptySet<T>();
     return DartSet(elements);
   }
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtSet.of(
       [T arg0,
       T arg1,

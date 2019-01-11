@@ -9,8 +9,10 @@ import 'package:kotlin_dart/src/collection/impl/map_mutable.dart';
  */
 abstract class KtMutableMap<K, V>
     implements KtMap<K, V>, KtMutableMapExtension<K, V> {
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableMap.empty() => DartMutableMap<K, V>();
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableMap.from([Map<K, V> map = const {}]) => DartMutableMap(map);
 
   // Modification Operations

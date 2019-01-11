@@ -6,15 +6,19 @@ import 'package:kotlin_dart/src/util/arguments.dart';
  * A generic ordered collection of elements that supports adding and removing elements.
  * @param E the type of elements contained in the list. The mutable list is invariant on its element type.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 abstract class KtMutableList<T>
     implements KtList<T>, KtMutableCollection<T>, KtMutableListExtension<T> {
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableList.empty() => DartMutableList<T>();
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableList.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return DartMutableList<T>();
     return DartMutableList(elements);
   }
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableList.of(
       [T arg0,
       T arg1,

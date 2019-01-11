@@ -7,13 +7,17 @@ import 'package:kotlin_dart/src/util/arguments.dart';
  * adding and removing elements.
  * @param [T] the type of elements contained in the set. The mutable set is invariant on its element type.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableSet.empty() => KtMutableSet.from();
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableSet.from([Iterable<T> elements = const []]) {
     return DartMutableSet(elements);
   }
 
+  @Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
   factory KtMutableSet.of(
       [T arg0,
       T arg1,

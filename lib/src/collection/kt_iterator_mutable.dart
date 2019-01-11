@@ -4,6 +4,7 @@ import 'package:kotlin_dart/collection.dart';
  * An iterator over a mutable collection. Provides the ability to remove elements while iterating.
  * @see MutableCollection.iterator
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 abstract class KtMutableIterator<T> implements KtIterator<T> {
   /**
    * Removes from the underlying collection the last element returned by this iterator.

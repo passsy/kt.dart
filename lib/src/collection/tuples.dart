@@ -9,6 +9,7 @@
  * @property first First value.
  * @property second Second value.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 class KPair<A, B> {
   KPair(this.first, this.second);
 
@@ -43,6 +44,7 @@ class KPair<A, B> {
  * @property second Second value.
  * @property third Third value.
  */
+@Deprecated("Please migrate to kt.dart https://github.com/passsy/kt.dart")
 class KTriple<A, B, C> {
   KTriple(this.first, this.second, this.third);
 
