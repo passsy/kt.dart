@@ -1,4 +1,4 @@
-## 0.5.0 (unreleased)
+## 0.5.0
 
 [diff v0.4.2...v0.5.0](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.5.0)
 
@@ -26,7 +26,7 @@ dependencies:
 
 [diff v0.4.2...v0.4.3](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.4.3)
 
-Deprecate package `kotlin.dart` and recommend users to migrate to `kt.dart`.
+Deprecate package `kotlin_dart` and recommend users to migrate to `kt_dart`.
 
 ## 0.4.2
 
@@ -142,6 +142,12 @@ Here is a list of all collection creation APIs.
   KLinkedMap<int, String>.empty();
   KLinkedMap.from({1: "a", 2: "b"});
 ```
+
+## 0.3.2
+
+[diff v0.3.1...v0.3.12](https://github.com/passsy/kt.dart/compare/v0.3.1...v0.3.2)
+
+Deprecate package `dart_kollection` in favour of `kt_dart`
 
 ## 0.3.1
 
