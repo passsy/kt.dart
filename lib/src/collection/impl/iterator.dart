@@ -90,7 +90,8 @@ class InterOpKtListIterator<T>
   @override
   void set(T element) {
     if (lastRet < 0)
-      throw "illegal cursor state -1. next() or previous() not called";
+      throw IndexOutOfBoundsException(
+          "illegal cursor state -1. next() or previous() not called");
     list.replaceRange(lastRet, lastRet + 1, [element]);
   }
 }

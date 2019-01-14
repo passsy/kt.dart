@@ -75,5 +75,10 @@ void main() {
       expect(i.next(), equals("b"));
       expect(i.previous(), equals("b"));
     });
+    test("set requires next() before beeing called", () {
+      final i = InterOpKtListIterator(["a", "b"], 0);
+      final e = catchException<IndexOutOfBoundsException>(() => i.set("x"));
+      expect(e.message, allOf(contains("-1"), contains("next()")));
+    });
   });
 }
