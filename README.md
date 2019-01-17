@@ -7,21 +7,21 @@
   <img src="https://user-images.githubusercontent.com/1096485/51038827-6e47b300-15b4-11e9-8618-da9f2af61738.png">
 </p>
 
-This project is a port of Kotlins [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as and other packages which can improve every Dart/Flutter app. 
+This project is a port of Kotlin's [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as other packages which can improve every Dart/Flutter app. 
 
 
 ## Motivation
 
-Dart's [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) package provides basic building blocks. But sometimes they are too low leven and not as straight-forward as Kotlins [`kotlin-stdlib`](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
+Dart's [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) package provides basic building blocks. But sometimes they are too low level and not as straightforward as Kotlin's [`kotlin-stdlib`](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
 
-Here are a few examples what this project offers: _(click to expand)_
+Here are a few examples of what this project offers: _(click to expand)_
 
 <details>
   <summary>Immutable collections by default</summary>
 
 ### `dart:core` collections
 
-Dart's `List` is mutable by default. The immutable `List.unmodifiable` is the same type but the mutation methods throw at runtime.
+Dart's `List` is mutable by default. The immutable `List.unmodifiable` is the same type, but the mutation methods throw at runtime.
 
 ```dart
 final dartList = [1, 2, 3];
@@ -32,7 +32,7 @@ final immutableDartList = List.unmodifiable(dartList);
 immutableDartList.add(5); // throws: Unsupported operation: Cannot add to an unmodifiable list
 ```
 
-Dart's mutable `List` is undistinguishable from an immutable `List` which might cause errors.
+Dart's mutable `List` is indistinguishable from an immutable `List` which might cause errors.
 ```dart
 void addDevice(List<Widget> widgets, Device device) {
   // no way to check whether widgets is mutable or not
@@ -66,7 +66,7 @@ mutableKtList.add(4); // works!
 assert(mutableKtList.size == 4);
 ```
 
-All collection types has mutable counterparts:
+All collection types have mutable counterparts:
 
 |Immutable|Mutable|
 |---|---|
@@ -83,7 +83,7 @@ All collection types has mutable counterparts:
 
 ### `dart:core` collections
 
-Dart's `List` works like a `Array` in Java. Equals doesn't compare the items, equals only checks the identity.
+Dart's `List` works like a `Array` in Java. `Equals` doesn't compare the items; it only checks the identity.
 To compare the contents you have to use helper methods methods from `'package:collection/collection.dart'`.
 
 ```dart
@@ -92,7 +92,7 @@ final a = [1, 2, 3, 4];
 final b = [1, 2, 3, 4];
 print(a == b); // false, huh?
 
-// content based comparisons require unnecessary glue code
+// Content-based comparisons require unnecessary glue code
 Function listEq = const ListEquality().equals;
 print(listEq(a, b)); // true
 
