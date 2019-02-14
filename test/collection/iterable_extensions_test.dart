@@ -1312,6 +1312,11 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(() => emptyIterable().last((it) => it == "x"),
           throwsA(TypeMatcher<NoSuchElementException>()));
     });
+
+    test("returns null when null is the last element", () {
+      expect(listFrom([1, 2, null]).last(), null);
+      expect(listFrom([1, null, 2]).last(), 2);
+    });
   });
 
   group("lastOrNull", () {
@@ -1985,7 +1990,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.take(0).toList(), emptyList());
     });
 
-    test("take negative returns empty", () {
+    test("take negative throws", () {
       final iterable = iterableOf([1, 2, 3, 4]);
       final e = catchException<ArgumentError>(() => iterable.take(-3));
       expect(e.message, allOf(contains("-3"), contains("less than zero")));
