@@ -244,4 +244,23 @@ abstract class KtListExtensionsMixin<T>
     }
     return list;
   }
+
+  @override
+  KtList<T> takeLast(int n) {
+    assert(() {
+      if (n == null) throw ArgumentError("n can't be null");
+      return true;
+    }());
+    if (n < 0) {
+      throw ArgumentError("Requested element count $n is less than zero.");
+    }
+    if (n == 0) return emptyList();
+    if (n >= size) return toList();
+    if (n == 1) return listFrom([last()]);
+    final list = mutableListOf<T>();
+    for (var i = size - n; i < size; i++) {
+      list.add(get(i));
+    }
+    return list;
+  }
 }

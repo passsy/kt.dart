@@ -202,4 +202,9 @@ abstract class KtListExtension<T> {
    * Returns a list containing elements at specified [indices].
    */
   KtList<T> slice(KtIterable<int> indices);
+
+  /**
+   * Returns a list containing last [n] elements.
+   */
+  KtList<T> takeLast(int n);
 }

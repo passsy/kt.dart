@@ -267,4 +267,39 @@ void testList(
       expect(e.message, allOf(contains("size: 3"), contains("index: -1")));
     });
   });
+
+  group("takeLast", () {
+    test("takeLast zero returns empty", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLast(0).toList(), emptyList());
+    });
+
+    test("take negative throws", () {
+      final list = listOf(1, 2, 3, 4);
+      final e = catchException<ArgumentError>(() => list.takeLast(-3));
+      expect(e.message, allOf(contains("-3"), contains("less than zero")));
+    });
+
+    test("take more than size returns full list", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLast(10).toList(), list.toList());
+    });
+
+    test("take smaller list size returns last elements", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLast(2).toList(), listOf(3, 4));
+    });
+
+    test("takeLast doesn't allow null as n", () {
+      final list = emptyList<num>();
+      var e = catchException<ArgumentError>(() => list.takeLast(null));
+      expect(e.message, allOf(contains("null"), contains("n")));
+    });
+
+    test("take last element which is null", () {
+      final list = listFrom([1, null]);
+      expect(list.takeLast(1).toList(), listFrom<int>([null]));
+      expect(list.takeLast(2).toList(), listFrom([1, null]));
+    });
+  });
 }
