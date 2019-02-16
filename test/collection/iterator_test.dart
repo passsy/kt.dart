@@ -18,7 +18,7 @@ void main() {
 
     test("nextIndex when next exists", () {
       final i = InterOpKtListIterator(["a", "b"], 0);
-      expect(i.nextIndex(), 1);
+      expect(i.nextIndex(), 0);
     });
 
     test("previousIndex when next exists", () {
@@ -65,7 +65,7 @@ void main() {
     });
 
     test("set modifies current item", () {
-      var dartList = ["a", "b"];
+      final dartList = ["a", "b"];
       final i = InterOpKtListIterator(dartList, 0);
       expect(i.next(), equals("a"));
       i.set("x");
@@ -80,5 +80,58 @@ void main() {
       final e = catchException<IndexOutOfBoundsException>(() => i.set("x"));
       expect(e.message, allOf(contains("-1"), contains("next()")));
     });
+  });
+
+  test("iterate backwards", () {
+    final iter = listOf("a", "b", "c").listIterator(3);
+    expect(iter.hasNext(), isFalse);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 2);
+    expect(iter.nextIndex(), 3);
+    expect(iter.previous(), "c");
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 1);
+    expect(iter.nextIndex(), 2);
+    expect(iter.previous(), "b");
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 0);
+    expect(iter.nextIndex(), 1);
+    expect(iter.previous(), "a");
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isFalse);
+    expect(iter.previousIndex(), -1);
+    expect(iter.nextIndex(), 0);
+  });
+
+  test("iterate forwards", () {
+    final iter = listOf("a", "b", "c").listIterator(0);
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isFalse);
+    expect(iter.previousIndex(), -1);
+    expect(iter.nextIndex(), 0);
+    expect(iter.next(), "a");
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 0);
+    expect(iter.nextIndex(), 1);
+    expect(iter.next(), "b");
+
+    expect(iter.hasNext(), isTrue);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 1);
+    expect(iter.nextIndex(), 2);
+    expect(iter.next(), "c");
+
+    expect(iter.hasNext(), isFalse);
+    expect(iter.hasPrevious(), isTrue);
+    expect(iter.previousIndex(), 2);
+    expect(iter.nextIndex(), 3);
   });
 }
