@@ -62,7 +62,7 @@ class DartList<T>
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KtIterator<T> iterator() => InterOpKIterator(_list.iterator);
+  KtIterator<T> iterator() => InterOpKtIterator(_list.iterator);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);

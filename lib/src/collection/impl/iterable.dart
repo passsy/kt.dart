@@ -9,7 +9,16 @@ class EmptyIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   Iterable<T> get iter => EmptyDartIterable<T>();
 
   @override
-  KtIterator<T> iterator() => InterOpKIterator(iter.iterator);
+  KtIterator<T> iterator() => InterOpKtIterator(iter.iterator);
+}
+
+class KtToDartIterable<T> extends Iterable<T> {
+  KtToDartIterable(this.iterable);
+
+  final KtIterable<T> iterable;
+
+  @override
+  Iterator<T> get iterator => DartToKtIterator(iterable.iterator());
 }
 
 class DartIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
@@ -21,7 +30,7 @@ class DartIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   Iterable<T> get iter => _iterable;
 
   @override
-  KtIterator<T> iterator() => InterOpKIterator(_iterable.iterator);
+  KtIterator<T> iterator() => InterOpKtIterator(_iterable.iterator);
 }
 
 class DartMutableIterable<T> extends KtMutableIterable<T>
