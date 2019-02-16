@@ -207,4 +207,9 @@ abstract class KtListExtension<T> {
    * Returns a list containing last [n] elements.
    */
   KtList<T> takeLast(int n);
+
+  /**
+   * Returns a list containing last elements satisfying the given [predicate].
+   */
+  KtList<T> takeLastWhile(bool Function(T) predicate);
 }

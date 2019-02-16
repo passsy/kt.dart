@@ -263,4 +263,27 @@ abstract class KtListExtensionsMixin<T>
     }
     return list;
   }
+
+  @override
+  KtList<T> takeLastWhile(bool Function(T) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) return emptyList();
+    final iterator = listIterator(size);
+    while (iterator.hasPrevious()) {
+      if (!predicate(iterator.previous())) {
+        iterator.next();
+        final expectedSize = size - iterator.nextIndex();
+        if (expectedSize == 0) return emptyList();
+        final list = mutableListOf<T>();
+        while (iterator.hasNext()) {
+          list.add(iterator.next());
+        }
+        return list;
+      }
+    }
+    return toList();
+  }
 }
