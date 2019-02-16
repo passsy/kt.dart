@@ -2023,6 +2023,31 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     }
   });
 
+  group("takeWhile", () {
+    test("take no elements returns empty", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      expect(iterable.takeWhile((it) => false), emptyList());
+    });
+
+    test("take all elements returns original list", () {
+      final iterable = iterableOf([1, 2, 3, 4]);
+      expect(iterable.takeWhile((it) => true), iterable.toList());
+    });
+
+    if (ordered) {
+      test("takeWhile smaller 3", () {
+        final iterable = iterableOf([1, 2, 3, 4]);
+        expect(iterable.takeWhile((it) => it < 3), listOf(1, 2));
+      });
+    }
+
+    test("predicate can't be null", () {
+      final iterable = iterableOf(["a", "b", "c"]);
+      final e = catchException<ArgumentError>(() => iterable.takeWhile(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
   group("toHashSet", () {
     test("toHashSet", () {
       final list = iterableOf(["a", "b", "c", "b"]);

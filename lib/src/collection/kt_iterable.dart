@@ -665,6 +665,11 @@ abstract class KtIterableExtension<T> {
   KtList<T> take(int n);
 
   /**
+   * Returns a list containing first elements satisfying the given [predicate].
+   */
+  KtList<T> takeWhile(bool Function(T) predicate);
+
+  /**
    * Appends all elements to the given [destination] collection.
    *
    * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
