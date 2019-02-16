@@ -1299,6 +1299,22 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
+  KtList<T> takeWhile(bool Function(T) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    final list = mutableListOf<T>();
+    for (final item in iter) {
+      if (!predicate(item)) {
+        break;
+      }
+      list.add(item);
+    }
+    return list;
+  }
+
+  @override
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
