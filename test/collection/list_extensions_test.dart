@@ -117,7 +117,7 @@ void testList(
   group("dropLastWhile", () {
     test("drop last 3 items", () {
       final list = listOf(1, 2, 3, 4, 5, 6, 7);
-      expect(list.dropLastWhile((i) => i >= 4), listOf(1, 2, 3, 4));
+      expect(list.dropLastWhile((i) => i >= 4), listOf(1, 2, 3));
     });
 
     test("dropping from empty list drops nothing", () {
