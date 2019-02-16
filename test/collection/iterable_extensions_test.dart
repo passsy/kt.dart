@@ -73,7 +73,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     test("predicate can't be null", () {
       final iterable = iterableOf(["abc", "bcd", "cde"]);
       final e = catchException<ArgumentError>(() => iterable.all(null));
-      expect(e.message, allOf(contains("null")));
+      expect(e.message, allOf(contains("predicate"), contains("null")));
     });
   });
 

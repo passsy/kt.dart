@@ -302,4 +302,43 @@ void testList(
       expect(list.takeLast(2).toList(), listFrom([1, null]));
     });
   });
+  
+  group("takeLastWhile", () {
+    test("take no elements returns empty", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLastWhile((it) => false), emptyList());
+    });
+
+    test("take all elements returns original list", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLastWhile((it) => true), list.toList());
+    });
+
+    if (ordered) {
+      test("takeLastWhile larger 2", () {
+        final list = listOf(1, 2, 3, 4);
+        expect(list.takeLastWhile((it) => it > 2), listOf(3, 4));
+      });
+    }
+
+    if (ordered) {
+      test("takeLastWhile larger 1", () {
+        final list = listOf(1, 2, 3, 4);
+        expect(list.takeLastWhile((it) => it > 1), listOf(2, 3, 4));
+      });
+    }
+
+    if (ordered) {
+      test("takeLastWhile larger 3", () {
+        final list = listOf(1, 2, 3, 4);
+        expect(list.takeLastWhile((it) => it > 3), listOf(4));
+      });
+    }
+
+    test("predicate can't be null", () {
+      final list = listOf("a", "b", "c");
+      final e = catchException<ArgumentError>(() => list.takeLastWhile(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
 }
