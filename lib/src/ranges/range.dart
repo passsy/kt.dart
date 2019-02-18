@@ -38,33 +38,32 @@ abstract class ClosedRange<T> {
   bool isEmpty() => compare(start, endInclusive) > 0;
 }
 
-class IntProgression extends KtIterable<int>
-    with KtIterableExtensionsMixin<int> {
-  IntProgression(this.start, int endInclusive, this.step)
+class IntProgression {
+  IntProgression(this.first, int endInclusive, this.step)
       : assert(() {
-          if (start == null) throw ArgumentError("start can't be null");
+          if (first == null) throw ArgumentError("start can't be null");
           if (endInclusive == null)
             throw ArgumentError("endInclusive can't be null");
           if (step == null) throw ArgumentError("step can't be null");
           return true;
         }()),
-        end = _getProgressionLastElement(start, endInclusive, step) {
+        last = _getProgressionLastElement(first, endInclusive, step) {
     if (step == 0) {
       throw ArgumentError("Step must be non-zero");
     }
   }
 
+  IntProgression stepping(int step) => IntProgression(first, last, step);
+
   /**
    * The first element in the progression.
    */
-  // should be named `first` but it clashes with KtIterable
-  final int start;
+  final int first;
 
   /**
    * The last element in the progression.
    */
-  // should be named `last` but it clashes with KtIterable
-  final int end;
+  final int last;
 
   /**
    * The step of the progression.
@@ -108,9 +107,9 @@ class IntProgression extends KtIterable<int>
    */
   bool isEmpty() {
     if (step.compareTo(0) > 0) {
-      return start > 0;
+      return first > 0;
     } else {
-      return start < end;
+      return first < last;
     }
   }
 
@@ -120,30 +119,42 @@ class IntProgression extends KtIterable<int>
       (other is IntProgression && isEmpty() && other.isEmpty()) ||
       other is IntProgression &&
           runtimeType == other.runtimeType &&
-          start == other.start &&
-          end == other.end &&
+          first == other.first &&
+          last == other.last &&
           step == other.step;
 
   @override
   int get hashCode {
     if (isEmpty()) return -1;
-    return 31 * (31 * start + end) + step;
+    return 31 * (31 * first + last) + step;
   }
 
   @override
   String toString() {
     if (step > 0) {
-      return "$start..$last step $step";
+      return "$first..$last step $step";
     } else {
       return "$first downTo $last step ${-step}";
     }
   }
 
+  KtIterable<int> asIterable() => _IntProgressionIterable(this);
+
+  Iterable<int> get iter => asIterable().iter;
+}
+
+class _IntProgressionIterable extends KtIterable<int>
+    with KtIterableExtensionsMixin<int> {
+  _IntProgressionIterable(this.progression);
+
+  final IntProgression progression;
+
   @override
   Iterable<int> get iter => KtToDartIterable(this);
 
   @override
-  KtIterator<int> iterator() => _IntProgressionIterator(start, end, step);
+  KtIterator<int> iterator() => _IntProgressionIterator(
+      progression.first, progression.last, progression.step);
 }
 
 class _IntProgressionIterator extends KtIterator<int> {
@@ -175,17 +186,26 @@ class _IntProgressionIterator extends KtIterator<int> {
 }
 
 class IntRange extends IntProgression with ClosedRange<int> {
-  IntRange(int start, this.endInclusive) : super(start, endInclusive, 1);
+  IntRange(this.start, this.endInclusive) : super(start, endInclusive, 1);
 
   @override
   final int endInclusive;
+
+  @override
+  final int start;
 }
 
-main() {
-  for (final i in IntRange(0, 10).iter) {
+IntRange range(int first, int last) {
+  return IntRange(first, last);
+}
+
+void main() {
+  final range = IntRange(0, 10);
+
+  for (final i in range.iter) {
     print(i);
   }
-  for (final i in IntProgression(10, 0, -2).iter) {
+  for (final i in IntRange(10, 0).stepping(-2).iter) {
     print(i);
   }
 }
