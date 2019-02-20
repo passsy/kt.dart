@@ -302,7 +302,7 @@ void testList(
       expect(list.takeLast(2).toList(), listFrom([1, null]));
     });
   });
-  
+
   group("takeLastWhile", () {
     test("take no elements returns empty", () {
       final list = listOf(1, 2, 3, 4);
