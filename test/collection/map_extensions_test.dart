@@ -494,6 +494,80 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(e.message, allOf(contains("null"), contains("action")));
     });
   });
+
+  group("none", () {
+    test("none() non-empty map", () {
+      final map = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+        3: "Stegosaur",
+      });
+      expect(map.none((key, value) => key == 1 && value == "Bulbasaur"), false);
+      expect(map.none((_, value) => value == "Random text"), true);
+    });
+
+    test("none() empty map", () {
+      final map = emptyMap();
+      expect(map.none((key, value) => key == 1 && value == "Bulbasaur"), true);
+      expect(map.none((key, value) => false), true);
+    });
+
+    test("predicate must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().none(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("all", () {
+    test("all() non-empty map", () {
+      final map = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+        3: "Stegosaur",
+      });
+      expect(map.all((key, value) => key > 0 && value.contains("aur")), true);
+      expect(map.all((key, value) => value == "Bulbasaur"), false);
+      expect(map.all((key, value) => value.isNotEmpty), true);
+    });
+
+    test("all() empty map", () {
+      final map = emptyMap();
+      expect(map.none((key, value) => key == 1 && value == "Bulbasaur"), true);
+      expect(map.none((key, value) => false), true);
+    });
+
+    test("predicate must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().all(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("any", () {
+    test("any() non-empty map", () {
+      final map = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+        3: "Stegosaur",
+      });
+      expect(map.any((key, value) => value == "Bulbasaur"), true);
+      expect(map.any((key, _) => key == -35), false);
+    });
+
+    test("any() empty map", () {
+      final map = emptyMap();
+      expect(map.any((key, value) => key == 1 && value == "Bulbasaur"), false);
+      expect(map.any((key, value) => true), false);
+      expect(map.any((key, value) => false), false);
+    });
+
+    test("predicate must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().any(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
 }
 
 class ThirdPartyMap<K, V>
