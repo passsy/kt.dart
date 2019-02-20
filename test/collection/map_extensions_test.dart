@@ -471,7 +471,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   group("forEach", () {
     test("forEach", () {
       final result = mutableListOf<String>();
-      var map = mapFrom({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
         3: "Stegosaur",
@@ -479,10 +479,12 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       map.forEach( (number, value) => result.add('$number-$value') );
       if (ordered) {
         expect(result.size, 3);
-        expect(result, listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur"));
+        expect(result[0], "1-Bulbasaur");
+        expect(result[1], "2-Ivysaur");
+        expect(result[2], "3-Stegosaur");
       } else {
         expect(result.size, 3);
-        expect(result, containsAll(["1-Bulbasaur", "2-Ivysaur", "3-Stegosaur"]));
+        expect(result.toSet(), listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur").toSet());
       }
     });
 
