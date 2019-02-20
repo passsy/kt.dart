@@ -467,6 +467,31 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.size, 2);
     });
   });
+
+  group("forEach", () {
+    test("forEach", () {
+      final result = mutableListOf<String>();
+      var map = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+        3: "Stegosaur",
+      });
+      map.forEach( (number, value) => result.add('$number-$value') );
+      if (ordered) {
+        expect(result.size, 3);
+        expect(result, listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur"));
+      } else {
+        expect(result.size, 3);
+        expect(result, containsAll(["1-Bulbasaur", "2-Ivysaur", "3-Stegosaur"]));
+      }
+    });
+
+    test("action must be non null", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().forEach(null));
+      expect(e.message, allOf(contains("null"), contains("action")));
+    });
+  });
 }
 
 class ThirdPartyMap<K, V>

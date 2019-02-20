@@ -254,4 +254,11 @@ abstract class KtMapExtension<K, V> {
    * The returned map preserves the entry iteration order of the original map.
    */
   KtMutableMap<K, V> toMutableMap();
+
+  /**
+   * Performs given [action] on each key/value pair from this map.
+   * 
+   * [action] must not be null.
+   */
+  void forEach( Function(K key, V value) action );
 }
