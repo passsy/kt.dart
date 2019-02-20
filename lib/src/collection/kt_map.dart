@@ -261,4 +261,22 @@ abstract class KtMapExtension<K, V> {
    * [action] must not be null.
    */
   void forEach(Function(K key, V value) action);
+
+  /**
+   * Returns `true` if there is no entries in the map that match the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool none(Function(K key, V value) predicate);
+
+  /**
+   * Returns true if all entries match the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool all(Function(K key, V value) predicate);
+
+  /**
+   * Returns true if there is at least one entry that matches the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool any(Function(K key, V value) predicate);
 }

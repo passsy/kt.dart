@@ -179,6 +179,57 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
+  bool none(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return true;
+    }
+    for (KtMapEntry<K, V> entry in entries.iter) {
+      if (predicate(entry.key, entry.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  bool all(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return true;
+    }
+    for (KtMapEntry<K, V> entry in entries.iter) {
+      if (!predicate(entry.key, entry.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  bool any(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return false;
+    }
+    for (KtMapEntry<K, V> entry in entries.iter) {
+      if (predicate(entry.key, entry.value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
   String toString() {
     return entries.joinToString(
         separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
