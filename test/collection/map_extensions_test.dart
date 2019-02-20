@@ -539,7 +539,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("predicate must be non null", () {
       final e =
-          catchException<ArgumentError>(() => emptyMap().none(null));
+          catchException<ArgumentError>(() => emptyMap().all(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -564,7 +564,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("predicate must be non null", () {
       final e =
-          catchException<ArgumentError>(() => emptyMap().none(null));
+          catchException<ArgumentError>(() => emptyMap().any(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
