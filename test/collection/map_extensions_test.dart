@@ -476,7 +476,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
         3: "Stegosaur",
       });
-      map.forEach( (number, value) => result.add('$number-$value') );
+      map.forEach((number, value) => result.add('$number-$value'));
       if (ordered) {
         expect(result.size, 3);
         expect(result[0], "1-Bulbasaur");
@@ -484,13 +484,13 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
         expect(result[2], "3-Stegosaur");
       } else {
         expect(result.size, 3);
-        expect(result.toSet(), listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur").toSet());
+        expect(result.toSet(),
+            listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur").toSet());
       }
     });
 
     test("action must be non null", () {
-      final e =
-          catchException<ArgumentError>(() => emptyMap().forEach(null));
+      final e = catchException<ArgumentError>(() => emptyMap().forEach(null));
       expect(e.message, allOf(contains("null"), contains("action")));
     });
   });

@@ -257,8 +257,8 @@ abstract class KtMapExtension<K, V> {
 
   /**
    * Performs given [action] on each key/value pair from this map.
-   * 
+   *
    * [action] must not be null.
    */
-  void forEach( Function(K key, V value) action );
+  void forEach(Function(K key, V value) action);
 }

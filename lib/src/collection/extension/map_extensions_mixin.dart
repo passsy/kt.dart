@@ -170,12 +170,12 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  void forEach( Function(K key, V value) action) {
+  void forEach(Function(K key, V value) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
       return true;
     }());
-    entries.forEach( (entry) => action(entry.key, entry.value) );
+    entries.forEach((entry) => action(entry.key, entry.value));
   }
 
   @override
