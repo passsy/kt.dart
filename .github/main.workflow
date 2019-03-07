@@ -3,6 +3,7 @@ workflow "CI build" {
   resolves = [
     "test",
     "validate formatting",
+    "codecov"
   ]
 }
 
@@ -21,4 +22,10 @@ action "validate formatting" {
   needs = "pub get"
   uses = "docker://google/dart:2.2"
   runs = "pub run tool/reformat.dart"
+}
+
+action "codecov" {
+  uses = "docker://bash:5.0"
+  needs = "test"
+  runs = "bash <(curl -s https://codecov.io/bash)"
 }
