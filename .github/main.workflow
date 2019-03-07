@@ -14,7 +14,7 @@ action "pub get" {
 action "test" {
   uses = "docker://google/dart:2.2"
   needs = "pub get"
-  runs = "pub run test"
+  runs = "./ci/test.sh"
 }
 
 action "validate formatting" {
