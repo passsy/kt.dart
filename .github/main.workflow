@@ -4,7 +4,7 @@ workflow "build" {
 }
 
 action "pub get" {
-  uses = "docker://google/dart/"
+  uses = "docker://google/dart:2.2"
   runs = "pub"
   args = "get"
 }
