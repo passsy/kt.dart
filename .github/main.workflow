@@ -1,9 +1,9 @@
 workflow "CI build" {
   on = "push"
   resolves = [
-    "test",
     "validate formatting",
-    "codecov"
+    "test",
+    "codecov",
   ]
 }
 
@@ -25,7 +25,7 @@ action "validate formatting" {
 }
 
 action "codecov" {
-  uses = "docker://bash:5.0"
+  uses = "docker://cosmintitei/bash-curl:4.4.12"
   needs = "test"
   runs = "bash <(curl -s https://codecov.io/bash)"
 }
