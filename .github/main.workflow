@@ -2,7 +2,7 @@ workflow "CI build" {
   on = "push"
   resolves = [
     "test",
-    "analyze",
+    "validate formatting",
   ]
 }
 
