@@ -1,10 +1,10 @@
 workflow "build" {
   on = "push"
-  resolves = ["docker://passsy/flutterw"]
+  resolves = ["pub get"]
 }
 
-action "docker://passsy/flutterw" {
-  uses = "docker://passsy/flutterw"
-  runs = "./flutterw"
-  args = "build"
+action "pub get" {
+  uses = "docker://google/dart/"
+  runs = "pub"
+  args = "get"
 }
