@@ -110,6 +110,20 @@ abstract class KtMapExtension<K, V> {
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate);
 
   /**
+   * Returns a map containing all key-value pairs with keys matching the given [predicate].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KtMap<K, V> filterKeys(bool Function(K) predicate);
+
+  /**
+   * Returns a map containing all key-value pairs with keys matching the given [predicate].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KtMap<K, V> filterValues(bool Function(V) predicate);
+
+  /**
    * Appends all entries matching the given [predicate] into the mutable map given as [destination] parameter.
    *
    * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,

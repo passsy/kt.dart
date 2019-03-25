@@ -65,6 +65,28 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("filterKeys", () {
+    test("filterKeys", () {
+      final filtered = pokemon.filterKeys((k) => k == 2);
+      expect(filtered, mapFrom({2: "Ivysaur"}));
+    });
+    test("filterKeys requires predicate to be non null", () {
+      final e = catchException<ArgumentError>(() => pokemon.filterKeys(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
+  group("filterValues", () {
+    test("filterValues", () {
+      final filtered = pokemon.filterValues((v) => v.startsWith("I"));
+      expect(filtered, mapFrom({2: "Ivysaur"}));
+    });
+    test("filterValues requires predicate to be non null", () {
+      final e = catchException<ArgumentError>(() => pokemon.filterValues(null));
+      expect(e.message, allOf(contains("null"), contains("predicate")));
+    });
+  });
+
   group("filterNot", () {
     test("filterNot", () {
       final filtered =
