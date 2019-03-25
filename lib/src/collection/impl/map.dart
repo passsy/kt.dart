@@ -13,7 +13,10 @@ class DartMap<K, V> with KtMapExtensionsMixin<K, V> implements KtMap<K, V> {
   int _hashCode;
 
   @override
-  Map<K, V> get map => _map;
+  Iterable<MapEntry<K, V>> get iter => _map.entries;
+
+  @override
+  Map<K, V> asMap() => _map;
 
   @override
   bool containsKey(K key) => _map.containsKey(key);

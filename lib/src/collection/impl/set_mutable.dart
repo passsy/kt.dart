@@ -30,6 +30,9 @@ class DartMutableSet<T>
   Set<T> get set => _set;
 
   @override
+  Set<T> asSet() => _set;
+
+  @override
   bool contains(T element) => _set.contains(element);
 
   @override

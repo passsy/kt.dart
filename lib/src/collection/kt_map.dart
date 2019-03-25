@@ -20,15 +20,20 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   }
 
   /**
-   * dart interop map for time critical operations such as sorting
+   * dart interop iterable for loops
    */
-  Map<K, V> get map;
+  Iterable<MapEntry<K, V>> get iter;
 
   // Query Operations
   /**
    * Returns the number of key/value pairs in the map.
    */
   int get size;
+
+  /**
+   * returns a read-only dart:core [Map]
+   */
+  Map<K, V> asMap();
 
   /**
    * Returns `true` if the map is empty (contains no elements), `false` otherwise.

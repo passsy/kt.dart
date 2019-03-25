@@ -35,6 +35,9 @@ class DartMutableList<T>
   List<T> get list => _list;
 
   @override
+  List<T> asList() => _list;
+
+  @override
   bool contains(T element) => _list.contains(element);
 
   @override

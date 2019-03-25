@@ -44,13 +44,19 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   }
 
   /**
-   * dart interop list for time critical operations such as sorting
+   * Deprecated, use [asList] or [iter] for loops
    */
+  @deprecated
   List<T> get list;
 
   // Query Operations
   @override
   int get size;
+
+  /**
+   * returns a read-only dart:core [List]
+   */
+  List<T> asList();
 
   @override
   bool isEmpty();

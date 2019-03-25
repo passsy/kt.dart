@@ -11,7 +11,7 @@ class EmptyList<T>
         KtListExtensionsMixin<T>
     implements KtList<T> {
   @override
-  List<T> get list => <T>[];
+  List<T> get list => List.unmodifiable([]);
 
   @override
   bool contains(T element) => false;
@@ -92,6 +92,9 @@ class EmptyList<T>
 
   @override
   Iterable<T> get iter => EmptyDartIterable();
+
+  @override
+  List<T> asList() => List.unmodifiable([]);
 }
 
 class _EmptyIterator<T> extends KtListIterator<T> {

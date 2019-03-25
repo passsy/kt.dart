@@ -196,7 +196,7 @@ abstract class KtMapExtensionsMixin<K, V>
 
   @override
   KtMutableMap<K, V> toMutableMap() {
-    return mutableMapFrom(map);
+    return mutableMapFrom(asMap());
   }
 
   @override

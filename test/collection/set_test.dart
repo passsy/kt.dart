@@ -1,6 +1,8 @@
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("mutableSet", () {
     testSet(
@@ -17,6 +19,7 @@ void main() {
       <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
           KtSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
       <T>(iterable) => KtSet.from(iterable),
+      mutable: false,
     );
   });
   group("KMutableSet", () {
@@ -62,9 +65,10 @@ void testSet(
             T arg7,
             T arg8,
             T arg9])
-        mutableSetOf,
-    KtSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
-    {bool ordered = true}) {
+        setOf,
+    KtSet<T> Function<T>(Iterable<T> iterable) setFrom,
+    {bool ordered = true,
+    bool mutable = true}) {
   group('basic methods', () {
     test("hashCode is 0", () {
       expect(emptySet().hashCode, 0);
@@ -164,20 +168,55 @@ void testSet(
       expect(setOf<num>(1, 2, 3), setOf<int>(1, 2, 3));
     });
 
-    test("using the dart set doesn't allow mutation - empty", () {
-      final kset = setOf();
-      expect(kset.isEmpty(), isTrue);
-      kset.set.add("asdf");
-      // unchanged
-      expect(kset.isEmpty(), isTrue);
-    });
+    if (mutable) {
+      test("emptySet, asSet allows mutation - empty", () {
+        final ktSet = emptySet<String>();
+        expect(ktSet.isEmpty(), isTrue);
+        final dartSet = ktSet.asSet();
+        dartSet.add("asdf");
+        expect(dartSet.length, 1);
+        expect(ktSet.size, 1);
+      });
 
-    test("using the dart set doesn't allow mutation", () {
-      final kset = setOf("a");
-      expect(kset, setOf("a"));
-      kset.set.add("b");
-      // unchanged
-      expect(kset, setOf("a"));
-    });
+      test("empty mutable set, asSet allows mutation", () {
+        final ktSet = setOf<String>();
+        expect(ktSet.isEmpty(), isTrue);
+        final dartSet = ktSet.asSet();
+        dartSet.add("asdf");
+        expect(dartSet.length, 1);
+        expect(ktSet.size, 1);
+      });
+
+      test("mutable set, asSet allows mutation", () {
+        final ktSet = setOf("a");
+        final dartSet = ktSet.asSet();
+        dartSet.add("asdf");
+        expect(dartSet.length, 2);
+        expect(ktSet.size, 2);
+      });
+    } else {
+      test("emptySet, asSet doesn't allow mutation", () {
+        final ktSet = emptySet();
+        expect(ktSet.isEmpty(), isTrue);
+        final e =
+            catchException<UnsupportedError>(() => ktSet.asSet().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+
+      test("empty set, asSet doesn't allows mutation", () {
+        final ktSet = setOf<String>();
+        expect(ktSet.isEmpty(), isTrue);
+        final e =
+            catchException<UnsupportedError>(() => ktSet.asSet().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+
+      test("set, asSet doesn't allows mutation", () {
+        final ktSet = setOf<String>("a");
+        final e =
+            catchException<UnsupportedError>(() => ktSet.asSet().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
   });
 }

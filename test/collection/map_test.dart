@@ -31,8 +31,8 @@ void main() {
 void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
   group('basic methods', () {
-    test("access dart map", () {
-      Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).map;
+    test("asMap", () {
+      Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).asMap();
       expect(map.length, 2);
       expect(map, equals({"a": 1, "b": 2}));
     });

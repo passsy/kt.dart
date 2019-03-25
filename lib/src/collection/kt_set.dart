@@ -45,13 +45,19 @@ abstract class KtSet<T> implements KtCollection<T> {
   }
 
   /**
-   * dart interop set for time critical operations such as sorting
+   * Deprecated, use [asSet] or [iter] for loops
    */
+  @deprecated
   Set<T> get set;
 
   // Query Operations
   @override
   int get size;
+
+  /**
+   * returns a read-only dart:core [Set]
+   */
+  Set<T> asSet();
 
   @override
   bool isEmpty();
