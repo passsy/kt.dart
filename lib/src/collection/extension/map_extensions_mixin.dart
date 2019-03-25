@@ -11,6 +11,36 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
+  KtMap<K, V> filterKeys(bool Function(K) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    final result = linkedMapFrom<K, V>();
+    for (final entry in entries.iter) {
+      if (predicate(entry.key)) {
+        result.put(entry.key, entry.value);
+      }
+    }
+    return result;
+  }
+
+  @override
+  KtMap<K, V> filterValues(bool Function(V) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    final result = linkedMapFrom<K, V>();
+    for (final entry in entries.iter) {
+      if (predicate(entry.value)) {
+        result.put(entry.key, entry.value);
+      }
+    }
+    return result;
+  }
+
+  @override
   M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
