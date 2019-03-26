@@ -77,12 +77,29 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
         expect(dartSet.length, 1);
         expect(ktSet.size, 1);
       });
+
+      test("empty set set allows mutation", () {
+        final ktSet = emptySet();
+        expect(ktSet.isEmpty(), isTrue);
+        final dartSet = ktSet.set;
+        dartSet.add("asdf");
+        expect(dartSet.length, 1);
+        expect(ktSet.size, 1);
+      });
     } else {
       test("empty set asSet doesn't allow mutation", () {
         final ktSet = emptySet();
         expect(ktSet.isEmpty(), isTrue);
         final e =
             catchException<UnsupportedError>(() => ktSet.asSet().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+
+      test("empty set set doesn't allow mutation", () {
+        final ktSet = emptySet();
+        expect(ktSet.isEmpty(), isTrue);
+        final e =
+            catchException<UnsupportedError>(() => ktSet.set.add("asdf"));
         expect(e.message, contains("unmodifiable"));
       });
     }
