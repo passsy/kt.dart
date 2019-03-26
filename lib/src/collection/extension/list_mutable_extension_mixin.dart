@@ -50,6 +50,7 @@ abstract class KtMutableListExtensionsMixin<T>
       if (comparator == null) throw ArgumentError("comparator can't be null");
       return true;
     }());
+    // delegate to darts list implementation for sorting which is highly optimized
     asList().sort(comparator);
   }
 

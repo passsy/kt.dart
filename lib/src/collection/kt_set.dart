@@ -56,6 +56,12 @@ abstract class KtSet<T> implements KtCollection<T> {
 
   /**
    * returns a read-only dart:core [Set]
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtSet] using a for-loop
+   * - Use [toSet] to copy the set
    */
   Set<T> asSet();
 

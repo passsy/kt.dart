@@ -1213,6 +1213,7 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     final mutableList = toMutableList();
+    // delegate to darts list implementation for sorting which is highly optimized
     mutableList.asList().sort(comparator);
     return mutableList;
   }

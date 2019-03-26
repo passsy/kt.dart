@@ -54,7 +54,13 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   int get size;
 
   /**
-   * returns a read-only dart:core [List]
+   * Returns a read-only dart:core [List]
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtList] using a for-loop
+   * - Use [toList] to copy the list
    */
   List<T> asList();
 

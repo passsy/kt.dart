@@ -13,6 +13,21 @@ abstract class KtMutableMap<K, V>
 
   factory KtMutableMap.from([Map<K, V> map = const {}]) => DartMutableMap(map);
 
+  /**
+   * Creates a [Map] instance that wraps the original [KtMap]. It acts as a view.
+   *
+   * Mutations on the returned [Map] are reflected on the original [KtMapp]
+   * and vice versa.
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtMap] using a for-loop
+   * - Use [toMap] to copy the map
+   */
+  @override
+  Map<K, V> asMap();
+
   // Modification Operations
   /**
    * Associates the specified [value] with the specified [key] in the map.

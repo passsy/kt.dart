@@ -19,11 +19,6 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
     return DartMap(map);
   }
 
-  /**
-   * dart interop iterable for loops
-   */
-  Iterable<MapEntry<K, V>> get iter;
-
   // Query Operations
   /**
    * Returns the number of key/value pairs in the map.
@@ -31,7 +26,18 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   int get size;
 
   /**
-   * returns a read-only dart:core [Map]
+   * dart interop iterable for loops
+   */
+  Iterable<MapEntry<K, V>> get iter;
+
+  /**
+   * Returns a read-only dart:core [Map]
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtMap] using a for-loop
+   * - Use [toMap] to copy the map
    */
   Map<K, V> asMap();
 
