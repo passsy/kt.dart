@@ -12,7 +12,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return true;
     }
-    for (KtMapEntry<K, V> entry in entries.iter) {
+    for (KtMapEntry<K, V> entry in iter) {
       if (!predicate(entry.key, entry.value)) {
         return false;
       }
@@ -29,7 +29,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return false;
     }
-    for (KtMapEntry<K, V> entry in entries.iter) {
+    for (KtMapEntry<K, V> entry in iter) {
       if (predicate(entry.key, entry.value)) {
         return true;
       }
@@ -51,7 +51,7 @@ abstract class KtMapExtensionsMixin<K, V>
       return true;
     }());
     final result = linkedMapFrom<K, V>();
-    for (final entry in entries.iter) {
+    for (final entry in iter) {
       if (predicate(entry.key)) {
         result.put(entry.key, entry.value);
       }
@@ -66,7 +66,7 @@ abstract class KtMapExtensionsMixin<K, V>
       return true;
     }());
     final result = linkedMapFrom<K, V>();
-    for (final entry in entries.iter) {
+    for (final entry in iter) {
       if (predicate(entry.value)) {
         result.put(entry.key, entry.value);
       }
@@ -88,7 +88,7 @@ abstract class KtMapExtensionsMixin<K, V>
             "\n\n$kBug35518GenericTypeError");
       return true;
     }());
-    for (final element in entries.iter) {
+    for (final element in iter) {
       if (predicate(element)) {
         destination.put(element.key, element.value);
       }
@@ -117,7 +117,7 @@ abstract class KtMapExtensionsMixin<K, V>
             "\n\n$kBug35518GenericTypeError");
       return true;
     }());
-    for (final element in entries.iter) {
+    for (final element in iter) {
       if (!predicate(element)) {
         destination.put(element.key, element.value);
       }
@@ -151,6 +151,12 @@ abstract class KtMapExtensionsMixin<K, V>
   bool isNotEmpty() => !isEmpty();
 
   @override
+  KtList<R> map<R>(R Function(KtMapEntry<K, V> entry) transform) {
+    final mapped = mapTo(mutableListOf<R>(), transform);
+    return mapped;
+  }
+
+  @override
   KtMap<R, V> mapKeys<R>(R Function(KtMapEntry<K, V>) transform) {
     final mapped = mapKeysTo(linkedMapFrom<R, V>(), transform);
     return mapped;
@@ -170,8 +176,28 @@ abstract class KtMapExtensionsMixin<K, V>
             "\n\n$kBug35518GenericTypeError");
       return true;
     }());
-    for (var element in entries.iter) {
+    for (final element in iter) {
       destination.put(transform(element), element.value);
+    }
+    return destination;
+  }
+
+  @override
+  M mapTo<R, M extends KtMutableCollection<dynamic>>(
+      M destination, R Function(KtMapEntry<K, V> entry) transform) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (transform == null) throw ArgumentError("transform can't be null");
+      if (destination is! KtMutableCollection<R> && mutableListFrom<R>() is! M)
+        throw ArgumentError("mapTo destination has wrong type parameters."
+            "\nExpected: KtMutableCollection<$R>, Actual: ${destination.runtimeType}"
+            "\nEntries after key transformation with $transform have type $R "
+            "and can't be copied into destination of type ${destination.runtimeType}."
+            "\n\n$kBug35518GenericTypeError");
+      return true;
+    }());
+    for (final item in iter) {
+      destination.add(transform(item));
     }
     return destination;
   }
@@ -196,7 +222,7 @@ abstract class KtMapExtensionsMixin<K, V>
             "\n\n$kBug35518GenericTypeError");
       return true;
     }());
-    for (var element in entries.iter) {
+    for (final element in iter) {
       destination.put(element.key, transform(element));
     }
     return destination;
@@ -251,7 +277,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return true;
     }
-    for (KtMapEntry<K, V> entry in entries.iter) {
+    for (KtMapEntry<K, V> entry in iter) {
       if (predicate(entry.key, entry.value)) {
         return false;
       }

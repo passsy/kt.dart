@@ -22,7 +22,8 @@ class DartMutableMap<K, V>
   final Map<K, V> _map;
 
   @override
-  Iterable<MapEntry<K, V>> get iter => _map.entries;
+  Iterable<KtMapEntry<K, V>> get iter =>
+      _map.entries.map((entry) => _MutableEntry.from(entry));
 
   @override
   Map<K, V> asMap() => _map;

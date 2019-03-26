@@ -28,7 +28,7 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   /**
    * dart interop iterable for loops
    */
-  Iterable<MapEntry<K, V>> get iter;
+  Iterable<KtMapEntry<K, V>> get iter;
 
   /**
    * Returns a read-only dart:core [Map]
@@ -191,6 +191,12 @@ abstract class KtMapExtension<K, V> {
   bool isNotEmpty();
 
   /**
+   * Returns a list containing the results of applying the given [transform] function
+   * to each entry in the original map.
+   */
+  KtList<R> map<R>(R Function(KtMapEntry<K, V> entry) transform);
+
+  /**
    * Returns a new Map with entries having the keys obtained by applying the [transform] function to each entry in this
    * [Map] and the values of this map.
    *
@@ -214,6 +220,14 @@ abstract class KtMapExtension<K, V> {
    */
   // TODO Change to `M extends KtMutableMap<R, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   M mapKeysTo<R, M extends KtMutableMap<dynamic, dynamic>>(
+      M destination, R Function(KtMapEntry<K, V> entry) transform);
+
+  /**
+   * Applies the given [transform] function to each entry of the original map
+   * and appends the results to the given [destination].
+   */
+  // TODO Change to `M extends KtMutableCollection<R>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M mapTo<R, M extends KtMutableCollection<dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform);
 
   /**
