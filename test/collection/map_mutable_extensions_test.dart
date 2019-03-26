@@ -83,6 +83,21 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("count", () {
+    test("empty", () {
+      expect(emptyMap<String, int>().count(), 0);
+    });
+
+    test("count elements", () {
+      expect(mapFrom({1: "a", 2: "b"}).count(), 2);
+    });
+
+    test("count even", () {
+      final map = mapFrom({1: "a", 2: "b", 3: "c"});
+      expect(map.count((it) => it.key % 2 == 0), 1);
+    });
+  });
+
   group("get", () {
     test("get", () {
       final pokemon = mutableMapFrom({
@@ -167,6 +182,47 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
       });
       final e = catchException<ArgumentError>(() => pokemon.getOrPut(1, null));
       expect(e.message, allOf(contains("null"), contains("defaultValue")));
+    });
+  });
+
+  group("iterator", () {
+    test("iterator is iterates", () {
+      final pokemon = mutableMapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
+      expect(i.hasNext(), isTrue);
+      var next = i.next();
+      expect(next.key, 1);
+      expect(next.value, "Bulbasaur");
+
+      expect(i.hasNext(), isTrue);
+      next = i.next();
+      expect(next.key, 2);
+      expect(next.value, "Ivysaur");
+
+      expect(i.hasNext(), isFalse);
+    });
+
+    group("remove doesn't work", () {
+      test("iterator is iterates", () {
+        final pokemon = mutableMapFrom({
+          1: "Bulbasaur",
+          2: "Ivysaur",
+        });
+        KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
+        expect(i.hasNext(), isTrue);
+        var next = i.next();
+        expect(next.key, 1);
+        expect(next.value, "Bulbasaur");
+
+        // TODO replace error assertion with value assertion when https://github.com/passsy/dart_kollection/issues/5 has been fixed
+        final e = catchException(() => i.remove());
+        expect(e, equals(const TypeMatcher<UnimplementedError>()));
+        // removed first item
+        //expect(pokemon, mapFrom({2: "Ivysaur"}));
+      });
     });
   });
 
@@ -331,47 +387,6 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
       });
       expect(pokemon.values, listFrom([null, "Bulbasaur", "Ivysaur"]));
-    });
-  });
-
-  group("iterator", () {
-    test("iterator is iterates", () {
-      final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
-      });
-      KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
-      expect(i.hasNext(), isTrue);
-      var next = i.next();
-      expect(next.key, 1);
-      expect(next.value, "Bulbasaur");
-
-      expect(i.hasNext(), isTrue);
-      next = i.next();
-      expect(next.key, 2);
-      expect(next.value, "Ivysaur");
-
-      expect(i.hasNext(), isFalse);
-    });
-
-    group("remove doesn't work", () {
-      test("iterator is iterates", () {
-        final pokemon = mutableMapFrom({
-          1: "Bulbasaur",
-          2: "Ivysaur",
-        });
-        KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
-        expect(i.hasNext(), isTrue);
-        var next = i.next();
-        expect(next.key, 1);
-        expect(next.value, "Bulbasaur");
-
-        // TODO replace error assertion with value assertion when https://github.com/passsy/dart_kollection/issues/5 has been fixed
-        final e = catchException(() => i.remove());
-        expect(e, equals(const TypeMatcher<UnimplementedError>()));
-        // removed first item
-        //expect(pokemon, mapFrom({2: "Ivysaur"}));
-      });
     });
   });
 }

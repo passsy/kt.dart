@@ -114,6 +114,23 @@ abstract class KtMapEntry<K, V> {
 
 abstract class KtMapExtension<K, V> {
   /**
+   * Returns true if all entries match the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool all(Function(K key, V value) predicate);
+
+  /**
+   * Returns true if there is at least one entry that matches the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool any(Function(K key, V value) predicate);
+
+  /**
+   * Returns the number of entries matching the given [predicate] or the number of entries when `predicate = null`.
+   */
+  int count([bool Function(KtMapEntry<K, V>) predicate]);
+
+  /**
    * Returns a new map containing all key-value pairs matching the given [predicate].
    *
    * The returned map preserves the entry iteration order of the original map.
@@ -126,26 +143,6 @@ abstract class KtMapExtension<K, V> {
    * The returned map preserves the entry iteration order of the original map.
    */
   KtMap<K, V> filterKeys(bool Function(K) predicate);
-
-  /**
-   * Returns a map containing all key-value pairs with keys matching the given [predicate].
-   *
-   * The returned map preserves the entry iteration order of the original map.
-   */
-  KtMap<K, V> filterValues(bool Function(V) predicate);
-
-  /**
-   * Appends all entries matching the given [predicate] into the mutable map given as [destination] parameter.
-   *
-   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
-   * but will be checked at runtime.
-   * [M] actually is expected to be `M extends KtMutableMap<K, V>`
-   *
-   * @return the destination map.
-   */
-  // TODO Change to `M extends KtMutableMap<K, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, bool Function(KtMapEntry<K, V> entry) predicate);
 
   /**
    * Returns a new map containing all key-value pairs not matching the given [predicate].
@@ -168,6 +165,33 @@ abstract class KtMapExtension<K, V> {
       M destination, bool Function(KtMapEntry<K, V> entry) predicate);
 
   /**
+   * Appends all entries matching the given [predicate] into the mutable map given as [destination] parameter.
+   *
+   * [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+   * but will be checked at runtime.
+   * [M] actually is expected to be `M extends KtMutableMap<K, V>`
+   *
+   * @return the destination map.
+   */
+  // TODO Change to `M extends KtMutableMap<K, V>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
+      M destination, bool Function(KtMapEntry<K, V> entry) predicate);
+
+  /**
+   * Returns a map containing all key-value pairs with keys matching the given [predicate].
+   *
+   * The returned map preserves the entry iteration order of the original map.
+   */
+  KtMap<K, V> filterValues(bool Function(V) predicate);
+
+  /**
+   * Performs given [action] on each key/value pair from this map.
+   *
+   * [action] must not be null.
+   */
+  void forEach(Function(K key, V value) action);
+
+  /**
    * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.
    */
   V getOrElse(K key, V Function() defaultValue);
@@ -181,14 +205,14 @@ abstract class KtMapExtension<K, V> {
   V getValue(K key);
 
   /**
-   * Returns an [Iterator] over the entries in the [Map].
-   */
-  KtIterator<KtMapEntry<K, V>> iterator();
-
-  /**
    * Returns `true` if this map is not empty.
    */
   bool isNotEmpty();
+
+  /**
+   * Returns an [Iterator] over the entries in the [Map].
+   */
+  KtIterator<KtMapEntry<K, V>> iterator();
 
   /**
    * Returns a list containing the results of applying the given [transform] function
@@ -265,6 +289,12 @@ abstract class KtMapExtension<K, V> {
   KtMap<K, V> operator -(K key);
 
   /**
+   * Returns `true` if there is no entries in the map that match the given [predicate].
+   * [predicate] must not be null.
+   */
+  bool none(Function(K key, V value) predicate);
+
+  /**
    * Creates a new read-only map by replacing or adding entries to this map from another [map].
    *
    * The returned map preserves the entry iteration order of the original map.
@@ -293,29 +323,4 @@ abstract class KtMapExtension<K, V> {
    * The returned map preserves the entry iteration order of the original map.
    */
   KtMutableMap<K, V> toMutableMap();
-
-  /**
-   * Performs given [action] on each key/value pair from this map.
-   *
-   * [action] must not be null.
-   */
-  void forEach(Function(K key, V value) action);
-
-  /**
-   * Returns `true` if there is no entries in the map that match the given [predicate].
-   * [predicate] must not be null.
-   */
-  bool none(Function(K key, V value) predicate);
-
-  /**
-   * Returns true if all entries match the given [predicate].
-   * [predicate] must not be null.
-   */
-  bool all(Function(K key, V value) predicate);
-
-  /**
-   * Returns true if there is at least one entry that matches the given [predicate].
-   * [predicate] must not be null.
-   */
-  bool any(Function(K key, V value) predicate);
 }
