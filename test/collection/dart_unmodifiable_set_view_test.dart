@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:kt_dart/collection.dart';
 
-import '../../test/assert_dart.dart';
+import '../test/assert_dart.dart';
 
 void main() {
   group('unmodifiable set view', () {
@@ -21,6 +21,7 @@ void main() {
     test("set query methods work as expected", () {
       final ktSet = setOf("a", "b", "c");
       final dartSet = ktSet.asSet();
+      expect(dartSet.cast<String>(), Set.from(["a", "b", "c"]));
       expect(dartSet.containsAll(["a"]), isTrue);
       expect(dartSet.difference(Set.from(["a"])), Set.from(["b", "c"]));
       expect(dartSet.intersection(Set.from(["a", "x"])), Set.from(["a"]));
