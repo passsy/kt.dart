@@ -1458,8 +1458,8 @@ class _MovingSubList<T> {
   _MovingSubList(this.list);
 
   KtList<T> list;
-  var _fromIndex = 0;
-  var _size = 0;
+  int _fromIndex = 0;
+  int _size = 0;
 
   void move(int fromIndex, int toIndex) {
     if (fromIndex < 0 || toIndex > list.size) {
