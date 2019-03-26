@@ -138,4 +138,22 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
       expect(pokemon.values, listOf("Bulbasaur", "Ivysaur"));
     });
   });
+
+  group("iter", (){
+    test("iter via for loop", (){
+      final pokemon = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+
+      final values = mutableListOf();
+      final keys = mutableListOf();
+      for(final p in pokemon.iter) {
+        keys.add(p.key);
+        values.add(p.value);
+      }
+      expect(values, listOf("Bulbasaur", "Ivysaur"));
+      expect(keys, listOf(1, 2));
+    });
+  });
 }

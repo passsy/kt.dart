@@ -160,5 +160,18 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
     test("entries always is empty", () {
       expect(emptyMap().entries.isEmpty(), isTrue);
     });
+
+    test("iter via for loop", () {
+      final pokemon = emptyMap();
+
+      final values = mutableListOf();
+      final keys = mutableListOf();
+      for (final p in pokemon.iter) {
+        keys.add(p.key);
+        values.add(p.value);
+      }
+      expect(values.isEmpty(), isTrue);
+      expect(keys.isEmpty(), isTrue);
+    });
   });
 }
