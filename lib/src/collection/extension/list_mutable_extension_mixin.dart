@@ -50,7 +50,7 @@ abstract class KtMutableListExtensionsMixin<T>
       if (comparator == null) throw ArgumentError("comparator can't be null");
       return true;
     }());
-    list.sort(comparator);
+    asList().sort(comparator);
   }
 
   @override

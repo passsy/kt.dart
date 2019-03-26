@@ -1213,7 +1213,7 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     final mutableList = toMutableList();
-    mutableList.list.sort(comparator);
+    mutableList.asList().sort(comparator);
     return mutableList;
   }
 
