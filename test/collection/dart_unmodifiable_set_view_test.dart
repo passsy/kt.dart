@@ -21,6 +21,8 @@ void main() {
     test("set query methods work as expected", () {
       final ktSet = setOf("a", "b", "c");
       final dartSet = ktSet.asSet();
+
+      // Set query methods
       expect(dartSet.cast<String>(), Set.from(["a", "b", "c"]));
       expect(dartSet.containsAll(["a"]), isTrue);
       expect(dartSet.difference(Set.from(["a"])), Set.from(["b", "c"]));
@@ -28,6 +30,13 @@ void main() {
       expect(dartSet.lookup("a"), "a");
       expect(
           dartSet.union(Set.from(["a", "x"])), Set.from(["a", "b", "c", "x"]));
+
+      // Iterable query methods inherited from IterableMixin
+      expect(dartSet.map((it) => it.toUpperCase()), Set.from(["A", "B", "C"]));
+      expect(dartSet.isEmpty, isFalse);
+      expect(dartSet.contains("a"), isTrue);
+      expect(dartSet.singleWhere((it) => it == "a"), "a");
+      // ... and may more
     });
 
     test("asSet().toSet() offers a mutable dart Set", () {
