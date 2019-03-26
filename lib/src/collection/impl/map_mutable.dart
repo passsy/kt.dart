@@ -22,7 +22,10 @@ class DartMutableMap<K, V>
   final Map<K, V> _map;
 
   @override
-  Map<K, V> get map => _map;
+  Iterable<MapEntry<K, V>> get iter => _map.entries;
+
+  @override
+  Map<K, V> asMap() => _map;
 
   @override
   bool containsKey(K key) => _map.containsKey(key);
@@ -117,9 +120,8 @@ class DartMutableMap<K, V>
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
   _MutableEntry(this._key, this._value);
 
-  _MutableEntry.from(MapEntry<K, V> entry)
-      : _key = entry.key,
-        _value = entry.value;
+  factory _MutableEntry.from(MapEntry<K, V> entry) =>
+      _MutableEntry(entry.key, entry.value);
 
   K _key;
   V _value;

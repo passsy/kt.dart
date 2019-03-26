@@ -30,6 +30,21 @@ abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
     return KtMutableSet.from(args);
   }
 
+  /**
+   * Creates a [Set] instance that wraps the original [KtSet]. It acts as a view.
+   *
+   * Mutations on the returned [Set] are reflected on the original [KtSet]
+   * and vice versa.
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtSet] using a for-loop
+   * - Use [toSet] to copy the set
+   */
+  @override
+  Set<T> asSet();
+
   // Query Operations
   @override
   KtMutableIterator<T> iterator();

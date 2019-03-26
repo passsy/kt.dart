@@ -1,13 +1,14 @@
 import 'package:kt_dart/collection.dart';
 import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
 import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
+import 'package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
 class DartSet<T>
     with KtIterableExtensionsMixin<T>, KtCollectionExtensionMixin<T>
     implements KtSet<T> {
   DartSet([Iterable<T> iterable = const []])
-      : _set = Set.from(iterable),
+      : _set = UnmodifiableSetView(Set.from(iterable)),
         super();
 
   final Set<T> _set;
@@ -22,6 +23,9 @@ class DartSet<T>
     // here prevents mutation of the underlying Set
     return Set.of(_set);
   }
+
+  @override
+  Set<T> asSet() => _set;
 
   @override
   bool contains(T element) => _set.contains(element);
@@ -75,7 +79,7 @@ class _DartToKIterator<T> extends KtIterator<T> {
   final Iterator<T> iterator;
   T nextValue;
   T lastReturned;
-  var _hasNext = false;
+  bool _hasNext;
 
   @override
   bool hasNext() {

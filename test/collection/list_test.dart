@@ -6,42 +6,45 @@ import '../test/assert_dart.dart';
 void main() {
   group("list", () {
     testList(
-        <T>() => emptyList<T>(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
+      <T>() => emptyList<T>(),
+      <T>(
+              [T arg0,
+              T arg1,
+              T arg2,
+              T arg3,
+              T arg4,
+              T arg5,
+              T arg6,
+              T arg7,
+              T arg8,
+              T arg9]) =>
+          listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>([Iterable<T> iterable = const []]) => listFrom(iterable),
+      mutable: false,
+    );
   });
   group("KtList", () {
     testList(
-        <T>() => KtList<T>.empty(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            KtList.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtList.from(iterable));
+      <T>() => KtList<T>.empty(),
+      <T>(
+              [T arg0,
+              T arg1,
+              T arg2,
+              T arg3,
+              T arg4,
+              T arg5,
+              T arg6,
+              T arg7,
+              T arg8,
+              T arg9]) =>
+          KtList.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+      <T>([Iterable<T> iterable = const []]) => KtList.from(iterable),
+      mutable: false,
+    );
   });
   group("mutableList", () {
     testList(
-        <T>() => emptyList<T>(),
+        <T>() => mutableListOf<T>(),
         <T>(
                 [T arg0,
                 T arg1,
@@ -92,7 +95,8 @@ void testList(
             T arg9])
         listOf,
     KtList<T> Function<T>([Iterable<T> iterable]) listFrom,
-    {bool ordered = true}) {
+    {bool ordered = true,
+    bool mutable = true}) {
   group('basic methods', () {
     test("has no elements", () {
       final list = listOf();
@@ -337,5 +341,56 @@ void testList(
       expect(stringList.indexOfFirst((it) => it == null), 0);
       expect(stringList.elementAtOrElse(0, (_) => "a"), null);
     });
+
+    if (mutable) {
+      test("emptyList, asList allows mutation - empty", () {
+        final ktList = emptyList<String>();
+        expect(ktList.isEmpty(), isTrue);
+        final dartList = ktList.asList();
+        dartList.add("asdf");
+        expect(dartList.length, 1);
+        expect(ktList.size, 1);
+      });
+
+      test("empty mutable list, asList allows mutation", () {
+        final ktList = listOf<String>();
+        expect(ktList.isEmpty(), isTrue);
+        final dartList = ktList.asList();
+        dartList.add("asdf");
+        expect(dartList.length, 1);
+        expect(ktList.size, 1);
+      });
+
+      test("mutable list, asList allows mutation", () {
+        final ktList = listOf("a");
+        final dartList = ktList.asList();
+        dartList.add("asdf");
+        expect(dartList.length, 2);
+        expect(ktList.size, 2);
+      });
+    } else {
+      test("emptyList, asList doesn't allow mutation", () {
+        final ktList = emptyList();
+        expect(ktList.isEmpty(), isTrue);
+        final e =
+            catchException<UnsupportedError>(() => ktList.asList().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+
+      test("empty list, asList doesn't allows mutation", () {
+        final ktList = listOf<String>();
+        expect(ktList.isEmpty(), isTrue);
+        final e =
+            catchException<UnsupportedError>(() => ktList.asList().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+
+      test("list, asList doesn't allows mutation", () {
+        final ktList = listOf<String>("a");
+        final e =
+            catchException<UnsupportedError>(() => ktList.asList().add("asdf"));
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
   });
 }

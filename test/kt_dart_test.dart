@@ -2,6 +2,8 @@ import 'collection/collection_mutable_test.dart' as collection_mutable_test;
 import 'collection/collection_test.dart' as collection_test;
 import 'collection/collections_test.dart' as collections_test;
 import 'collection/comparisons_test.dart' as comparisons_test;
+import 'collection/dart_unmodifiable_set_view_test.dart'
+    as dart_unmodifiable_set_view_test;
 import 'collection/iterable_extensions_test.dart' as iterable_extensions_test;
 import 'collection/iterable_mutable_extensions_test.dart'
     as iterable_mutable_extensions_test;
@@ -32,6 +34,7 @@ void main() {
   collection_test.main();
   collections_test.main();
   comparisons_test.main();
+  dart_unmodifiable_set_view_test.main();
   iterable_extensions_test.main();
   iterable_mutable_extensions_test.main();
   iterator_test.main();

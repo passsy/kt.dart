@@ -4,6 +4,40 @@ import 'package:kt_dart/src/util/errors.dart';
 abstract class KtMapExtensionsMixin<K, V>
     implements KtMapExtension<K, V>, KtMap<K, V> {
   @override
+  bool all(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return true;
+    }
+    for (KtMapEntry<K, V> entry in entries.iter) {
+      if (!predicate(entry.key, entry.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  bool any(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return false;
+    }
+    for (KtMapEntry<K, V> entry in entries.iter) {
+      if (predicate(entry.key, entry.value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -196,7 +230,7 @@ abstract class KtMapExtensionsMixin<K, V>
 
   @override
   KtMutableMap<K, V> toMutableMap() {
-    return mutableMapFrom(map);
+    return mutableMapFrom(asMap());
   }
 
   @override
@@ -223,40 +257,6 @@ abstract class KtMapExtensionsMixin<K, V>
       }
     }
     return true;
-  }
-
-  @override
-  bool all(Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
-    if (isEmpty()) {
-      return true;
-    }
-    for (KtMapEntry<K, V> entry in entries.iter) {
-      if (!predicate(entry.key, entry.value)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  @override
-  bool any(Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
-    if (isEmpty()) {
-      return false;
-    }
-    for (KtMapEntry<K, V> entry in entries.iter) {
-      if (predicate(entry.key, entry.value)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   @override

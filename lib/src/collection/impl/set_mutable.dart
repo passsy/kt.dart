@@ -30,6 +30,9 @@ class DartMutableSet<T>
   Set<T> get set => _set;
 
   @override
+  Set<T> asSet() => _set;
+
+  @override
   bool contains(T element) => _set.contains(element);
 
   @override
@@ -127,7 +130,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;
-  var _hasNext = false;
+  bool _hasNext;
 
   @override
   bool hasNext() {

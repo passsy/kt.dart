@@ -31,8 +31,8 @@ void main() {
 void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
   group('basic methods', () {
-    test("access dart map", () {
-      Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).map;
+    test("asMap", () {
+      Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).asMap();
       expect(map.length, 2);
       expect(map, equals({"a": 1, "b": 2}));
     });
@@ -136,6 +136,24 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
         2: "Ivysaur",
       });
       expect(pokemon.values, listOf("Bulbasaur", "Ivysaur"));
+    });
+  });
+
+  group("iter", () {
+    test("iter via for loop", () {
+      final pokemon = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+
+      final values = mutableListOf();
+      final keys = mutableListOf();
+      for (final p in pokemon.iter) {
+        keys.add(p.key);
+        values.add(p.value);
+      }
+      expect(values, listOf("Bulbasaur", "Ivysaur"));
+      expect(keys, listOf(1, 2));
     });
   });
 }

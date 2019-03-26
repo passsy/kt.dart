@@ -31,6 +31,21 @@ abstract class KtMutableList<T>
     return KtMutableList.from(args);
   }
 
+  /**
+   * Creates a [List] instance that wraps the original [KtList]. It acts as a view.
+   *
+   * Mutations on the returned [List] are reflected on the original [KtList]
+   * and vice versa.
+   *
+   * This method can be used to interop between the dart:collection and the
+   * kt.dart world.
+   *
+   * - Use [iter] to iterate over the elements of this [KtList] using a for-loop
+   * - Use [toList] to copy the list
+   */
+  @override
+  List<T> asList();
+
   // Modification Operations
   /**
    * Adds the specified element to the end of this list.
