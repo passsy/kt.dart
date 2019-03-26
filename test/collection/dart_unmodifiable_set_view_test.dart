@@ -42,7 +42,6 @@ void main() {
       // dartSet stays unmodified
       expect(dartSet.length, 3);
 
-
       // and dartSet is unmodifiable
       isUnmodifiable(() => dartSet.clear());
     });

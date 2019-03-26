@@ -98,8 +98,7 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       test("empty set set doesn't allow mutation", () {
         final ktSet = emptySet();
         expect(ktSet.isEmpty(), isTrue);
-        final e =
-            catchException<UnsupportedError>(() => ktSet.set.add("asdf"));
+        final e = catchException<UnsupportedError>(() => ktSet.set.add("asdf"));
         expect(e.message, contains("unmodifiable"));
       });
     }

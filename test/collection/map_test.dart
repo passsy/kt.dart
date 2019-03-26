@@ -139,8 +139,8 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     });
   });
 
-  group("iter", (){
-    test("iter via for loop", (){
+  group("iter", () {
+    test("iter via for loop", () {
       final pokemon = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
@@ -148,7 +148,7 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
 
       final values = mutableListOf();
       final keys = mutableListOf();
-      for(final p in pokemon.iter) {
+      for (final p in pokemon.iter) {
         keys.add(p.key);
         values.add(p.value);
       }
