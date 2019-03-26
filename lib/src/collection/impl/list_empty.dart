@@ -14,6 +14,9 @@ class EmptyList<T>
   List<T> get list => List.unmodifiable([]);
 
   @override
+  List<T> asList() => List.unmodifiable([]);
+
+  @override
   bool contains(T element) => false;
 
   @override
@@ -92,9 +95,6 @@ class EmptyList<T>
 
   @override
   Iterable<T> get iter => EmptyDartIterable();
-
-  @override
-  List<T> asList() => List.unmodifiable([]);
 }
 
 class _EmptyIterator<T> extends KtListIterator<T> {
