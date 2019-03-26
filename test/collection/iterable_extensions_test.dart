@@ -1893,10 +1893,10 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(result.toList(), listOf(4, 3, 2, 1));
     });
 
-    var lastChar = (String it) {
-      var last = it.runes.last;
+    String lastChar(String it) {
+      final last = it.runes.last;
       return String.fromCharCode(last);
-    };
+    }
 
     test("sortedBy", () {
       final result =
