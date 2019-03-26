@@ -23,7 +23,7 @@ class DartSet<T>
     // here prevents mutation of the underlying Set
     return Set.of(_set);
   }
-  
+
   @override
   Set<T> asSet() => _set;
 
