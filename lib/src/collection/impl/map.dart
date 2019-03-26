@@ -73,9 +73,8 @@ class DartMap<K, V> with KtMapExtensionsMixin<K, V> implements KtMap<K, V> {
 class _Entry<K, V> extends KtMapEntry<K, V> {
   _Entry(this.key, this.value);
 
-  _Entry.from(MapEntry<K, V> entry)
-      : key = entry.key,
-        value = entry.value;
+  factory _Entry.from(MapEntry<K, V> entry) => _Entry(entry.key, entry.value);
+
   @override
   final K key;
 

@@ -120,9 +120,8 @@ class DartMutableMap<K, V>
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
   _MutableEntry(this._key, this._value);
 
-  _MutableEntry.from(MapEntry<K, V> entry)
-      : _key = entry.key,
-        _value = entry.value;
+  factory _MutableEntry.from(MapEntry<K, V> entry) =>
+      _MutableEntry(entry.key, entry.value);
 
   K _key;
   V _value;

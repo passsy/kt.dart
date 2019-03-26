@@ -11,7 +11,7 @@ class InterOpKIterator<T> implements KtIterator<T> {
   final Iterator<T> iterator;
   T nextValue;
   T lastReturned;
-  var _hasNext = false;
+  bool _hasNext;
 
   @override
   bool hasNext() {
