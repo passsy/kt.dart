@@ -71,9 +71,6 @@ for (final p in mapFrom({1: "Bulbasaur", 2: "Ivysaur"}).iter) {
 - [#81](https://github.com/passsy/kt.dart/pull/81) Force dartfmt on CI
 - [#83](https://github.com/passsy/kt.dart/pull/83) Improve .gitignore
 
-
-
-
 ## 0.5.0
 
 [diff v0.4.2...v0.5.0](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.5.0)
