@@ -1592,7 +1592,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.minBy<num>((it) => it), null);
     });
 
-    test("maxBy requires a non null selector", () {
+    test("minBy requires a non null selector", () {
       final e =
           catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
@@ -1604,9 +1604,9 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       return value.compareTo(other);
     }
 
-    test("gets max value", () {
+    test("gets min value", () {
       final iterable = iterableOf([2, 1, 3]);
-      expect(iterable.minWith(_intComparison), 3);
+      expect(iterable.minWith(_intComparison), 1);
     });
 
     test("empty iterable return null", () {

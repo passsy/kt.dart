@@ -999,7 +999,7 @@ abstract class KtIterableExtensionsMixin<T>
     var min = i.next();
     while (i.hasNext()) {
       final e = i.next();
-      if (comparator(min, e) < 0) {
+      if (comparator(min, e) > 0) {
         min = e;
       }
     }
