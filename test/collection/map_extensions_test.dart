@@ -465,7 +465,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("maxBy requires a non null selector", () {
       final e =
-      catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
+          catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -490,7 +490,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("maxWith requires a non null comparator", () {
       final e = catchException<ArgumentError>(
-              () => emptyMap<int, String>().maxWith(null));
+          () => emptyMap<int, String>().maxWith(null));
       expect(e.message, allOf(contains("null"), contains("comparator")));
     });
   });
@@ -551,7 +551,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("minBy requires a non null selector", () {
       final e =
-      catchException<ArgumentError>(() => emptyMap().minBy<num>(null));
+          catchException<ArgumentError>(() => emptyMap().minBy<num>(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -576,7 +576,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("minWith requires a non null comparator", () {
       final e = catchException<ArgumentError>(
-              () => emptyMap<int, String>().minWith(null));
+          () => emptyMap<int, String>().minWith(null));
       expect(e.message, allOf(contains("null"), contains("comparator")));
     });
   });
