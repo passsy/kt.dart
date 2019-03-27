@@ -1103,9 +1103,7 @@ abstract class KtIterableExtensionsMixin<T>
     return accumulator;
   }
 
-  /**
-   * Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
-   */
+  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
   @override
   KtIterable<T> requireNoNulls() {
     for (final element in iter) {

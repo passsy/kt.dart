@@ -6,6 +6,7 @@ Future<void> main(List<String> args) async {
   final Process dartfmt = await Process.start('dartfmt', [
     '--set-exit-if-changed',
     '-w',
+    '--fix',
     'example',
     'lib',
     'test',

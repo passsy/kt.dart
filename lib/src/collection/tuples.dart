@@ -1,14 +1,12 @@
-/**
- * Represents a generic pair of two values.
- *
- * There is no meaning attached to values in this class, it can be used for any purpose.
- * Pair exhibits value semantics, i.e. two pairs are equal if both components are equal.
- *
- * @param A type of the first value.
- * @param B type of the second value.
- * @property first First value.
- * @property second Second value.
- */
+/// Represents a generic pair of two values.
+///
+/// There is no meaning attached to values in this class, it can be used for any purpose.
+/// Pair exhibits value semantics, i.e. two pairs are equal if both components are equal.
+///
+/// @param A type of the first value.
+/// @param B type of the second value.
+/// @property first First value.
+/// @property second Second value.
 class KtPair<A, B> {
   KtPair(this.first, this.second);
 
@@ -30,19 +28,17 @@ class KtPair<A, B> {
   int get hashCode => first.hashCode ^ second.hashCode;
 }
 
-/**
- * Represents a triad of values
- *
- * There is no meaning attached to values in this class, it can be used for any purpose.
- * Triple exhibits value semantics, i.e. two triples are equal if all three components are equal.
- *
- * @param A type of the first value.
- * @param B type of the second value.
- * @param C type of the third value.
- * @property first First value.
- * @property second Second value.
- * @property third Third value.
- */
+/// Represents a triad of values
+///
+/// There is no meaning attached to values in this class, it can be used for any purpose.
+/// Triple exhibits value semantics, i.e. two triples are equal if all three components are equal.
+///
+/// @param A type of the first value.
+/// @param B type of the second value.
+/// @param C type of the third value.
+/// @property first First value.
+/// @property second Second value.
+/// @property third Third value.
 class KtTriple<A, B, C> {
   KtTriple(this.first, this.second, this.third);
 

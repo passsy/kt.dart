@@ -1,9 +1,7 @@
 import 'package:kt_dart/kt.dart';
 
 void main() {
-  /**
-   * Lists
-   */
+  /// Lists
   final mapped = listOf(1, 2, 3, 4).map((it) => ">$it<");
   print(mapped); // [>1<, >2<, >3<, >4<]
 
@@ -16,9 +14,7 @@ void main() {
   final distinct = listFrom([1, 2, 3, 1, 2, 3]).distinct();
   print(distinct); //[1, 2, 3]
 
-  /**
-   * Better equals
-   */
+  /// Better equals
   final kListEquals = listOf(12, 9, 6, 3) == listOf(12, 9, 6, 3);
   print(kListEquals); // true
 
@@ -33,14 +29,10 @@ void main() {
       {1: "Bulbasaur", 2: "Ivysaur"} == {1: "Bulbasaur", 2: "Ivysaur"};
   print(dartMapEquals); // false
 
-  /**
-   * Sets
-   */
+  /// Sets
   print(setOf(1, 2, 3, 1, 2, 3)); // [1, 2, 3]
 
-  /**
-   * Maps
-   */
+  /// Maps
   final pokemon = mutableMapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",
@@ -48,9 +40,7 @@ void main() {
   pokemon[1] = "Ditto";
   print(pokemon); // {1=Ditto, 2=Ivysaur}
 
-  /**
-   * Tons of useful operators which *should* be part of the dart std lib
-   */
+  /// Tons of useful operators which *should* be part of the dart std lib
   final numbers = listOf(1, 2, 3, 4);
   print(numbers.sum()); // 10
 
