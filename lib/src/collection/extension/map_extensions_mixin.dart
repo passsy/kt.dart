@@ -370,6 +370,9 @@ abstract class KtMapExtensionsMixin<K, V>
   KtMap<K, V> operator +(KtMap<K, V> map) => plus(map);
 
   @override
+  KtList<KtPair<K, V>> toList() => listFrom(iter.map((it) => it.toPair()));
+
+  @override
   KtMap<K, V> toMap() {
     if (size == 0) return emptyMap();
     return toMutableMap();

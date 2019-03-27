@@ -337,6 +337,11 @@ abstract class KtMapExtension<K, V> {
   KtMap<K, V> operator +(KtMap<K, V> map);
 
   /**
+   * Returns a [KtList] containing all key-value pairs.
+   */
+  KtList<KtPair<K, V>> toList();
+
+  /**
    * Returns a new read-only map containing all key-value pairs from the original map.
    *
    * The returned map preserves the entry iteration order of the original map.
