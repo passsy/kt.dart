@@ -284,6 +284,14 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("map", () {
+    test("map entries", () {
+      final mapped = pokemon.map((entry) => "${entry.key}->${entry.value}");
+      expect(mapped, listOf("1->Bulbasaur", "2->Ivysaur"));
+      expect(mapped.size, 2);
+    });
+  });
+
   group("mapKeys", () {
     test("map keys", () {
       final mapped = pokemon.mapKeys((entry) => entry.key.toString());
@@ -339,6 +347,46 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     test("mapKeysTo requires destination to be non null", () {
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(null, (it) => true));
+      expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("mapTo", () {
+    test("mapTo same type", () {
+      final result = mutableListFrom<int>();
+      final filtered = pokemon.mapTo(result, (entry) => entry.key + 1000);
+      expect(identical(result, filtered), isTrue);
+      expect(result, listOf(1001, 1002));
+    });
+    test("mapTo super type", () {
+      final result = mutableListFrom<num>();
+      final filtered = pokemon.mapTo(result, (entry) => entry.key + 1000);
+      expect(identical(result, filtered), isTrue);
+      expect(result, listOf(1001, 1002));
+    });
+    test("mapTo wrong type throws", () {
+      final result = mutableListFrom<String>();
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapTo(result, (entry) => entry.key + 1000));
+      expect(
+          e.message,
+          allOf(
+            contains("mapTo"),
+            contains("destination"),
+            contains("<String>"),
+            contains("<int, String>"),
+          ));
+    });
+    test("mapTo requires transform to be non null", () {
+      bool Function(KtMapEntry<int, String> entry) predicate = null;
+      final other = mutableListFrom<int>();
+      final e =
+          catchException<ArgumentError>(() => pokemon.mapTo(other, predicate));
+      expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+    test("mapTo requires destination to be non null", () {
+      final e = catchException<ArgumentError>(
+          () => pokemon.mapTo(null, (it) => true));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
   });
@@ -602,7 +650,8 @@ class ThirdPartyMap<K, V>
   int _hashCode;
 
   @override
-  Iterable<MapEntry<K, V>> get iter => _map.entries;
+  Iterable<KtMapEntry<K, V>> get iter =>
+      _map.entries.map((entry) => _Entry.from(entry));
 
   @override
   Map<K, V> asMap() => _map;
