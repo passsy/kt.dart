@@ -12,7 +12,9 @@ Future<void> main(List<String> args) async {
     'tool',
   ]);
 
+  // ignore: unawaited_futures
   stderr.addStream(dartfmt.stderr);
+  // ignore: unawaited_futures
   stdout.addStream(dartfmt.stdout
       // help dartfmt formatting
       .map((it) => String.fromCharCodes(it))

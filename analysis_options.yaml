@@ -85,5 +85,6 @@ linter:
     - unrelated_type_equality_checks
     - use_setters_to_change_properties
     - use_string_buffers
+    - unawaited_futures
     - valid_regexps
     - void_checks # under review (see #1068)
