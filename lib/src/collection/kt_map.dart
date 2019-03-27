@@ -26,7 +26,7 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   int get size;
 
   /**
-   * dart interop iterable for loops
+   * Access to a `Iterable` to be used in for-loops
    */
   Iterable<KtMapEntry<K, V>> get iter;
 
@@ -178,7 +178,7 @@ abstract class KtMapExtension<K, V> {
       M destination, bool Function(KtMapEntry<K, V> entry) predicate);
 
   /**
-   * Returns a map containing all key-value pairs with keys matching the given [predicate].
+   * Returns a map containing all key-value pairs with values matching the given [predicate].
    *
    * The returned map preserves the entry iteration order of the original map.
    */

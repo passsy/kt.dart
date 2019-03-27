@@ -7,7 +7,7 @@ import 'package:kt_dart/collection.dart';
  */
 abstract class KtIterable<T> implements KtIterableExtension<T> {
   /**
-   * dart interop iterable for loops
+   * Access to a [Iterable] to be used in for-loops
    */
   Iterable<T> get iter;
 
