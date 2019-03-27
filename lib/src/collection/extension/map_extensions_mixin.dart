@@ -38,6 +38,21 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
+  int count([bool Function(KtMapEntry<K, V>) predicate]) {
+    if (predicate == null) {
+      return size;
+    }
+    var count = 0;
+    final KtIterator<KtMapEntry<K, V>> i = iterator();
+    while (i.hasNext()) {
+      if (predicate(i.next())) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  @override
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -57,43 +72,6 @@ abstract class KtMapExtensionsMixin<K, V>
       }
     }
     return result;
-  }
-
-  @override
-  KtMap<K, V> filterValues(bool Function(V) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
-    final result = linkedMapFrom<K, V>();
-    for (final entry in iter) {
-      if (predicate(entry.value)) {
-        result.put(entry.key, entry.value);
-      }
-    }
-    return result;
-  }
-
-  @override
-  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M)
-        throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
-      return true;
-    }());
-    for (final element in iter) {
-      if (predicate(element)) {
-        destination.put(element.key, element.value);
-      }
-    }
-    return destination;
   }
 
   @override
@@ -123,6 +101,52 @@ abstract class KtMapExtensionsMixin<K, V>
       }
     }
     return destination;
+  }
+
+  @override
+  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
+      M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
+    assert(() {
+      if (destination == null) throw ArgumentError("destination can't be null");
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M)
+        throw ArgumentError("filterTo destination has wrong type parameters."
+            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
+      return true;
+    }());
+    for (final element in iter) {
+      if (predicate(element)) {
+        destination.put(element.key, element.value);
+      }
+    }
+    return destination;
+  }
+
+  @override
+  KtMap<K, V> filterValues(bool Function(V) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    final result = linkedMapFrom<K, V>();
+    for (final entry in iter) {
+      if (predicate(entry.value)) {
+        result.put(entry.key, entry.value);
+      }
+    }
+    return result;
+  }
+
+  @override
+  void forEach(Function(K key, V value) action) {
+    assert(() {
+      if (action == null) throw ArgumentError("action can't be null");
+      return true;
+    }());
+    entries.forEach((entry) => action(entry.key, entry.value));
   }
 
   @override
@@ -237,6 +261,23 @@ abstract class KtMapExtensionsMixin<K, V>
   KtMap<K, V> operator -(K key) => minus(key);
 
   @override
+  bool none(Function(K key, V value) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
+    if (isEmpty()) {
+      return true;
+    }
+    for (KtMapEntry<K, V> entry in iter) {
+      if (predicate(entry.key, entry.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
   KtMap<K, V> plus(KtMap<K, V> map) {
     assert(() {
       if (map == null) throw ArgumentError("map can't be null");
@@ -257,32 +298,6 @@ abstract class KtMapExtensionsMixin<K, V>
   @override
   KtMutableMap<K, V> toMutableMap() {
     return mutableMapFrom(asMap());
-  }
-
-  @override
-  void forEach(Function(K key, V value) action) {
-    assert(() {
-      if (action == null) throw ArgumentError("action can't be null");
-      return true;
-    }());
-    entries.forEach((entry) => action(entry.key, entry.value));
-  }
-
-  @override
-  bool none(Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
-    if (isEmpty()) {
-      return true;
-    }
-    for (KtMapEntry<K, V> entry in iter) {
-      if (predicate(entry.key, entry.value)) {
-        return false;
-      }
-    }
-    return true;
   }
 
   @override
