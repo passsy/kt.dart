@@ -702,7 +702,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return last;
     } else {
-      T last = null;
+      T last;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -749,7 +749,7 @@ abstract class KtIterableExtensionsMixin<T>
         return last;
       }
     } else {
-      T last = null;
+      T last;
       for (var element in iter) {
         if (predicate(element)) {
           last = element;
@@ -1138,7 +1138,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1167,7 +1167,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {

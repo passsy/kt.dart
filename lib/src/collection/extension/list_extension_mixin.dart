@@ -187,7 +187,7 @@ abstract class KtListExtensionsMixin<T>
           throw ArgumentError("List has more than one element.");
       }
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -215,7 +215,7 @@ abstract class KtListExtensionsMixin<T>
         return null;
       }
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
