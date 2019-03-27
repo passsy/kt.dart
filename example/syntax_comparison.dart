@@ -1,9 +1,7 @@
 import 'package:kt_dart/kt.dart';
 
 void main() {
-  /**
-   * Kotlin like, function based syntax
-   */
+  /// Kotlin like, function based syntax
 
   /// List
   // Create immutable lists
@@ -43,9 +41,7 @@ void main() {
   // Create mutable maps which keep the order of the items
   linkedMapFrom({1: "a", 2: "b"});
 
-  /**
-   * Dart like, constructor based syntax
-   */
+  /// Dart like, constructor based syntax
 
   /// List
   // Create immutable lists

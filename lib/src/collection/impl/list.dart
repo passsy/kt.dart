@@ -5,9 +5,7 @@ import 'package:kt_dart/src/collection/extension/list_extension_mixin.dart';
 import 'package:kt_dart/src/collection/impl/iterator.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-/**
- * [KtList] implementation based on a dart [List]
- */
+/// [KtList] implementation based on a dart [List]
 class DartList<T>
     with
         KtIterableExtensionsMixin<T>,

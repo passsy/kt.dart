@@ -8,9 +8,7 @@ import 'package:kt_dart/src/collection/extension/list_mutable_extension_mixin.da
 import 'package:kt_dart/src/collection/impl/iterator.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-/**
- * [KtList] based on a dart [List]
- */
+/// [KtList] based on a dart [List]
 class DartMutableList<T>
     with
         KtIterableExtensionsMixin<T>,

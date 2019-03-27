@@ -2,11 +2,9 @@ import 'package:kt_dart/collection.dart';
 import 'package:kt_dart/src/collection/impl/set_mutable.dart';
 import 'package:kt_dart/src/util/arguments.dart';
 
-/**
- * A generic unordered collection of elements that does not support duplicate elements, and supports
- * adding and removing elements.
- * @param [T] the type of elements contained in the set. The mutable set is invariant on its element type.
- */
+/// A generic unordered collection of elements that does not support duplicate elements, and supports
+/// adding and removing elements.
+/// @param [T] the type of elements contained in the set. The mutable set is invariant on its element type.
 abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
   factory KtMutableSet.empty() => KtMutableSet.from();
 
@@ -30,18 +28,16 @@ abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
     return KtMutableSet.from(args);
   }
 
-  /**
-   * Creates a [Set] instance that wraps the original [KtSet]. It acts as a view.
-   *
-   * Mutations on the returned [Set] are reflected on the original [KtSet]
-   * and vice versa.
-   *
-   * This method can be used to interop between the dart:collection and the
-   * kt.dart world.
-   *
-   * - Use [iter] to iterate over the elements of this [KtSet] using a for-loop
-   * - Use [toSet] to copy the set
-   */
+  /// Creates a [Set] instance that wraps the original [KtSet]. It acts as a view.
+  ///
+  /// Mutations on the returned [Set] are reflected on the original [KtSet]
+  /// and vice versa.
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  ///
+  /// - Use [iter] to iterate over the elements of this [KtSet] using a for-loop
+  /// - Use [toSet] to copy the set
   @override
   Set<T> asSet();
 

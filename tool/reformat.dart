@@ -6,13 +6,16 @@ Future<void> main(List<String> args) async {
   final Process dartfmt = await Process.start('dartfmt', [
     '--set-exit-if-changed',
     '-w',
+    '--fix',
     'example',
     'lib',
     'test',
     'tool',
   ]);
 
+  // ignore: unawaited_futures
   stderr.addStream(dartfmt.stderr);
+  // ignore: unawaited_futures
   stdout.addStream(dartfmt.stdout
       // help dartfmt formatting
       .map((it) => String.fromCharCodes(it))
