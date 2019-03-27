@@ -638,6 +638,35 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("toList", () {
+    test("makes a list which doesn't share memory", () {
+      final map = mutableMapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final list = map.toList();
+      expect(list.size, map.size);
+      map.put(3, "Venusaur");
+      expect(map.size, 3);
+      expect(list.size, 2);
+    });
+
+    test("make a copy of an empty map", () {
+      final map = emptyMap();
+      final copy = map.toList();
+      expect(copy.size, map.size);
+    });
+
+    test("make a copy", () {
+      final map = mapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final copy = map.toList();
+      expect(copy, listOf(KtPair(1, "Bulbasaur"), KtPair(2, "Ivysaur")));
+    });
+  });
+
   group("toMap", () {
     test("makes a copy which doesn't share memory", () {
       final map = mutableMapFrom({
@@ -651,10 +680,11 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(copy.size, 2);
     });
 
-    test("make a copy of an empty list", () {
+    test("make a copy of an empty map", () {
       final map = emptyMap();
       final copy = map.toMap();
       expect(copy, map);
+      expect(identical(copy, map), isFalse);
     });
   });
 
