@@ -53,7 +53,7 @@ for (final p in mapFrom({1: "Bulbasaur", 2: "Ivysaur"}).iter) {
 - [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtList.asList` Returns a read-only dart:core `List`
 - [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMutableList.asList` Creates a `List` instance that wraps the original `KtList`. It acts as a view.
 ---
-- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtSet.asSet` Returns a read-only dart:core `Set`
+- [#79](https://github.com/passsy/kt.dart/pull/79), [#91](https://github.com/passsy/kt.dart/pull/91) New: `KtSet.asSet` Returns a read-only dart:core `Set`
 - [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMutableSet.asSet` Creates a `Set` instance that wraps the original `KtSet`. It acts as a view.
 
 
