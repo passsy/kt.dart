@@ -253,12 +253,92 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
+  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+      R Function(KtMapEntry<K, V>) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    KtMapEntry<K, V> maxElement = i.next();
+    R maxValue = selector(maxElement);
+    while (i.hasNext()) {
+      final e = i.next();
+      final v = selector(e);
+      if (maxValue.compareTo(v) < 0) {
+        maxElement = e;
+        maxValue = v;
+      }
+    }
+    return maxElement;
+  }
+
+  @override
+  KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
+    final i = iterator();
+    if (!i.hasNext()) return null;
+    var max = i.next();
+    while (i.hasNext()) {
+      final e = i.next();
+      if (comparator(max, e) < 0) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  @override
   KtMap<K, V> minus(K key) {
     return toMutableMap()..remove(key);
   }
 
   @override
   KtMap<K, V> operator -(K key) => minus(key);
+
+  @override
+  KtMapEntry<K, V> minBy<R extends Comparable<R>>(
+      R Function(KtMapEntry<K, V>) selector) {
+    assert(() {
+      if (selector == null) throw ArgumentError("selector can't be null");
+      return true;
+    }());
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    KtMapEntry<K, V> minElement = i.next();
+    R minValue = selector(minElement);
+    while (i.hasNext()) {
+      final e = i.next();
+      final v = selector(e);
+      if (minValue.compareTo(v) > 0) {
+        minElement = e;
+        minValue = v;
+      }
+    }
+    return minElement;
+  }
+
+  @override
+  KtMapEntry<K, V> minWith(Comparator<KtMapEntry<K, V>> comparator) {
+    assert(() {
+      if (comparator == null) throw ArgumentError("comparator can't be null");
+      return true;
+    }());
+    final i = iterator();
+    if (!i.hasNext()) return null;
+    var min = i.next();
+    while (i.hasNext()) {
+      final e = i.next();
+      if (comparator(min, e) > 0) {
+        min = e;
+      }
+    }
+    return min;
+  }
 
   @override
   bool none(Function(K key, V value) predicate) {

@@ -275,6 +275,19 @@ abstract class KtMapExtension<K, V> {
       M destination, R Function(KtMapEntry<K, V> entry) transform);
 
   /**
+   * Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
+   */
+  @nullable
+  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+      R Function(KtMapEntry<K, V>) selector);
+
+  /**
+   * Returns the first entry having the largest value according to the provided [comparator] or `null` if there are no entries.
+   */
+  @nullable
+  KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator);
+
+  /**
    * Returns a map containing all entries of the original map except the entry with the given [key].
    *
    * The returned map preserves the entry iteration order of the original map.
@@ -287,6 +300,19 @@ abstract class KtMapExtension<K, V> {
    * The returned map preserves the entry iteration order of the original map.
    */
   KtMap<K, V> operator -(K key);
+
+  /**
+   * Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
+   */
+  @nullable
+  KtMapEntry<K, V> minBy<R extends Comparable<R>>(
+      R Function(KtMapEntry<K, V>) selector);
+
+  /**
+   * Returns the first entry having the smallest value according to the provided [comparator] or `null` if there are no entries.
+   */
+  @nullable
+  KtMapEntry<K, V> minWith(Comparator<KtMapEntry<K, V>> comparator);
 
   /**
    * Returns `true` if there is no entries in the map that match the given [predicate].

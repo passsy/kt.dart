@@ -452,6 +452,49 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("maxBy", () {
+    test("gets max value", () {
+      final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
+      expect(map.maxBy((it) => num.parse(it.key)).value, "Ivysaur");
+    });
+
+    test("empty iterable return null", () {
+      final map = emptyMap<int, String>();
+      expect(map.maxBy<num>((it) => it.key), null);
+    });
+
+    test("maxBy requires a non null selector", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
+      expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+  });
+
+  group("maxWith", () {
+    int _numKeyComparison(
+        KtMapEntry<num, dynamic> value, KtMapEntry<num, dynamic> other) {
+      return value.key.compareTo(other.key);
+    }
+
+    test("gets max value", () {
+      final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
+      final max = map.maxWith(_numKeyComparison);
+      expect(max.key, 2);
+      expect(max.value, "Ivysaur");
+    });
+
+    test("empty iterable return null", () {
+      final map = emptyMap<int, String>();
+      expect(map.maxWith(_numKeyComparison), null);
+    });
+
+    test("maxWith requires a non null comparator", () {
+      final e = catchException<ArgumentError>(
+          () => emptyMap<int, String>().maxWith(null));
+      expect(e.message, allOf(contains("null"), contains("comparator")));
+    });
+  });
+
   group("minus", () {
     test("remove element", () {
       final map = mapFrom({
@@ -492,6 +535,49 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       });
       final result = map.minus(5);
       expect(result, map);
+    });
+  });
+
+  group("minBy", () {
+    test("gets min value", () {
+      final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
+      expect(map.minBy((it) => num.parse(it.key)).value, "Bulbasaur");
+    });
+
+    test("empty iterable return null", () {
+      final map = emptyMap<int, String>();
+      expect(map.minBy<num>((it) => it.key), null);
+    });
+
+    test("minBy requires a non null selector", () {
+      final e =
+          catchException<ArgumentError>(() => emptyMap().minBy<num>(null));
+      expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+  });
+
+  group("minWith", () {
+    int _numKeyComparison(
+        KtMapEntry<num, dynamic> value, KtMapEntry<num, dynamic> other) {
+      return value.key.compareTo(other.key);
+    }
+
+    test("gets min value", () {
+      final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
+      final min = map.minWith(_numKeyComparison);
+      expect(min.key, 1);
+      expect(min.value, "Bulbasaur");
+    });
+
+    test("empty iterable return null", () {
+      final map = emptyMap<int, String>();
+      expect(map.minWith(_numKeyComparison), null);
+    });
+
+    test("minWith requires a non null comparator", () {
+      final e = catchException<ArgumentError>(
+          () => emptyMap<int, String>().minWith(null));
+      expect(e.message, allOf(contains("null"), contains("comparator")));
     });
   });
 
