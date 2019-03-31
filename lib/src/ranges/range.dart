@@ -2,18 +2,12 @@ import 'package:kt_dart/kt.dart';
 import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
 import 'package:kt_dart/src/collection/impl/iterable.dart';
 
-/**
- * Represents a range of values (for example, numbers or characters).
- */
+/// Represents a range of values (for example, numbers or characters).
 abstract class ClosedRange<T> {
-  /**
-   * The minimum value in the range.
-   */
+  /// The minimum value in the range.
   T get start;
 
-  /**
-   * The maximum value in the range (inclusive).
-   */
+  /// The maximum value in the range (inclusive).
   T get endInclusive;
 
   int compare(T a, T b) {
@@ -26,15 +20,11 @@ abstract class ClosedRange<T> {
     }
   }
 
-  /**
-   * Checks whether the specified [value] belongs to the range.
-   */
+  /// Checks whether the specified [value] belongs to the range.
   bool contains(T value) =>
       compare(value, start) >= 0 && compare(value, endInclusive) <= 0;
 
-  /**
-   * Checks whether the range is empty.
-   */
+  /// Checks whether the range is empty.
   bool isEmpty() => compare(start, endInclusive) > 0;
 }
 
@@ -55,19 +45,13 @@ class IntProgression {
 
   IntProgression stepping(int step) => IntProgression(first, last, step);
 
-  /**
-   * The first element in the progression.
-   */
+  /// The first element in the progression.
   final int first;
 
-  /**
-   * The last element in the progression.
-   */
+  /// The last element in the progression.
   final int last;
 
-  /**
-   * The step of the progression.
-   */
+  /// The step of the progression.
   final int step;
 
   static int _getProgressionLastElement(int start, int end, int step) {
@@ -102,9 +86,7 @@ class IntProgression {
     }
   }
 
-  /**
-   * Checks if the progression is empty.
-   */
+  /// Checks if the progression is empty.
   bool isEmpty() {
     if (step.compareTo(0) > 0) {
       return first > 0;
