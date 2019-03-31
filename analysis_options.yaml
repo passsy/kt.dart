@@ -14,6 +14,7 @@ linter:
     - avoid_empty_else
     - avoid_function_literals_in_foreach_calls
     - avoid_implementing_value_types
+    - avoid_init_to_null
     - avoid_null_checks_in_equality_operators
     - avoid_positional_boolean_parameters
     - avoid_private_typedef_functions # under review (see #1068)
@@ -42,6 +43,7 @@ linter:
     - no_adjacent_strings_in_list
     - no_duplicate_case_values
     - non_constant_identifier_names
+    - null_closures
     - only_throw_errors
     - overridden_fields
     # TODO    - package_api_docs # not a requirement but a best practice
@@ -84,5 +86,7 @@ linter:
     - unrelated_type_equality_checks
     - use_setters_to_change_properties
     - use_string_buffers
+    - use_rethrow_when_possible
+    - unawaited_futures
     - valid_regexps
     - void_checks # under review (see #1068)

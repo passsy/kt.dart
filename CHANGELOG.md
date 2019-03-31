@@ -1,3 +1,76 @@
+## 0.6.0
+
+[diff v0.5.0...v0.6.0](https://github.com/passsy/kt.dart/compare/v0.5.0...v0.6.0)
+
+This major update of kt.dart add 10+ extension methods for `KtMap` and makes working with maps even easier.
+
+### Behavior Changes
+
+The properties `KtList.list: List`,`KtSet.set: Set` are now deprecated and `KtMap.map: Map` was **removed**. Those properties where used to convert kt.dart collections to dart collections.
+Instead use the new `KtList.asList(): List`, `KtSet.asSet(): Set`, `KtMa.asMap(): Map` methods. 
+The old properties returned copies of the collections. 
+The new `as`-methods return views of the original collections and reflect changes of the original data.
+
+This breaking change was necessary because the property `KtMap.map: Map<K, V>` was conflicting with `KtMap.map(MapEntry<K, V> -> R) : KtList<R>` to map the entries to items of a `KtList`.
+Read about further details [here](https://github.com/passsy/kt.dart/issues/79).
+
+If you have used properties to iterate over the collections using a for-loop you should now always use `iter` which is available for all kt.dart collections.
+
+```dart
+for (final element in listOf("a", "b", "c").iter) {
+  print(element); 
+}
+for (final element in setOf("a", "b", "c").iter) {
+  print(element); 
+}
+for (final p in mapFrom({1: "Bulbasaur", 2: "Ivysaur"}).iter) {
+  print("${p.key} -> ${p.value}"); 
+}
+```
+
+### Additions
+- [#86](https://github.com/passsy/kt.dart/pull/86) New: `KtMap.map` Returns a list containing the results of applying the given `transform` function to each entry in the original map.
+- [#86](https://github.com/passsy/kt.dart/pull/86) New: `KtMap.iter` Access to a `Iterable` to be used in for-loops
+- [#87](https://github.com/passsy/kt.dart/pull/87) New: `KtMap.count` Returns the number of entries matching the given [predicate] or the number of entries when `predicate = null`.
+- [#89](https://github.com/passsy/kt.dart/pull/89) New: `KtMap.minBy` Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
+- [#89](https://github.com/passsy/kt.dart/pull/89) New: `KtMap.minWith` Returns the first entry having the smallest value according to the provided `comparator` or `null` if there are no entries.
+- [#89](https://github.com/passsy/kt.dart/pull/89) New: `KtMap.maxBy` Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
+- [#89](https://github.com/passsy/kt.dart/pull/89) New: `KtMap.maxWith` Returns the first entry having the largest value according to the provided `comparator` or `null` if there are no entries.
+- [#90](https://github.com/passsy/kt.dart/pull/90) New: `KtMap.toList` Returns a `KtList` containing all key-value pairs.
+- [#78](https://github.com/passsy/kt.dart/pull/78) New: `KtMap.forEach` Performs given `action` on each key/value pair from this map. thanks @acherkashyn
+- [#80](https://github.com/passsy/kt.dart/pull/80) New: `KtMap.none` Returns `true` if there is no entries in the map that match the given `predicate`. thanks @acherkashyn
+- [#80](https://github.com/passsy/kt.dart/pull/80) New: `KtMap.all` Returns true if all entries match the given `predicate`. thanks @acherkashyn
+- [#80](https://github.com/passsy/kt.dart/pull/80) New: `KtMap.any` Returns true if there is at least one entry that matches the given `predicate`. thanks @acherkashyn
+- [#84](https://github.com/passsy/kt.dart/pull/84) New: `KtMap.filterKeys` Returns a map containing all key-value pairs with keys matching the given `predicate`.
+- [#84](https://github.com/passsy/kt.dart/pull/84) New: `KtMap.filterValues` Returns a map containing all key-value pairs with values matching the given `predicate`.
+- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMap.asMap` Returns a read-only dart:core `Map`
+- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMutableMap.asMap` Creates a `Map` instance that wraps the original `KtMap`. It acts as a view.
+---
+- [#75](https://github.com/passsy/kt.dart/pull/75) New: `KtIterable.takeWhile` Returns a list containing first elements satisfying the given `predicate`.
+- [#76](https://github.com/passsy/kt.dart/pull/76) New: `KtIterable.takeLastWhile` Returns a list containing last elements satisfying the given `predicate`.
+---
+- [#73](https://github.com/passsy/kt.dart/pull/73) New: `KtList.takeLast`, Returns a list containing last `n` elements.
+- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtList.asList` Returns a read-only dart:core `List`
+- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMutableList.asList` Creates a `List` instance that wraps the original `KtList`. It acts as a view.
+---
+- [#79](https://github.com/passsy/kt.dart/pull/79), [#91](https://github.com/passsy/kt.dart/pull/91) New: `KtSet.asSet` Returns a read-only dart:core `Set`
+- [#79](https://github.com/passsy/kt.dart/pull/79) New: `KtMutableSet.asSet` Creates a `Set` instance that wraps the original `KtSet`. It acts as a view.
+
+
+### Bugfixes
+- [#74](https://github.com/passsy/kt.dart/pull/74) Fix: `KtList.dropLastWhile` was off by 1
+- [#88](https://github.com/passsy/kt.dart/pull/88) Fix: `KtIterable.minWith` returned the max value
+
+
+### Documentation
+- [#68](https://github.com/passsy/kt.dart/pull/68) Document `KtSet` constructors
+- [#70](https://github.com/passsy/kt.dart/pull/70) Fix README typos, thanks @RedBrogdon
+
+### Misc.
+- [#69](https://github.com/passsy/kt.dart/pull/69) `KtMutableListIterator` throws `IndexOutOfBoundsException` when calling `set` before `next` was called
+- [#81](https://github.com/passsy/kt.dart/pull/81) Force dartfmt on CI
+- [#83](https://github.com/passsy/kt.dart/pull/83) Improve .gitignore
+
 ## 0.5.0
 
 [diff v0.4.2...v0.5.0](https://github.com/passsy/kt.dart/compare/v0.4.2...v0.5.0)

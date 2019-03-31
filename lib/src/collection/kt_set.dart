@@ -3,31 +3,23 @@ import 'package:kt_dart/src/collection/impl/set.dart';
 import 'package:kt_dart/src/collection/impl/set_empty.dart';
 import 'package:kt_dart/src/util/arguments.dart';
 
-/**
- * A generic unordered collection of elements that does not support duplicate elements.
- * Methods in this interface support only read-only access to the set;
- * read/write access is supported through the [KtMutableSet] interface.
- * @param E the type of elements contained in the set. The set is covariant on its element type.
- */
+/// A generic unordered collection of elements that does not support duplicate elements.
+/// Methods in this interface support only read-only access to the set;
+/// read/write access is supported through the [KtMutableSet] interface.
+/// @param E the type of elements contained in the set. The set is covariant on its element type.
 abstract class KtSet<T> implements KtCollection<T> {
-  /**
-   * Returns an empty read-only set.
-   */
+  /// Returns an empty read-only set.
   factory KtSet.empty() => EmptySet<T>();
 
-  /**
-   * Returns a new read-only set based on [elements].
-   */
+  /// Returns a new read-only set based on [elements].
   factory KtSet.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptySet<T>();
     return DartSet(elements);
   }
 
-  /**
-   * Returns a new read-only set of given elements.
-   *
-   * Elements aren't allowed to be `null`. If your set requires a `null` value use [KtSet.from]
-   */
+  /// Returns a new read-only set of given elements.
+  ///
+  /// Elements aren't allowed to be `null`. If your set requires a `null` value use [KtSet.from]
   factory KtSet.of(
       [T arg0,
       T arg1,
@@ -44,14 +36,22 @@ abstract class KtSet<T> implements KtCollection<T> {
     return KtSet.from(args);
   }
 
-  /**
-   * dart interop set for time critical operations such as sorting
-   */
+  /// Deprecated, use [asSet] or [iter] for loops
+  @deprecated
   Set<T> get set;
 
   // Query Operations
   @override
   int get size;
+
+  /// returns a read-only dart:core [Set]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  ///
+  /// - Use [iter] to iterate over the elements of this [KtSet] using a for-loop
+  /// - Use [toSet] to copy the set
+  Set<T> asSet();
 
   @override
   bool isEmpty();

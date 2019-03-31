@@ -8,12 +8,13 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 script:
   - set -e
-  - sh tool/check_format.sh
+  - pub run tool/reformat.dart
   - dartanalyzer --fatal-infos --fatal-warnings ./
   - pub run test test/kt_dart_test.dart
   - pub global activate coverage
   - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
   - dart --observe=8111 --enable-asserts test/kt_dart_test.dart
   - pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
+  - pub publish -n
 after_success:
   - bash <(curl -s https://codecov.io/bash)

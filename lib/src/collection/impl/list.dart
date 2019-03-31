@@ -5,9 +5,7 @@ import 'package:kt_dart/src/collection/extension/list_extension_mixin.dart';
 import 'package:kt_dart/src/collection/impl/iterator.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-/**
- * [KtList] implementation based on a dart [List]
- */
+/// [KtList] implementation based on a dart [List]
 class DartList<T>
     with
         KtIterableExtensionsMixin<T>,
@@ -16,7 +14,7 @@ class DartList<T>
     implements KtList<T> {
   /// Create an immutable [KtList] by copying the incoming [iterable] into a [List]
   DartList([Iterable<T> iterable = const []])
-      : _list = List.from(iterable, growable: false),
+      : _list = List.unmodifiable(iterable),
         super();
 
   final List<T> _list;
@@ -27,6 +25,9 @@ class DartList<T>
 
   @override
   List<T> get list => _list;
+
+  @override
+  List<T> asList() => _list;
 
   @override
   bool contains(T element) => _list.contains(element);

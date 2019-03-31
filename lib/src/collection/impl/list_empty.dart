@@ -11,7 +11,10 @@ class EmptyList<T>
         KtListExtensionsMixin<T>
     implements KtList<T> {
   @override
-  List<T> get list => <T>[];
+  List<T> get list => List.unmodifiable([]);
+
+  @override
+  List<T> asList() => List.unmodifiable([]);
 
   @override
   bool contains(T element) => false;

@@ -1,15 +1,17 @@
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("mapFrom", () {
-    testMap(<K, V>() => emptyMap<K, V>());
+    testMap(<K, V>() => emptyMap<K, V>(), mutable: false);
   });
   group("KtMap.from", () {
-    testMap(<K, V>() => KtMap<K, V>.from());
+    testMap(<K, V>() => KtMap<K, V>.from(), mutable: false);
   });
   group("KtMap.empty", () {
-    testMap(<K, V>() => KtMap<K, V>.empty());
+    testMap(<K, V>() => KtMap<K, V>.empty(), mutable: false);
   });
   group("mutableMapFrom", () {
     testMap(<K, V>() => mutableMapFrom<K, V>());
@@ -40,7 +42,7 @@ void main() {
   });
 }
 
-void testMap(KtMap<K, V> Function<K, V>() emptyMap) {
+void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
   group('empty map', () {
     test("has no elements", () {
       final empty = emptyMap<String, Object>();
@@ -119,10 +121,23 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap) {
       expect(empty0.hashCode, equals(empty1.hashCode));
     });
 
-    test("access dart map", () {
-      final Map<String, int> map = emptyMap<String, int>().map;
+    test("asMap has zero length", () {
+      final Map<String, int> map = emptyMap<String, int>().asMap();
       expect(map.length, 0);
     });
+    if (mutable) {
+      test("asMap is mutable", () {
+        final Map<String, int> map = emptyMap<String, int>().asMap();
+        map["a"] = 1;
+        expect(map["a"], 1);
+      });
+    } else {
+      test("asMap is immutable", () {
+        final Map<String, int> map = emptyMap<String, int>().asMap();
+        final e = catchException<UnsupportedError>(() => map["a"] = 1);
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
     test("containsKeyalways returns false", () {
       expect(emptyMap().containsKey(2), isFalse);
       expect(emptyMap().containsKey(null), isFalse);
@@ -144,6 +159,19 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap) {
     });
     test("entries always is empty", () {
       expect(emptyMap().entries.isEmpty(), isTrue);
+    });
+
+    test("iter via for loop", () {
+      final pokemon = emptyMap();
+
+      final values = mutableListOf();
+      final keys = mutableListOf();
+      for (final p in pokemon.iter) {
+        keys.add(p.key);
+        values.add(p.value);
+      }
+      expect(values.isEmpty(), isTrue);
+      expect(keys.isEmpty(), isTrue);
     });
   });
 }

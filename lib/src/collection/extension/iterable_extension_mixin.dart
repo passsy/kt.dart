@@ -702,7 +702,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return last;
     } else {
-      T last = null;
+      T last;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -749,7 +749,7 @@ abstract class KtIterableExtensionsMixin<T>
         return last;
       }
     } else {
-      T last = null;
+      T last;
       for (var element in iter) {
         if (predicate(element)) {
           last = element;
@@ -999,7 +999,7 @@ abstract class KtIterableExtensionsMixin<T>
     var min = i.next();
     while (i.hasNext()) {
       final e = i.next();
-      if (comparator(min, e) < 0) {
+      if (comparator(min, e) > 0) {
         min = e;
       }
     }
@@ -1103,9 +1103,7 @@ abstract class KtIterableExtensionsMixin<T>
     return accumulator;
   }
 
-  /**
-   * Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
-   */
+  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
   @override
   KtIterable<T> requireNoNulls() {
     for (final element in iter) {
@@ -1138,7 +1136,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1167,7 +1165,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single = null;
+      T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1213,7 +1211,8 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     final mutableList = toMutableList();
-    mutableList.list.sort(comparator);
+    // delegate to darts list implementation for sorting which is highly optimized
+    mutableList.asList().sort(comparator);
     return mutableList;
   }
 
@@ -1458,8 +1457,8 @@ class _MovingSubList<T> {
   _MovingSubList(this.list);
 
   KtList<T> list;
-  var _fromIndex = 0;
-  var _size = 0;
+  int _fromIndex = 0;
+  int _size = 0;
 
   void move(int fromIndex, int toIndex) {
     if (fromIndex < 0 || toIndex > list.size) {
