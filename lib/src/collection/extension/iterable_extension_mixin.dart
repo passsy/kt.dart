@@ -13,7 +13,7 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
-    for (var element in iter) {
+    for (final element in iter) {
       if (!predicate(element)) {
         return false;
       }
@@ -28,7 +28,7 @@ abstract class KtIterableExtensionsMixin<T>
       return iterator().hasNext();
     }
     if (this is KtCollection && (this as KtCollection).isEmpty()) return false;
-    for (var element in iter) {
+    for (final element in iter) {
       if (predicate(element)) return true;
     }
     return false;
@@ -63,7 +63,7 @@ abstract class KtIterableExtensionsMixin<T>
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
       return true;
     }());
-    for (var element in iter) {
+    for (final element in iter) {
       final key = keySelector(element);
       final V value =
           valueTransform == null ? element : valueTransform(element);
@@ -79,7 +79,7 @@ abstract class KtIterableExtensionsMixin<T>
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());
-    for (var element in iter) {
+    for (final element in iter) {
       final pair = transform(element);
       destination.put(pair.first, pair.second);
     }
@@ -114,7 +114,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return true;
     }());
-    for (var element in iter) {
+    for (final element in iter) {
       destination.put(element, valueSelector(element));
     }
     return destination;
@@ -462,7 +462,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return i.next();
     } else {
-      for (var element in iter) {
+      for (final element in iter) {
         if (predicate(element)) return element;
       }
       throw NoSuchElementException(
@@ -487,7 +487,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return i.next();
     } else {
-      for (var element in iter) {
+      for (final element in iter) {
         if (predicate(element)) return element;
       }
       return null;
@@ -510,7 +510,7 @@ abstract class KtIterableExtensionsMixin<T>
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());
-    for (var element in iter) {
+    for (final element in iter) {
       final list = transform(element);
       destination.addAll(list);
     }
@@ -632,7 +632,7 @@ abstract class KtIterableExtensionsMixin<T>
   int indexOf(T element) {
     if (this is KtList) return (this as KtList).indexOf(element);
     var index = 0;
-    for (var item in iter) {
+    for (final item in iter) {
       if (element == item) return index;
       index++;
     }
@@ -646,7 +646,7 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     var index = 0;
-    for (var item in iter) {
+    for (final item in iter) {
       if (predicate(item)) {
         return index;
       }
@@ -663,7 +663,7 @@ abstract class KtIterableExtensionsMixin<T>
     }());
     var lastIndex = -1;
     var index = 0;
-    for (var item in iter) {
+    for (final item in iter) {
       if (predicate(item)) {
         lastIndex = index;
       }
@@ -690,7 +690,7 @@ abstract class KtIterableExtensionsMixin<T>
     final buffer = StringBuffer();
     buffer.write(prefix);
     var count = 0;
-    for (var element in iter) {
+    for (final element in iter) {
       if (++count > 1) buffer.write(separator);
       if (limit >= 0 && count > limit) {
         break;
@@ -772,7 +772,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
     } else {
       T last;
-      for (var element in iter) {
+      for (final element in iter) {
         if (predicate(element)) {
           last = element;
         }
@@ -872,7 +872,7 @@ abstract class KtIterableExtensionsMixin<T>
       if (transform == null) throw ArgumentError("transform can't be null");
       return true;
     }());
-    for (var item in iter) {
+    for (final item in iter) {
       destination.add(transform(item));
     }
     return destination;

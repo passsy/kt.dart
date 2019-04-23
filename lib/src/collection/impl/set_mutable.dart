@@ -97,7 +97,7 @@ class DartMutableSet<T>
       return true;
     }());
     final oldSize = size;
-    for (var value in elements.iter) {
+    for (final value in elements.iter) {
       _set.remove(value);
     }
     return oldSize != size;

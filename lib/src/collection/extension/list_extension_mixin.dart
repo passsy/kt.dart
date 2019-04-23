@@ -56,7 +56,7 @@ abstract class KtListExtensionsMixin<T>
       if (isEmpty()) throw NoSuchElementException("List is empty.");
       return get(0);
     } else {
-      for (var element in iter) {
+      for (final element in iter) {
         if (predicate(element)) return element;
       }
       throw NoSuchElementException(

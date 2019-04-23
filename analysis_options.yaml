@@ -93,4 +93,5 @@ linter:
     - curly_braces_in_flow_control_structures
     - join_return_with_assignment
     - prefer_const_declarations
+    - prefer_final_in_for_each
     - void_checks # under review (see #1068)

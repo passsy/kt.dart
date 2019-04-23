@@ -78,7 +78,7 @@ class DartMutableMap<K, V>
       if (from == null) throw ArgumentError("from can't be null");
       return true;
     }());
-    for (var entry in from.entries.iter) {
+    for (final entry in from.entries.iter) {
       _map[entry.key] = entry.value;
     }
   }
@@ -88,7 +88,7 @@ class DartMutableMap<K, V>
 
   @override
   bool removeMapping(K key, V value) {
-    for (var entry in _map.entries) {
+    for (final entry in _map.entries) {
       if (entry.key == key && entry.value == value) {
         _map.remove(key);
         return true;

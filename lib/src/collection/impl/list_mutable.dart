@@ -159,7 +159,7 @@ class DartMutableList<T>
       return true;
     }());
     var changed = false;
-    for (var value in elements.iter) {
+    for (final value in elements.iter) {
       changed |= _list.remove(value);
     }
     return changed;

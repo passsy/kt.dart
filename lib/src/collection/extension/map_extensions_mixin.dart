@@ -12,7 +12,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return true;
     }
-    for (KtMapEntry<K, V> entry in iter) {
+    for (final KtMapEntry<K, V> entry in iter) {
       if (!predicate(entry.key, entry.value)) {
         return false;
       }
@@ -29,7 +29,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return false;
     }
-    for (KtMapEntry<K, V> entry in iter) {
+    for (final KtMapEntry<K, V> entry in iter) {
       if (predicate(entry.key, entry.value)) {
         return true;
       }
@@ -363,7 +363,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (isEmpty()) {
       return true;
     }
-    for (KtMapEntry<K, V> entry in iter) {
+    for (final KtMapEntry<K, V> entry in iter) {
       if (predicate(entry.key, entry.value)) {
         return false;
       }

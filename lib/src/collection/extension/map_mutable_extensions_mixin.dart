@@ -26,7 +26,7 @@ abstract class KtMutableMapExtensionsMixin<K, V>
       if (pairs == null) throw ArgumentError("pairs can't be null");
       return true;
     }());
-    for (var value in pairs.iter) {
+    for (final value in pairs.iter) {
       put(value.first, value.second);
     }
   }
