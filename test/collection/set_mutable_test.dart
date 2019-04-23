@@ -97,7 +97,7 @@ void testMutableSet(
   test("using the internal dart set allows mutation - empty", () {
     final kset = mutableSetOf();
     expect(kset.isEmpty(), isTrue);
-    kset.set.add("asdf");
+    kset.asSet().add("asdf");
     // unchanged
     expect(kset.isEmpty(), isFalse);
     expect(kset, setOf("asdf"));
@@ -106,7 +106,7 @@ void testMutableSet(
   test("using the internal dart set allows mutation", () {
     final kset = mutableSetOf("a");
     expect(kset, setOf("a"));
-    kset.set.add("b");
+    kset.asSet().add("b");  
     // unchanged
     expect(kset, setOf("a", "b"));
   });

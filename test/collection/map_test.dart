@@ -34,13 +34,14 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
   group('basic methods', () {
     test("asMap", () {
-      Map<String, int> map = mapFrom<String, int>({"a": 1, "b": 2}).asMap();
+      final Map<String, int> map =
+          mapFrom<String, int>({"a": 1, "b": 2}).asMap();
       expect(map.length, 2);
       expect(map, equals({"a": 1, "b": 2}));
     });
 
     test("entry converts to KtPair", () {
-      var pair = mapFrom({"a": 1}).entries.first().toPair();
+      final pair = mapFrom({"a": 1}).entries.first().toPair();
       expect(pair, KtPair("a", 1));
     });
   });

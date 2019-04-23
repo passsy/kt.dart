@@ -158,7 +158,7 @@ void testSet(
     });
 
     test("access dart set", () {
-      final Set<String> set = setOf<String>("a", "b", "c").set;
+      final Set<String> set = setOf<String>("a", "b", "c").asSet();
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
     });

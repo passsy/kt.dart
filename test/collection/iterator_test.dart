@@ -58,7 +58,7 @@ void main() {
     });
 
     test("add adds item to underlying list", () {
-      var dartList = ["a", "b"];
+      final dartList = ["a", "b"];
       final i = InterOpKtListIterator(dartList, 0);
       i.add("c");
       expect(dartList, equals(["c", "a", "b"]));

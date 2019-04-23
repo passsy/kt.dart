@@ -191,7 +191,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
+      final KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
       expect(i.hasNext(), isTrue);
       var next = i.next();
       expect(next.key, 1);
@@ -211,9 +211,9 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
           1: "Bulbasaur",
           2: "Ivysaur",
         });
-        KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
+        final KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
         expect(i.hasNext(), isTrue);
-        var next = i.next();
+        final next = i.next();
         expect(next.key, 1);
         expect(next.value, "Bulbasaur");
 

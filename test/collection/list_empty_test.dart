@@ -157,12 +157,13 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
     });
 
     test("access dart list", () {
-      List<String> list = emptyList<String>().list;
+      final List<String> list = emptyList<String>().asList();
       expect(list.length, 0);
     });
 
     test("listIterator requires index", () {
-      ArgumentError e = catchException(() => emptyList().listIterator(null));
+      final ArgumentError e =
+          catchException(() => emptyList().listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
     });
