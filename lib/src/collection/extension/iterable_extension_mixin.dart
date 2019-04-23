@@ -99,15 +99,19 @@ abstract class KtIterableExtensionsMixin<T>
       M destination, V Function(T) valueSelector) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
-      if (valueSelector == null)
+      if (valueSelector == null) {
         throw ArgumentError("valueSelector can't be null");
-      if (destination is! KtMutableMap<T, V> && mutableMapFrom<T, V>() is! M)
+      }
+      if (destination is! KtMutableMap<T, V> && mutableMapFrom<T, V>() is! M) {
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) items aren't subtype of "
-            "$runtimeType items. Items can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+                "\nExpected: KtMutableMap<$T, $V>, Actual: ${destination
+                .runtimeType}"
+                "\ndestination (${destination
+                .runtimeType}) items aren't subtype of "
+                "$runtimeType items. Items can't be copied to destination."
+                "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (var element in iter) {
@@ -248,8 +252,9 @@ abstract class KtIterableExtensionsMixin<T>
   T elementAtOrElse(int index, T Function(int) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null)
+      if (defaultValue == null) {
         throw ArgumentError("defaultValue function can't be null");
+      }
       return true;
     }());
     if (index < 0) {
@@ -308,13 +313,16 @@ abstract class KtIterableExtensionsMixin<T>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C)
+      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterIndexedTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
+                .runtimeType}"
+                "\ndestination (${destination
+                .runtimeType}) entries aren't subtype of "
+                "map ($runtimeType) entries. Entries can't be copied to destination."
+                "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     var i = 0;
@@ -357,13 +365,16 @@ abstract class KtIterableExtensionsMixin<T>
   C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
-      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C)
+      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterNotNullTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
+                .runtimeType}"
+                "\ndestination (${destination
+                .runtimeType}) entries aren't subtype of "
+                "map ($runtimeType) entries. Entries can't be copied to destination."
+                "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (final element in iter) {
@@ -380,12 +391,15 @@ abstract class KtIterableExtensionsMixin<T>
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
-      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C)
+      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination
+            .runtimeType}"
+            "\ndestination (${destination
+            .runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (final element in iter) {
@@ -402,12 +416,15 @@ abstract class KtIterableExtensionsMixin<T>
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
-      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C)
+      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination
+            .runtimeType}"
+            "\ndestination (${destination
+            .runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (final element in iter) {
@@ -573,12 +590,15 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
       if (destination is! KtMutableMap<K, KtMutableList<T>> &&
-          mutableMapFrom<K, KtMutableList<T>>() is! M)
+          mutableMapFrom<K, KtMutableList<T>>() is! M) {
         throw ArgumentError("groupByTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination
+            .runtimeType}"
+            "\ndestination (${destination
+            .runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (final element in iter) {
@@ -595,8 +615,9 @@ abstract class KtIterableExtensionsMixin<T>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
-      if (valueTransform == null)
+      if (valueTransform == null) {
         throw ArgumentError("valueTransform can't be null");
+      }
       return true;
     }());
     for (final element in iter) {
@@ -710,9 +731,10 @@ abstract class KtIterableExtensionsMixin<T>
           found = true;
         }
       }
-      if (!found)
+      if (!found) {
         throw NoSuchElementException(
             "Collection contains no element matching the predicate.");
+      }
       return last;
     }
   }
@@ -1077,8 +1099,9 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     final i = iterator();
-    if (!i.hasNext())
+    if (!i.hasNext()) {
       throw UnsupportedError("Empty collection can't be reduced.");
+    }
     S accumulator = i.next() as S;
     while (i.hasNext()) {
       accumulator = operation(accumulator, i.next());
@@ -1093,8 +1116,9 @@ abstract class KtIterableExtensionsMixin<T>
       return true;
     }());
     final i = iterator();
-    if (!i.hasNext())
+    if (!i.hasNext()) {
       throw UnsupportedError("Empty collection can't be reduced.");
+    }
     var index = 1;
     S accumulator = i.next() as S;
     while (i.hasNext()) {
@@ -1116,8 +1140,9 @@ abstract class KtIterableExtensionsMixin<T>
 
   @override
   KtList<T> reversed() {
-    if (this is KtCollection && (this as KtCollection).size <= 1)
+    if (this is KtCollection && (this as KtCollection).size <= 1) {
       return toList();
+    }
     final list = toMutableList();
     list.reverse();
     return list;
@@ -1140,16 +1165,18 @@ abstract class KtIterableExtensionsMixin<T>
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
-          if (found)
+          if (found) {
             throw ArgumentError(
                 "Collection contains more than one matching element.");
+          }
           single = element;
           found = true;
         }
       }
-      if (!found)
+      if (!found) {
         throw NoSuchElementException(
             "Collection contains no element matching the predicate.");
+      }
       return single;
     }
   }
@@ -1317,13 +1344,16 @@ abstract class KtIterableExtensionsMixin<T>
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
-      if (mutableListOf<T>() is! C)
+      if (mutableListOf<T>() is! C) {
         throw ArgumentError(
             "toCollection destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
+                .runtimeType}"
+                "\ndestination (${destination
+                .runtimeType}) entries aren't subtype of "
+                "map ($runtimeType) entries. Entries can't be copied to destination."
+                "\n\n$kBug35518GenericTypeError");
+      }
       return true;
     }());
     for (final item in iter) {
@@ -1364,8 +1394,9 @@ abstract class KtIterableExtensionsMixin<T>
     assert(() {
       if (size == null) throw ArgumentError("size can't be null");
       if (step == null) throw ArgumentError("step can't be null");
-      if (partialWindows == null)
+      if (partialWindows == null) {
         throw ArgumentError("partialWindows can't be null");
+      }
       return true;
     }());
     final list = toList();
@@ -1389,8 +1420,9 @@ abstract class KtIterableExtensionsMixin<T>
       if (size == null) throw ArgumentError("size can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       if (step == null) throw ArgumentError("step can't be null");
-      if (partialWindows == null)
+      if (partialWindows == null) {
         throw ArgumentError("partialWindows can't be null");
+      }
       return true;
     }());
     final list = toList();

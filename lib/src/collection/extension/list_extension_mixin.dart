@@ -39,8 +39,9 @@ abstract class KtListExtensionsMixin<T>
   T elementAtOrElse(int index, T defaultValue(int index)) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null)
+      if (defaultValue == null) {
         throw ArgumentError("defaultValue function can't be null");
+      }
       return true;
     }());
     return index >= 0 && index <= lastIndex ? get(index) : defaultValue(index);
@@ -99,8 +100,9 @@ abstract class KtListExtensionsMixin<T>
   T getOrElse(int index, T Function(int) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null)
+      if (defaultValue == null) {
         throw ArgumentError("defaultValue function can't be null");
+      }
       return true;
     }());
     return (index >= 0 && index <= lastIndex)
@@ -191,9 +193,10 @@ abstract class KtListExtensionsMixin<T>
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
-          if (found)
+          if (found) {
             throw ArgumentError(
                 "Collection contains more than one matching element.");
+          }
           single = element;
           found = true;
         }

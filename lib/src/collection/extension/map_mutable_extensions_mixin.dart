@@ -5,8 +5,9 @@ abstract class KtMutableMapExtensionsMixin<K, V>
   @override
   V getOrPut(K key, V Function() defaultValue) {
     assert(() {
-      if (defaultValue == null)
+      if (defaultValue == null) {
         throw ArgumentError("defaultValue can't be null");
+      }
       return true;
     }());
     final value = get(key);

@@ -85,8 +85,9 @@ class DartList<T>
     assert(() {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
       if (toIndex == null) throw ArgumentError("toIndex can't be null");
-      if (fromIndex > toIndex)
+      if (fromIndex > toIndex) {
         throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+      }
       return true;
     }());
     if (fromIndex < 0 || toIndex > size) {

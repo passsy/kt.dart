@@ -18,11 +18,12 @@ abstract class KtMutableIterableExtensionsMixin<T>
     }());
     var result = false;
     final i = iterator();
-    while (i.hasNext())
+    while (i.hasNext()) {
       if (predicate(i.next()) == predicateResultToRemove) {
         i.remove();
         result = true;
       }
+    }
     return result;
   }
 }
