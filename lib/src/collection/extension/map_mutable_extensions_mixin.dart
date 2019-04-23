@@ -32,8 +32,5 @@ abstract class KtMutableMapExtensionsMixin<K, V>
   }
 
   @override
-  V putIfAbsent(K key, V value) {
-    V v = get(key) ?? put(key, value);
-    return v;
-  }
+  V putIfAbsent(K key, V value) => get(key) ?? put(key, value);
 }

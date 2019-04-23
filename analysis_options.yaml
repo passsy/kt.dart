@@ -94,4 +94,5 @@ linter:
     - join_return_with_assignment
     - prefer_const_declarations
     - prefer_final_in_for_each
+    - prefer_final_locals
     - void_checks # under review (see #1068)
