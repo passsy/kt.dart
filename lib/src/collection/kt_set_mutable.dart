@@ -8,7 +8,11 @@ import 'package:kt_dart/src/util/arguments.dart';
 abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
   factory KtMutableSet.empty() => KtMutableSet.from();
 
-  factory KtMutableSet.from([Iterable<T> elements = const []]) {
+  factory KtMutableSet.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return DartMutableSet(elements);
   }
 

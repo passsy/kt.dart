@@ -218,5 +218,10 @@ void testSet(
         expect(e.message, contains("unmodifiable"));
       });
     }
+
+    test("setFrom requires non null iterable", () {
+      final e = catchException<ArgumentError>(() => setFrom(null));
+      expect(e.message, contains("elements can't be null"));
+    });
   });
 }

@@ -8,7 +8,11 @@ abstract class KtMutableList<T>
     implements KtList<T>, KtMutableCollection<T>, KtMutableListExtension<T> {
   factory KtMutableList.empty() => DartMutableList<T>();
 
-  factory KtMutableList.from([Iterable<T> elements = const []]) {
+  factory KtMutableList.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     if (elements.isEmpty) return DartMutableList<T>();
     return DartMutableList(elements);
   }

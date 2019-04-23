@@ -342,6 +342,11 @@ void testList(
       expect(stringList.elementAtOrElse(0, (_) => "a"), null);
     });
 
+    test("listFrom requires non null iterable", () {
+      final e = catchException<ArgumentError>(() => listFrom(null));
+      expect(e.message, contains("elements can't be null"));
+    });
+
     if (mutable) {
       test("emptyList, asList allows mutation - empty", () {
         final ktList = emptyList<String>();
