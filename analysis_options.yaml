@@ -96,4 +96,5 @@ linter:
     - prefer_final_in_for_each
     - prefer_final_locals
     - provide_deprecation_message
+    - test_types_in_equals
     - void_checks # under review (see #1068)
