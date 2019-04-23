@@ -1,7 +1,9 @@
 language: dart
 sudo: false
 dart:
+  - 2.0.0
   - 2.1.0
+  - 2.2.0
 with_content_shell: false
 before_install:
   - export DISPLAY=:99.0
@@ -15,6 +17,7 @@ script:
   - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
   - dart --observe=8111 --enable-asserts test/kt_dart_test.dart
   - pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
-  - pub publish -n
+  # pub is broken in version 2.2.0
+  - pub --version | grep -q '2.2.0' || pub publish -n
 after_success:
   - bash <(curl -s https://codecov.io/bash)

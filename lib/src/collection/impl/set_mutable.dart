@@ -4,7 +4,7 @@ import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
 import 'package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-class DartMutableSet<T>
+class DartMutableSet<T> extends Object
     with
         KtIterableExtensionsMixin<T>,
         KtCollectionExtensionMixin<T>,
