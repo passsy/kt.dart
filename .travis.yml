@@ -1,7 +1,9 @@
 language: dart
 sudo: false
 dart:
+  - 2.0.0
   - 2.1.0
+  - 2.2.0
 with_content_shell: false
 before_install:
   - export DISPLAY=:99.0
