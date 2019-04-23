@@ -5,7 +5,11 @@ import 'package:kt_dart/src/util/arguments.dart';
 abstract class KtHashSet<T> implements KtMutableSet<T> {
   factory KtHashSet.empty() => KtHashSet.from();
 
-  factory KtHashSet.from([Iterable<T> elements = const []]) {
+  factory KtHashSet.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return DartHashSet<T>(elements);
   }
 

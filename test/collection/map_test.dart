@@ -1,6 +1,8 @@
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
+import '../test/assert_dart.dart';
+
 void main() {
   group("mapFrom", () {
     testMap(<K, V>(Map<K, V> map) => mapFrom<K, V>(map));
@@ -156,4 +158,10 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
       expect(keys, listOf(1, 2));
     });
   });
+
+  test("mapFrom requires non null map", () {
+    final e = catchException<ArgumentError>(() => mapFrom(null));
+    expect(e.message, contains("map can't be null"));
+  });
+
 }

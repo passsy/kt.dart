@@ -4,5 +4,11 @@ import 'package:kt_dart/src/collection/impl/map_hash.dart';
 abstract class KtHashMap<K, V> implements KtMutableMap<K, V> {
   factory KtHashMap.empty() => DartHashMap<K, V>();
 
-  factory KtHashMap.from([Map<K, V> map = const {}]) => DartHashMap(map);
+  factory KtHashMap.from([@nonNull Map<K, V> map = const {}]) {
+    assert(() {
+      if (map == null) throw ArgumentError("map can't be null");
+      return true;
+    }());
+    return DartHashMap(map);
+  }
 }

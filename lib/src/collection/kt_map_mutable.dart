@@ -9,7 +9,13 @@ abstract class KtMutableMap<K, V>
     implements KtMap<K, V>, KtMutableMapExtension<K, V> {
   factory KtMutableMap.empty() => DartMutableMap<K, V>();
 
-  factory KtMutableMap.from([Map<K, V> map = const {}]) => DartMutableMap(map);
+  factory KtMutableMap.from([@nonNull Map<K, V> map = const {}]) {
+    assert(() {
+      if (map == null) throw ArgumentError("map can't be null");
+      return true;
+    }());
+    return DartMutableMap(map);
+  }
 
   /// Creates a [Map] instance that wraps the original [KtMap]. It acts as a view.
   ///
