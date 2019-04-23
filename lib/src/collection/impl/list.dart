@@ -6,7 +6,7 @@ import 'package:kt_dart/src/collection/impl/iterator.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
 /// [KtList] implementation based on a dart [List]
-class DartList<T>
+class DartList<T> extends Object
     with
         KtIterableExtensionsMixin<T>,
         KtCollectionExtensionMixin<T>,

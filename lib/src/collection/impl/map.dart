@@ -2,7 +2,7 @@ import 'package:kt_dart/collection.dart';
 import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-class DartMap<K, V> with KtMapExtensionsMixin<K, V> implements KtMap<K, V> {
+class DartMap<K, V>  extends Object with KtMapExtensionsMixin<K, V> implements KtMap<K, V> {
   DartMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification
