@@ -19,7 +19,7 @@ abstract class KtMutableMap<K, V>
 
   /// Creates a [Map] instance that wraps the original [KtMap]. It acts as a view.
   ///
-  /// Mutations on the returned [Map] are reflected on the original [KtMapp]
+  /// Mutations on the returned [Map] are reflected on the original [KtMap]
   /// and vice versa.
   ///
   /// This method can be used to interop between the dart:collection and the
@@ -60,15 +60,15 @@ abstract class KtMutableMap<K, V>
 
   // Views
 
-  /// Returns a [MutableSet] of all keys in this map.
+  /// Returns a [KtMutableSet] of all keys in this map.
   @override
   KtMutableSet<K> get keys;
 
-  /// Returns a [MutableCollection] of all values in this map. Note that this collection may contain duplicate values.
+  /// Returns a [KtMutableCollection] of all values in this map. Note that this collection may contain duplicate values.
   @override
   KtMutableCollection<V> get values;
 
-  /// Returns a [MutableSet] of all key/value pairs in this map.
+  /// Returns a [KtMutableSet] of all key/value pairs in this map.
   @override
   KtMutableSet<KtMutableMapEntry<K, V>> get entries;
 }
@@ -93,7 +93,7 @@ abstract class KtMutableMapExtension<K, V> {
   /// Returns an [Iterator] over the entries in the [Map].
   KtMutableIterator<KtMutableMapEntry<K, V>> iterator();
 
-  /// Puts all the given [pairs] into this [MutableMap] with the first component in the pair being the key and the second the value.
+  /// Puts all the given [pairs] into this [KtMutableMap] with the first component in the pair being the key and the second the value.
   void putAllPairs(KtIterable<KtPair<K, V>> pairs);
 
   /// If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.

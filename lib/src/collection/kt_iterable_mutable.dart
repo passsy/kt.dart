@@ -11,12 +11,12 @@ abstract class KtMutableIterable<T>
 }
 
 abstract class KtMutableIterableExtension<T> {
-  /// Removes all elements from this [MutableIterable] that match the given [predicate].
+  /// Removes all elements from this [KtMutableIterable] that match the given [predicate].
   ///
   /// @return `true` if any element was removed from the collection, `false` if the collection was not modified.
   bool removeAllWhere(bool Function(T) predicate);
 
-  /// Retains only elements of this [MutableIterable] that match the given [predicate]
+  /// Retains only elements of this [KtMutableIterable] that match the given [predicate]
   ///
   /// @return `true` if any element was removed from the collection, `false` if the collection was not modified.
   bool retainAllWhere(bool Function(T) predicate);

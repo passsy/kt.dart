@@ -89,4 +89,5 @@ linter:
     - use_rethrow_when_possible
     - unawaited_futures
     - valid_regexps
+    - comment_references
     - void_checks # under review (see #1068)
