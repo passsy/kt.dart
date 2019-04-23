@@ -84,9 +84,7 @@ class DartMutableMap<K, V>
   }
 
   @override
-  V remove(K key) {
-    return _map.remove(key);
-  }
+  V remove(K key) => _map.remove(key);
 
   @override
   bool removeMapping(K key, V value) {

@@ -79,9 +79,7 @@ class _DartToKIterator<T> extends KtIterator<T> {
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {

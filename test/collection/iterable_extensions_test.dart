@@ -1545,9 +1545,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("maxWith", () {
-    int _intComparison(int value, int other) {
-      return value.compareTo(other);
-    }
+    int _intComparison(int value, int other) => value.compareTo(other);
 
     test("gets max value", () {
       final iterable = iterableOf([2, 1, 3]);
@@ -1601,9 +1599,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("minWith", () {
-    int _intComparison(int value, int other) {
-      return value.compareTo(other);
-    }
+    int _intComparison(int value, int other) => value.compareTo(other);
 
     test("gets min value", () {
       final iterable = iterableOf([2, 1, 3]);

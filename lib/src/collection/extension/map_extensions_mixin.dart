@@ -309,9 +309,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMap<K, V> minus(K key) {
-    return toMutableMap()..remove(key);
-  }
+  KtMap<K, V> minus(K key) => toMutableMap()..remove(key);
 
   @override
   KtMap<K, V> operator -(K key) => minus(key);
@@ -395,9 +393,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMutableMap<K, V> toMutableMap() {
-    return mutableMapFrom(asMap());
-  }
+  KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
 
   @override
   String toString() {

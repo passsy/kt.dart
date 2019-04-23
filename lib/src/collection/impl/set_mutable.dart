@@ -71,9 +71,7 @@ class DartMutableSet<T>
   }
 
   @override
-  bool add(T element) {
-    return _set.add(element);
-  }
+  bool add(T element) => _set.add(element);
 
   @override
   bool addAll(KtIterable<T> elements) {
@@ -133,9 +131,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {

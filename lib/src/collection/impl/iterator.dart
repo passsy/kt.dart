@@ -14,9 +14,7 @@ class InterOpKIterator<T> implements KtIterator<T> {
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {
@@ -42,9 +40,7 @@ class InterOpKtListIterator<T>
   List<T> list;
 
   @override
-  bool hasNext() {
-    return cursor != list.length;
-  }
+  bool hasNext() => cursor != list.length;
 
   @override
   T next() {
