@@ -105,12 +105,10 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination is! KtMutableMap<T, V> && mutableMapFrom<T, V>() is! M) {
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
-                "\nExpected: KtMutableMap<$T, $V>, Actual: ${destination
-                .runtimeType}"
-                "\ndestination (${destination
-                .runtimeType}) items aren't subtype of "
-                "$runtimeType items. Items can't be copied to destination."
-                "\n\n$kBug35518GenericTypeError");
+            "\nExpected: KtMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) items aren't subtype of "
+            "$runtimeType items. Items can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       }
       return true;
     }());
@@ -316,12 +314,10 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterIndexedTo destination has wrong type parameters."
-                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
-                .runtimeType}"
-                "\ndestination (${destination
-                .runtimeType}) entries aren't subtype of "
-                "map ($runtimeType) entries. Entries can't be copied to destination."
-                "\n\n$kBug35518GenericTypeError");
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       }
       return true;
     }());
@@ -368,12 +364,10 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterNotNullTo destination has wrong type parameters."
-                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
-                .runtimeType}"
-                "\ndestination (${destination
-                .runtimeType}) entries aren't subtype of "
-                "map ($runtimeType) entries. Entries can't be copied to destination."
-                "\n\n$kBug35518GenericTypeError");
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       }
       return true;
     }());
@@ -393,10 +387,8 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination
-            .runtimeType}"
-            "\ndestination (${destination
-            .runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -418,10 +410,8 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination
-            .runtimeType}"
-            "\ndestination (${destination
-            .runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -592,10 +582,8 @@ abstract class KtIterableExtensionsMixin<T>
       if (destination is! KtMutableMap<K, KtMutableList<T>> &&
           mutableMapFrom<K, KtMutableList<T>>() is! M) {
         throw ArgumentError("groupByTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination
-            .runtimeType}"
-            "\ndestination (${destination
-            .runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -1347,12 +1335,10 @@ abstract class KtIterableExtensionsMixin<T>
       if (mutableListOf<T>() is! C) {
         throw ArgumentError(
             "toCollection destination has wrong type parameters."
-                "\nExpected: KtMutableCollection<$T>, Actual: ${destination
-                .runtimeType}"
-                "\ndestination (${destination
-                .runtimeType}) entries aren't subtype of "
-                "map ($runtimeType) entries. Entries can't be copied to destination."
-                "\n\n$kBug35518GenericTypeError");
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
       }
       return true;
     }());

@@ -89,10 +89,8 @@ abstract class KtMapExtensionsMixin<K, V>
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination
-            .runtimeType}"
-            "\ndestination (${destination
-            .runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -114,10 +112,8 @@ abstract class KtMapExtensionsMixin<K, V>
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination
-            .runtimeType}"
-            "\ndestination (${destination
-            .runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -201,11 +197,9 @@ abstract class KtMapExtensionsMixin<K, V>
       if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<R, V> && mutableMapFrom<R, V>() is! M) {
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$R, $V>, Actual: ${destination
-            .runtimeType}"
+            "\nExpected: KtMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KtMapEntry<$R, $V> "
-            "and can't be copied into destination of type ${destination
-            .runtimeType}."
+            "and can't be copied into destination of type ${destination.runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
@@ -222,13 +216,12 @@ abstract class KtMapExtensionsMixin<K, V>
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
-      if (destination is! KtMutableCollection<R> && mutableListFrom<R>() is! M) {
+      if (destination is! KtMutableCollection<R> &&
+          mutableListFrom<R>() is! M) {
         throw ArgumentError("mapTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$R>, Actual: ${destination
-            .runtimeType}"
+            "\nExpected: KtMutableCollection<$R>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type $R "
-            "and can't be copied into destination of type ${destination
-            .runtimeType}."
+            "and can't be copied into destination of type ${destination.runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
@@ -253,11 +246,9 @@ abstract class KtMapExtensionsMixin<K, V>
       if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<K, R> && mutableMapFrom<K, R>() is! M) {
         throw ArgumentError("mapValuesTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $R>, Actual: ${destination
-            .runtimeType}"
+            "\nExpected: KtMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
             "\nEntries after key transformation with $transform have type KtMapEntry<$K, $R> "
-            "and can't be copied into destination of type ${destination
-            .runtimeType}."
+            "and can't be copied into destination of type ${destination.runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
