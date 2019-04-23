@@ -98,10 +98,7 @@ class DartList<T>
   }
 
   @override
-  int get hashCode {
-    _hashCode ??= 1 + hashObjects(_list);
-    return _hashCode;
-  }
+  int get hashCode => _hashCode ??= 1 + hashObjects(_list);
 
   @override
   bool operator ==(dynamic other) {

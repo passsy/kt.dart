@@ -91,4 +91,5 @@ linter:
     - valid_regexps
     - comment_references
     - curly_braces_in_flow_control_structures
+    - join_return_with_assignment
     - void_checks # under review (see #1068)
