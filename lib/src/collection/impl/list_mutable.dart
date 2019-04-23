@@ -9,7 +9,7 @@ import 'package:kt_dart/src/collection/impl/iterator.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
 /// [KtList] based on a dart [List]
-class DartMutableList<T>
+class DartMutableList<T> extends Object
     with
         KtIterableExtensionsMixin<T>,
         KtCollectionExtensionMixin<T>,
@@ -160,7 +160,8 @@ class DartMutableList<T>
     }());
     var changed = false;
     for (final value in elements.iter) {
-      changed |= _list.remove(value);
+      final removed = _list.remove(value);
+      changed = changed || removed;
     }
     return changed;
   }

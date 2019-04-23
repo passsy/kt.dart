@@ -753,7 +753,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 }
 
-class ThirdPartyMap<K, V>
+class ThirdPartyMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>
     implements KtMap<K, V> {
   ThirdPartyMap([Map<K, V> map = const {}])

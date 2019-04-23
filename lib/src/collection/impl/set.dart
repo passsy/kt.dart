@@ -4,7 +4,7 @@ import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
 import 'package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-class DartSet<T>
+class DartSet<T> extends Object
     with KtIterableExtensionsMixin<T>, KtCollectionExtensionMixin<T>
     implements KtSet<T> {
   DartSet([Iterable<T> iterable = const []])
