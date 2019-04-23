@@ -164,7 +164,8 @@ void testSet(
     });
 
     test("access dart set", () {
-      final Set<String> set = setOf<String>("a", "b", "c").asSet();
+      // ignore: deprecated_member_use_from_same_package
+      final Set<String> set = setOf<String>("a", "b", "c").set;
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
     });
