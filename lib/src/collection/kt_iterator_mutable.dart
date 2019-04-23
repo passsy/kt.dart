@@ -2,6 +2,7 @@ import 'package:kt_dart/collection.dart';
 
 /// An iterator over a mutable collection. Provides the ability to remove elements while iterating.
 /// @see MutableCollection.iterator
+// ignore: one_member_abstracts
 abstract class KtMutableIterator<T> implements KtIterator<T> {
   /// Removes from the underlying collection the last element returned by this iterator.
   void remove();

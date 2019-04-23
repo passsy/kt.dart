@@ -128,7 +128,7 @@ void testList(
     });
 
     test("sortBy doesn't allow null as argument", () {
-      final num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortBy(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));
@@ -141,7 +141,7 @@ void testList(
     });
 
     test("sortByDescending doesn't allow null as argument", () {
-      final num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortByDescending(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));

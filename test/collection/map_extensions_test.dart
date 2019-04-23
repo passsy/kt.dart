@@ -172,7 +172,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterTo requires predicate to be non null", () {
-      final bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterTo(other, predicate));
@@ -210,7 +210,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterNotTo requires predicate to be non null", () {
-      final bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterNotTo(other, predicate));
@@ -338,7 +338,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapKeysTo requires transform to be non null", () {
-      final bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(other, predicate));
@@ -378,7 +378,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapTo requires transform to be non null", () {
-      final bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableListFrom<int>();
       final e =
           catchException<ArgumentError>(() => pokemon.mapTo(other, predicate));
@@ -439,7 +439,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapValuesTo requires transform to be non null", () {
-      final bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapValuesTo(other, predicate));
