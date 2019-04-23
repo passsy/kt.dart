@@ -223,6 +223,5 @@ void testSet(
       final e = catchException<ArgumentError>(() => setFrom(null));
       expect(e.message, contains("elements can't be null"));
     });
-
   });
 }

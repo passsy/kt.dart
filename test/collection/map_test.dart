@@ -163,5 +163,4 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     final e = catchException<ArgumentError>(() => mapFrom(null));
     expect(e.message, contains("map can't be null"));
   });
-
 }
