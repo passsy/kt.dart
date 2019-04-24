@@ -1,3 +1,20 @@
+## 0.6.2
+
+[diff v0.6.1...v0.6.2](https://github.com/passsy/kt.dart/compare/v0.6.1...v0.6.2)
+
+
+- [#96](https://github.com/passsy/kt.dart/pull/96) Dart 2.0.0 comparability. (Was only Dart 2.1.0 compatible). 
+- [#97](https://github.com/passsy/kt.dart/pull/97) Fix broken links to lib classes in documentation
+- [#97](https://github.com/passsy/kt.dart/pull/97) Adjust analyzer rules. Add new ones and explain why others aren't active. Adjusted the code accordingly
+
+
+## 0.6.1
+
+[diff v0.6.0...v0.6.1](https://github.com/passsy/kt.dart/compare/v0.6.0...v0.6.1)
+
+- [#92](https://github.com/passsy/kt.dart/pull/92) Improve pub score by changing comments to `///`
+
+
 ## 0.6.0
 
 [diff v0.5.0...v0.6.0](https://github.com/passsy/kt.dart/compare/v0.5.0...v0.6.0)
