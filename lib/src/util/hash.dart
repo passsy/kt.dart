@@ -21,13 +21,13 @@ int hash4(Object a, Object b, Object c, Object d) => _finish(_combine(
 // Jenkins hash functions
 
 int _combine(int hash, int value) {
-  hash = 0x1fffffff & (hash + value);
-  hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-  return hash ^ (hash >> 6);
+  var h = 0x1fffffff & (hash + value);
+  h = 0x1fffffff & (h + ((0x0007ffff & h) << 10));
+  return h ^ (h >> 6);
 }
 
 int _finish(int hash) {
-  hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-  hash = hash ^ (hash >> 11);
-  return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  var h = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+  h = h ^ (h >> 11);
+  return 0x1fffffff & (h + ((0x00003fff & h) << 15));
 }

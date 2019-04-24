@@ -78,7 +78,7 @@ abstract class KtMapEntry<K, V> {
   @nullable
   V get value;
 
-  /// Converts entry to [Pair] with key being first component and value being second.
+  /// Converts entry to [KtPair] with key being first component and value being second.
   KtPair<K, V> toPair();
 }
 

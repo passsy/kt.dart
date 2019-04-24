@@ -259,7 +259,7 @@ abstract class KtIterableExtension<T> {
   ///
   /// [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
   /// but will be checked at runtime.
-  /// [C] actually is expected to be `C extends KtMutableCollection<T>`
+  /// `C` actually is expected to be `C extends KtMutableCollection<T>`
   // TODO Change to `M extends KtMutableMap<K, KtMutableList<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   M groupByTo<K, M extends KtMutableMap<K, KtMutableList<dynamic>>>(
       M destination, K Function(T) keySelector);
@@ -425,7 +425,7 @@ abstract class KtIterableExtension<T> {
   /// and the element itself and calculates the next accumulator value.
   S reduceIndexed<S>(S Function(int index, S acc, T) operation);
 
-  /// Returns an original collection containing all the non-`null` elements, throwing an [IllegalArgumentException] if there are any `null` elements.
+  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
   KtIterable<T> requireNoNulls();
 
   /// Returns a list with elements in reversed order.
@@ -481,7 +481,7 @@ abstract class KtIterableExtension<T> {
   ///
   /// [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
   /// but will be checked at runtime.
-  /// [M] actually is expected to be `M extends KtMutableCollection<T>`
+  /// `M` actually is expected to be `M extends KtMutableCollection<T>`
   // TODO Change to `M extends KtMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination);
 

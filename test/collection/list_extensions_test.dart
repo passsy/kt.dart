@@ -292,7 +292,7 @@ void testList(
 
     test("takeLast doesn't allow null as n", () {
       final list = emptyList<num>();
-      var e = catchException<ArgumentError>(() => list.takeLast(null));
+      final e = catchException<ArgumentError>(() => list.takeLast(null));
       expect(e.message, allOf(contains("null"), contains("n")));
     });
 

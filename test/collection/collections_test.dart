@@ -14,7 +14,7 @@ void dartLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, KtList.empty());
       expect(list, KtList.of());
-      var emptyMutable = KtMutableList.of("a")..remove("a");
+      final emptyMutable = KtMutableList.of("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
     });
@@ -27,7 +27,7 @@ void dartLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, listFrom());
       expect(list, KtList<String>.empty());
-      var emptyMutable = KtMutableList.of("a")..remove("a");
+      final emptyMutable = KtMutableList.of("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
@@ -65,7 +65,7 @@ void dartLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, listFrom());
       expect(list, KtList.of());
-      var emptyMutable = KtMutableList.of("a")..remove("a");
+      final emptyMutable = KtMutableList.of("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
@@ -119,7 +119,7 @@ void dartLikeSyntax() {
     });
 
     test("mutation of original list doesn't manipulate original map", () {
-      var initialMap = {
+      final initialMap = {
         1: "Bulbasaur",
         2: "Ivysaur",
       };
@@ -210,7 +210,7 @@ void kotlinLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, listFrom());
       expect(list, listOf());
-      var emptyMutable = mutableListOf("a")..remove("a");
+      final emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
     });
@@ -223,7 +223,7 @@ void kotlinLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, listFrom());
       expect(list, listOf());
-      var emptyMutable = mutableListOf("a")..remove("a");
+      final emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
@@ -261,7 +261,7 @@ void kotlinLikeSyntax() {
       expect(list.hashCode, 1);
       expect(list, listFrom());
       expect(list, listOf());
-      var emptyMutable = mutableListOf("a")..remove("a");
+      final emptyMutable = mutableListOf("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);
       expect(list, emptyList());
@@ -315,7 +315,7 @@ void kotlinLikeSyntax() {
     });
 
     test("mutation of original list doesn't manipulate original map", () {
-      var initialMap = {
+      final initialMap = {
         1: "Bulbasaur",
         2: "Ivysaur",
       };

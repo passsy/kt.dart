@@ -203,7 +203,7 @@ void testList(
 
       test("reduceRight doesn't allow null as operation", () {
         final list = emptyList<String>();
-        var e = catchException<ArgumentError>(() => list.reduceRight(null));
+        final e = catchException<ArgumentError>(() => list.reduceRight(null));
         expect(e.message, allOf(contains("null"), contains("operation")));
       });
     });
@@ -229,7 +229,7 @@ void testList(
 
       test("reduceRightIndexed doesn't allow null as operation", () {
         final list = emptyList<String>();
-        var e =
+        final e =
             catchException<ArgumentError>(() => list.reduceRightIndexed(null));
         expect(e.message, allOf(contains("null"), contains("operation")));
       });
@@ -288,13 +288,14 @@ void testList(
     });
 
     test("access dart list", () {
-      List<String> list = listFrom<String>(["a", "b", "c"]).list;
+      // ignore: deprecated_member_use_from_same_package
+      final List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
     });
 
     test("listIterator requires index", () {
-      ArgumentError e =
+      final ArgumentError e =
           catchException(() => listOf("a", "b", "c").listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
@@ -308,7 +309,7 @@ void testList(
     test("list iterates with null value", () {
       final list = listFrom([null, "b", "c"]);
       // iterates correctly
-      var iterator = list.iterator();
+      final iterator = list.iterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), null);
       expect(iterator.hasNext(), isTrue);
@@ -321,7 +322,7 @@ void testList(
     test("list iterates with listIterator with null value", () {
       final list = listFrom([null, "b", "c"]);
       // iterates correctly
-      var iterator = list.listIterator();
+      final iterator = list.listIterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), null);
       expect(iterator.hasNext(), isTrue);

@@ -54,7 +54,7 @@ KtMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KtMap.from(map);
 /// Returns an empty read-only map of specified type.
 KtMap<K, V> emptyMap<K, V>() => KtMap.empty();
 
-/// Returns a new [MutableMap] with the specified contents, given as a list of pairs
+/// Returns a new [KtMutableMap] with the specified contents, given as a list of pairs
 /// where the first component is the key and the second is the value.
 ///
 /// If multiple pairs have the same key, the resulting map will contain the value from the last of those pairs.

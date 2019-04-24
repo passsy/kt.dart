@@ -40,7 +40,7 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   }
 
   /// Deprecated, use [asList] or [iter] for loops
-  @deprecated
+  @Deprecated("use asList() or iter instead")
   List<T> get list;
 
   // Query Operations

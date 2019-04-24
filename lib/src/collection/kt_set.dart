@@ -41,7 +41,7 @@ abstract class KtSet<T> implements KtCollection<T> {
   }
 
   /// Deprecated, use [asSet] or [iter] for loops
-  @deprecated
+  @Deprecated("use asSet() or iter instead")
   Set<T> get set;
 
   // Query Operations

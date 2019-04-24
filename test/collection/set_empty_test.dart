@@ -81,6 +81,7 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       test("empty set set allows mutation", () {
         final ktSet = emptySet();
         expect(ktSet.isEmpty(), isTrue);
+        // ignore: deprecated_member_use_from_same_package
         final dartSet = ktSet.set;
         dartSet.add("asdf");
         expect(dartSet.length, 1);
@@ -98,7 +99,9 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       test("empty set set doesn't allow mutation", () {
         final ktSet = emptySet();
         expect(ktSet.isEmpty(), isTrue);
-        final e = catchException<UnsupportedError>(() => ktSet.set.add("asdf"));
+        final e =
+            // ignore: deprecated_member_use_from_same_package
+            catchException<UnsupportedError>(() => ktSet.set.add("asdf"));
         expect(e.message, contains("unmodifiable"));
       });
     }

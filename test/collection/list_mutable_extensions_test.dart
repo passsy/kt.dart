@@ -116,10 +116,10 @@ void testList(
   });
 
   group("sorted", () {
-    var lastChar = (String it) {
-      var last = it.runes.last;
+    String lastChar(String it) {
+      final last = it.runes.last;
       return String.fromCharCode(last);
-    };
+    }
 
     test("sortBy", () {
       final result = mutableListOf("paul", "john", "max", "lisa")
@@ -128,7 +128,7 @@ void testList(
     });
 
     test("sortBy doesn't allow null as argument", () {
-      num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortBy(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));
@@ -141,7 +141,7 @@ void testList(
     });
 
     test("sortByDescending doesn't allow null as argument", () {
-      num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortByDescending(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));

@@ -65,15 +65,14 @@ class DartMutableSet<T> extends Object
     if (other.hashCode != hashCode) return false;
     if (other is KtSet<T>) {
       return containsAll(other);
-    } else {
-      return (other as KtSet).containsAll(this);
+    } else if (other is KtSet) {
+      return other.containsAll(this);
     }
+    return false;
   }
 
   @override
-  bool add(T element) {
-    return _set.add(element);
-  }
+  bool add(T element) => _set.add(element);
 
   @override
   bool addAll(KtIterable<T> elements) {
@@ -99,7 +98,7 @@ class DartMutableSet<T> extends Object
       return true;
     }());
     final oldSize = size;
-    for (var value in elements.iter) {
+    for (final value in elements.iter) {
       _set.remove(value);
     }
     return oldSize != size;
@@ -133,9 +132,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {

@@ -49,11 +49,8 @@ class DartSet<T> extends Object
   int get size => _set.length;
 
   @override
-  int get hashCode {
-    _hashCode ??= hashObjects(
-        _set.map((e) => e.hashCode).toList(growable: false)..sort());
-    return _hashCode;
-  }
+  int get hashCode => _hashCode ??=
+      hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
 
   @override
   bool operator ==(dynamic other) {
@@ -63,9 +60,10 @@ class DartSet<T> extends Object
     if (other.hashCode != hashCode) return false;
     if (other is KtSet<T>) {
       return containsAll(other);
-    } else {
-      return (other as KtSet).containsAll(this);
+    } else if (other is KtSet) {
+      return other.containsAll(this);
     }
+    return false;
   }
 }
 
@@ -82,9 +80,7 @@ class _DartToKIterator<T> extends KtIterator<T> {
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {

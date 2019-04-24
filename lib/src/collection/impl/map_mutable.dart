@@ -78,19 +78,17 @@ class DartMutableMap<K, V> extends Object
       if (from == null) throw ArgumentError("from can't be null");
       return true;
     }());
-    for (var entry in from.entries.iter) {
+    for (final entry in from.entries.iter) {
       _map[entry.key] = entry.value;
     }
   }
 
   @override
-  V remove(K key) {
-    return _map.remove(key);
-  }
+  V remove(K key) => _map.remove(key);
 
   @override
   bool removeMapping(K key, V value) {
-    for (var entry in _map.entries) {
+    for (final entry in _map.entries) {
       if (entry.key == key && entry.value == value) {
         _map.remove(key);
         return true;

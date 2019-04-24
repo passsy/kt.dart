@@ -85,8 +85,9 @@ class DartList<T> extends Object
     assert(() {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
       if (toIndex == null) throw ArgumentError("toIndex can't be null");
-      if (fromIndex > toIndex)
+      if (fromIndex > toIndex) {
         throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+      }
       return true;
     }());
     if (fromIndex < 0 || toIndex > size) {
@@ -97,10 +98,7 @@ class DartList<T> extends Object
   }
 
   @override
-  int get hashCode {
-    _hashCode ??= 1 + hashObjects(_list);
-    return _hashCode;
-  }
+  int get hashCode => _hashCode ??= 1 + hashObjects(_list);
 
   @override
   bool operator ==(dynamic other) {

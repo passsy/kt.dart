@@ -55,19 +55,19 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     {bool ordered = true}) {
   group('contains', () {
     test("no elements", () {
-      var list = emptyCollection<String>();
+      final list = emptyCollection<String>();
       expect(list.contains("a"), isFalse);
       expect(list.contains(null), isFalse);
     });
 
     test("contains", () {
-      var list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf(["a", "b", "c", "d", "e"]);
       expect(list.contains("a"), isTrue);
       expect(list.contains("e"), isTrue);
     });
 
     test("does not contain", () {
-      var list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf(["a", "b", "c", "d", "e"]);
       expect(list.contains("x"), isFalse);
       expect(list.contains(null), isFalse);
     });
@@ -75,19 +75,19 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
 
   group('containsAll', () {
     test("no elements", () {
-      var list = emptyCollection<String>();
+      final list = emptyCollection<String>();
       expect(list.containsAll(listOf("a")), isFalse);
       expect(list.containsAll(listOf()), isTrue);
     });
 
     test("contains all", () {
-      var list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf(["a", "b", "c", "d", "e"]);
       expect(list.containsAll(listOf("a")), isTrue);
       expect(list.containsAll(listOf("c", "d")), isTrue);
     });
 
     test("doesn't contain all", () {
-      var list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf(["a", "b", "c", "d", "e"]);
       expect(list.containsAll(listOf("x")), isFalse);
       expect(list.containsAll(listOf("c", "x", "d")), isFalse);
     });
@@ -119,7 +119,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     test("random item with random parameter", () {
       final collection = collectionOf(["a", "b", "c"]);
 
-      final firstPick = collection.random((NotRandom()..next = 2));
+      final firstPick = collection.random(NotRandom()..next = 2);
       final pos2 = collection.elementAt(2);
       if (ordered) expect(pos2, "c");
 
@@ -128,7 +128,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
       final pos0 = collection.elementAt(0);
       if (ordered) expect(pos0, "a");
 
-      final secondPick = collection.random((NotRandom()..next = 0));
+      final secondPick = collection.random(NotRandom()..next = 0);
       expect(secondPick, pos0);
     });
 

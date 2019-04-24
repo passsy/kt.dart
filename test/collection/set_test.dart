@@ -157,7 +157,14 @@ void testSet(
       expect(set0, isNot(equals(set3)));
     });
 
+    test("is not equal to other types", () {
+      expect(setOf(1, 2, 3), isNot(equals(listOf(1, 2, 3))));
+      expect(setOf(1, 2, 3), isNot(equals("a, b, b")));
+      expect(setOf(1, 2, 3), isNot(equals(1)));
+    });
+
     test("access dart set", () {
+      // ignore: deprecated_member_use_from_same_package
       final Set<String> set = setOf<String>("a", "b", "c").set;
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
