@@ -97,7 +97,8 @@ void testMutableSet(
   test("using the internal dart set allows mutation - empty", () {
     final kset = mutableSetOf();
     expect(kset.isEmpty(), isTrue);
-    kset.asSet().add("asdf");
+    // ignore: deprecated_member_use_from_same_package
+    kset.set.add("asdf");
     // unchanged
     expect(kset.isEmpty(), isFalse);
     expect(kset, setOf("asdf"));
@@ -106,7 +107,8 @@ void testMutableSet(
   test("using the internal dart set allows mutation", () {
     final kset = mutableSetOf("a");
     expect(kset, setOf("a"));
-    kset.asSet().add("b");
+    // ignore: deprecated_member_use_from_same_package
+    kset.set.add("b");
     // unchanged
     expect(kset, setOf("a", "b"));
   });
