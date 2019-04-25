@@ -85,10 +85,10 @@ linter:
     - prefer_asserts_in_initializer_lists
     # - prefer_collection_literals # Set collections are only available since Dart 2.2
     - prefer_conditional_assignment
-    # - prefer_const_constructors # dart2 does this automatically
+    - prefer_const_constructors
     - prefer_const_constructors_in_immutables
     - prefer_const_declarations
-    - prefer_const_literals_to_create_immutables # dart2 does this automatically
+    - prefer_const_literals_to_create_immutables
     - prefer_constructors_over_static_methods
     - prefer_contains
     - prefer_equal_for_default_values
