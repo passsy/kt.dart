@@ -60,4 +60,10 @@ abstract class KtMutableListExtensionsMixin<T>
     final secondOld = set(indexB, firstOld);
     set(indexA, secondOld);
   }
+
+  @override
+  void shuffle() {
+    // delegate to darts list implementation for shuffling
+    asList().shuffle();
+  }
 }
