@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:kt_dart/collection.dart';
 import 'package:kt_dart/src/collection/impl/list_mutable.dart';
 import 'package:kt_dart/src/util/arguments.dart';
@@ -129,5 +131,5 @@ abstract class KtMutableListExtension<T> {
   void swap(int indexA, int indexB);
 
   /// Shuffles elements in the list.
-  void shuffle();
+  void shuffle([Random random]);
 }

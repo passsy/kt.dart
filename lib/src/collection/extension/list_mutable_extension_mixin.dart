@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:kt_dart/collection.dart';
 
 abstract class KtMutableListExtensionsMixin<T>
@@ -62,8 +64,8 @@ abstract class KtMutableListExtensionsMixin<T>
   }
 
   @override
-  void shuffle() {
+  void shuffle([Random random]) {
     // delegate to darts list implementation for shuffling
-    asList().shuffle();
+    asList().shuffle(random);
   }
 }
