@@ -9,4 +9,3 @@ environment:
 
 dev_dependencies:
   test: ^1.0.0
-  collection: ^1.14.11

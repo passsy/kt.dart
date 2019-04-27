@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
@@ -163,9 +162,7 @@ void testList(
       firstList.shuffle(Random(1));
       final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
       secondList.shuffle(Random(2));
-      expect(
-          const ListEquality().equals(firstList.asList(), secondList.asList()),
-          equals(false));
+      expect(firstList, isNot(equals(secondList)));
     });
   });
 }
