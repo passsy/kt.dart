@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
@@ -151,6 +153,16 @@ void testList(
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortWith(null));
       expect(e.message, allOf(contains("null"), contains("comparator")));
+    });
+  });
+
+  group("shuffle", () {
+    test("shuffle shuffles items in a list with provided Random object", () {
+      final firstList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      firstList.shuffle(Random(1));
+      final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      secondList.shuffle(Random(2));
+      expect(firstList, isNot(equals(secondList)));
     });
   });
 }
