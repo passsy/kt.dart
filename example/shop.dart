@@ -1,3 +1,4 @@
+// ignore_for_file: type_annotate_public_apis
 import 'package:kt_dart/kt.dart';
 
 void main() {
@@ -88,20 +89,20 @@ final teamCity = Product("TeamCity", 299.0);
 final youTrack = Product("YouTrack", 500.0);
 
 //customers
-final lucas = "Lucas";
-final cooper = "Cooper";
-final nathan = "Nathan";
-final reka = "Reka";
-final bajram = "Bajram";
-final asuka = "Asuka";
-final riku = "Riku";
+const lucas = "Lucas";
+const cooper = "Cooper";
+const nathan = "Nathan";
+const reka = "Reka";
+const bajram = "Bajram";
+const asuka = "Asuka";
+const riku = "Riku";
 
 //cities
-final Canberra = City("Canberra");
-final Vancouver = City("Vancouver");
-final Budapest = City("Budapest");
-final Ankara = City("Ankara");
-final Tokyo = City("Tokyo");
+final canberra = City("Canberra");
+final vancouver = City("Vancouver");
+final budapest = City("Budapest");
+final ankara = City("Ankara");
+final tokyo = City("Tokyo");
 
 Customer customer(String name, City city, [List<Order> orders = const []]) =>
     Customer(name, city, listFrom(orders));
@@ -113,26 +114,26 @@ Shop shop(String name, List<Customer> customers) =>
     Shop(name, listFrom(customers));
 
 final jbShop = shop("jb test shop", [
-  customer(lucas, Canberra, [
+  customer(lucas, canberra, [
     order([reSharper]),
     order([reSharper, dotMemory, dotTrace])
   ]),
-  customer(cooper, Canberra),
-  customer(nathan, Vancouver, [
+  customer(cooper, canberra),
+  customer(nathan, vancouver, [
     order([rubyMine, webStorm])
   ]),
-  customer(reka, Budapest, [
+  customer(reka, budapest, [
     order([idea], delivered: false),
     order([idea], delivered: false),
     order([idea])
   ]),
-  customer(bajram, Ankara, [
+  customer(bajram, ankara, [
     order([reSharper])
   ]),
-  customer(asuka, Tokyo, [
+  customer(asuka, tokyo, [
     order([idea])
   ]),
-  customer(riku, Tokyo, [
+  customer(riku, tokyo, [
     order([phpStorm, phpStorm]),
     order([phpStorm])
   ])
@@ -151,9 +152,9 @@ final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
     .map((it) => jbCustomers[it]);
 
 final groupedByCities = mapFrom({
-  Canberra: listOf(lucas, cooper),
-  Vancouver: listOf(nathan),
-  Budapest: listOf(reka),
-  Ankara: listOf(bajram),
-  Tokyo: listOf(asuka, riku),
+  canberra: listOf(lucas, cooper),
+  vancouver: listOf(nathan),
+  budapest: listOf(reka),
+  ankara: listOf(bajram),
+  tokyo: listOf(asuka, riku),
 }).mapValues((it) => it.value.map((name) => jbCustomers[name]));

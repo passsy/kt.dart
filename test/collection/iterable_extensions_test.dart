@@ -350,7 +350,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     } else {
       test("drop on iterable returns a iterable", () {
         final iterable = emptyIterable<int>();
-        expect(iterable.drop(1), TypeMatcher<KtList<int>>());
+        expect(iterable.drop(1), const TypeMatcher<KtList<int>>());
       });
     }
     test("drop empty does nothing", () {
@@ -359,7 +359,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("drop on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.drop(1), TypeMatcher<KtList<int>>());
+      expect(iterable.drop(1), const TypeMatcher<KtList<int>>());
     });
 
     test("drop negative, drops nothing", () {
@@ -403,7 +403,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("dropWhile on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.dropWhile((_) => false), TypeMatcher<KtList<int>>());
+      expect(
+          iterable.dropWhile((_) => false), const TypeMatcher<KtList<int>>());
     });
     test("dropWhile doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
@@ -853,12 +854,12 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("first throws for no elements", () {
       expect(() => emptyIterable().first(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing throws", () {
       expect(() => iterableOf<String>(["a"]).first((it) => it == "b"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
   });
 
@@ -1301,17 +1302,17 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("last throws for no elements", () {
       expect(() => emptyIterable().last(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing throws", () {
       expect(() => iterableOf<String>(["a", "b", "c"]).last((it) => it == "x"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing in empty throws", () {
       expect(() => emptyIterable().last((it) => it == "x"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("returns null when null is the last element", () {
