@@ -7,9 +7,6 @@ dart:
   - 2.1.0
   - 2.2.0
 with_content_shell: false
-before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
 script:
   - set -e
   - pub run tool/reformat.dart
