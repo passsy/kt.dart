@@ -403,7 +403,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("dropWhile on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.dropWhile((_) => false), const TypeMatcher<KtList<int>>());
+      expect(
+          iterable.dropWhile((_) => false), const TypeMatcher<KtList<int>>());
     });
     test("dropWhile doesn't allow null as predicate", () {
       final list = emptyIterable<String>();

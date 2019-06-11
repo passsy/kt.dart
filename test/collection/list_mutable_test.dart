@@ -98,8 +98,8 @@ void testList(
       expect(list.get(0), equals("a"));
       expect(list.get(1), equals("b"));
       expect(list.get(2), equals("c"));
-      expect(
-          () => list.get(3), throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.get(3),
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(-1),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(null), throwsA(const TypeMatcher<ArgumentError>()));
@@ -111,8 +111,10 @@ void testList(
       expect(list[0], equals("a"));
       expect(list[1], equals("b"));
       expect(list[2], equals("c"));
-      expect(() => list[3], throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[-1], throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[3],
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[-1],
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list[null], throwsA(const TypeMatcher<ArgumentError>()));
     });
 
@@ -192,7 +194,8 @@ void testList(
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.subList(-1, -1),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.subList(3, 1), throwsA(const TypeMatcher<ArgumentError>()));
+      expect(() => list.subList(3, 1),
+          throwsA(const TypeMatcher<ArgumentError>()));
       expect(() => list.subList(2, 10),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
     });

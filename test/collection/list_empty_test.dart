@@ -79,7 +79,8 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.get(-1),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.get(null), throwsA(const TypeMatcher<ArgumentError>()));
+      expect(
+          () => empty.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf always returns -1", () {
@@ -192,9 +193,10 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       expect(i.hasPrevious(), false);
       expect(i.nextIndex(), 0);
       expect(i.previousIndex(), -1);
+      expect(() => i.previous(),
+          throwsA(const TypeMatcher<NoSuchElementException>()));
       expect(
-          () => i.previous(), throwsA(const TypeMatcher<NoSuchElementException>()));
-      expect(() => i.next(), throwsA(const TypeMatcher<NoSuchElementException>()));
+          () => i.next(), throwsA(const TypeMatcher<NoSuchElementException>()));
     });
   });
 }
