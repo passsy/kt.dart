@@ -82,7 +82,7 @@ void testSet(
       final iterator = setOf().iterator();
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("has no elements", () {
@@ -105,7 +105,7 @@ void testSet(
       final iterator = set.iterator();
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("iterator with 1 element has 1 next", () {
@@ -116,7 +116,7 @@ void testSet(
 
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("iterator with items", () {
@@ -132,7 +132,7 @@ void testSet(
 
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {
@@ -157,7 +157,14 @@ void testSet(
       expect(set0, isNot(equals(set3)));
     });
 
+    test("is not equal to other types", () {
+      expect(setOf(1, 2, 3), isNot(equals(listOf(1, 2, 3))));
+      expect(setOf(1, 2, 3), isNot(equals("a, b, b")));
+      expect(setOf(1, 2, 3), isNot(equals(1)));
+    });
+
     test("access dart set", () {
+      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
       final Set<String> set = setOf<String>("a", "b", "c").set;
       expect(set.length, 3);
       expect(set, equals(Set.from(["a", "b", "c"])));
@@ -218,5 +225,10 @@ void testSet(
         expect(e.message, contains("unmodifiable"));
       });
     }
+
+    test("setFrom requires non null iterable", () {
+      final e = catchException<ArgumentError>(() => setFrom(null));
+      expect(e.message, contains("elements can't be null"));
+    });
   });
 }

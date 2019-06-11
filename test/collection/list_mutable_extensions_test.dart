@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:kt_dart/collection.dart';
 import 'package:test/test.dart';
 
@@ -116,10 +118,10 @@ void testList(
   });
 
   group("sorted", () {
-    var lastChar = (String it) {
-      var last = it.runes.last;
+    String lastChar(String it) {
+      final last = it.runes.last;
       return String.fromCharCode(last);
-    };
+    }
 
     test("sortBy", () {
       final result = mutableListOf("paul", "john", "max", "lisa")
@@ -128,7 +130,7 @@ void testList(
     });
 
     test("sortBy doesn't allow null as argument", () {
-      num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortBy(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));
@@ -141,7 +143,7 @@ void testList(
     });
 
     test("sortByDescending doesn't allow null as argument", () {
-      num Function(dynamic) selector = null;
+      const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortByDescending(selector));
       expect(e.message, allOf(contains("null"), contains("selector")));
@@ -151,6 +153,16 @@ void testList(
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortWith(null));
       expect(e.message, allOf(contains("null"), contains("comparator")));
+    });
+  });
+
+  group("shuffle", () {
+    test("shuffle shuffles items in a list with provided Random object", () {
+      final firstList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      firstList.shuffle(Random(1));
+      final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      secondList.shuffle(Random(2));
+      expect(firstList, isNot(equals(secondList)));
     });
   });
 }

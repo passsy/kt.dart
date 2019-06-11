@@ -121,7 +121,7 @@ void testList(
 
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("is list", () {
@@ -137,11 +137,11 @@ void testList(
       expect(list.get(0), equals("a"));
       expect(list.get(1), equals("b"));
       expect(list.get(2), equals("c"));
-      expect(
-          () => list.get(3), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.get(3),
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(-1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.get(null), throwsA(TypeMatcher<ArgumentError>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("[] returns elements", () {
@@ -150,9 +150,11 @@ void testList(
       expect(list[0], equals("a"));
       expect(list[1], equals("b"));
       expect(list[2], equals("c"));
-      expect(() => list[3], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[-1], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[null], throwsA(TypeMatcher<ArgumentError>()));
+      expect(() => list[3],
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[-1],
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[null], throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf returns first element or -1", () {
@@ -203,7 +205,7 @@ void testList(
 
       test("reduceRight doesn't allow null as operation", () {
         final list = emptyList<String>();
-        var e = catchException<ArgumentError>(() => list.reduceRight(null));
+        final e = catchException<ArgumentError>(() => list.reduceRight(null));
         expect(e.message, allOf(contains("null"), contains("operation")));
       });
     });
@@ -229,7 +231,7 @@ void testList(
 
       test("reduceRightIndexed doesn't allow null as operation", () {
         final list = emptyList<String>();
-        var e =
+        final e =
             catchException<ArgumentError>(() => list.reduceRightIndexed(null));
         expect(e.message, allOf(contains("null"), contains("operation")));
       });
@@ -288,13 +290,14 @@ void testList(
     });
 
     test("access dart list", () {
-      List<String> list = listFrom<String>(["a", "b", "c"]).list;
+      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+      final List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
     });
 
     test("listIterator requires index", () {
-      ArgumentError e =
+      final ArgumentError e =
           catchException(() => listOf("a", "b", "c").listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
@@ -308,7 +311,7 @@ void testList(
     test("list iterates with null value", () {
       final list = listFrom([null, "b", "c"]);
       // iterates correctly
-      var iterator = list.iterator();
+      final iterator = list.iterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), null);
       expect(iterator.hasNext(), isTrue);
@@ -321,7 +324,7 @@ void testList(
     test("list iterates with listIterator with null value", () {
       final list = listFrom([null, "b", "c"]);
       // iterates correctly
-      var iterator = list.listIterator();
+      final iterator = list.listIterator();
       expect(iterator.hasNext(), isTrue);
       expect(iterator.next(), null);
       expect(iterator.hasNext(), isTrue);
@@ -340,6 +343,11 @@ void testList(
       expect(stringList.lastIndexOf(null), 0);
       expect(stringList.indexOfFirst((it) => it == null), 0);
       expect(stringList.elementAtOrElse(0, (_) => "a"), null);
+    });
+
+    test("listFrom requires non null iterable", () {
+      final e = catchException<ArgumentError>(() => listFrom(null));
+      expect(e.message, contains("elements can't be null"));
     });
 
     if (mutable) {

@@ -12,15 +12,6 @@ class EmptyIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   KtIterator<T> iterator() => InterOpKtIterator(iter.iterator);
 }
 
-class KtToDartIterable<T> extends Iterable<T> {
-  KtToDartIterable(this.iterable);
-
-  final KtIterable<T> iterable;
-
-  @override
-  Iterator<T> get iterator => DartToKtIterator(iterable.iterator());
-}
-
 class DartIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   DartIterable(this._iterable);
 
@@ -45,4 +36,35 @@ class DartMutableIterable<T> extends KtMutableIterable<T>
 
   @override
   KtMutableIterator<T> iterator() => InterOpKtListIterator(_iterable, 0);
+}
+
+class KtToDartIterable<T> extends Iterable<T> {
+  KtToDartIterable(this.iterable);
+
+  final KtIterable<T> iterable;
+
+  @override
+  Iterator<T> get iterator => _DartToKtIterator(iterable.iterator());
+}
+
+class _DartToKtIterator<T> implements Iterator<T> {
+  _DartToKtIterator(this.iterator);
+
+  final KtIterator<T> iterator;
+
+  T _current;
+
+  @override
+  T get current => _current;
+
+  @override
+  bool moveNext() {
+    if (iterator.hasNext()) {
+      _current = iterator.next();
+      return true;
+    } else {
+      _current = null;
+      return false;
+    }
+  }
 }

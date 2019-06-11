@@ -172,8 +172,8 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterTo requires predicate to be non null", () {
-      bool Function(KtMapEntry<int, String> entry) predicate = null;
-      var other = mutableMapFrom<int, String>();
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
+      final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("predicate")));
@@ -210,8 +210,8 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
               contains("<String, String>"), contains("<int, String>")));
     });
     test("filterNotTo requires predicate to be non null", () {
-      bool Function(KtMapEntry<int, String> entry) predicate = null;
-      var other = mutableMapFrom<int, String>();
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
+      final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.filterNotTo(other, predicate));
       expect(e.message, allOf(contains("null"), contains("predicate")));
@@ -277,7 +277,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
   group("iterator", () {
     test("iterate", () {
-      var iterator = pokemon.iterator();
+      final iterator = pokemon.iterator();
       expect(iterator.next().value, "Bulbasaur");
       expect(iterator.next().value, "Ivysaur");
       expect(iterator.hasNext(), false);
@@ -338,7 +338,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapKeysTo requires transform to be non null", () {
-      bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapKeysTo(other, predicate));
@@ -378,7 +378,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapTo requires transform to be non null", () {
-      bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableListFrom<int>();
       final e =
           catchException<ArgumentError>(() => pokemon.mapTo(other, predicate));
@@ -439,7 +439,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           ));
     });
     test("mapValuesTo requires transform to be non null", () {
-      bool Function(KtMapEntry<int, String> entry) predicate = null;
+      const bool Function(KtMapEntry<int, String> entry) predicate = null;
       final other = mutableMapFrom<int, String>();
       final e = catchException<ArgumentError>(
           () => pokemon.mapValuesTo(other, predicate));
@@ -690,7 +690,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
   group("toMutableMap", () {
     test("makes a copy", () {
-      var map = mapFrom({
+      final map = mapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -753,7 +753,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 }
 
-class ThirdPartyMap<K, V>
+class ThirdPartyMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>
     implements KtMap<K, V> {
   ThirdPartyMap([Map<K, V> map = const {}])

@@ -3,7 +3,7 @@ import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
 import 'package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart';
 import 'package:kt_dart/src/util/hash.dart';
 
-class DartMutableMap<K, V>
+class DartMutableMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>, KtMutableMapExtensionsMixin<K, V>
     implements KtMutableMap<K, V> {
   DartMutableMap([Map<K, V> map = const {}])
@@ -78,19 +78,17 @@ class DartMutableMap<K, V>
       if (from == null) throw ArgumentError("from can't be null");
       return true;
     }());
-    for (var entry in from.entries.iter) {
+    for (final entry in from.entries.iter) {
       _map[entry.key] = entry.value;
     }
   }
 
   @override
-  V remove(K key) {
-    return _map.remove(key);
-  }
+  V remove(K key) => _map.remove(key);
 
   @override
   bool removeMapping(K key, V value) {
-    for (var entry in _map.entries) {
+    for (final entry in _map.entries) {
       if (entry.key == key && entry.value == value) {
         _map.remove(key);
         return true;

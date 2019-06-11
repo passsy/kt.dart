@@ -5,8 +5,9 @@ abstract class KtMutableMapExtensionsMixin<K, V>
   @override
   V getOrPut(K key, V Function() defaultValue) {
     assert(() {
-      if (defaultValue == null)
+      if (defaultValue == null) {
         throw ArgumentError("defaultValue can't be null");
+      }
       return true;
     }());
     final value = get(key);
@@ -25,15 +26,11 @@ abstract class KtMutableMapExtensionsMixin<K, V>
       if (pairs == null) throw ArgumentError("pairs can't be null");
       return true;
     }());
-    for (var value in pairs.iter) {
+    for (final value in pairs.iter) {
       put(value.first, value.second);
     }
   }
 
   @override
-  V putIfAbsent(K key, V value) {
-    V v = get(key);
-    v ??= put(key, value);
-    return v;
-  }
+  V putIfAbsent(K key, V value) => get(key) ?? put(key, value);
 }

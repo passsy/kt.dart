@@ -5,7 +5,11 @@ import 'package:kt_dart/src/util/arguments.dart';
 abstract class KtLinkedSet<T> implements KtMutableSet<T> {
   factory KtLinkedSet.empty() => KtLinkedSet.from();
 
-  factory KtLinkedSet.from([Iterable<T> elements = const []]) {
+  factory KtLinkedSet.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     return DartLinkedSet<T>(elements);
   }
 

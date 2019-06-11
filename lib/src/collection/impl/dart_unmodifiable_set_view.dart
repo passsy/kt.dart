@@ -7,7 +7,9 @@ import 'dart:collection';
 /// Methods that would change the set,
 /// such as [add] and [remove], throw an [UnsupportedError].
 /// Permitted operations defer to the wrapped set.
-class UnmodifiableSetView<E> with IterableMixin<E> implements Set<E> {
+class UnmodifiableSetView<E> extends Object
+    with IterableMixin<E>
+    implements Set<E> {
   UnmodifiableSetView(Set<E> set) : _set = set;
 
   final Set<E> _set;

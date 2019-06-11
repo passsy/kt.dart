@@ -1,79 +1,50 @@
 import 'package:kt_dart/collection.dart';
 import 'package:kt_dart/src/collection/kt_iterator_mutable.dart';
 
-class DartToKtIterator<T> implements Iterator<T> {
-  DartToKtIterator(this.iterator);
-
-  final KtIterator<T> iterator;
-
-  T _current;
-
-  @override
-  T get current => _current;
-
-  @override
-  bool moveNext() {
-    if (iterator.hasNext()) {
-      _current = iterator.next();
-      return true;
-    } else {
-      _current = null;
-      return false;
-    }
-  }
-}
-
 class InterOpKtIterator<T> implements KtIterator<T> {
   InterOpKtIterator(this.iterator) {
-    lastReturned = null;
     _hasNext = iterator.moveNext();
-    nextValue = iterator.current;
+    _nextValue = iterator.current;
   }
 
   final Iterator<T> iterator;
-  T nextValue;
-  T lastReturned;
+  T _nextValue;
   bool _hasNext;
 
   @override
-  bool hasNext() {
-    return _hasNext;
-  }
+  bool hasNext() => _hasNext;
 
   @override
   T next() {
     if (!_hasNext) throw NoSuchElementException();
-    final e = nextValue;
+    final e = _nextValue;
     _hasNext = iterator.moveNext();
-    nextValue = iterator.current;
-    lastReturned = e;
+    _nextValue = iterator.current;
     return e;
   }
 }
 
 class InterOpKtListIterator<T>
     implements KtListIterator<T>, KtMutableListIterator<T> {
-  InterOpKtListIterator(this.list, int index) : cursor = index {
-    if (index < 0 || index > list.length) {
-      throw IndexOutOfBoundsException("index: $index, size: $list.length");
+  InterOpKtListIterator(this._list, int index) : _cursor = index {
+    if (index < 0 || index > _list.length) {
+      throw IndexOutOfBoundsException("index: $index, size: $_list.length");
     }
   }
 
-  int cursor; // index of next element to return
-  int lastRet = -1; // index of last element returned; -1 if no such
-  List<T> list;
+  int _cursor; // index of next element to return
+  int _lastRet = -1; // index of last element returned; -1 if no such
+  List<T> _list;
 
   @override
-  bool hasNext() {
-    return cursor != list.length;
-  }
+  bool hasNext() => _cursor != _list.length;
 
   @override
   T next() {
-    final i = cursor;
-    if (i >= list.length) throw NoSuchElementException();
-    cursor = i + 1;
-    return list[lastRet = i];
+    final i = _cursor;
+    if (i >= _list.length) throw NoSuchElementException();
+    _cursor = i + 1;
+    return _list[_lastRet = i];
   }
 
   @override
@@ -87,33 +58,34 @@ class InterOpKtListIterator<T>
   }
 
   @override
-  bool hasPrevious() => cursor != 0;
+  bool hasPrevious() => _cursor != 0;
 
   @override
-  int nextIndex() => cursor + 1 > list.length ? list.length : cursor;
+  int nextIndex() => _cursor + 1 > _list.length ? _list.length : _cursor;
 
   @override
   T previous() {
     if (!hasPrevious()) throw NoSuchElementException();
-    return list[--cursor];
+    return _list[--_cursor];
   }
 
   @override
-  int previousIndex() => cursor - 1;
+  int previousIndex() => _cursor - 1;
 
   @override
   void add(T element) {
-    final i = cursor;
-    list.insert(i, element);
-    lastRet = -1;
-    cursor = i + 1;
+    final i = _cursor;
+    _list.insert(i, element);
+    _lastRet = -1;
+    _cursor = i + 1;
   }
 
   @override
   void set(T element) {
-    if (lastRet < 0)
+    if (_lastRet < 0) {
       throw IndexOutOfBoundsException(
           "illegal cursor state -1. next() or previous() not called");
-    list.replaceRange(lastRet, lastRet + 1, [element]);
+    }
+    _list.replaceRange(_lastRet, _lastRet + 1, [element]);
   }
 }

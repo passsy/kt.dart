@@ -64,14 +64,14 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
       final empty = emptyMap();
       expect(empty.values.iterator().hasNext(), isFalse);
       expect(() => empty.values.iterator().next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("keys iterator has no next", () {
       final empty = emptyMap();
       expect(empty.keys.iterator().hasNext(), isFalse);
       expect(() => empty.keys.iterator().next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {

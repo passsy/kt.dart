@@ -76,7 +76,7 @@ void testMutableSet(
       expect(iterator.next(), "c");
       expect(iterator.hasNext(), isFalse);
       final e = catchException(() => iterator.next());
-      expect(e, TypeMatcher<NoSuchElementException>());
+      expect(e, const TypeMatcher<NoSuchElementException>());
     });
   } else {
     test("throws at end", () {
@@ -90,13 +90,14 @@ void testMutableSet(
       iterator.next();
       expect(iterator.hasNext(), isFalse);
       final e = catchException(() => iterator.next());
-      expect(e, TypeMatcher<NoSuchElementException>());
+      expect(e, const TypeMatcher<NoSuchElementException>());
     });
   }
 
   test("using the internal dart set allows mutation - empty", () {
     final kset = mutableSetOf();
     expect(kset.isEmpty(), isTrue);
+    // ignore: deprecated_member_use_from_same_package, deprecated_member_use
     kset.set.add("asdf");
     // unchanged
     expect(kset.isEmpty(), isFalse);
@@ -106,6 +107,7 @@ void testMutableSet(
   test("using the internal dart set allows mutation", () {
     final kset = mutableSetOf("a");
     expect(kset, setOf("a"));
+    // ignore: deprecated_member_use_from_same_package, deprecated_member_use
     kset.set.add("b");
     // unchanged
     expect(kset, setOf("a", "b"));

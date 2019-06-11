@@ -61,7 +61,7 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
 
       expect(empty.iterator().hasNext(), isFalse);
       expect(() => empty.iterator().next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("is empty", () {
@@ -74,12 +74,13 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       final empty = emptyList();
 
       expect(() => empty.get(0),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.get(1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.get(-1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => empty.get(null), throwsA(TypeMatcher<ArgumentError>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(
+          () => empty.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf always returns -1", () {
@@ -147,22 +148,23 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       final empty = emptyList<int>();
 
       expect(() => empty.subList(0, 1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.subList(1, 1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.subList(-1, -1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.subList(2, 10),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
     });
 
     test("access dart list", () {
-      List<String> list = emptyList<String>().list;
+      final List<String> list = emptyList<String>().asList();
       expect(list.length, 0);
     });
 
     test("listIterator requires index", () {
-      ArgumentError e = catchException(() => emptyList().listIterator(null));
+      final ArgumentError e =
+          catchException(() => emptyList().listIterator(null));
       expect(e.message, contains("index"));
       expect(e.message, contains("null"));
     });
@@ -191,9 +193,10 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       expect(i.hasPrevious(), false);
       expect(i.nextIndex(), 0);
       expect(i.previousIndex(), -1);
+      expect(() => i.previous(),
+          throwsA(const TypeMatcher<NoSuchElementException>()));
       expect(
-          () => i.previous(), throwsA(TypeMatcher<NoSuchElementException>()));
-      expect(() => i.next(), throwsA(TypeMatcher<NoSuchElementException>()));
+          () => i.next(), throwsA(const TypeMatcher<NoSuchElementException>()));
     });
   });
 }

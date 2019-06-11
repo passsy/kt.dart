@@ -41,7 +41,8 @@ List<T> argsToList<T>(
     return [];
   }
 
-  if (args.contains(null))
+  if (args.contains(null)) {
     throw ArgumentError("Element at position ${args.indexOf(null)} is null.");
+  }
   return args;
 }

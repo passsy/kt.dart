@@ -103,18 +103,18 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('associate', () {
     test("associate", () {
       final list = iterableOf(["a", "b", "c"]);
-      var result = list.associate((it) => KtPair(it.toUpperCase(), it));
-      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
+      final result = list.associate((it) => KtPair(it.toUpperCase(), it));
+      final expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associate on empty map", () {
       final list = emptyIterable<String>();
-      var result = list.associate((it) => KtPair(it.toUpperCase(), it));
+      final result = list.associate((it) => KtPair(it.toUpperCase(), it));
       expect(result, equals(emptyMap()));
     });
     test("associate doesn't allow null as transform function", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.associate(null));
+      final e = catchException<ArgumentError>(() => list.associate(null));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
   });
@@ -122,25 +122,25 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('associateBy', () {
     test("associateBy", () {
       final list = iterableOf(["a", "b", "c"]);
-      var result = list.associateBy((it) => it.toUpperCase());
-      var expected = mapFrom({"A": "a", "B": "b", "C": "c"});
+      final result = list.associateBy((it) => it.toUpperCase());
+      final expected = mapFrom({"A": "a", "B": "b", "C": "c"});
       expect(result, equals(expected));
     });
     test("associateBy on empty map", () {
       final list = emptyList<String>();
-      var result = list.associateWith((it) => it.toUpperCase());
+      final result = list.associateWith((it) => it.toUpperCase());
       expect(result, equals(emptyMap()));
     });
     test("when conflicting keys, use last ", () {
       final list = iterableOf(["a", "b", "c"]);
-      var result = list.associateBy((it) => it.length);
+      final result = list.associateBy((it) => it.length);
       expect(result.size, equals(1));
       expect(result.containsKey(1), isTrue);
     });
 
     test("associateBy doesn't allow null as keySelector", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.associateBy(null));
+      final e = catchException<ArgumentError>(() => list.associateBy(null));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
     });
   });
@@ -148,7 +148,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('associateByTo', () {
     test("associateByTo doesn't allow null destination", () {
       final list = iterableOf(["a", "b", "c"]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => list.associateByTo(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
@@ -157,19 +157,19 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('associateByTransform', () {
     test("associateByTransform", () {
       final list = iterableOf(["a", "bb", "ccc"]);
-      var result = list.associateByTransform(
+      final result = list.associateByTransform(
           (it) => it.length, (it) => it.toUpperCase());
-      var expected = mapFrom({1: "A", 2: "BB", 3: "CCC"});
+      final expected = mapFrom({1: "A", 2: "BB", 3: "CCC"});
       expect(result, equals(expected));
     });
     test("associateByTransform on empty map", () {
       final list = emptyList<String>();
-      var result = list.associateWith((it) => it.toUpperCase());
+      final result = list.associateWith((it) => it.toUpperCase());
       expect(result, equals(emptyMap()));
     });
     test("associateByTransform doesn't allow null as keySelector", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => list.associateByTransform(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
     });
@@ -225,7 +225,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("associateWithTo requires valueSelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final String Function(String item) predicate = null;
+      const String Function(String item) predicate = null;
       final other = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(other, predicate));
@@ -242,22 +242,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group('average', () {
     test("average of ints", () {
       final ints = iterableOf([1, 2, 3, 4]);
-      var result = ints.averageBy((it) => it);
+      final result = ints.averageBy((it) => it);
       expect(result, equals(2.5));
     });
     test("average of empty is NaN", () {
       final ints = emptyIterable<num>();
-      var result = ints.averageBy((it) => it);
+      final result = ints.averageBy((it) => it);
       expect(identical(result, double.nan), isTrue);
     });
     test("average of nums", () {
       final ints = iterableOf([1, 2.0, 3, 4]);
-      var result = ints.averageBy((it) => it);
+      final result = ints.averageBy((it) => it);
       expect(result, equals(2.5));
     });
     test("averageBy doesn't allow null as selector", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.averageBy(null));
+      final e = catchException<ArgumentError>(() => list.averageBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -281,7 +281,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
       test("distinct by unordered", () {
         final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
-        var distinct = iterable.distinctBy((it) => it.length);
+        final distinct = iterable.distinctBy((it) => it.length);
         expect(distinct.contains("peter"), true);
         expect(
             distinct.contains("paul") ||
@@ -293,7 +293,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("distinctBy doesn't allow null as selector", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.distinctBy(null));
+      final e = catchException<ArgumentError>(() => list.distinctBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -316,7 +316,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("chunked doesn't allow null as size", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.chunked(null));
+      final e = catchException<ArgumentError>(() => list.chunked(null));
       expect(e.message, allOf(contains("null"), contains("size")));
     });
 
@@ -328,14 +328,14 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("chunkedTransform doesn't allow null as size", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => list.chunkedTransform(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("size")));
     });
 
     test("chunkedTransform doesn't allow null as transform function", () {
       final list = emptyIterable<String>();
-      var e =
+      final e =
           catchException<ArgumentError>(() => list.chunkedTransform(3, null));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
@@ -350,7 +350,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     } else {
       test("drop on iterable returns a iterable", () {
         final iterable = emptyIterable<int>();
-        expect(iterable.drop(1), TypeMatcher<KtList<int>>());
+        expect(iterable.drop(1), const TypeMatcher<KtList<int>>());
       });
     }
     test("drop empty does nothing", () {
@@ -359,7 +359,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("drop on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.drop(1), TypeMatcher<KtList<int>>());
+      expect(iterable.drop(1), const TypeMatcher<KtList<int>>());
     });
 
     test("drop negative, drops nothing", () {
@@ -369,7 +369,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("drop doesn't allow null as size", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.drop(null));
+      final e = catchException<ArgumentError>(() => list.drop(null));
       expect(e.message, allOf(contains("null"), contains("n")));
     });
   });
@@ -403,11 +403,12 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("dropWhile on iterable returns a iterable", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.dropWhile((_) => false), TypeMatcher<KtList<int>>());
+      expect(
+          iterable.dropWhile((_) => false), const TypeMatcher<KtList<int>>());
     });
     test("dropWhile doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.dropWhile(null));
+      final e = catchException<ArgumentError>(() => list.dropWhile(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -532,7 +533,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("filter doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.filter(null));
+      final e = catchException<ArgumentError>(() => list.filter(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -576,7 +577,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("filterTo requires predicate to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final bool Function(String) predicate = null;
+      const bool Function(String) predicate = null;
       final other = mutableListOf<String>();
       final e = catchException<ArgumentError>(
           () => iterable.filterTo(other, predicate));
@@ -605,7 +606,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("filterIndexed doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.filterIndexed(null));
+      final e = catchException<ArgumentError>(() => list.filterIndexed(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -660,7 +661,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("filterIndexedTo requires predicate to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final bool Function(int, String) predicate = null;
+      const bool Function(int, String) predicate = null;
       final other = mutableListOf<String>();
       final e = catchException<ArgumentError>(
           () => iterable.filterIndexedTo(other, predicate));
@@ -683,7 +684,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("filterNot doesn't allow null as predicate", () {
       final list = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => list.filterNot(null));
+      final e = catchException<ArgumentError>(() => list.filterNot(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -727,7 +728,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("filterNotTo requires predicate to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final bool Function(String) predicate = null;
+      const bool Function(String) predicate = null;
       final other = mutableListOf<String>();
       final e = catchException<ArgumentError>(
           () => iterable.filterNotTo(other, predicate));
@@ -804,8 +805,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("find", () {
     test("find item", () {
-      var iterable = iterableOf(["paul", "john", "max", "lisa"]);
-      var result = iterable.find((it) => it.contains("l"));
+      final iterable = iterableOf(["paul", "john", "max", "lisa"]);
+      final result = iterable.find((it) => it.contains("l"));
 
       if (ordered) {
         expect(result, "paul");
@@ -816,15 +817,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("find predicate can't be null", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.find(null));
+      final e = catchException<ArgumentError>(() => iterable.find(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
   group("findLast", () {
     test("findLast item", () {
-      var iterable = iterableOf(["paul", "john", "max", "lisa"]);
-      var result = iterable.findLast((it) => it.contains("l"));
+      final iterable = iterableOf(["paul", "john", "max", "lisa"]);
+      final result = iterable.findLast((it) => it.contains("l"));
       if (ordered) {
         expect(result, "lisa");
       } else {
@@ -834,7 +835,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("find predicate can't be null", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.findLast(null));
+      final e = catchException<ArgumentError>(() => iterable.findLast(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -846,19 +847,19 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       });
     } else {
       test("get random first element", () {
-        var result = iterableOf(["a", "b"]).first();
+        final result = iterableOf(["a", "b"]).first();
         expect(result == "a" || result == "b", true);
       });
     }
 
     test("first throws for no elements", () {
       expect(() => emptyIterable().first(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing throws", () {
       expect(() => iterableOf<String>(["a"]).first((it) => it == "b"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
   });
 
@@ -869,7 +870,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       });
     } else {
       test("get random first element", () {
-        var result = iterableOf(["a", "b"]).firstOrNull();
+        final result = iterableOf(["a", "b"]).firstOrNull();
         expect(result == "a" || result == "b", true);
       });
     }
@@ -893,13 +894,13 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("flatMap doesn't allow null as tranform function", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.flatMap(null));
+      final e = catchException<ArgumentError>(() => iterable.flatMap(null));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
 
     test("flatMapTo doesn't allow null as destination", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.flatMapTo(null, (_) => emptyIterable()));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
@@ -955,7 +956,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("forEach", () {
     test("forEach", () {
       final result = mutableListOf<String>();
-      var iterable = iterableOf(["a", "b", "c", "d"]);
+      final iterable = iterableOf(["a", "b", "c", "d"]);
       iterable.forEach((it) {
         result.add(it);
       });
@@ -977,7 +978,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("forEachIndexed", () {
     test("forEachIndexed", () {
       final result = mutableListOf<String>();
-      var iterable = iterableOf(["a", "b", "c", "d"]);
+      final iterable = iterableOf(["a", "b", "c", "d"]);
       iterable.forEachIndexed((index, it) {
         result.add("$index$it");
       });
@@ -1047,7 +1048,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("groupBy doesn't allow null as keySelector", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.groupBy(null));
+      final e = catchException<ArgumentError>(() => iterable.groupBy(null));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
     });
   });
@@ -1099,7 +1100,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("groupByTo requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final String Function(String) keySelector = null;
+      const String Function(String) keySelector = null;
       final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(
           () => iterable.groupByTo(other, keySelector));
@@ -1110,21 +1111,21 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("groupByTransform", () {
     test("groupByTransform doesn't allow null as keySelector", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.groupByTransform(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("keySelector")));
     });
 
     test("groupByTransform doesn't allow null as valueTransform", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.groupByTransform((it) => it, null));
       expect(e.message, allOf(contains("null"), contains("valueTransform")));
     });
 
     test("groupByToTransform doesn't allow null as destination", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.groupByToTransform(null, (it) => it, (it) => it));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
@@ -1158,7 +1159,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("groupByToTransform requires keySelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final String Function(String) keySelector = null;
+      const String Function(String) keySelector = null;
       final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, keySelector, (it) => it.toUpperCase()));
@@ -1166,7 +1167,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("groupByToTransform requires valueTransform to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      final String Function(String) valueSelector = null;
+      const String Function(String) valueSelector = null;
       final other = mutableMapFrom<String, KtMutableList<String>>();
       final e = catchException<ArgumentError>(() => iterable.groupByToTransform(
           other, (it) => it.toUpperCase(), valueSelector));
@@ -1177,7 +1178,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("indexOf", () {
     test("returns index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
-      var found = iterable.indexOf("b");
+      final found = iterable.indexOf("b");
       if (iterable.count() == 4) {
         // ordered list
         expect(found, 1);
@@ -1209,7 +1210,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("indexOfFirst predicate can't be null", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.indexOfFirst(null));
+      final e =
+          catchException<ArgumentError>(() => iterable.indexOfFirst(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -1217,7 +1219,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("indexOfLast", () {
     test("returns index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
-      var found = iterable.indexOfLast((it) => it == "b");
+      final found = iterable.indexOfLast((it) => it == "b");
       if (iterable.count() == 4) {
         // ordered list
         expect(found, 3);
@@ -1228,21 +1230,21 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("indexOfLast predicate can't be null", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(() => iterable.indexOfLast(null));
+      final e = catchException<ArgumentError>(() => iterable.indexOfLast(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
   group("intersect", () {
     test("remove one item", () {
-      var a = iterableOf(["paul", "john", "max", "lisa"]);
-      var b = iterableOf(["julie", "richard", "john", "lisa"]);
+      final a = iterableOf(["paul", "john", "max", "lisa"]);
+      final b = iterableOf(["julie", "richard", "john", "lisa"]);
       final result = a.intersect(b);
       expect(result, setOf("john", "lisa"));
     });
 
     test("other can't be null", () {
-      var a = iterableOf(["paul", "john", "max", "lisa"]);
+      final a = iterableOf(["paul", "john", "max", "lisa"]);
       final e = catchException<ArgumentError>(() => a.intersect(null));
       expect(e.message, allOf(contains("null")));
     });
@@ -1293,24 +1295,24 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       });
     } else {
       test("get random last element", () {
-        var result = iterableOf(["a", "b"]).last();
+        final result = iterableOf(["a", "b"]).last();
         expect(result == "a" || result == "b", true);
       });
     }
 
     test("last throws for no elements", () {
       expect(() => emptyIterable().last(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing throws", () {
       expect(() => iterableOf<String>(["a", "b", "c"]).last((it) => it == "x"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing in empty throws", () {
       expect(() => emptyIterable().last((it) => it == "x"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("returns null when null is the last element", () {
@@ -1326,7 +1328,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       });
     } else {
       test("get random last element", () {
-        var result = iterableOf(["a", "b"]).lastOrNull();
+        final result = iterableOf(["a", "b"]).lastOrNull();
         expect(result == "a" || result == "b", true);
       });
     }
@@ -1343,7 +1345,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("lastIndexOf", () {
     test("returns last index", () {
       final iterable = iterableOf(["a", "b", "c", "b"]);
-      var found = iterable.lastIndexOf("b");
+      final found = iterable.lastIndexOf("b");
       if (iterable.count() == 4) {
         // ordered list
         expect(found, 3);
@@ -1389,15 +1391,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("mapNotNullTo doesn't allow null as destination", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.mapNotNullTo(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
 
     test("mapNotNullTo doesn't allow null as transform function", () {
       final iterable = iterableOf([1, 2, 3]);
-      int Function(int) mapper = null;
-      var e = catchException<ArgumentError>(
+      const int Function(int) mapper = null;
+      final e = catchException<ArgumentError>(
           () => iterable.mapNotNullTo(mutableListOf<int>(), mapper));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
@@ -1414,15 +1416,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("mapTo doesn't allow null as destination", () {
       final iterable = iterableOf([1, 2, 3]);
-      var e =
+      final e =
           catchException<ArgumentError>(() => iterable.mapTo(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("destination")));
     });
 
     test("mapTo doesn't allow null as transform function", () {
       final iterable = iterableOf([1, 2, 3]);
-      int Function(int) mapper = null;
-      var e = catchException<ArgumentError>(
+      const int Function(int) mapper = null;
+      final e = catchException<ArgumentError>(
           () => iterable.mapTo(mutableListOf<int>(), mapper));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
@@ -1440,15 +1442,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
       test("mapIndexedTo doesn't allow null as destination", () {
         final iterable = iterableOf([1, 2, 3]);
-        var e = catchException<ArgumentError>(
+        final e = catchException<ArgumentError>(
             () => iterable.mapIndexedTo(null, (_, it) => it));
         expect(e.message, allOf(contains("null"), contains("destination")));
       });
 
       test("mapIndexedTo doesn't allow null as transform function", () {
         final iterable = iterableOf([1, 2, 3]);
-        int Function(int, int) indexedMapper = null;
-        var e = catchException<ArgumentError>(
+        const int Function(int, int) indexedMapper = null;
+        final e = catchException<ArgumentError>(
             () => iterable.mapIndexedTo(mutableListOf<int>(), indexedMapper));
         expect(e.message, allOf(contains("null"), contains("transform")));
       });
@@ -1494,15 +1496,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
       test("mapIndexedNotNullTo doesn't allow null as destination", () {
         final iterable = iterableOf([1, 2, 3]);
-        var e = catchException<ArgumentError>(
+        final e = catchException<ArgumentError>(
             () => iterable.mapIndexedNotNullTo(null, (_, it) => it));
         expect(e.message, allOf(contains("null"), contains("destination")));
       });
 
       test("mapIndexedNotNullTo doesn't allow null as transform function", () {
         final iterable = iterableOf([1, 2, 3]);
-        int Function(int, int) indexedMapper = null;
-        var e = catchException<ArgumentError>(() =>
+        const int Function(int, int) indexedMapper = null;
+        final e = catchException<ArgumentError>(() =>
             iterable.mapIndexedNotNullTo(mutableListOf<int>(), indexedMapper));
         expect(e.message, allOf(contains("null"), contains("transform")));
       });
@@ -1544,9 +1546,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("maxWith", () {
-    int _intComparison(int value, int other) {
-      return value.compareTo(other);
-    }
+    int _intComparison(int value, int other) => value.compareTo(other);
 
     test("gets max value", () {
       final iterable = iterableOf([2, 1, 3]);
@@ -1600,9 +1600,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("minWith", () {
-    int _intComparison(int value, int other) {
-      return value.compareTo(other);
-    }
+    int _intComparison(int value, int other) => value.compareTo(other);
 
     test("gets min value", () {
       final iterable = iterableOf([2, 1, 3]);
@@ -1667,7 +1665,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("minus doesn't allow null as elements", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.minus(null));
+      final e = catchException<ArgumentError>(() => iterable.minus(null));
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
@@ -1705,7 +1703,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("onEach doesn't allow null as action", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.onEach(null));
+      final e = catchException<ArgumentError>(() => iterable.onEach(null));
       expect(e.message, allOf(contains("null"), contains("action")));
     });
   });
@@ -1720,7 +1718,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("partition doesn't allow null as predicate", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.partition(null));
+      final e = catchException<ArgumentError>(() => iterable.partition(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
@@ -1738,7 +1736,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("plus doesn't allow null as elements", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.plus(null));
+      final e = catchException<ArgumentError>(() => iterable.plus(null));
       expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
@@ -1768,7 +1766,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("reduce doesn't allow null as operation", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.reduce(null));
+      final e = catchException<ArgumentError>(() => iterable.reduce(null));
       expect(e.message, allOf(contains("null"), contains("operation")));
     });
   });
@@ -1794,7 +1792,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("reduceIndexed doesn't allow null as operation", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.reduceIndexed(null));
+      final e =
+          catchException<ArgumentError>(() => iterable.reduceIndexed(null));
       expect(e.message, allOf(contains("null"), contains("operation")));
     });
   });
@@ -1912,22 +1911,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("sortedBy doesn't allow null as selector", () {
       final iterable = emptyIterable<String>();
-      num Function(String) sortFun = null;
-      var e = catchException<ArgumentError>(() => iterable.sortedBy(sortFun));
+      const num Function(String) sortFun = null;
+      final e = catchException<ArgumentError>(() => iterable.sortedBy(sortFun));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
 
     test("sortedByDescending doesn't allow null as selector", () {
       final iterable = emptyIterable<String>();
-      num Function(String) sortFun = null;
-      var e = catchException<ArgumentError>(
+      const num Function(String) sortFun = null;
+      final e = catchException<ArgumentError>(
           () => iterable.sortedByDescending(sortFun));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
     test("sortedWith doesn't allow null as comparator", () {
       final iterable = emptyIterable<String>();
-      Comparator comparator = null;
-      var e =
+      const Comparator comparator = null;
+      final e =
           catchException<ArgumentError>(() => iterable.sortedWith(comparator));
       expect(e.message, allOf(contains("null"), contains("comparator")));
     });
@@ -1942,7 +1941,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("subtract doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.subtract(null));
+      final e = catchException<ArgumentError>(() => iterable.subtract(null));
       expect(e.message, allOf(contains("null"), contains("other")));
     });
   });
@@ -1953,7 +1952,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
 
     test("sum of doubles", () {
-      var sum = iterableOf([1.0, 2.1, 3.2]).sum();
+      final sum = iterableOf([1.0, 2.1, 3.2]).sum();
       expect(sum, closeTo(6.3, 0.000000001));
     });
 
@@ -1973,13 +1972,13 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("sumBy doesn't allow null as selector", () {
       final iterable = emptyIterable<num>();
-      var e = catchException<ArgumentError>(() => iterable.sumBy(null));
+      final e = catchException<ArgumentError>(() => iterable.sumBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
 
     test("sumByDouble doesn't allow null as selector", () {
       final iterable = emptyIterable<num>();
-      var e = catchException<ArgumentError>(() => iterable.sumByDouble(null));
+      final e = catchException<ArgumentError>(() => iterable.sumByDouble(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -2010,7 +2009,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("take doesn't allow null as n", () {
       final iterable = emptyIterable<num>();
-      var e = catchException<ArgumentError>(() => iterable.take(null));
+      final e = catchException<ArgumentError>(() => iterable.take(null));
       expect(e.message, allOf(contains("null"), contains("n")));
     });
 
@@ -2108,7 +2107,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("union doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.union(null));
+      final e = catchException<ArgumentError>(() => iterable.union(null));
       expect(e.message, allOf(contains("null"), contains("other")));
     });
   });
@@ -2167,20 +2166,20 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("window doesn't allow null as size", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.windowed(null));
+      final e = catchException<ArgumentError>(() => iterable.windowed(null));
       expect(e.message, allOf(contains("null"), contains("size")));
     });
 
     test("window doesn't allow null as step", () {
       final iterable = emptyIterable<String>();
-      var e =
+      final e =
           catchException<ArgumentError>(() => iterable.windowed(3, step: null));
       expect(e.message, allOf(contains("null"), contains("step")));
     });
 
     test("window doesn't allow null as partialWindows", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.windowed(3, partialWindows: null));
       expect(e.message, allOf(contains("null"), contains("partialWindows")));
     });
@@ -2231,28 +2230,28 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("windowedTransform doesn't allow null as size", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.windowedTransform(null, (it) => it));
       expect(e.message, allOf(contains("null"), contains("size")));
     });
 
     test("windowedTransform doesn't allow null as transform function", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.windowedTransform(3, null));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
 
     test("windowedTransform doesn't allow null as step", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.windowedTransform(3, (it) => it, step: null));
       expect(e.message, allOf(contains("null"), contains("step")));
     });
 
     test("windowedTransform doesn't allow null as partialWindows", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() =>
+      final e = catchException<ArgumentError>(() =>
           iterable.windowedTransform(3, (it) => it, partialWindows: null));
       expect(e.message, allOf(contains("null"), contains("partialWindows")));
     });
@@ -2271,19 +2270,19 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("zip doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(() => iterable.zip(null));
+      final e = catchException<ArgumentError>(() => iterable.zip(null));
       expect(e.message, allOf(contains("null"), contains("other")));
     });
     test("zipTransform doesn't allow null as other", () {
       final iterable = emptyIterable<String>();
-      var e = catchException<ArgumentError>(
+      final e = catchException<ArgumentError>(
           () => iterable.zipTransform(null, (a, b) => a));
       expect(e.message, allOf(contains("null"), contains("other")));
     });
     test("zipTransform doesn't allow null as transform function", () {
       final iterable = emptyIterable<String>();
-      int Function(dynamic, dynamic) transform = null;
-      var e = catchException<ArgumentError>(
+      const int Function(dynamic, dynamic) transform = null;
+      final e = catchException<ArgumentError>(
           () => iterable.zipTransform(emptyIterable(), transform));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });
@@ -2308,8 +2307,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("zipWithNextTransform doesn't allow null as transform function", () {
       final iterable = emptyIterable<String>();
-      int Function(dynamic, dynamic) transform = null;
-      var e = catchException<ArgumentError>(
+      const int Function(dynamic, dynamic) transform = null;
+      final e = catchException<ArgumentError>(
           () => iterable.zipWithNextTransform(transform));
       expect(e.message, allOf(contains("null"), contains("transform")));
     });

@@ -12,7 +12,11 @@ import 'package:kt_dart/src/collection/impl/map_empty.dart';
 abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   factory KtMap.empty() => EmptyMap<K, V>();
 
-  factory KtMap.from([Map<K, V> map = const {}]) {
+  factory KtMap.from([@nonNull Map<K, V> map = const {}]) {
+    assert(() {
+      if (map == null) throw ArgumentError("map can't be null");
+      return true;
+    }());
     if (map.isEmpty) return EmptyMap<K, V>();
     return DartMap(map);
   }
@@ -74,7 +78,7 @@ abstract class KtMapEntry<K, V> {
   @nullable
   V get value;
 
-  /// Converts entry to [Pair] with key being first component and value being second.
+  /// Converts entry to [KtPair] with key being first component and value being second.
   KtPair<K, V> toPair();
 }
 

@@ -11,7 +11,11 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   factory KtList.empty() => EmptyList<T>();
 
   /// Returns a new read-only list based on [elements].
-  factory KtList.from([Iterable<T> elements = const []]) {
+  factory KtList.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     if (elements.isEmpty) return EmptyList();
     return DartList(elements);
   }
@@ -36,7 +40,7 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   }
 
   /// Deprecated, use [asList] or [iter] for loops
-  @deprecated
+  @Deprecated("use asList() or iter instead")
   List<T> get list;
 
   // Query Operations

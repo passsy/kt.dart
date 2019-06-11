@@ -12,7 +12,11 @@ abstract class KtSet<T> implements KtCollection<T> {
   factory KtSet.empty() => EmptySet<T>();
 
   /// Returns a new read-only set based on [elements].
-  factory KtSet.from([Iterable<T> elements = const []]) {
+  factory KtSet.from([@nonNull Iterable<T> elements = const []]) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
     if (elements.isEmpty) return EmptySet<T>();
     return DartSet(elements);
   }
@@ -37,7 +41,7 @@ abstract class KtSet<T> implements KtCollection<T> {
   }
 
   /// Deprecated, use [asSet] or [iter] for loops
-  @deprecated
+  @Deprecated("use asSet() or iter instead")
   Set<T> get set;
 
   // Query Operations

@@ -1,6 +1,7 @@
 import 'package:kt_dart/kt.dart';
 import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
 import 'package:kt_dart/src/collection/impl/iterable.dart';
+import 'package:kt_dart/src/collection/impl/iterator.dart';
 
 /// Represents a range of values (for example, numbers or characters).
 abstract class ClosedRange<T> {
@@ -32,8 +33,9 @@ class IntProgression {
   IntProgression(this.first, int endInclusive, this.step)
       : assert(() {
           if (first == null) throw ArgumentError("start can't be null");
-          if (endInclusive == null)
+          if (endInclusive == null) {
             throw ArgumentError("endInclusive can't be null");
+          }
           if (step == null) throw ArgumentError("step can't be null");
           return true;
         }()),
