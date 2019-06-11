@@ -13,10 +13,11 @@ script:
   - pub run tool/reformat.dart
   - dartanalyzer --fatal-infos --fatal-warnings ./
   - pub run test test/kt_dart_test.dart
-  - pub global activate coverage
-  - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
-  - dart --observe=8111 --enable-asserts test/kt_dart_test.dart
-  - pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
+  # don't run coverage on dart 2.3.0 https://github.com/dart-lang/coverage/issues/249
+  - pub --version | grep -q '2.3.0' || pub global activate coverage
+  - pub --version | grep -q '2.3.0' || pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
+  - pub --version | grep -q '2.3.0' || dart --observe=8111 --enable-asserts test/kt_dart_test.dart
+  - pub --version | grep -q '2.3.0' || pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
   - pub publish -n
 after_success:
   - bash <(curl -s https://codecov.io/bash)
