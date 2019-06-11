@@ -290,7 +290,7 @@ void testList(
     });
 
     test("access dart list", () {
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
       final List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));

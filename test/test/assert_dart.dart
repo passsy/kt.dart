@@ -6,6 +6,7 @@ T catchException<T>(Function block) {
     block();
     fail("block did not throw");
   } catch (e, stack) {
+    // ignore: prefer_const_constructors
     expect(e, TypeMatcher<T>(), reason: stack.toString());
     return e as T;
   }
