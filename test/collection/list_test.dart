@@ -121,7 +121,7 @@ void testList(
 
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("is list", () {
@@ -138,10 +138,10 @@ void testList(
       expect(list.get(1), equals("b"));
       expect(list.get(2), equals("c"));
       expect(
-          () => list.get(3), throwsA(TypeMatcher<IndexOutOfBoundsException>()));
+          () => list.get(3), throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(-1),
-          throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.get(null), throwsA(TypeMatcher<ArgumentError>()));
+          throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("[] returns elements", () {
@@ -150,9 +150,9 @@ void testList(
       expect(list[0], equals("a"));
       expect(list[1], equals("b"));
       expect(list[2], equals("c"));
-      expect(() => list[3], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[-1], throwsA(TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[null], throwsA(TypeMatcher<ArgumentError>()));
+      expect(() => list[3], throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[-1], throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
+      expect(() => list[null], throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf returns first element or -1", () {

@@ -48,7 +48,7 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       final iterator = emptySet().iterator();
       expect(iterator.hasNext(), isFalse);
       expect(() => iterator.next(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("contains nothing", () {

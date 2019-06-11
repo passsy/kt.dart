@@ -81,7 +81,7 @@ void testMutableMap(
       });
 
       // TODO exchange error check with assertion once https://github.com/passsy/dart_kollection/issues/55 has been fixed
-      expect(e, TypeMatcher<UnimplementedError>());
+      expect(e, const TypeMatcher<UnimplementedError>());
       // expect(
       //    pokemon,
       //     mapFrom({

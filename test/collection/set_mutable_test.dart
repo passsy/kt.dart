@@ -76,7 +76,7 @@ void testMutableSet(
       expect(iterator.next(), "c");
       expect(iterator.hasNext(), isFalse);
       final e = catchException(() => iterator.next());
-      expect(e, TypeMatcher<NoSuchElementException>());
+      expect(e, const TypeMatcher<NoSuchElementException>());
     });
   } else {
     test("throws at end", () {
@@ -90,7 +90,7 @@ void testMutableSet(
       iterator.next();
       expect(iterator.hasNext(), isFalse);
       final e = catchException(() => iterator.next());
-      expect(e, TypeMatcher<NoSuchElementException>());
+      expect(e, const TypeMatcher<NoSuchElementException>());
     });
   }
 

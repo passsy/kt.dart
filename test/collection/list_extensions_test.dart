@@ -183,16 +183,16 @@ void testList(
 
     test("first throws for no elements", () {
       expect(() => emptySet().first(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
       expect(() => listFrom().first(),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
     test("finds nothing throws", () {
       expect(() => setOf<String>("a").first((it) => it == "b"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
       expect(() => listOf("a").first((it) => it == "b"),
-          throwsA(TypeMatcher<NoSuchElementException>()));
+          throwsA(const TypeMatcher<NoSuchElementException>()));
     });
   });
 

@@ -43,18 +43,18 @@ void main() {
 
     test("start index has to be in range (smaller)", () {
       final e = catchException(() => InterOpKtListIterator(["a", "b"], -1));
-      expect(e, TypeMatcher<IndexOutOfBoundsException>());
+      expect(e, const TypeMatcher<IndexOutOfBoundsException>());
     });
 
     test("start index has to be in range (larger)", () {
       final e = catchException(() => InterOpKtListIterator(["a", "b"], 3));
-      expect(e, TypeMatcher<IndexOutOfBoundsException>());
+      expect(e, const TypeMatcher<IndexOutOfBoundsException>());
     });
 
     test("remove is not implemented", () {
       final i = InterOpKtListIterator(["a", "b"], 0);
       final e = catchException(() => i.remove());
-      expect(e, TypeMatcher<UnimplementedError>());
+      expect(e, const TypeMatcher<UnimplementedError>());
     });
 
     test("add adds item to underlying list", () {
