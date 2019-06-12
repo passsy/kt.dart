@@ -33,6 +33,7 @@ abstract class ClosedRange<T> {
 /// A progression of values of type `int`
 /// starting at [first] until [last] with steps of size [stepSize]
 class IntProgression extends KtIterable<int> with KtIterableExtensionsMixin<int> {
+  // TODO make const if possible
   IntProgression(int first, int endInclusive, int step)
       : assert(() {
           if (first == null) throw ArgumentError("start can't be null");
@@ -215,14 +216,22 @@ IntRange range(int first, int last, {int step = 1}) => IntRange(first, last, ste
 // TODO ClosedFloatingPointRange
 
 void main() {
-  final test = range(0, 200, step: -10);
-//  print(test.contains(11));
-//  print(test.contains(10));
-  print(range(0, 1).step(2));
-  print(test.min());
+  final test = range(0, 120, step: 20);
+  print(test);
   test.forEach((i) {
     print(i);
   });
+  print(test.contains(11));
+  print(test.contains(10));
+  print(test.min());
 
-  for (final i in range(0, 12, step: 2).iter) {}
+  print(range(0, 10));
+  for (final i in range(0, 10).iter) {
+    print(i);
+  }
+
+  print(range(0, 15, step: 2));
+  for (final i in range(0, 15, step: 2).iter) {
+    print(i);
+  }
 }
