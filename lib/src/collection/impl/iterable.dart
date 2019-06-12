@@ -44,11 +44,11 @@ class KtToDartIterable<T> extends Iterable<T> {
   final KtIterable<T> iterable;
 
   @override
-  Iterator<T> get iterator => _DartToKtIterator(iterable.iterator());
+  Iterator<T> get iterator => DartToKtIterator(iterable.iterator());
 }
 
-class _DartToKtIterator<T> implements Iterator<T> {
-  _DartToKtIterator(this.iterator);
+class DartToKtIterator<T> implements Iterator<T> {
+  DartToKtIterator(this.iterator);
 
   final KtIterator<T> iterator;
 
