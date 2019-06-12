@@ -44,7 +44,8 @@ class IntProgression extends KtIterable<int> with KtIterableExtensionsMixin<int>
         }()),
         assert(() {
           if (step > 0 && first > endInclusive || step < 0 && first < endInclusive) {
-            log("The IntProgression from $first to $endInclusive with step $step doesn't contain any element.");
+            print("The IntProgression from $first to $endInclusive with step $step doesn't contain any element.");
+            print(StackTrace.current);
           }
           return true;
         }()),
