@@ -203,7 +203,7 @@ class IntRange extends IntProgression implements ClosedRange<int> {
   bool contains(covariant dynamic element) => indexOf(element) >= 0;
 }
 
-IntRange intRange(int first, int last, {int step = 1}) => IntRange(first, last, step: step);
+IntRange range(int first, int last, {int step = 1}) => IntRange(first, last, step: step);
 //DoubleRange doubleRange(double first, double last, {double step = 1.0}) {
 //  return DoubleRange();
 //}
@@ -214,14 +214,14 @@ IntRange intRange(int first, int last, {int step = 1}) => IntRange(first, last, 
 // TODO ClosedFloatingPointRange
 
 void main() {
-  final test = intRange(0, 200, step: -10);
+  final test = range(0, 200, step: -10);
 //  print(test.contains(11));
 //  print(test.contains(10));
-  print(intRange(0, 1).step(2));
+  print(range(0, 1).step(2));
   print(test.min());
   test.forEach((i) {
     print(i);
   });
 
-  for (final i in intRange(0, 12, step: 2).iter) {}
+  for (final i in range(0, 12, step: 2).iter) {}
 }
