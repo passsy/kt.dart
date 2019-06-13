@@ -30,7 +30,7 @@ Future<void> main(List<String> args) async {
     stdout.writeln('All files are correctly formatted');
   } else {
     stdout.writeln("Error: Some files require reformatting with dartfmt");
-    stdout.writeln("run: ./flutterw packages pub run tool/reformat.dart");
+    stdout.writeln("run: pub run tool/reformat.dart");
   }
   exit(reformatExit);
 }
