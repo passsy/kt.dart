@@ -81,6 +81,7 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
     # - prefer_collection_literals # Set collections are only available since Dart 2.2
+    # - prefer_asserts_with_message # block asserts don't require a message as they usually throw good errors
     - prefer_conditional_assignment
     - prefer_const_constructors
     - prefer_const_constructors_in_immutables
