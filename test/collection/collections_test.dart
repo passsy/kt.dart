@@ -9,10 +9,10 @@ void main() {
 void dartLikeSyntax() {
   group("emptyList", () {
     test("basic creation", () {
-      const list = KtList<String>.empty();
+      final list = KtList<String>.empty();
       expect(list.size, 0);
       expect(list.hashCode, 1);
-      expect(list, const KtList.empty());
+      expect(list, KtList.empty());
       expect(list, KtList.of());
       final emptyMutable = KtMutableList.of("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
@@ -22,11 +22,11 @@ void dartLikeSyntax() {
 
   group("listFrom", () {
     test("empty", () {
-      const list = KtList<String>.empty();
+      final list = KtList<String>.empty();
       expect(list.size, 0);
       expect(list.hashCode, 1);
       expect(list, listFrom());
-      expect(list, const KtList<String>.empty());
+      expect(list, KtList<String>.empty());
       final emptyMutable = KtMutableList.of("a")..remove("a");
       expect(list.hashCode, emptyMutable.hashCode);
       expect(list, emptyMutable);

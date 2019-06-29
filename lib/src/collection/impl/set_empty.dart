@@ -7,7 +7,7 @@ import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
 class EmptySet<T> extends Object
     with KtIterableExtensionsMixin<T>, KtCollectionExtensionMixin<T>
     implements KtSet<T> {
-  const EmptySet();
+  EmptySet();
 
   @override
   // TODO replace with const set literal {}

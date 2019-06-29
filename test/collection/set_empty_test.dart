@@ -9,10 +9,6 @@ void main() {
   });
   group("KtSet.empty", () {
     testEmptySet(<T>() => KtSet<T>.empty());
-    test("const constructor", () {
-      const set = KtSet<String>.empty();
-      expect(set.runtimeType.toString(), contains("<String>"));
-    });
   });
   group("KtSet.of", () {
     testEmptySet(<T>() => KtSet<T>.of());

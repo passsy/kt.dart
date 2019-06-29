@@ -12,10 +12,6 @@ void main() {
   });
   group("KtMap.empty", () {
     testMap(<K, V>() => KtMap<K, V>.empty(), mutable: false);
-    test("const constructor", () {
-      const map = KtMap<int, String>.empty();
-      expect(map.runtimeType.toString(), contains("<int, String>"));
-    });
   });
   group("mutableMapFrom", () {
     testMap(<K, V>() => mutableMapFrom<K, V>());

@@ -15,10 +15,6 @@ void main() {
   });
   group("KtList.empty", () {
     testEmptyList(<T>() => KtList<T>.empty());
-    test("const constructor", () {
-      const list = KtList<String>.empty();
-      expect(list.runtimeType.toString(), contains("<String>"));
-    });
   });
   group("KtList.of", () {
     testEmptyList(<T>() => KtList<T>.of());
