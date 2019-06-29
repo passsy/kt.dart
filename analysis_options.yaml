@@ -100,6 +100,7 @@ linter:
     - prefer_function_declarations_over_variables
     - prefer_generic_function_type_aliases
     # - prefer_if_elements_to_conditional_expressions # not compatible with Dart 2.2
+    - prefer_if_null_operators
     - prefer_initializing_formals
     - prefer_inlined_adds
     # - prefer_int_literals # not supported in Dart 2.0
