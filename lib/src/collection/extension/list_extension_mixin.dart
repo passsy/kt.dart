@@ -141,9 +141,6 @@ abstract class KtListExtensionsMixin<T>
   }
 
   @override
-  int get lastIndex => size - 1;
-
-  @override
   S reduceRight<S>(S Function(T, S acc) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
