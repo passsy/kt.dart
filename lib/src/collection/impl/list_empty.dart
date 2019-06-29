@@ -106,7 +106,7 @@ class _EmptyIterator<T> extends KtListIterator<T> {
 
   @override
   T next() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 
   @override
@@ -114,7 +114,7 @@ class _EmptyIterator<T> extends KtListIterator<T> {
 
   @override
   T previous() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 
   @override

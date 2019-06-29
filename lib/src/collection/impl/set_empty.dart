@@ -53,6 +53,6 @@ class _EmptyIterator<T> extends KtIterator<T> {
 
   @override
   T next() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 }

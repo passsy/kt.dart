@@ -84,7 +84,7 @@ class _DartToKIterator<T> extends KtIterator<T> {
 
   @override
   T next() {
-    if (!_hasNext) throw NoSuchElementException();
+    if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = iterator.moveNext();
     nextValue = iterator.current;
