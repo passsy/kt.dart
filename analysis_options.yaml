@@ -81,6 +81,7 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
     # - prefer_collection_literals # Set collections are only available since Dart 2.2
+    # - prefer_asserts_with_message # block asserts don't require a message as they usually throw good errors
     - prefer_conditional_assignment
     - prefer_const_constructors
     - prefer_const_constructors_in_immutables
@@ -88,6 +89,7 @@ linter:
     - prefer_const_literals_to_create_immutables
     - prefer_constructors_over_static_methods
     - prefer_contains
+    - prefer_double_quotes
     - prefer_equal_for_default_values
     # - prefer_expression_function_bodies # doesn't allow comments on that line, not good for long methods
     - prefer_final_fields
@@ -98,6 +100,7 @@ linter:
     - prefer_function_declarations_over_variables
     - prefer_generic_function_type_aliases
     # - prefer_if_elements_to_conditional_expressions # not compatible with Dart 2.2
+    - prefer_if_null_operators
     - prefer_initializing_formals
     - prefer_inlined_adds
     # - prefer_int_literals # not supported in Dart 2.0
@@ -115,6 +118,7 @@ linter:
     #TODO - public_member_api_docs
     - recursive_getters
     - slash_for_doc_comments
+    # - sort_child_properties_last # Flutter only
     - sort_constructors_first
     - sort_pub_dependencies
     - sort_unnamed_constructors_first
@@ -138,6 +142,7 @@ linter:
     - unrelated_type_equality_checks
     #- use_full_hex_values_for_flutter_colors # flutter colors
     #- use_function_type_syntax_for_parameters # makes reading function signatures even harder
+    #- unsafe_html # web only
     - use_rethrow_when_possible
     - use_setters_to_change_properties
     - use_string_buffers

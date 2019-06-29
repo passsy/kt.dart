@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mutableList", () {
@@ -58,7 +58,7 @@ void testList(
         mutableListOf,
     KtMutableList<T> Function<T>([Iterable<T> iterable]) mutableListFrom,
     {bool ordered = true}) {
-  group('basic methods', () {
+  group("basic methods", () {
     test("has no elements", () {
       final list = mutableListOf();
       expect(list.size, equals(0));

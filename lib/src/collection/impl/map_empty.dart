@@ -1,5 +1,5 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 
 class EmptyMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>

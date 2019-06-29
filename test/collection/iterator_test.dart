@@ -1,11 +1,11 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/iterator.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/iterator.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
-  group('InterOpKtListIterator', () {
+  group("InterOpKtListIterator", () {
     test("next at pos 0 is first element", () {
       final i = InterOpKtListIterator(["a", "b"], 0);
       expect(i.next(), "a");

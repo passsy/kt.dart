@@ -1,9 +1,9 @@
-import 'dart:math' as math show Random;
+import "dart:math" as math show Random;
 
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("list", () {
@@ -53,7 +53,7 @@ void main() {
 void testCollection(KtCollection<T> Function<T>() emptyCollection,
     KtCollection<T> Function<T>(Iterable<T> collection) collectionOf,
     {bool ordered = true}) {
-  group('contains', () {
+  group("contains", () {
     test("no elements", () {
       final list = emptyCollection<String>();
       expect(list.contains("a"), isFalse);
@@ -73,7 +73,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
   });
 
-  group('containsAll', () {
+  group("containsAll", () {
     test("no elements", () {
       final list = emptyCollection<String>();
       expect(list.containsAll(listOf("a")), isFalse);

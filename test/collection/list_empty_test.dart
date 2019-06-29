@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("emptyList", () {
@@ -43,7 +43,7 @@ void main() {
 }
 
 void testEmptyList(KtList<T> Function<T>() emptyList) {
-  group('empty list', () {
+  group("empty list", () {
     test("has no elements", () {
       final empty = emptyList<String>();
       expect(empty.size, equals(0));

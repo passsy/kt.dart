@@ -1,6 +1,6 @@
-import 'dart:math' as math show Random;
+import "dart:math" as math show Random;
 
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 /// A generic collection of elements. Methods in this interface support only read-only access to the collection;
 /// read/write access is supported through the [KtMutableCollection] interface.

@@ -5,8 +5,8 @@ class IndexOutOfBoundsException implements Exception {
 
   @override
   String toString() => message == null
-      ? 'IndexOutOfBoundsException'
-      : 'IndexOutOfBoundsException: $message';
+      ? "IndexOutOfBoundsException"
+      : "IndexOutOfBoundsException: $message";
 }
 
 class NoSuchElementException implements Exception {
@@ -16,6 +16,6 @@ class NoSuchElementException implements Exception {
 
   @override
   String toString() => message == null
-      ? 'NoSuchElementException'
-      : 'NoSuchElementException: $message';
+      ? "NoSuchElementException"
+      : "NoSuchElementException: $message";
 }

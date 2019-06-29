@@ -1,6 +1,6 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/map.dart';
-import 'package:kt_dart/src/collection/impl/map_empty.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/map.dart";
+import "package:kt_dart/src/collection/impl/map_empty.dart";
 
 /// A collection that holds pairs of objects (keys and values) and supports efficiently retrieving
 /// the value corresponding to each key. Map keys are unique; the map holds only one value for each key.

@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("emptySet", () {
@@ -43,7 +43,7 @@ void main() {
 }
 
 void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
-  group('basic methods', () {
+  group("basic methods", () {
     test("empty iterator", () {
       final iterator = emptySet().iterator();
       expect(iterator.hasNext(), isFalse);

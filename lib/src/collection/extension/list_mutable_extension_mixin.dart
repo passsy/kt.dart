@@ -1,6 +1,6 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 abstract class KtMutableListExtensionsMixin<T>
     implements KtMutableListExtension<T>, KtMutableList<T> {
