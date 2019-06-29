@@ -117,6 +117,7 @@ linter:
     #TODO - public_member_api_docs
     - recursive_getters
     - slash_for_doc_comments
+    # - sort_child_properties_last # Flutter only
     - sort_constructors_first
     - sort_pub_dependencies
     - sort_unnamed_constructors_first
@@ -140,6 +141,7 @@ linter:
     - unrelated_type_equality_checks
     #- use_full_hex_values_for_flutter_colors # flutter colors
     #- use_function_type_syntax_for_parameters # makes reading function signatures even harder
+    #- unsafe_html # web only
     - use_rethrow_when_possible
     - use_setters_to_change_properties
     - use_string_buffers
