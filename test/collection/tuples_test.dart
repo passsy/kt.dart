@@ -4,6 +4,12 @@ import "package:test/test.dart";
 
 void main() {
   group("KtPair", () {
+    test("can be const", () {
+      const a = KtPair("a", "b");
+      const b = KtPair("a", "b");
+      expect(identical(a, b), isTrue);
+    });
+
     test("returns values put inside", () {
       final pair = KtPair("a", "b");
       expect(pair.first, "a");
@@ -40,6 +46,12 @@ void main() {
       expect(pair.first, "a");
       expect(pair.second, "b");
       expect(pair.third, "c");
+    });
+
+    test("can be const", () {
+      const a = KtTriple("a", "b", "c");
+      const b = KtTriple("a", "b", "c");
+      expect(identical(a, b), isTrue);
     });
 
     test("equals based on items", () {
