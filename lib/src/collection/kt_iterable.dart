@@ -1,4 +1,4 @@
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 /// Classes that inherit from this interface can be represented as a sequence of elements that can
 /// be iterated over.

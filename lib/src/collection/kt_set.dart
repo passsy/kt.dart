@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/set.dart';
-import 'package:kt_dart/src/collection/impl/set_empty.dart';
-import 'package:kt_dart/src/util/arguments.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/set.dart";
+import "package:kt_dart/src/collection/impl/set_empty.dart";
+import "package:kt_dart/src/util/arguments.dart";
 
 /// A generic unordered collection of elements that does not support duplicate elements.
 /// Methods in this interface support only read-only access to the set;

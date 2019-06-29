@@ -1,7 +1,7 @@
-import 'dart:collection';
+import "dart:collection";
 
-import 'package:kt_dart/src/collection/impl/set_mutable.dart';
-import 'package:kt_dart/src/collection/kt_set_hash.dart';
+import "package:kt_dart/src/collection/impl/set_mutable.dart";
+import "package:kt_dart/src/collection/kt_set_hash.dart";
 
 class DartHashSet<T> extends DartMutableSet<T> implements KtHashSet<T> {
   DartHashSet([Iterable<T> iterable = const []])

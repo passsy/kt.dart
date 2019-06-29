@@ -1,4 +1,4 @@
-import 'package:kt_dart/kt.dart';
+import "package:kt_dart/kt.dart";
 
 void main() {
   /// Kotlin like, function based syntax

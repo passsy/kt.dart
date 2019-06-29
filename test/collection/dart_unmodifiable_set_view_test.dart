@@ -1,10 +1,10 @@
-import 'package:test/test.dart';
-import 'package:kt_dart/collection.dart';
+import "package:test/test.dart";
+import "package:kt_dart/collection.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
-  group('unmodifiable set view', () {
+  group("unmodifiable set view", () {
     test("mutation throws", () {
       final ktSet = setOf("a", "b", "c");
       final dartSet = ktSet.asSet();

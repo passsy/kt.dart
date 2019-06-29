@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/list.dart';
-import 'package:kt_dart/src/collection/impl/list_empty.dart';
-import 'package:kt_dart/src/util/arguments.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/list.dart";
+import "package:kt_dart/src/collection/impl/list_empty.dart";
+import "package:kt_dart/src/util/arguments.dart";
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.

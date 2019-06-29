@@ -1,8 +1,8 @@
-import 'dart:math' as math;
+import "dart:math" as math;
 
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/comparisons.dart';
-import 'package:kt_dart/src/util/errors.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/comparisons.dart";
+import "package:kt_dart/src/util/errors.dart";
 
 abstract class KtIterableExtensionsMixin<T>
     implements KtIterableExtension<T>, KtIterable<T> {
@@ -90,7 +90,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return associated;
   }
 
@@ -293,7 +293,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<T> filter(bool Function(T) predicate) {
     final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return filtered;
   }
 
@@ -301,7 +301,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<T> filterIndexed(bool Function(int index, T) predicate) {
     final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return filtered;
   }
 
@@ -345,7 +345,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<T> filterNot(bool Function(T) predicate) {
     final list = filterNotTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return list;
   }
 
@@ -353,7 +353,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<T> filterNotNull() {
     final list = filterNotNullTo(mutableListOf<T>());
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return list;
   }
 
@@ -774,7 +774,7 @@ abstract class KtIterableExtensionsMixin<T>
     final KtMutableList<R> list = mutableListOf<R>();
     final mapped = mapTo(list, transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
 
@@ -782,7 +782,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<R> mapIndexed<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
 
@@ -790,7 +790,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
 
@@ -831,7 +831,7 @@ abstract class KtIterableExtensionsMixin<T>
   KtList<R> mapNotNull<R>(R Function(T) transform) {
     final mapped = mapNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
 

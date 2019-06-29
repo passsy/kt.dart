@@ -1,5 +1,5 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
 void main() {
   group("kotlin syntax", kotlinLikeSyntax);
@@ -7,7 +7,7 @@ void main() {
 }
 
 void dartLikeSyntax() {
-  group('emptyList', () {
+  group("emptyList", () {
     test("basic creation", () {
       final list = KtList<String>.empty();
       expect(list.size, 0);
@@ -20,7 +20,7 @@ void dartLikeSyntax() {
     });
   });
 
-  group('listFrom', () {
+  group("listFrom", () {
     test("empty", () {
       final list = KtList<String>.empty();
       expect(list.size, 0);
@@ -58,7 +58,7 @@ void dartLikeSyntax() {
     });
   });
 
-  group('mutableListFrom', () {
+  group("mutableListFrom", () {
     test("empty", () {
       final list = KtMutableList<String>.of();
       expect(list.size, 0);
@@ -133,7 +133,7 @@ void dartLikeSyntax() {
     });
   });
 
-  group('hashSetOf', () {
+  group("hashSetOf", () {
     test("empty is mutable", () {
       final set = KtHashSet<String>.from();
       set.add("test");
@@ -167,7 +167,7 @@ void dartLikeSyntax() {
     });
   });
 
-  group('linkedSetOf', () {
+  group("linkedSetOf", () {
     test("empty is mutable", () {
       final set = KtLinkedSet<String>.from();
       set.add("test");
@@ -203,7 +203,7 @@ void dartLikeSyntax() {
 }
 
 void kotlinLikeSyntax() {
-  group('emptyList', () {
+  group("emptyList", () {
     test("basic creation", () {
       final list = emptyList<String>();
       expect(list.size, 0);
@@ -216,7 +216,7 @@ void kotlinLikeSyntax() {
     });
   });
 
-  group('listFrom', () {
+  group("listFrom", () {
     test("empty", () {
       final list = listFrom<String>();
       expect(list.size, 0);
@@ -254,7 +254,7 @@ void kotlinLikeSyntax() {
     });
   });
 
-  group('mutableListFrom', () {
+  group("mutableListFrom", () {
     test("empty", () {
       final list = mutableListOf<String>();
       expect(list.size, 0);
@@ -329,7 +329,7 @@ void kotlinLikeSyntax() {
     });
   });
 
-  group('hashSetOf', () {
+  group("hashSetOf", () {
     test("empty is mutable", () {
       final set = hashSetOf<String>();
       set.add("test");
@@ -363,7 +363,7 @@ void kotlinLikeSyntax() {
     });
   });
 
-  group('linkedSetOf', () {
+  group("linkedSetOf", () {
     test("empty is mutable", () {
       final set = linkedSetOf<String>();
       set.add("test");

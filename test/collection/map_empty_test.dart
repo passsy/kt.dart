@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mapFrom", () {
@@ -43,7 +43,7 @@ void main() {
 }
 
 void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
-  group('empty map', () {
+  group("empty map", () {
     test("has no elements", () {
       final empty = emptyMap<String, Object>();
       expect(empty.size, equals(0));

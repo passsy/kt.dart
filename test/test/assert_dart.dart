@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import "package:test/test.dart";
 
 /// returns the caught exception thrown in [block]
 T catchException<T>(Function block) {

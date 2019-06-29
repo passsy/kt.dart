@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
-import 'package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart';
-import 'package:kt_dart/src/util/hash.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
+import "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
+import "package:kt_dart/src/util/hash.dart";
 
 class DartMutableMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>, KtMutableMapExtensionsMixin<K, V>
