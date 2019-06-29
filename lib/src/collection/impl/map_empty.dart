@@ -7,10 +7,10 @@ class EmptyMap<K, V> extends Object
   const EmptyMap();
 
   @override
-  Iterable<KtMapEntry<K, V>> get iter => List.unmodifiable([]);
+  Iterable<KtMapEntry<K, V>> get iter => List.unmodifiable(const []);
 
   @override
-  Map<K, V> asMap() => Map.unmodifiable({});
+  Map<K, V> asMap() => Map.unmodifiable(const {});
 
   @override
   V operator [](K key) => null;

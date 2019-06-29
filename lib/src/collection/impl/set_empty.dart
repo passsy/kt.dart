@@ -10,6 +10,7 @@ class EmptySet<T> extends Object
   const EmptySet();
 
   @override
+  // TODO replace with const set literal {}
   Set<T> get set => UnmodifiableSetView(Set());
 
   @override

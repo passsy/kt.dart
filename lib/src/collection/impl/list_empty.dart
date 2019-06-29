@@ -13,10 +13,10 @@ class EmptyList<T> extends Object
   const EmptyList();
 
   @override
-  List<T> get list => List.unmodifiable([]);
+  List<T> get list => List.unmodifiable(const []);
 
   @override
-  List<T> asList() => List.unmodifiable([]);
+  List<T> asList() => List.unmodifiable(const []);
 
   @override
   bool contains(T element) => false;
