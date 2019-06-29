@@ -9,6 +9,10 @@ void main() {
   });
   group("KtSet.empty", () {
     testEmptySet(<T>() => KtSet<T>.empty());
+    test("const constructor", () {
+      const set = KtSet<String>.empty();
+      expect(set.runtimeType.toString(), contains("<String>"));
+    });
   });
   group("KtSet.of", () {
     testEmptySet(<T>() => KtSet<T>.of());
@@ -58,6 +62,12 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       expect(set.contains("c"), isFalse);
       expect(set.contains(null), isFalse);
       expect(set.contains(""), isFalse);
+    });
+
+    test("iterator have correct type", () {
+      final set = emptySet<Map<int, String>>();
+      expect(
+          set.iterator().runtimeType.toString(), contains("Map<int, String>>"));
     });
 
     test("is empty", () {

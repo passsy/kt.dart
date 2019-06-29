@@ -15,6 +15,10 @@ void main() {
   });
   group("KtList.empty", () {
     testEmptyList(<T>() => KtList<T>.empty());
+    test("const constructor", () {
+      const list = KtList<String>.empty();
+      expect(list.runtimeType.toString(), contains("<String>"));
+    });
   });
   group("KtList.of", () {
     testEmptyList(<T>() => KtList<T>.of());
@@ -68,6 +72,12 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       final empty = emptyList();
 
       expect(empty.isEmpty(), isTrue);
+    });
+
+    test("iterator have correct type", () {
+      final list = emptyList<Map<int, String>>();
+      expect(list.iterator().runtimeType.toString(),
+          contains("Map<int, String>>"));
     });
 
     test("throws when accessing an element", () {

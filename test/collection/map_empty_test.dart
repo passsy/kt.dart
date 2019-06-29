@@ -12,6 +12,10 @@ void main() {
   });
   group("KtMap.empty", () {
     testMap(<K, V>() => KtMap<K, V>.empty(), mutable: false);
+    test("const constructor", () {
+      const map = KtMap<int, String>.empty();
+      expect(map.runtimeType.toString(), contains("<int, String>"));
+    });
   });
   group("mutableMapFrom", () {
     testMap(<K, V>() => mutableMapFrom<K, V>());
@@ -58,6 +62,12 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
       expect(emptyMap<int, int>().containsValue(0), isFalse);
       expect(emptyMap<List, List>().containsKey([]), isFalse);
       expect(emptyMap<List, List>().containsValue([]), isFalse);
+    });
+
+    test("entries have correct type", () {
+      final map = emptyMap<int, List<String>>();
+      expect(
+          map.entries.runtimeType.toString(), contains("<int, List<String>>"));
     });
 
     test("values iterator has no next", () {
