@@ -1257,7 +1257,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
         expect(s, "a, b, c");
       });
       test("joinToString calls childs toString", () {
-        final s = iterableOf([listOf(1, 2, 3), KtPair("a", "b"), "test"])
+        final s = iterableOf([listOf(1, 2, 3), const KtPair("a", "b"), "test"])
             .joinToString();
         expect(s, "[1, 2, 3], (a, b), test");
       });
@@ -2260,7 +2260,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zip", () {
     test("to pair", () {
       final result = iterableOf([1, 2, 3, 4, 5]).zip(iterableOf(["a", "b"]));
-      expect(result, listFrom([KtPair(1, "a"), KtPair(2, "b")]));
+      expect(result, listFrom(const [KtPair(1, "a"), KtPair(2, "b")]));
     });
     test("transform", () {
       final result = iterableOf([1, 2, 3, 4, 5])
@@ -2291,7 +2291,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zipWithNext", () {
     test("zipWithNext", () {
       final result = iterableOf([1, 2, 3]).zipWithNext();
-      expect(result, listOf(KtPair(1, 2), KtPair(2, 3)));
+      expect(result, listOf(const KtPair(1, 2), const KtPair(2, 3)));
     });
   });
 

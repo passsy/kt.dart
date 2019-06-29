@@ -663,7 +663,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
       });
       final copy = map.toList();
-      expect(copy, listOf(KtPair(1, "Bulbasaur"), KtPair(2, "Ivysaur")));
+      expect(copy, listOf(const KtPair(1, "Bulbasaur"), const KtPair(2, "Ivysaur")));
     });
   });
 

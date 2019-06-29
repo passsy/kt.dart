@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
@@ -10,7 +11,11 @@ void main() {
     });
 
     test("equals based on items", () {
-      expect(KtPair("a", "b"), KtPair("a", "b"));
+      final p1 = KtPair("a", "b");
+      final p2 = KtPair("a", "b");
+      expect(identical(p1, p2), isFalse);
+      expect(p1, p2);
+
       expect(KtPair("a", "b").hashCode, KtPair("a", "b").hashCode);
       expect(KtPair("a", "b"), isNot(equals(KtPair("a", "c"))));
       expect(
