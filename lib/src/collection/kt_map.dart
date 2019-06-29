@@ -10,7 +10,7 @@ import "package:kt_dart/src/collection/impl/map_empty.dart";
 ///          can accept key as a parameter (of [containsKey] for example) and return it in [keys] set.
 /// @param V the type of map values. The map is covariant on its value type.
 abstract class KtMap<K, V> implements KtMapExtension<K, V> {
-  factory KtMap.empty() => EmptyMap<K, V>();
+  const factory KtMap.empty() = EmptyMap<K, V>;
 
   factory KtMap.from([@nonNull Map<K, V> map = const {}]) {
     assert(() {

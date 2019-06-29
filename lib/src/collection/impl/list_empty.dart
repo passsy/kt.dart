@@ -10,6 +10,8 @@ class EmptyList<T> extends Object
         KtCollectionExtensionMixin<T>,
         KtListExtensionsMixin<T>
     implements KtList<T> {
+  const EmptyList();
+
   @override
   List<T> get list => List.unmodifiable([]);
 

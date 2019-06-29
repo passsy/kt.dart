@@ -9,7 +9,7 @@ import "package:kt_dart/src/util/arguments.dart";
 /// @param E the type of elements contained in the set. The set is covariant on its element type.
 abstract class KtSet<T> implements KtCollection<T> {
   /// Returns an empty read-only set.
-  factory KtSet.empty() => EmptySet<T>();
+  const factory KtSet.empty() = EmptySet<T>;
 
   /// Returns a new read-only set based on [elements].
   factory KtSet.from([@nonNull Iterable<T> elements = const []]) {
