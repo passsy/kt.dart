@@ -7,18 +7,16 @@ dart:
   - 2.1.0
   - 2.2.0
   - 2.3.0
+  - 2.4.0
 with_content_shell: false
 script:
   - set -e
   - pub run tool/reformat.dart
   - dartanalyzer --fatal-infos --fatal-warnings ./
   - pub run test test/kt_dart_test.dart
-  # don't run coverage on dart 2.3.0 https://github.com/dart-lang/coverage/issues/249
-  - pub --version | grep -q '2.3.0' || pub global activate coverage
-  - pub --version | grep -q '2.3.0' || pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
-  - pub --version | grep -q '2.3.0' || dart --observe=8111 --enable-asserts test/kt_dart_test.dart
-  - pub --version | grep -q '2.3.0' || pub global run coverage:format_coverage --packages=.packages --report-on lib --in coverage.json --out lcov.info --lcov
   - pub publish -n
+  # run coverage with dart 2.2.0 only, it's broken on later versions https://github.com/dart-lang/coverage/issues/249
+  - pub --version | grep -q '2.2.0' && ./tool/run_coverage_locally.sh
 after_success:
   # run coverage report only on dart 2.2.0
-  - if $(pub --version | grep -q '2.2.0'); then bash <(curl -s https://codecov.io/bash); fi
+  - pub --version | grep -q '2.2.0' && bash <(curl -s https://codecov.io/bash);
