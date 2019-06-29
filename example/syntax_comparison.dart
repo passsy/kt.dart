@@ -45,7 +45,7 @@ void main() {
 
   /// List
   // Create immutable lists
-  KtList<int>.empty();
+  const KtList<int>.empty();
   KtList.of(1, 2, 3, 4, 5);
   KtList.from([1, 2, 3, 4, 5]);
 
@@ -56,7 +56,7 @@ void main() {
 
   /// Set
   // Create immutable sets
-  KtSet<int>.empty();
+  const KtSet<int>.empty();
   KtSet.of(1, 2, 3, 4, 5);
   KtSet.from([1, 2, 3, 4, 5]);
 
@@ -76,6 +76,10 @@ void main() {
   KtLinkedSet.from([1, 2, 3, 4, 5]);
 
   /// Map
+  // Create immutable maps
+  const KtMap.empty();
+  KtMap.from({1: "a", 2: "b"});
+
   // Create mutable maps
   KtMutableMap<int, String>.empty();
   KtMutableMap.from({1: "a", 2: "b"});
