@@ -49,7 +49,7 @@ class EmptySet<T> extends Object
   Iterable<T> get iter => EmptyDartIterable();
 }
 
-class _EmptyIterator<T> extends KtIterator<T> {
+class _EmptyIterator<T> implements KtIterator<T> {
   @override
   bool hasNext() => false;
 

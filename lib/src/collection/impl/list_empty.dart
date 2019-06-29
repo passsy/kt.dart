@@ -57,7 +57,7 @@ class EmptyList<T> extends Object
   bool isEmpty() => true;
 
   @override
-  KtIterator<T> iterator() => _EmptyIterator();
+  KtIterator<T> iterator() => _EmptyIterator<T>();
 
   @override
   int lastIndexOf(T element) => -1;
@@ -68,7 +68,7 @@ class EmptyList<T> extends Object
       if (index == null) throw ArgumentError("index can't be null");
       return true;
     }());
-    return _EmptyIterator();
+    return _EmptyIterator<T>();
   }
 
   @override
@@ -102,7 +102,7 @@ class EmptyList<T> extends Object
   Iterable<T> get iter => EmptyDartIterable();
 }
 
-class _EmptyIterator<T> extends KtListIterator<T> {
+class _EmptyIterator<T> implements KtListIterator<T> {
   @override
   bool hasNext() => false;
 
