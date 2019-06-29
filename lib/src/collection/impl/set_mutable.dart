@@ -136,7 +136,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
 
   @override
   T next() {
-    if (!_hasNext) throw NoSuchElementException();
+    if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;

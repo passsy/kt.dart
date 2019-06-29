@@ -1,5 +1,5 @@
 class IndexOutOfBoundsException implements Exception {
-  IndexOutOfBoundsException([this.message]);
+  const IndexOutOfBoundsException([this.message]);
 
   final String message;
 
@@ -10,7 +10,7 @@ class IndexOutOfBoundsException implements Exception {
 }
 
 class NoSuchElementException implements Exception {
-  NoSuchElementException([this.message]);
+  const NoSuchElementException([this.message]);
 
   final String message;
 

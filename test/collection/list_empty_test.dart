@@ -70,6 +70,12 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       expect(empty.isEmpty(), isTrue);
     });
 
+    test("iterator have correct type", () {
+      final list = emptyList<Map<int, String>>();
+      expect(list.iterator().runtimeType.toString(),
+          contains("Map<int, String>>"));
+    });
+
     test("throws when accessing an element", () {
       final empty = emptyList();
 

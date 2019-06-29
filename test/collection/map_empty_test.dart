@@ -60,6 +60,12 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
       expect(emptyMap<List, List>().containsValue([]), isFalse);
     });
 
+    test("entries have correct type", () {
+      final map = emptyMap<int, List<String>>();
+      expect(
+          map.entries.runtimeType.toString(), contains("<int, List<String>>"));
+    });
+
     test("values iterator has no next", () {
       final empty = emptyMap();
       expect(empty.values.iterator().hasNext(), isFalse);

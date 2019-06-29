@@ -448,14 +448,14 @@ abstract class KtIterableExtensionsMixin<T>
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
-        throw NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException("Collection is empty");
       }
       return i.next();
     } else {
       for (final element in iter) {
         if (predicate(element)) return element;
       }
-      throw NoSuchElementException(
+      throw const NoSuchElementException(
           "Collection contains no element matching the predicate.");
     }
   }
@@ -703,7 +703,7 @@ abstract class KtIterableExtensionsMixin<T>
       if (this is KtList) return (this as KtList<T>).last();
       final i = iterator();
       if (!i.hasNext()) {
-        throw NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException("Collection is empty");
       }
       var last = i.next();
       while (i.hasNext()) {
@@ -720,7 +720,7 @@ abstract class KtIterableExtensionsMixin<T>
         }
       }
       if (!found) {
-        throw NoSuchElementException(
+        throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
       return last;
@@ -1141,7 +1141,7 @@ abstract class KtIterableExtensionsMixin<T>
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
-        throw NoSuchElementException("Collection is empty.");
+        throw const NoSuchElementException("Collection is empty.");
       }
       final single = i.next();
       if (i.hasNext()) {
@@ -1162,7 +1162,7 @@ abstract class KtIterableExtensionsMixin<T>
         }
       }
       if (!found) {
-        throw NoSuchElementException(
+        throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
       return single;

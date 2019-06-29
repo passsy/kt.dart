@@ -4,11 +4,13 @@ import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 class EmptyMap<K, V> extends Object
     with KtMapExtensionsMixin<K, V>
     implements KtMap<K, V> {
-  @override
-  Iterable<KtMapEntry<K, V>> get iter => List.unmodifiable([]);
+  EmptyMap();
 
   @override
-  Map<K, V> asMap() => Map.unmodifiable({});
+  Iterable<KtMapEntry<K, V>> get iter => List.unmodifiable(const []);
+
+  @override
+  Map<K, V> asMap() => Map.unmodifiable(const {});
 
   @override
   V operator [](K key) => null;

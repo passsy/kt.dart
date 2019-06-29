@@ -76,6 +76,10 @@ void main() {
   KtLinkedSet.from([1, 2, 3, 4, 5]);
 
   /// Map
+  // Create immutable maps
+  KtMap.empty();
+  KtMap.from({1: "a", 2: "b"});
+
   // Create mutable maps
   KtMutableMap<int, String>.empty();
   KtMutableMap.from({1: "a", 2: "b"});

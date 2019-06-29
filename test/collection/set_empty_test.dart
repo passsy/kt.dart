@@ -60,6 +60,12 @@ void testEmptySet(KtSet<T> Function<T>() emptySet, {bool mutable = false}) {
       expect(set.contains(""), isFalse);
     });
 
+    test("iterator have correct type", () {
+      final set = emptySet<Map<int, String>>();
+      expect(
+          set.iterator().runtimeType.toString(), contains("Map<int, String>>"));
+    });
+
     test("is empty", () {
       expect(emptySet().isEmpty(), isTrue);
     });

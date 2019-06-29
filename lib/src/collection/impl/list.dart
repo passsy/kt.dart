@@ -81,6 +81,9 @@ class DartList<T> extends Object
   int get size => _list.length;
 
   @override
+  int get lastIndex => size - 1;
+
+  @override
   KtList<T> subList(int fromIndex, int toIndex) {
     assert(() {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");

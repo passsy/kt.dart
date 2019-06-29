@@ -42,7 +42,7 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
 
     test("entry converts to KtPair", () {
       final pair = mapFrom({"a": 1}).entries.first().toPair();
-      expect(pair, KtPair("a", 1));
+      expect(pair, const KtPair("a", 1));
     });
   });
 

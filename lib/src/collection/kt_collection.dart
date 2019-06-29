@@ -6,7 +6,7 @@ import "package:kt_dart/collection.dart";
 /// read/write access is supported through the [KtMutableCollection] interface.
 /// @param E the type of elements contained in the collection. The collection is covariant on its element type.
 abstract class KtCollection<T>
-    implements KtIterable<T>, KCollectionExtension<T> {
+    implements KtIterable<T>, KtCollectionExtension<T> {
   // Query Operations
   /// Returns the size of the collection.
   int get size;
@@ -29,7 +29,7 @@ abstract class KtCollection<T>
   KtList<T> drop(int n);
 }
 
-abstract class KCollectionExtension<T> {
+abstract class KtCollectionExtension<T> {
   /// Returns `true` if the collection is not empty.
   bool isNotEmpty();
 
