@@ -16,7 +16,7 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    if (elements.isEmpty) return EmptyList();
+    if (elements.isEmpty) return EmptyList<T>();
     return DartList(elements);
   }
 
