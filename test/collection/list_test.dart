@@ -400,5 +400,17 @@ void testList(
         expect(e.message, contains("unmodifiable"));
       });
     }
+
+    group("lastIndex", () {
+      test("lastIndex for an empty list is -1", () {
+        final list = emptyList();
+        expect(list.lastIndex, -1);
+      });
+
+      test("lastIndex for 3 items is 2", () {
+        final list = listOf("a", "b", "c");
+        expect(list.lastIndex, 2);
+      });
+    });
   });
 }
