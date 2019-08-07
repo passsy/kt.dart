@@ -1,4 +1,4 @@
-import 'package:kt_dart/src/ranges/closed_range.dart';
+import "package:kt_dart/src/ranges/closed_range.dart";
 
 /// A closed range of values of type [double]
 ///

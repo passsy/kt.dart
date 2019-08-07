@@ -1,6 +1,6 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/impl/iterable.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
+import "package:kt_dart/src/collection/impl/iterable.dart";
 
 /// A progression of values of type `int`
 /// starting at [first] until [last] with steps of size [stepSize]
@@ -162,7 +162,7 @@ class _IntProgressionIterator extends KtIterator<int> {
   int next() {
     final value = _next;
     if (value == _finalElement) {
-      if (!_hasNext) throw NoSuchElementException();
+      if (!_hasNext) throw const NoSuchElementException();
       _hasNext = false;
     } else {
       _next += step;

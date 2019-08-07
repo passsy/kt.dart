@@ -1,4 +1,4 @@
-import 'package:kt_dart/range.dart';
+import "package:kt_dart/range.dart";
 
 /// Represents a range of [Comparable] values.
 class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {

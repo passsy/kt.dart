@@ -1,5 +1,5 @@
-import 'package:kt_dart/range.dart';
-import 'package:kt_dart/src/ranges/int_progression.dart';
+import "package:kt_dart/range.dart";
+import "package:kt_dart/src/ranges/int_progression.dart";
 
 class IntRange extends IntProgression implements ClosedRange<int> {
   IntRange(this.start, this.endInclusive, {int step = 1})
