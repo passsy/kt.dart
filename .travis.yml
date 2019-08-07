@@ -15,8 +15,7 @@ script:
   - dartanalyzer --fatal-infos --fatal-warnings ./
   - pub run test test/kt_dart_test.dart
   - pub publish -n
-  # run coverage with dart 2.2.0 only, it's broken on later versions https://github.com/dart-lang/coverage/issues/249
-  - if $(pub --version | grep -q '2.2.0'); then ./tool/run_coverage_locally.sh; fi
+  - ./tool/run_coverage_locally.sh
 after_success:
-  # run coverage report only on dart 2.2.0
-  - if $(pub --version | grep -q '2.2.0'); then bash <(curl -s https://codecov.io/bash); fi
+  # report code coverage only on a single node of the matrix. (prefer latest)
+  - if $(pub --version | grep -q '2.4.0'); then bash <(curl -s https://codecov.io/bash); fi
