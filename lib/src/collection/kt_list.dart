@@ -48,7 +48,7 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   int get size;
 
   /// Returns the index of the last item in the list or -1 if the list is empty.
-  int get lastIndex => size - 1;
+  int get lastIndex;
 
   /// Returns a read-only dart:core [List]
   ///
