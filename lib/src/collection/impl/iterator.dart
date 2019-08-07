@@ -1,5 +1,5 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/kt_iterator_mutable.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/kt_iterator_mutable.dart";
 
 class InterOpKtIterator<T> implements KtIterator<T> {
   InterOpKtIterator(this.iterator) {
@@ -16,7 +16,7 @@ class InterOpKtIterator<T> implements KtIterator<T> {
 
   @override
   T next() {
-    if (!_hasNext) throw NoSuchElementException();
+    if (!_hasNext) throw const NoSuchElementException();
     final e = _nextValue;
     _hasNext = iterator.moveNext();
     _nextValue = iterator.current;
@@ -42,7 +42,7 @@ class InterOpKtListIterator<T>
   @override
   T next() {
     final i = _cursor;
-    if (i >= _list.length) throw NoSuchElementException();
+    if (i >= _list.length) throw const NoSuchElementException();
     _cursor = i + 1;
     return _list[_lastRet = i];
   }
@@ -65,7 +65,7 @@ class InterOpKtListIterator<T>
 
   @override
   T previous() {
-    if (!hasPrevious()) throw NoSuchElementException();
+    if (!hasPrevious()) throw const NoSuchElementException();
     return _list[--_cursor];
   }
 
@@ -83,7 +83,7 @@ class InterOpKtListIterator<T>
   @override
   void set(T element) {
     if (_lastRet < 0) {
-      throw IndexOutOfBoundsException(
+      throw const IndexOutOfBoundsException(
           "illegal cursor state -1. next() or previous() not called");
     }
     _list.replaceRange(_lastRet, _lastRet + 1, [element]);

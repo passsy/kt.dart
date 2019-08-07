@@ -1,8 +1,8 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
 void main() {
-  group('compare in natural order', () {
+  group("compare in natural order", () {
     test("naturalOrder", () {
       final list = listOf(3, 4, 5, 2, 1);
       final natural = list.sortedWith(naturalOrder());
@@ -10,7 +10,7 @@ void main() {
     });
   });
 
-  group('compare reversed order', () {
+  group("compare reversed order", () {
     test("reverseOrder", () {
       final list = listOf(3, 4, 5, 2, 1);
       final natural = list.sortedWith(reverseOrder());

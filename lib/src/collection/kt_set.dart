@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/set.dart';
-import 'package:kt_dart/src/collection/impl/set_empty.dart';
-import 'package:kt_dart/src/util/arguments.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/set.dart";
+import "package:kt_dart/src/collection/impl/set_empty.dart";
+import "package:kt_dart/src/util/arguments.dart";
 
 /// A generic unordered collection of elements that does not support duplicate elements.
 /// Methods in this interface support only read-only access to the set;
@@ -9,7 +9,7 @@ import 'package:kt_dart/src/util/arguments.dart';
 /// @param E the type of elements contained in the set. The set is covariant on its element type.
 abstract class KtSet<T> implements KtCollection<T> {
   /// Returns an empty read-only set.
-  factory KtSet.empty() => EmptySet<T>();
+  factory KtSet.empty() = EmptySet<T>;
 
   /// Returns a new read-only set based on [elements].
   factory KtSet.from([@nonNull Iterable<T> elements = const []]) {

@@ -1,4 +1,4 @@
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 abstract class KtListExtensionsMixin<T>
     implements KtListExtension<T>, KtList<T> {
@@ -53,13 +53,13 @@ abstract class KtListExtensionsMixin<T>
   @override
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (isEmpty()) throw NoSuchElementException("List is empty.");
+      if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(0);
     } else {
       for (final element in iter) {
         if (predicate(element)) return element;
       }
-      throw NoSuchElementException(
+      throw const NoSuchElementException(
           "Collection contains no element matching the predicate.");
     }
   }
@@ -122,12 +122,12 @@ abstract class KtListExtensionsMixin<T>
   @override
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (isEmpty()) throw NoSuchElementException("List is empty.");
+      if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(lastIndex);
     } else {
       final i = listIterator(size);
       if (!i.hasPrevious()) {
-        throw NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException("Collection is empty");
       }
       while (i.hasPrevious()) {
         final element = i.previous();
@@ -135,13 +135,10 @@ abstract class KtListExtensionsMixin<T>
           return element;
         }
       }
-      throw NoSuchElementException(
+      throw const NoSuchElementException(
           "Collection contains no element matching the predicate.");
     }
   }
-
-  @override
-  int get lastIndex => size - 1;
 
   @override
   S reduceRight<S>(S Function(T, S acc) operation) {
@@ -182,7 +179,7 @@ abstract class KtListExtensionsMixin<T>
     if (predicate == null) {
       switch (size) {
         case 0:
-          throw NoSuchElementException("List is empty");
+          throw const NoSuchElementException("List is empty");
         case 1:
           return get(0);
         default:
@@ -202,7 +199,7 @@ abstract class KtListExtensionsMixin<T>
         }
       }
       if (!found) {
-        throw NoSuchElementException(
+        throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
       return single;

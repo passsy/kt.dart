@@ -1,9 +1,9 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/map_extensions_mixin.dart';
-import 'package:kt_dart/src/util/hash.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
+import "package:kt_dart/src/util/hash.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mapFrom", () {
@@ -663,7 +663,8 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
       });
       final copy = map.toList();
-      expect(copy, listOf(KtPair(1, "Bulbasaur"), KtPair(2, "Ivysaur")));
+      expect(copy,
+          listOf(const KtPair(1, "Bulbasaur"), const KtPair(2, "Ivysaur")));
     });
   });
 
@@ -710,7 +711,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
         2: "Ivysaur",
         3: "Stegosaur",
       });
-      map.forEach((number, value) => result.add('$number-$value'));
+      map.forEach((number, value) => result.add("$number-$value"));
       if (ordered) {
         expect(result.size, 3);
         expect(result[0], "1-Bulbasaur");

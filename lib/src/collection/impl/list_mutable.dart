@@ -1,12 +1,12 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/list_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/list_mutable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/impl/iterator.dart';
-import 'package:kt_dart/src/util/hash.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/list_mutable_extension_mixin.dart";
+import "package:kt_dart/src/collection/impl/iterator.dart";
+import "package:kt_dart/src/util/hash.dart";
 
 /// [KtList] based on a dart [List]
 class DartMutableList<T> extends Object
@@ -83,6 +83,9 @@ class DartMutableList<T> extends Object
 
   @override
   int get size => _list.length;
+
+  @override
+  int get lastIndex => size - 1;
 
   @override
   bool add(T element) {

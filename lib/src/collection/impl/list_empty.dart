@@ -1,8 +1,8 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/list_extension_mixin.dart';
-import 'package:kt_dart/src/collection/impl/dart_iterable.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
+import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 
 class EmptyList<T> extends Object
     with
@@ -10,11 +10,13 @@ class EmptyList<T> extends Object
         KtCollectionExtensionMixin<T>,
         KtListExtensionsMixin<T>
     implements KtList<T> {
-  @override
-  List<T> get list => List.unmodifiable([]);
+  EmptyList();
 
   @override
-  List<T> asList() => List.unmodifiable([]);
+  List<T> get list => List.unmodifiable(const []);
+
+  @override
+  List<T> asList() => List.unmodifiable(const []);
 
   @override
   bool contains(T element) => false;
@@ -55,7 +57,7 @@ class EmptyList<T> extends Object
   bool isEmpty() => true;
 
   @override
-  KtIterator<T> iterator() => _EmptyIterator();
+  KtIterator<T> iterator() => _EmptyIterator<T>();
 
   @override
   int lastIndexOf(T element) => -1;
@@ -66,11 +68,14 @@ class EmptyList<T> extends Object
       if (index == null) throw ArgumentError("index can't be null");
       return true;
     }());
-    return _EmptyIterator();
+    return _EmptyIterator<T>();
   }
 
   @override
   int get size => 0;
+
+  @override
+  int get lastIndex => -1;
 
   @override
   KtList<T> subList(int fromIndex, int toIndex) {
@@ -85,7 +90,7 @@ class EmptyList<T> extends Object
   }
 
   @override
-  String toString() => '[]';
+  String toString() => "[]";
 
   @override
   int get hashCode => 1;
@@ -97,7 +102,7 @@ class EmptyList<T> extends Object
   Iterable<T> get iter => EmptyDartIterable();
 }
 
-class _EmptyIterator<T> extends KtListIterator<T> {
+class _EmptyIterator<T> implements KtListIterator<T> {
   @override
   bool hasNext() => false;
 
@@ -106,7 +111,7 @@ class _EmptyIterator<T> extends KtListIterator<T> {
 
   @override
   T next() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 
   @override
@@ -114,7 +119,7 @@ class _EmptyIterator<T> extends KtListIterator<T> {
 
   @override
   T previous() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 
   @override

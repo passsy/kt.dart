@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mutableSet", () {
@@ -69,7 +69,7 @@ void testSet(
     KtSet<T> Function<T>(Iterable<T> iterable) setFrom,
     {bool ordered = true,
     bool mutable = true}) {
-  group('basic methods', () {
+  group("basic methods", () {
     test("hashCode is 0", () {
       expect(emptySet().hashCode, 0);
     });

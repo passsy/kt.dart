@@ -1,9 +1,9 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mutableList", () {
@@ -75,7 +75,7 @@ void testList(
     });
   });
 
-  group('fill', () {
+  group("fill", () {
     test("replace all elements", () {
       final list = mutableListOf("a", "b", "c");
       list.fill("x");

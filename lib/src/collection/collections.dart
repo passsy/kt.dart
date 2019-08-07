@@ -1,6 +1,6 @@
-import 'dart:collection';
+import "dart:collection";
 
-import 'package:kt_dart/kt.dart';
+import "package:kt_dart/kt.dart";
 
 /// Returns a new read-only list of given elements.
 ///
@@ -23,7 +23,7 @@ KtList<T> listFrom<T>([Iterable<T> elements = const []]) =>
     KtList.from(elements);
 
 /// Returns an empty read-only list.
-KtList<T> emptyList<T>() => KtList.empty();
+KtList<T> emptyList<T>() => KtList<T>.empty();
 
 /// Returns a new mutable list of given elements.
 ///
@@ -52,7 +52,7 @@ KtMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
 KtMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KtMap.from(map);
 
 /// Returns an empty read-only map of specified type.
-KtMap<K, V> emptyMap<K, V>() => KtMap.empty();
+KtMap<K, V> emptyMap<K, V>() => KtMap<K, V>.empty();
 
 /// Returns a new [KtMutableMap] with the specified contents, given as a list of pairs
 /// where the first component is the key and the second is the value.
@@ -99,7 +99,7 @@ KtSet<T> setOf<T>(
 KtSet<T> setFrom<T>([Iterable<T> elements = const []]) => KtSet.from(elements);
 
 /// Returns an empty read-only set.
-KtSet<T> emptySet<T>() => KtSet.empty();
+KtSet<T> emptySet<T>() => KtSet<T>.empty();
 
 /// Returns a new [KtMutableSet] based on [LinkedHashSet] with the given elements.
 /// Elements of the set are iterated in the order they were specified.

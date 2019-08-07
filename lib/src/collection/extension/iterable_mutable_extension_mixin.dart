@@ -1,4 +1,4 @@
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 abstract class KtMutableIterableExtensionsMixin<T>
     implements KtMutableIterableExtension<T>, KtMutableIterable<T> {

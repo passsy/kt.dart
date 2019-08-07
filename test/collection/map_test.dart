@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mapFrom", () {
@@ -32,7 +32,7 @@ void main() {
 
 void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
     {bool ordered = true}) {
-  group('basic methods', () {
+  group("basic methods", () {
     test("asMap", () {
       final Map<String, int> map =
           mapFrom<String, int>({"a": 1, "b": 2}).asMap();
@@ -42,7 +42,7 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
 
     test("entry converts to KtPair", () {
       final pair = mapFrom({"a": 1}).entries.first().toPair();
-      expect(pair, KtPair("a", 1));
+      expect(pair, const KtPair("a", 1));
     });
   });
 

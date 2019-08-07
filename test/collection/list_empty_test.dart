@@ -1,26 +1,26 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("emptyList", () {
-    testEmptyList(<T>() => emptyList<T>());
+    testEmptyList(<T>() => emptyList<T>(), mutable: false);
   });
   group("listOf", () {
-    testEmptyList(<T>() => listOf<T>());
+    testEmptyList(<T>() => listOf<T>(), mutable: false);
   });
   group("listFrom", () {
-    testEmptyList(<T>() => listFrom<T>());
+    testEmptyList(<T>() => listFrom<T>(), mutable: false);
   });
   group("KtList.empty", () {
-    testEmptyList(<T>() => KtList<T>.empty());
+    testEmptyList(<T>() => KtList<T>.empty(), mutable: false);
   });
   group("KtList.of", () {
-    testEmptyList(<T>() => KtList<T>.of());
+    testEmptyList(<T>() => KtList<T>.of(), mutable: false);
   });
   group("KtList.of", () {
-    testEmptyList(<T>() => KtList<T>.from());
+    testEmptyList(<T>() => KtList<T>.from(), mutable: false);
   });
   group("mutableList", () {
     testEmptyList(<T>() => emptyList<T>());
@@ -42,8 +42,8 @@ void main() {
   });
 }
 
-void testEmptyList(KtList<T> Function<T>() emptyList) {
-  group('empty list', () {
+void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
+  group("empty list", () {
     test("has no elements", () {
       final empty = emptyList<String>();
       expect(empty.size, equals(0));
@@ -68,6 +68,12 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       final empty = emptyList();
 
       expect(empty.isEmpty(), isTrue);
+    });
+
+    test("iterator have correct type", () {
+      final list = emptyList<Map<int, String>>();
+      expect(list.iterator().runtimeType.toString(),
+          contains("Map<int, String>>"));
     });
 
     test("throws when accessing an element", () {
@@ -198,5 +204,20 @@ void testEmptyList(KtList<T> Function<T>() emptyList) {
       expect(
           () => i.next(), throwsA(const TypeMatcher<NoSuchElementException>()));
     });
+
+    test("deprecated list property returns an empty list", () {
+      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+      final dartList = emptyList<int>().list;
+      expect(dartList.length, 0);
+    });
+
+    if (!mutable) {
+      test("deprecated list property returns an unmodifiable list", () {
+        // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+        final dartList = emptyList<int>().list;
+        final e = catchException<UnsupportedError>(() => dartList.add(1));
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
   });
 }

@@ -1,8 +1,8 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/iterable.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/iterable.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("iterable", () {
@@ -57,7 +57,7 @@ void main() {
 void testIterable(KtIterable<T> Function<T>() emptyIterable,
     KtIterable<T> Function<T>(Iterable<T> iterable) iterableOf,
     {bool ordered = true}) {
-  group('all', () {
+  group("all", () {
     test("matches all", () {
       final iterable = iterableOf(["abc", "bcd", "cde"]);
       expect(iterable.all((e) => e.contains("c")), isTrue);
@@ -77,7 +77,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('any', () {
+  group("any", () {
     test("matches single", () {
       final iterable = iterableOf(["abc", "bcd", "cde"]);
       expect(iterable.any((e) => e.contains("a")), isTrue);
@@ -100,7 +100,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('associate', () {
+  group("associate", () {
     test("associate", () {
       final list = iterableOf(["a", "b", "c"]);
       final result = list.associate((it) => KtPair(it.toUpperCase(), it));
@@ -119,7 +119,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('associateBy', () {
+  group("associateBy", () {
     test("associateBy", () {
       final list = iterableOf(["a", "b", "c"]);
       final result = list.associateBy((it) => it.toUpperCase());
@@ -145,7 +145,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('associateByTo', () {
+  group("associateByTo", () {
     test("associateByTo doesn't allow null destination", () {
       final list = iterableOf(["a", "b", "c"]);
       final e = catchException<ArgumentError>(
@@ -154,7 +154,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('associateByTransform', () {
+  group("associateByTransform", () {
     test("associateByTransform", () {
       final list = iterableOf(["a", "bb", "ccc"]);
       final result = list.associateByTransform(
@@ -175,7 +175,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('associateWith', () {
+  group("associateWith", () {
     test("associateWith", () {
       final iterable = iterableOf(["a", "b", "c"]);
       final result = iterable.associateWith((it) => it.toUpperCase());
@@ -239,7 +239,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
-  group('average', () {
+  group("average", () {
     test("average of ints", () {
       final ints = iterableOf([1, 2, 3, 4]);
       final result = ints.averageBy((it) => it);
@@ -1257,7 +1257,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
         expect(s, "a, b, c");
       });
       test("joinToString calls childs toString", () {
-        final s = iterableOf([listOf(1, 2, 3), KtPair("a", "b"), "test"])
+        final s = iterableOf([listOf(1, 2, 3), const KtPair("a", "b"), "test"])
             .joinToString();
         expect(s, "[1, 2, 3], (a, b), test");
       });
@@ -2260,7 +2260,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zip", () {
     test("to pair", () {
       final result = iterableOf([1, 2, 3, 4, 5]).zip(iterableOf(["a", "b"]));
-      expect(result, listFrom([KtPair(1, "a"), KtPair(2, "b")]));
+      expect(result, listFrom(const [KtPair(1, "a"), KtPair(2, "b")]));
     });
     test("transform", () {
       final result = iterableOf([1, 2, 3, 4, 5])
@@ -2291,7 +2291,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("zipWithNext", () {
     test("zipWithNext", () {
       final result = iterableOf([1, 2, 3]).zipWithNext();
-      expect(result, listOf(KtPair(1, 2), KtPair(2, 3)));
+      expect(result, listOf(const KtPair(1, 2), const KtPair(2, 3)));
     });
   });
 

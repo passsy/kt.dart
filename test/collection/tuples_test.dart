@@ -1,8 +1,15 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+// ignore_for_file: prefer_const_constructors
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
 void main() {
   group("KtPair", () {
+    test("can be const", () {
+      const a = KtPair("a", "b");
+      const b = KtPair("a", "b");
+      expect(identical(a, b), isTrue);
+    });
+
     test("returns values put inside", () {
       final pair = KtPair("a", "b");
       expect(pair.first, "a");
@@ -10,7 +17,11 @@ void main() {
     });
 
     test("equals based on items", () {
-      expect(KtPair("a", "b"), KtPair("a", "b"));
+      final p1 = KtPair("a", "b");
+      final p2 = KtPair("a", "b");
+      expect(identical(p1, p2), isFalse);
+      expect(p1, p2);
+
       expect(KtPair("a", "b").hashCode, KtPair("a", "b").hashCode);
       expect(KtPair("a", "b"), isNot(equals(KtPair("a", "c"))));
       expect(
@@ -35,6 +46,12 @@ void main() {
       expect(pair.first, "a");
       expect(pair.second, "b");
       expect(pair.third, "c");
+    });
+
+    test("can be const", () {
+      const a = KtTriple("a", "b", "c");
+      const b = KtTriple("a", "b", "c");
+      expect(identical(a, b), isTrue);
     });
 
     test("equals based on items", () {

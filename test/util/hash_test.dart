@@ -1,5 +1,5 @@
-import 'package:kt_dart/src/util/hash.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/src/util/hash.dart";
+import "package:test/test.dart";
 
 void main() {
   test("hash2", () {

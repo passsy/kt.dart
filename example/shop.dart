@@ -1,5 +1,5 @@
 // ignore_for_file: type_annotate_public_apis
-import 'package:kt_dart/kt.dart';
+import "package:kt_dart/kt.dart";
 
 void main() {
   final rekasProducts = getOrderedProducts(jbCustomers[reka]);
@@ -45,7 +45,7 @@ class Customer {
   final KtList<Order> orders;
 
   @override
-  String toString() => '$name from ${city.name}';
+  String toString() => "$name from ${city.name}";
 }
 
 class Order {
@@ -62,7 +62,7 @@ class Product {
   final double price;
 
   @override
-  String toString() => '$name for $price';
+  String toString() => "$name for $price";
 }
 
 class City {

@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mutableMapFrom", () {
@@ -274,7 +274,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      pokemon.putAllPairs(listFrom([
+      pokemon.putAllPairs(listFrom(const [
         KtPair(2, "Dito"),
         KtPair(3, "Venusaur"),
         KtPair(4, "Charmander"),
@@ -290,7 +290,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
         1: "Bulbasaur",
         2: "Ivysaur",
       });
-      pokemon.putAllPairs(listFrom([
+      pokemon.putAllPairs(listFrom(const [
         KtPair(2, "Dito"),
       ]));
       expect(pokemon.size, 2);
@@ -298,7 +298,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     });
 
     test("putAllPairs doens't allow null as argument", () {
-      final pokemon = mutableMapFrom({
+      final pokemon = mutableMapFrom(const {
         1: "Bulbasaur",
         2: "Ivysaur",
       });

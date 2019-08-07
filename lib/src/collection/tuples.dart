@@ -8,7 +8,7 @@
 /// @property first First value.
 /// @property second Second value.
 class KtPair<A, B> {
-  KtPair(this.first, this.second);
+  const KtPair(this.first, this.second);
 
   final A first;
   final B second;
@@ -40,7 +40,7 @@ class KtPair<A, B> {
 /// @property second Second value.
 /// @property third Third value.
 class KtTriple<A, B, C> {
-  KtTriple(this.first, this.second, this.third);
+  const KtTriple(this.first, this.second, this.third);
 
   final A first;
   final B second;

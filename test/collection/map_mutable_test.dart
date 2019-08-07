@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mutableMapFrom", () {
@@ -65,7 +65,7 @@ void testMutableMap(
         2: "Ivysaur",
       });
       expect(pokemon.entries.map((it) => it.toPair()),
-          listOf(KtPair(1, "Bulbasaur"), KtPair(2, "Ivysaur")));
+          listOf(const KtPair(1, "Bulbasaur"), const KtPair(2, "Ivysaur")));
     });
 
     test("set value for mutable entry", () {

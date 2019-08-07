@@ -1,13 +1,16 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/impl/dart_iterable.dart';
-import 'package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
+import "package:kt_dart/src/collection/impl/dart_iterable.dart";
+import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
 
 class EmptySet<T> extends Object
     with KtIterableExtensionsMixin<T>, KtCollectionExtensionMixin<T>
     implements KtSet<T> {
+  EmptySet();
+
   @override
+  // TODO replace with const set literal {}
   Set<T> get set => UnmodifiableSetView(Set());
 
   @override
@@ -47,12 +50,12 @@ class EmptySet<T> extends Object
   Iterable<T> get iter => EmptyDartIterable();
 }
 
-class _EmptyIterator<T> extends KtIterator<T> {
+class _EmptyIterator<T> implements KtIterator<T> {
   @override
   bool hasNext() => false;
 
   @override
   T next() {
-    throw NoSuchElementException();
+    throw const NoSuchElementException();
   }
 }

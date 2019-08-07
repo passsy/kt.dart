@@ -1,8 +1,8 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/extension/collection_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_extension_mixin.dart';
-import 'package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart';
-import 'package:kt_dart/src/util/hash.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
+import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
+import "package:kt_dart/src/util/hash.dart";
 
 class DartMutableSet<T> extends Object
     with
@@ -136,7 +136,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
 
   @override
   T next() {
-    if (!_hasNext) throw NoSuchElementException();
+    if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;

@@ -38,7 +38,7 @@ List<T> argsToList<T>(
   } else if (arg0 != null) {
     return [arg0];
   } else {
-    return [];
+    return const [];
   }
 
   if (args.contains(null)) {

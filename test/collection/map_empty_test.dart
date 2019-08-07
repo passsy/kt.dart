@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("mapFrom", () {
@@ -43,7 +43,7 @@ void main() {
 }
 
 void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
-  group('empty map', () {
+  group("empty map", () {
     test("has no elements", () {
       final empty = emptyMap<String, Object>();
       expect(empty.size, equals(0));
@@ -58,6 +58,12 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
       expect(emptyMap<int, int>().containsValue(0), isFalse);
       expect(emptyMap<List, List>().containsKey([]), isFalse);
       expect(emptyMap<List, List>().containsValue([]), isFalse);
+    });
+
+    test("entries have correct type", () {
+      final map = emptyMap<int, List<String>>();
+      expect(
+          map.entries.runtimeType.toString(), contains("<int, List<String>>"));
     });
 
     test("values iterator has no next", () {

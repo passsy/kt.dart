@@ -1,4 +1,4 @@
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 /// An iterator over a collection or another entity that can be represented as a sequence of elements.
 /// Allows to sequentially access the elements.

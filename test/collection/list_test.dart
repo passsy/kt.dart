@@ -1,7 +1,7 @@
-import 'package:kt_dart/collection.dart';
-import 'package:test/test.dart';
+import "package:kt_dart/collection.dart";
+import "package:test/test.dart";
 
-import '../test/assert_dart.dart';
+import "../test/assert_dart.dart";
 
 void main() {
   group("list", () {
@@ -97,7 +97,7 @@ void testList(
     KtList<T> Function<T>([Iterable<T> iterable]) listFrom,
     {bool ordered = true,
     bool mutable = true}) {
-  group('basic methods', () {
+  group("basic methods", () {
     test("has no elements", () {
       final list = listOf();
       expect(list.size, equals(0));
@@ -400,5 +400,17 @@ void testList(
         expect(e.message, contains("unmodifiable"));
       });
     }
+
+    group("lastIndex", () {
+      test("lastIndex for an empty list is -1", () {
+        final list = emptyList();
+        expect(list.lastIndex, -1);
+      });
+
+      test("lastIndex for 3 items is 2", () {
+        final list = listOf("a", "b", "c");
+        expect(list.lastIndex, 2);
+      });
+    });
   });
 }

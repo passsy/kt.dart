@@ -1,14 +1,14 @@
-import 'package:kt_dart/collection.dart';
-import 'package:kt_dart/src/collection/impl/list.dart';
-import 'package:kt_dart/src/collection/impl/list_empty.dart';
-import 'package:kt_dart/src/util/arguments.dart';
+import "package:kt_dart/collection.dart";
+import "package:kt_dart/src/collection/impl/list.dart";
+import "package:kt_dart/src/collection/impl/list_empty.dart";
+import "package:kt_dart/src/util/arguments.dart";
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
 /// @param [T] the type of elements contained in the list. The list is covariant on its element type.
 abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   /// Returns an empty read-only list.
-  factory KtList.empty() => EmptyList<T>();
+  factory KtList.empty() = EmptyList<T>;
 
   /// Returns a new read-only list based on [elements].
   factory KtList.from([@nonNull Iterable<T> elements = const []]) {
@@ -16,7 +16,7 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
       if (elements == null) throw ArgumentError("elements can't be null");
       return true;
     }());
-    if (elements.isEmpty) return EmptyList();
+    if (elements.isEmpty) return EmptyList<T>();
     return DartList(elements);
   }
 
@@ -46,6 +46,9 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   // Query Operations
   @override
   int get size;
+
+  /// Returns the index of the last item in the list or -1 if the list is empty.
+  int get lastIndex;
 
   /// Returns a read-only dart:core [List]
   ///
@@ -149,9 +152,6 @@ abstract class KtListExtension<T> {
   /// @throws [NoSuchElementException] if no such element is found.
   @nonNull
   T last([bool Function(T) predicate]);
-
-  /// Returns the index of the last item in the list or -1 if the list is empty.
-  int get lastIndex;
 
   /// Accumulates value starting with last element and applying [operation] from right to left to each element and current accumulator value.
   S reduceRight<S>(S Function(T, S acc) operation);

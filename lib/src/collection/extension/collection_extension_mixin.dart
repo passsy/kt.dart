@@ -1,9 +1,9 @@
-import 'dart:math' as math show Random;
+import "dart:math" as math show Random;
 
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/collection.dart";
 
 abstract class KtCollectionExtensionMixin<T>
-    implements KCollectionExtension<T>, KtCollection<T> {
+    implements KtCollectionExtension<T>, KtCollection<T> {
   @override
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 
