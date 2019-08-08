@@ -6,7 +6,6 @@ import "package:kt_dart/src/collection/impl/iterable.dart";
 /// starting at [first] until [last] with steps of size [stepSize]
 class IntProgression extends KtIterable<int>
     with KtIterableExtensionsMixin<int> {
-  // TODO make const if possible
   IntProgression(int first, int endInclusive, int step)
       : assert(() {
           if (first == null) throw ArgumentError("start can't be null");

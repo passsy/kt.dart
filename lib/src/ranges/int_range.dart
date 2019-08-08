@@ -15,5 +15,5 @@ class IntRange extends IntProgression implements ClosedRange<int> {
   bool contains(covariant dynamic element) => indexOf(element) >= 0;
 }
 
-IntRange range(int first, int last, {int step = 1}) =>
-    IntRange(first, last, step: step);
+//IntRange range(int first, int last, {int step = 1}) =>
+//    IntRange(first, last, step: step);

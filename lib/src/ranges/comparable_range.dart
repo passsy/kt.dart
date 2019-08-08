@@ -27,5 +27,5 @@ class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
   String toString() => "$start..$endInclusive";
 }
 
-ClosedRange<T> rangeOf<T extends Comparable<T>>(T from, T to) =>
-    ComparableRange(from, to);
+//ClosedRange<T> rangeOf<T extends Comparable<T>>(T from, T to) =>
+//    ComparableRange(from, to);
