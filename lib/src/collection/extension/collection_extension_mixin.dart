@@ -2,21 +2,16 @@ import "dart:math" as math show Random;
 
 import "package:kt_dart/collection.dart";
 
-abstract class KtCollectionExtensionMixin<T>
-    implements KtCollectionExtension<T>, KtCollection<T> {
-  @override
+extension KtCollectionExtensions<T> on KtCollection<T> {
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 
-  @override
   bool isNotEmpty() => size > 0;
 
-  @override
   T random([math.Random random]) {
     final r = random ?? math.Random();
     return elementAt(r.nextInt(size));
   }
 
-  @override
   String toString() {
     return joinToString(
       separator: ", ",

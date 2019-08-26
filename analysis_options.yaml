@@ -1,4 +1,7 @@
 analyzer:
+  enable-experiment:
+    - extension-methods
+#    - non-nullable
 
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
 linter:

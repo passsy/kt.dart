@@ -9,15 +9,7 @@ import "package:kt_dart/src/collection/impl/iterator.dart";
 import "package:kt_dart/src/util/hash.dart";
 
 /// [KtList] based on a dart [List]
-class DartMutableList<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtMutableIterableExtensionsMixin<T>,
-        KtMutableCollectionExtensionMixin<T>,
-        KtListExtensionsMixin<T>,
-        KtMutableListExtensionsMixin<T>
-    implements KtMutableList<T> {
+class DartMutableList<T> extends Object implements KtMutableList<T> {
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification

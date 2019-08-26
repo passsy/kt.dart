@@ -1,8 +1,8 @@
 import "package:kt_dart/collection.dart";
 
-abstract class KtListExtensionsMixin<T>
-    implements KtListExtension<T>, KtList<T> {
-  @override
+
+extension KtListExtensions<T> on KtList<T> {
+
   KtList<T> dropLast(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -15,7 +15,7 @@ abstract class KtListExtensionsMixin<T>
     return take(count);
   }
 
-  @override
+  
   KtList<T> dropLastWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -32,10 +32,10 @@ abstract class KtListExtensionsMixin<T>
     return emptyList<T>();
   }
 
-  @override
+  
   T elementAt(int index) => get(index);
 
-  @override
+  
   T elementAtOrElse(int index, T defaultValue(int index)) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -47,10 +47,10 @@ abstract class KtListExtensionsMixin<T>
     return index >= 0 && index <= lastIndex ? get(index) : defaultValue(index);
   }
 
-  @override
+  
   T elementAtOrNull(int index) => getOrNull(index);
 
-  @override
+  
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
@@ -64,7 +64,7 @@ abstract class KtListExtensionsMixin<T>
     }
   }
 
-  @override
+  
   R foldRight<R>(R initial, R Function(T, R acc) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -80,7 +80,7 @@ abstract class KtListExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -96,7 +96,7 @@ abstract class KtListExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   T getOrElse(int index, T Function(int) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -110,7 +110,7 @@ abstract class KtListExtensionsMixin<T>
         : defaultValue(index);
   }
 
-  @override
+  
   T getOrNull(int index) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -119,7 +119,7 @@ abstract class KtListExtensionsMixin<T>
     return index >= 0 && index <= lastIndex ? get(index) : null;
   }
 
-  @override
+  
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
@@ -140,7 +140,7 @@ abstract class KtListExtensionsMixin<T>
     }
   }
 
-  @override
+  
   S reduceRight<S>(S Function(T, S acc) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -157,7 +157,7 @@ abstract class KtListExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   S reduceRightIndexed<S>(S Function(int index, T, S acc) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -174,7 +174,7 @@ abstract class KtListExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       switch (size) {
@@ -206,7 +206,7 @@ abstract class KtListExtensionsMixin<T>
     }
   }
 
-  @override
+  
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (size == 1) {
@@ -229,7 +229,7 @@ abstract class KtListExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtList<T> slice(KtIterable<int> indices) {
     assert(() {
       if (indices == null) throw ArgumentError("indices can't be null");
@@ -245,7 +245,7 @@ abstract class KtListExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<T> takeLast(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -264,7 +264,7 @@ abstract class KtListExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<T> takeLastWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");

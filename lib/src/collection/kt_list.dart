@@ -6,7 +6,7 @@ import "package:kt_dart/src/util/arguments.dart";
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
 /// @param [T] the type of elements contained in the list. The list is covariant on its element type.
-abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
+abstract class KtList<T> implements KtCollection<T> {
   /// Returns an empty read-only list.
   factory KtList.empty() = EmptyList<T>;
 

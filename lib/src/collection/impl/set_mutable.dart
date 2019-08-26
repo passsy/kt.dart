@@ -4,12 +4,7 @@ import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
 import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
-class DartMutableSet<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtMutableIterableExtensionsMixin<T>
-    implements KtMutableSet<T> {
+class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   DartMutableSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();

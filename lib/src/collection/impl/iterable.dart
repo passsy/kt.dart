@@ -4,7 +4,7 @@ import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixi
 import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 import "package:kt_dart/src/collection/impl/iterator.dart";
 
-class EmptyIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
+class EmptyIterable<T> extends KtIterable<T> {
   @override
   Iterable<T> get iter => EmptyDartIterable<T>();
 
@@ -12,7 +12,7 @@ class EmptyIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   KtIterator<T> iterator() => InterOpKIterator(iter.iterator);
 }
 
-class DartIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
+class DartIterable<T> extends KtIterable<T> {
   DartIterable(this._iterable);
 
   Iterable<T> _iterable;
@@ -24,8 +24,7 @@ class DartIterable<T> extends KtIterable<T> with KtIterableExtensionsMixin<T> {
   KtIterator<T> iterator() => InterOpKIterator(_iterable.iterator);
 }
 
-class DartMutableIterable<T> extends KtMutableIterable<T>
-    with KtIterableExtensionsMixin<T>, KtMutableIterableExtensionsMixin<T> {
+class DartMutableIterable<T> extends KtMutableIterable<T> {
   DartMutableIterable(this._iterable);
 
   // only allow lists for now, because the mutable iterator only supports lists

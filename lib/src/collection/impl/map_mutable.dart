@@ -3,9 +3,7 @@ import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 import "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
-class DartMutableMap<K, V> extends Object
-    with KtMapExtensionsMixin<K, V>, KtMutableMapExtensionsMixin<K, V>
-    implements KtMutableMap<K, V> {
+class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   DartMutableMap([Map<K, V> map = const {}])
       :
         // copy list to prevent external modification

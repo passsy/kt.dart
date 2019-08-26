@@ -6,8 +6,7 @@ import "package:kt_dart/src/util/arguments.dart";
 
 /// A generic ordered collection of elements that supports adding and removing elements.
 /// @param E the type of elements contained in the list. The mutable list is invariant on its element type.
-abstract class KtMutableList<T>
-    implements KtList<T>, KtMutableCollection<T>, KtMutableListExtension<T> {
+abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   factory KtMutableList.empty() => DartMutableList<T>();
 
   factory KtMutableList.from([@nonNull Iterable<T> elements = const []]) {

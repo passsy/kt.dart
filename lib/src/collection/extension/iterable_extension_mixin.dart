@@ -4,9 +4,7 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/comparisons.dart";
 import "package:kt_dart/src/util/errors.dart";
 
-abstract class KtIterableExtensionsMixin<T>
-    implements KtIterableExtension<T>, KtIterable<T> {
-  @override
+extension KtIterableExtensions<T> on KtIterable<T> {
   bool all([bool Function(T element) predicate]) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -21,7 +19,6 @@ abstract class KtIterableExtensionsMixin<T>
     return true;
   }
 
-  @override
   bool any([bool Function(T element) predicate]) {
     if (predicate == null) {
       if (this is KtCollection) return !(this as KtCollection).isEmpty();
@@ -34,27 +31,22 @@ abstract class KtIterableExtensionsMixin<T>
     return false;
   }
 
-  @override
   KtIterable<T> asIterable() => this;
 
-  @override
   KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform) {
     return associateTo(linkedMapFrom<K, V>(), transform);
   }
 
-  @override
   KtMap<K, T> associateBy<K>(K Function(T) keySelector) {
     return associateByTo<K, T, KtMutableMap<K, T>>(
         linkedMapFrom<K, T>(), keySelector, null);
   }
 
-  @override
   KtMap<K, V> associateByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     return associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
   }
 
-  @override
   M associateByTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
       [V Function(T) valueTransform]) {
@@ -72,7 +64,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   M associateTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, KtPair<K, V> Function(T) transform) {
     assert(() {
@@ -86,7 +78,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
@@ -94,7 +86,7 @@ abstract class KtIterableExtensionsMixin<T>
     return associated;
   }
 
-  @override
+  
   M associateWithTo<V, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
@@ -118,7 +110,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   double averageBy(num Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -133,7 +125,7 @@ abstract class KtIterableExtensionsMixin<T>
     return count == 0 ? double.nan : sum / count;
   }
 
-  @override
+  
   KtList<KtList<T>> chunked(int size) {
     assert(() {
       if (size == null) throw ArgumentError("size can't be null");
@@ -142,7 +134,7 @@ abstract class KtIterableExtensionsMixin<T>
     return windowed(size, step: size, partialWindows: true);
   }
 
-  @override
+  
   KtList<R> chunkedTransform<R>(int size, R Function(KtList<T>) transform) {
     assert(() {
       if (size == null) throw ArgumentError("size can't be null");
@@ -151,13 +143,13 @@ abstract class KtIterableExtensionsMixin<T>
     return windowedTransform(size, transform, step: size, partialWindows: true);
   }
 
-  @override
+  
   bool contains(T element) {
     if (this is KtCollection) return (this as KtCollection).contains(element);
     return indexOf(element) >= 0;
   }
 
-  @override
+  
   int count([bool Function(T) predicate]) {
     if (predicate == null && this is KtCollection) {
       return (this as KtCollection).size;
@@ -176,10 +168,10 @@ abstract class KtIterableExtensionsMixin<T>
     return count;
   }
 
-  @override
+  
   KtList<T> distinct() => toMutableSet().toList();
 
-  @override
+  
   KtList<T> distinctBy<K>(K Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -196,7 +188,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<T> drop(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -212,7 +204,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<T> dropWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -233,7 +225,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   T elementAt(int index) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -246,7 +238,7 @@ abstract class KtIterableExtensionsMixin<T>
     });
   }
 
-  @override
+  
   T elementAtOrElse(int index, T Function(int) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -269,7 +261,7 @@ abstract class KtIterableExtensionsMixin<T>
     return defaultValue(index);
   }
 
-  @override
+  
   T elementAtOrNull(int index) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -289,7 +281,7 @@ abstract class KtIterableExtensionsMixin<T>
     return null;
   }
 
-  @override
+  
   KtList<T> filter(bool Function(T) predicate) {
     final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -297,7 +289,7 @@ abstract class KtIterableExtensionsMixin<T>
     return filtered;
   }
 
-  @override
+  
   KtList<T> filterIndexed(bool Function(int index, T) predicate) {
     final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -305,7 +297,7 @@ abstract class KtIterableExtensionsMixin<T>
     return filtered;
   }
 
-  @override
+  
   C filterIndexedTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
@@ -330,7 +322,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   KtList<R> filterIsInstance<R>() {
     final destination = mutableListOf<R>();
     for (final element in iter) {
@@ -341,7 +333,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   KtList<T> filterNot(bool Function(T) predicate) {
     final list = filterNotTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -349,7 +341,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<T> filterNotNull() {
     final list = filterNotNullTo(mutableListOf<T>());
     // TODO ping dort-lang/sdk team to check type bug
@@ -357,7 +349,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
@@ -379,7 +371,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   C filterNotTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -402,7 +394,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   C filterTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -425,7 +417,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   T find(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -434,7 +426,7 @@ abstract class KtIterableExtensionsMixin<T>
     return firstOrNull(predicate);
   }
 
-  @override
+  
   T findLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -443,7 +435,7 @@ abstract class KtIterableExtensionsMixin<T>
     return lastOrNull(predicate);
   }
 
-  @override
+  
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -460,7 +452,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   T firstOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) {
@@ -484,7 +476,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtList<R> flatMap<R>(KtIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
@@ -492,7 +484,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   C flatMapTo<R, C extends KtMutableCollection<R>>(
       C destination, KtIterable<R> Function(T) transform) {
     assert(() {
@@ -507,7 +499,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   R fold<R>(R initial, R Function(R acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -520,7 +512,7 @@ abstract class KtIterableExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -534,7 +526,7 @@ abstract class KtIterableExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   void forEach(void Function(T element) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -547,7 +539,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   void forEachIndexed(void Function(int index, T element) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -559,13 +551,13 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtMap<K, KtList<T>> groupBy<K>(K Function(T) keySelector) {
     final groups = groupByTo(linkedMapFrom<K, KtMutableList<T>>(), keySelector);
     return groups;
   }
 
-  @override
+  
   KtMap<K, KtList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final groups = groupByToTransform(
@@ -573,7 +565,7 @@ abstract class KtIterableExtensionsMixin<T>
     return groups;
   }
 
-  @override
+  
   M groupByTo<K, M extends KtMutableMap<K, KtMutableList<dynamic>>>(
       M destination, K Function(T) keySelector) {
     assert(() {
@@ -597,7 +589,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   M groupByToTransform<K, V, M extends KtMutableMap<K, KtMutableList<V>>>(
       M destination, K Function(T) keySelector, V Function(T) valueTransform) {
     assert(() {
@@ -616,7 +608,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   int indexOf(T element) {
     if (this is KtList) return (this as KtList).indexOf(element);
     var index = 0;
@@ -627,7 +619,7 @@ abstract class KtIterableExtensionsMixin<T>
     return -1;
   }
 
-  @override
+  
   int indexOfFirst(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -643,7 +635,7 @@ abstract class KtIterableExtensionsMixin<T>
     return -1;
   }
 
-  @override
+  
   int indexOfLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -660,14 +652,14 @@ abstract class KtIterableExtensionsMixin<T>
     return lastIndex;
   }
 
-  @override
+  
   KtSet<T> intersect(KtIterable<T> other) {
     final set = toMutableSet();
     set.retainAll(other);
     return set;
   }
 
-  @override
+  
   String joinToString(
       {String separator = ", ",
       String prefix = "",
@@ -697,7 +689,7 @@ abstract class KtIterableExtensionsMixin<T>
     return buffer.toString();
   }
 
-  @override
+  
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) return (this as KtList<T>).last();
@@ -727,7 +719,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   int lastIndexOf(T element) {
     if (this is KtList) return (this as KtList).lastIndexOf(element);
     var lastIndex = -1;
@@ -741,7 +733,7 @@ abstract class KtIterableExtensionsMixin<T>
     return lastIndex;
   }
 
-  @override
+  
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) {
@@ -769,7 +761,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtList<R> map<R>(R Function(T) transform) {
     final KtMutableList<R> list = mutableListOf<R>();
     final mapped = mapTo(list, transform);
@@ -778,7 +770,7 @@ abstract class KtIterableExtensionsMixin<T>
     return mapped;
   }
 
-  @override
+  
   KtList<R> mapIndexed<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -786,7 +778,7 @@ abstract class KtIterableExtensionsMixin<T>
     return mapped;
   }
 
-  @override
+  
   KtList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -794,7 +786,7 @@ abstract class KtIterableExtensionsMixin<T>
     return mapped;
   }
 
-  @override
+  
   C mapIndexedNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
@@ -812,7 +804,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   C mapIndexedTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
@@ -827,7 +819,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   KtList<R> mapNotNull<R>(R Function(T) transform) {
     final mapped = mapNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -835,7 +827,7 @@ abstract class KtIterableExtensionsMixin<T>
     return mapped;
   }
 
-  @override
+  
   C mapNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
     assert(() {
@@ -852,7 +844,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   C mapTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
     assert(() {
@@ -866,7 +858,7 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   num max() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -887,7 +879,7 @@ abstract class KtIterableExtensionsMixin<T>
     return max;
   }
 
-  @override
+  
   T maxBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -908,7 +900,7 @@ abstract class KtIterableExtensionsMixin<T>
     return maxElement;
   }
 
-  @override
+  
   T maxWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -926,7 +918,7 @@ abstract class KtIterableExtensionsMixin<T>
     return max;
   }
 
-  @override
+  
   num min() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -947,7 +939,7 @@ abstract class KtIterableExtensionsMixin<T>
     return min;
   }
 
-  @override
+  
   KtList<T> minus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -959,10 +951,10 @@ abstract class KtIterableExtensionsMixin<T>
     return filterNot((it) => elements.contains(it));
   }
 
-  @override
+  
   KtList<T> operator -(KtIterable<T> other) => minus(other);
 
-  @override
+  
   KtList<T> minusElement(T element) {
     final result = mutableListOf<T>();
     var removed = false;
@@ -977,7 +969,7 @@ abstract class KtIterableExtensionsMixin<T>
     return result;
   }
 
-  @override
+  
   T minBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -998,7 +990,7 @@ abstract class KtIterableExtensionsMixin<T>
     return minElement;
   }
 
-  @override
+  
   T minWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -1016,7 +1008,7 @@ abstract class KtIterableExtensionsMixin<T>
     return min;
   }
 
-  @override
+  
   bool none([bool Function(T) predicate]) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
     if (predicate == null) return !iterator().hasNext();
@@ -1028,7 +1020,7 @@ abstract class KtIterableExtensionsMixin<T>
     return true;
   }
 
-  @override
+  
   void onEach(void Function(T) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -1039,7 +1031,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -1057,7 +1049,7 @@ abstract class KtIterableExtensionsMixin<T>
     return KtPair(first, second);
   }
 
-  @override
+  
   KtList<T> plus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -1069,10 +1061,10 @@ abstract class KtIterableExtensionsMixin<T>
     return result;
   }
 
-  @override
+  
   KtList<T> operator +(KtIterable<T> elements) => plus(elements);
 
-  @override
+  
   KtList<T> plusElement(T element) {
     final result = mutableListOf<T>();
     result.addAll(asIterable());
@@ -1080,7 +1072,7 @@ abstract class KtIterableExtensionsMixin<T>
     return result;
   }
 
-  @override
+  
   S reduce<S>(S Function(S acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -1097,7 +1089,7 @@ abstract class KtIterableExtensionsMixin<T>
     return accumulator;
   }
 
-  @override
+  
   S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -1116,7 +1108,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
-  @override
+  
   KtIterable<T> requireNoNulls() {
     for (final element in iter) {
       if (element == null) {
@@ -1126,7 +1118,7 @@ abstract class KtIterableExtensionsMixin<T>
     return this;
   }
 
-  @override
+  
   KtList<T> reversed() {
     if (this is KtCollection && (this as KtCollection).size <= 1) {
       return toList();
@@ -1136,7 +1128,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1169,7 +1161,7 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1194,10 +1186,10 @@ abstract class KtIterableExtensionsMixin<T>
     }
   }
 
-  @override
+  
   KtList<T> sorted() => sortedWith(naturalOrder());
 
-  @override
+  
   KtList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1206,7 +1198,7 @@ abstract class KtIterableExtensionsMixin<T>
     return sortedWith(compareBy(selector));
   }
 
-  @override
+  
   KtList<T> sortedByDescending<R extends Comparable<R>>(
       R Function(T) selector) {
     assert(() {
@@ -1216,10 +1208,10 @@ abstract class KtIterableExtensionsMixin<T>
     return sortedWith(compareByDescending(selector));
   }
 
-  @override
+  
   KtList<T> sortedDescending() => sortedWith(reverseOrder());
 
-  @override
+  
   KtList<T> sortedWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -1231,7 +1223,7 @@ abstract class KtIterableExtensionsMixin<T>
     return mutableList;
   }
 
-  @override
+  
   KtSet<T> subtract(KtIterable<T> other) {
     assert(() {
       if (other == null) throw ArgumentError("other can't be null");
@@ -1242,7 +1234,7 @@ abstract class KtIterableExtensionsMixin<T>
     return set;
   }
 
-  @override
+  
   num sum() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -1256,7 +1248,7 @@ abstract class KtIterableExtensionsMixin<T>
     return sum;
   }
 
-  @override
+  
   int sumBy(int Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1269,7 +1261,7 @@ abstract class KtIterableExtensionsMixin<T>
     return sum;
   }
 
-  @override
+  
   double sumByDouble(double Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1282,7 +1274,7 @@ abstract class KtIterableExtensionsMixin<T>
     return sum;
   }
 
-  @override
+  
   KtList<T> take(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -1312,7 +1304,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list.toList();
   }
 
-  @override
+  
   KtList<T> takeWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -1328,7 +1320,7 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
@@ -1348,22 +1340,22 @@ abstract class KtIterableExtensionsMixin<T>
     return destination;
   }
 
-  @override
+  
   KtMutableSet<T> toHashSet() => hashSetFrom(iter);
 
-  @override
+  
   KtList<T> toList() => listFrom(iter);
 
-  @override
+  
   KtMutableList<T> toMutableList() => mutableListFrom(iter);
 
-  @override
+  
   KtMutableSet<T> toMutableSet() => linkedSetFrom(iter);
 
-  @override
+  
   KtSet<T> toSet() => linkedSetFrom(iter);
 
-  @override
+  
   KtSet<T> union(KtIterable<T> other) {
     assert(() {
       if (other == null) throw ArgumentError("other can't be null");
@@ -1374,7 +1366,7 @@ abstract class KtIterableExtensionsMixin<T>
     return set;
   }
 
-  @override
+  
   KtList<KtList<T>> windowed(int size,
       {int step = 1, bool partialWindows = false}) {
     assert(() {
@@ -1399,7 +1391,7 @@ abstract class KtIterableExtensionsMixin<T>
     return result;
   }
 
-  @override
+  
   KtList<R> windowedTransform<R>(int size, R Function(KtList<T>) transform,
       {int step = 1, bool partialWindows = false}) {
     assert(() {
@@ -1425,11 +1417,11 @@ abstract class KtIterableExtensionsMixin<T>
     return result;
   }
 
-  @override
+  
   KtList<KtPair<T, R>> zip<R>(KtIterable<R> other) =>
       zipTransform(other, (T a, R b) => KtPair(a, b));
 
-  @override
+  
   KtList<V> zipTransform<R, V>(
       KtIterable<R> other, V Function(T a, R b) transform) {
     assert(() {
@@ -1446,11 +1438,11 @@ abstract class KtIterableExtensionsMixin<T>
     return list;
   }
 
-  @override
+  
   KtList<KtPair<T, T>> zipWithNext<R>() =>
       zipWithNextTransform((a, b) => KtPair(a, b));
 
-  @override
+  
   KtList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
     assert(() {
       if (transform == null) throw ArgumentError("transform can't be null");

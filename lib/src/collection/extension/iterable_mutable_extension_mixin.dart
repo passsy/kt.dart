@@ -1,12 +1,10 @@
 import "package:kt_dart/collection.dart";
 
-abstract class KtMutableIterableExtensionsMixin<T>
-    implements KtMutableIterableExtension<T>, KtMutableIterable<T> {
-  @override
+
+extension KtMutableIterableExtensions<T> on KtMutableIterable<T> {
   bool removeAllWhere(bool Function(T) predicate) =>
       _filterInPlace(predicate, true);
 
-  @override
   bool retainAllWhere(bool Function(T) predicate) =>
       _filterInPlace(predicate, false);
 

@@ -4,8 +4,7 @@ import "package:kt_dart/collection.dart";
 /// be iterated over and that supports removing elements during iteration.
 /// @param T the type of element being iterated over. The mutable iterator is invariant on its element type.
 // ignore: one_member_abstracts
-abstract class KtMutableIterable<T>
-    implements KtIterable<T>, KtMutableIterableExtension<T> {
+abstract class KtMutableIterable<T> implements KtIterable<T> {
   /// Returns an iterator over the elements of this sequence that supports removing elements during iteration.
   @override
   KtMutableIterator<T> iterator();

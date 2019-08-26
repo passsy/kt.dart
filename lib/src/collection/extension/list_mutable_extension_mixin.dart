@@ -2,16 +2,14 @@ import "dart:math";
 
 import "package:kt_dart/collection.dart";
 
-abstract class KtMutableListExtensionsMixin<T>
-    implements KtMutableListExtension<T>, KtMutableList<T> {
-  @override
+
+extension KtMutableListExtensions<T> on KtMutableList<T> {
   void fill(T value) {
     for (var i = 0; i < size; i++) {
       set(i, value);
     }
   }
 
-  @override
   void reverse() {
     final mid = size >> 1;
 
@@ -24,7 +22,6 @@ abstract class KtMutableListExtensionsMixin<T>
     }
   }
 
-  @override
   void sortBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -35,7 +32,6 @@ abstract class KtMutableListExtensionsMixin<T>
     }
   }
 
-  @override
   void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -46,7 +42,6 @@ abstract class KtMutableListExtensionsMixin<T>
     }
   }
 
-  @override
   void sortWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -56,14 +51,12 @@ abstract class KtMutableListExtensionsMixin<T>
     asList().sort(comparator);
   }
 
-  @override
   void swap(int indexA, int indexB) {
     final firstOld = get(indexA);
     final secondOld = set(indexB, firstOld);
     set(indexA, secondOld);
   }
 
-  @override
   void shuffle([Random random]) {
     // delegate to darts list implementation for shuffling
     asList().shuffle(random);

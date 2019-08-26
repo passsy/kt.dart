@@ -5,8 +5,7 @@ import "package:kt_dart/src/collection/impl/map_mutable.dart";
 /// the value corresponding to each key. Map keys are unique; the map holds only one value for each key.
 /// @param K the type of map keys. The map is invariant on its key type.
 /// @param V the type of map values. The mutable map is invariant on its value type.
-abstract class KtMutableMap<K, V>
-    implements KtMap<K, V>, KtMutableMapExtension<K, V> {
+abstract class KtMutableMap<K, V> implements KtMap<K, V> {
   factory KtMutableMap.empty() => DartMutableMap<K, V>();
 
   factory KtMutableMap.from([@nonNull Map<K, V> map = const {}]) {
