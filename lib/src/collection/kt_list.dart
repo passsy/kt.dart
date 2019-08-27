@@ -117,7 +117,7 @@ abstract class KtListExtension<T> {
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
   @nonNull
-  T elementAtOrElse(int index, T defaultValue(int index));
+  T elementAtOrElse(int index, T Function(int index) defaultValue);
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
   @nullable

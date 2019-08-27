@@ -4,7 +4,7 @@ import "package:kt_dart/src/util/errors.dart";
 abstract class KtMapExtensionsMixin<K, V>
     implements KtMapExtension<K, V>, KtMap<K, V> {
   @override
-  bool all(Function(K key, V value) predicate) {
+  bool all(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -21,7 +21,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  bool any(Function(K key, V value) predicate) {
+  bool any(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -346,7 +346,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  bool none(Function(K key, V value) predicate) {
+  bool none(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;

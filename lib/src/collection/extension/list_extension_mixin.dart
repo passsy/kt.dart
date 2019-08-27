@@ -36,7 +36,7 @@ abstract class KtListExtensionsMixin<T>
   T elementAt(int index) => get(index);
 
   @override
-  T elementAtOrElse(int index, T defaultValue(int index)) {
+  T elementAtOrElse(int index, T Function(int index) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
       if (defaultValue == null) {

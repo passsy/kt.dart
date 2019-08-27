@@ -6,7 +6,7 @@ import "../test/assert_dart.dart";
 void main() {
   group("mutableList", () {
     testList(
-        <T>() => emptyList<T>(),
+        <T>() => mutableListFrom<T>(),
         <T>(
                 [T arg0,
                 T arg1,

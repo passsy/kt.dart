@@ -9,3 +9,5 @@ environment:
 
 dev_dependencies:
   test: ^1.0.0
+  lint:
+    path: ../lint

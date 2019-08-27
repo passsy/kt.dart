@@ -7,7 +7,7 @@ import "../test/assert_dart.dart";
 void main() {
   group("mutableIterable", () {
     testIterable(<T>() => DartMutableIterable<T>([]),
-        <T>(Iterable<T> iterable) => DartMutableIterable(iterable));
+        <T>(Iterable<T> iterable) => DartMutableIterable(iterable.toList()));
   });
   group("mutableList", () {
     testIterable(<T>() => mutableListOf<T>(),

@@ -66,7 +66,7 @@ abstract class KtIterableExtensionsMixin<T>
     for (final element in iter) {
       final key = keySelector(element);
       final V value =
-          valueTransform == null ? element : valueTransform(element);
+          valueTransform == null ? element as V : valueTransform(element);
       destination.put(key, value);
     }
     return destination;

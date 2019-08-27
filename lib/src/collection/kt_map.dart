@@ -85,11 +85,11 @@ abstract class KtMapEntry<K, V> {
 abstract class KtMapExtension<K, V> {
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.
-  bool all(Function(K key, V value) predicate);
+  bool all(bool Function(K key, V value) predicate);
 
   /// Returns true if there is at least one entry that matches the given [predicate].
   /// [predicate] must not be null.
-  bool any(Function(K key, V value) predicate);
+  bool any(bool Function(K key, V value) predicate);
 
   /// Returns the number of entries matching the given [predicate] or the number of entries when `predicate = null`.
   int count([bool Function(KtMapEntry<K, V>) predicate]);
@@ -234,7 +234,7 @@ abstract class KtMapExtension<K, V> {
 
   /// Returns `true` if there is no entries in the map that match the given [predicate].
   /// [predicate] must not be null.
-  bool none(Function(K key, V value) predicate);
+  bool none(bool Function(K key, V value) predicate);
 
   /// Creates a new read-only map by replacing or adding entries to this map from another [map].
   ///

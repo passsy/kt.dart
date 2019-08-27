@@ -125,7 +125,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
     nextValue = _iterator.current;
   }
 
-  KtMutableSet<T> _set;
+  final KtMutableSet<T> _set;
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;
