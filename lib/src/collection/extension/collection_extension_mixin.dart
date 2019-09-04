@@ -11,7 +11,7 @@ abstract class KtCollectionExtensionMixin<T>
   bool isNotEmpty() => size > 0;
 
   @override
-  T random([math.Random random]) {
+  T random([math.Random? random]) {
     final r = random ?? math.Random();
     return elementAt(r.nextInt(size));
   }

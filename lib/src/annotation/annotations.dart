@@ -38,5 +38,5 @@ class TooGeneric {
   const TooGeneric({this.extensionForType});
 
   /// The type which would be a better fit
-  final String extensionForType;
+  final String? extensionForType;
 }

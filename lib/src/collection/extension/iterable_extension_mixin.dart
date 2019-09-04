@@ -7,7 +7,7 @@ import "package:kt_dart/src/util/errors.dart";
 abstract class KtIterableExtensionsMixin<T>
     implements KtIterableExtension<T>, KtIterable<T> {
   @override
-  bool all([bool Function(T element) predicate]) {
+  bool all(bool Function(T element) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -22,7 +22,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  bool any([bool Function(T element) predicate]) {
+  bool any([bool Function(T element)? predicate]) {
     if (predicate == null) {
       if (this is KtCollection) return !(this as KtCollection).isEmpty();
       return iterator().hasNext();
@@ -57,7 +57,7 @@ abstract class KtIterableExtensionsMixin<T>
   @override
   M associateByTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
-      [V Function(T) valueTransform]) {
+      [V Function(T)? valueTransform]) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
@@ -66,7 +66,7 @@ abstract class KtIterableExtensionsMixin<T>
     for (final element in iter) {
       final key = keySelector(element);
       final V value =
-          valueTransform == null ? element : valueTransform(element);
+          valueTransform == null ? element as V : valueTransform(element);
       destination.put(key, value);
     }
     return destination;
@@ -158,7 +158,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  int count([bool Function(T) predicate]) {
+  int count([bool Function(T)? predicate]) {
     if (predicate == null && this is KtCollection) {
       return (this as KtCollection).size;
     }
@@ -335,7 +335,7 @@ abstract class KtIterableExtensionsMixin<T>
     final destination = mutableListOf<R>();
     for (final element in iter) {
       if (element is R) {
-        destination.add(element);
+        destination.add(element as R);
       }
     }
     return destination;
@@ -444,7 +444,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T first([bool Function(T) predicate]) {
+  T first([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
@@ -461,7 +461,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T firstOrNull([bool Function(T) predicate]) {
+  T firstOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) {
         final list = this as KtList<T>;
@@ -674,7 +674,7 @@ abstract class KtIterableExtensionsMixin<T>
       String postfix = "",
       int limit = -1,
       String truncated = "...",
-      String Function(T) transform}) {
+      String Function(T)? transform}) {
     final buffer = StringBuffer();
     buffer.write(prefix);
     var count = 0;
@@ -698,7 +698,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T last([bool Function(T) predicate]) {
+  T last([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) return (this as KtList<T>).last();
       final i = iterator();
@@ -711,7 +711,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return last;
     } else {
-      T last;
+      late T last;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -742,7 +742,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T lastOrNull([bool Function(T) predicate]) {
+  T lastOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) {
         final list = this as KtList<T>;
@@ -759,7 +759,7 @@ abstract class KtIterableExtensionsMixin<T>
         return last;
       }
     } else {
-      T last;
+      late T last;
       for (final element in iter) {
         if (predicate(element)) {
           last = element;
@@ -806,7 +806,7 @@ abstract class KtIterableExtensionsMixin<T>
     for (final item in iter) {
       final element = transform(index++, item);
       if (element != null) {
-        destination.add(element);
+        destination.add(element as R);
       }
     }
     return destination;
@@ -846,7 +846,7 @@ abstract class KtIterableExtensionsMixin<T>
     for (final item in iter) {
       final result = transform(item);
       if (result != null) {
-        destination.add(result);
+        destination.add(result as R);
       }
     }
     return destination;
@@ -867,7 +867,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  num max() {
+  num? max() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
           "sum is only supported for type KtIterable<num>, not $runtimeType");
@@ -927,7 +927,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  num min() {
+  num? min() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
           "sum is only supported for type KtIterable<num>, not $runtimeType");
@@ -1017,7 +1017,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  bool none([bool Function(T) predicate]) {
+  bool none([bool Function(T)? predicate]) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
     if (predicate == null) return !iterator().hasNext();
     for (final element in iter) {
@@ -1137,7 +1137,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T single([bool Function(T) predicate]) {
+  T single([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
@@ -1149,7 +1149,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single;
+      late T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1170,7 +1170,7 @@ abstract class KtIterableExtensionsMixin<T>
   }
 
   @override
-  T singleOrNull([bool Function(T) predicate]) {
+  T singleOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) return null;
@@ -1180,7 +1180,7 @@ abstract class KtIterableExtensionsMixin<T>
       }
       return single;
     } else {
-      T single;
+      late T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {

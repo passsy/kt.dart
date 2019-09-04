@@ -36,7 +36,7 @@ abstract class KtCollectionExtension<T> {
   /// Returns a random element from this collection.
   ///
   /// @throws NoSuchElementException if this collection is empty.
-  T random([math.Random random]);
+  T random([math.Random? random]);
 
   /// Returns a [KtMutableList] filled with all elements of this collection.
   KtMutableList<T> toMutableList();

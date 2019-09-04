@@ -49,7 +49,7 @@ class Customer {
 }
 
 class Order {
-  Order(this.products, {this.isDelivered});
+  Order(this.products, {this.isDelivered = false});
 
   final KtList<Product> products;
   final bool isDelivered;

@@ -47,16 +47,13 @@ abstract class KtMap<K, V> implements KtMapExtension<K, V> {
   bool containsValue(V value);
 
   /// Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
-  @nullable
-  V get(K key);
+  V? get(K key);
 
   /// Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
-  @nullable
-  V operator [](K key);
+  V? operator [](K key);
 
   /// Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
-  @nullable
-  V getOrDefault(K key, V defaultValue);
+  V? getOrDefault(K key, V defaultValue);
 
   // Views
   /// Returns a read-only [KtSet] of all keys in this map.
@@ -92,7 +89,7 @@ abstract class KtMapExtension<K, V> {
   bool any(Function(K key, V value) predicate);
 
   /// Returns the number of entries matching the given [predicate] or the number of entries when `predicate = null`.
-  int count([bool Function(KtMapEntry<K, V>) predicate]);
+  int count([bool Function(KtMapEntry<K, V>)? predicate]);
 
   /// Returns a new map containing all key-value pairs matching the given [predicate].
   ///
@@ -205,13 +202,11 @@ abstract class KtMapExtension<K, V> {
       M destination, R Function(KtMapEntry<K, V> entry) transform);
 
   /// Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+  KtMapEntry<K, V>? maxBy<R extends Comparable<R>>(
       R Function(KtMapEntry<K, V>) selector);
 
   /// Returns the first entry having the largest value according to the provided [comparator] or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator);
+  KtMapEntry<K, V>? maxWith(Comparator<KtMapEntry<K, V>> comparator);
 
   /// Returns a map containing all entries of the original map except the entry with the given [key].
   ///

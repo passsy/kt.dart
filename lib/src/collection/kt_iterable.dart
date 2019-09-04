@@ -18,7 +18,7 @@ abstract class KtIterableExtension<T> {
   /// Returns `true` if at least one element matches the given [predicate].
   ///
   /// Returns `true` if collection has at least one element when no [predicate] is provided
-  bool any([bool Function(T element) predicate]);
+  bool any([bool Function(T element)? predicate]);
 
   /// Returns this collection as an [Iterable].
   KtIterable<T> asIterable();
@@ -55,7 +55,7 @@ abstract class KtIterableExtension<T> {
   /// If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
   M associateByTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
-      [V Function(T) valueTransform]);
+      [V Function(T)? valueTransform]);
 
   /// Populates and returns the [destination] mutable map with key-value pairs
   /// provided by [transform] function applied to each element of the given collection.
@@ -111,7 +111,7 @@ abstract class KtIterableExtension<T> {
   bool contains(T element);
 
   /// Returns the number of elements matching the given [predicate] or the number of elements when `predicate = null`.
-  int count([bool Function(T) predicate]);
+  int count([bool Function(T)? predicate]);
 
   /// Returns a list containing only distinct elements from the given collection.
   ///
@@ -210,11 +210,11 @@ abstract class KtIterableExtension<T> {
   ///
   /// @throws [NoSuchElementException] if the collection is empty.
   @nonNull
-  T first([bool Function(T) predicate]);
+  T first([bool Function(T)? predicate]);
 
   /// Returns the first element (matching [predicate] when provided), or `null` if the collection is empty.
   @nullable
-  T firstOrNull([bool Function(T) predicate]);
+  T firstOrNull([bool Function(T)? predicate]);
 
   /// Returns a single list of all elements yielded from results of [transform] function being invoked on each element of original collection.
   KtList<R> flatMap<R>(KtIterable<R> Function(T) transform);
@@ -296,19 +296,19 @@ abstract class KtIterableExtension<T> {
       String postfix = "",
       int limit = -1,
       String truncated = "...",
-      String Function(T) transform});
+      String Function(T)? transform});
 
   /// Returns the last element matching the given [predicate].
   /// @throws [NoSuchElementException] if no such element is found.
   @nonNull
-  T last([bool Function(T) predicate]);
+  T last([bool Function(T)? predicate]);
 
   /// Returns last index of [element], or -1 if the collection does not contain element.
   int lastIndexOf(T element);
 
   /// Returns the last element matching the given [predicate], or `null` if no such element was found.
   @nullable
-  T lastOrNull([bool Function(T) predicate]);
+  T lastOrNull([bool Function(T)? predicate]);
 
   /// Returns a list containing the results of applying the given [transform] function
   /// to each element in the original collection.
@@ -356,21 +356,17 @@ abstract class KtIterableExtension<T> {
 
   /// Returns the largest element or `null` if there are no elements.
   @TooGeneric(extensionForType: "KtIterable<num>")
-  @nullable
-  num max();
+  num? max();
 
   /// Returns the first element yielding the largest value of the given function or `null` if there are no elements.
-  @nullable
-  T maxBy<R extends Comparable<R>>(R Function(T) selector);
+  T? maxBy<R extends Comparable<R>>(R Function(T) selector);
 
   /// Returns the first element having the largest value according to the provided [comparator] or `null` if there are no elements.
-  @nullable
-  T maxWith(Comparator<T> comparator);
+  T? maxWith(Comparator<T> comparator);
 
   /// Returns the smallest element or `null` if there are no elements.
   @TooGeneric(extensionForType: "KtIterable<num>")
-  @nullable
-  num min();
+  num? min();
 
   /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
   KtList<T> minus(KtIterable<T> elements);
@@ -390,7 +386,7 @@ abstract class KtIterableExtension<T> {
   T minWith(Comparator<T> comparator);
 
   /// Returns `true` if the collection has no elements or no elements match the given [predicate].
-  bool none([bool Function(T) predicate]);
+  bool none([bool Function(T)? predicate]);
 
   /// Performs the given [action] on each element. Use with cascade syntax to return self.
   ///
@@ -433,11 +429,11 @@ abstract class KtIterableExtension<T> {
 
   /// Returns the single element matching the given [predicate], or throws an exception if the list is empty or has more than one element.
   @nonNull
-  T single([bool Function(T) predicate]);
+  T single([bool Function(T)? predicate]);
 
   /// Returns the single element matching the given [predicate], or `null` if element was not found or more than one element was found.
   @nullable
-  T singleOrNull([bool Function(T) predicate]);
+  T singleOrNull([bool Function(T)? predicate]);
 
   /// Returns a list of all elements sorted according to their natural sort order.
   KtList<T> sorted();

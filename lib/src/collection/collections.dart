@@ -6,16 +6,16 @@ import "package:kt_dart/kt.dart";
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
 KtList<T> listOf<T>(
-        [T arg0,
-        T arg1,
-        T arg2,
-        T arg3,
-        T arg4,
-        T arg5,
-        T arg6,
-        T arg7,
-        T arg8,
-        T arg9]) =>
+        [T? arg0,
+        T? arg1,
+        T? arg2,
+        T? arg3,
+        T? arg4,
+        T? arg5,
+        T? arg6,
+        T? arg7,
+        T? arg8,
+        T? arg9]) =>
     KtList.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 
 /// Returns a new read-only list based on [elements].
@@ -29,16 +29,16 @@ KtList<T> emptyList<T>() => KtList<T>.empty();
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
 KtMutableList<T> mutableListOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
+    [T? arg0,
+    T? arg1,
+    T? arg2,
+    T? arg3,
+    T? arg4,
+    T? arg5,
+    T? arg6,
+    T? arg7,
+    T? arg8,
+    T? arg9]) {
   return KtMutableList.of(
       arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
@@ -82,16 +82,16 @@ KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
 KtSet<T> setOf<T>(
-        [T arg0,
-        T arg1,
-        T arg2,
-        T arg3,
-        T arg4,
-        T arg5,
-        T arg6,
-        T arg7,
-        T arg8,
-        T arg9]) =>
+        [T? arg0,
+        T? arg1,
+        T? arg2,
+        T? arg3,
+        T? arg4,
+        T? arg5,
+        T? arg6,
+        T? arg7,
+        T? arg8,
+        T? arg9]) =>
     KtSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 
 /// Returns a new read-only set based on [elements].
@@ -106,16 +106,16 @@ KtSet<T> emptySet<T>() => KtSet<T>.empty();
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
 KtMutableSet<T> mutableSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
+    [T? arg0,
+    T? arg1,
+    T? arg2,
+    T? arg3,
+    T? arg4,
+    T? arg5,
+    T? arg6,
+    T? arg7,
+    T? arg8,
+    T? arg9]) {
   return KtMutableSet.of(
       arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
@@ -130,16 +130,16 @@ KtMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
 KtLinkedSet<T> linkedSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
+    [T? arg0,
+    T? arg1,
+    T? arg2,
+    T? arg3,
+    T? arg4,
+    T? arg5,
+    T? arg6,
+    T? arg7,
+    T? arg8,
+    T? arg9]) {
   return KtLinkedSet.of(
       arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }
@@ -154,16 +154,16 @@ KtLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
 ///
 /// Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
 KtHashSet<T> hashSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
+    [T? arg0,
+    T? arg1,
+    T? arg2,
+    T? arg3,
+    T? arg4,
+    T? arg5,
+    T? arg6,
+    T? arg7,
+    T? arg8,
+    T? arg9]) {
   return KtHashSet.of(
       arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }

@@ -18,7 +18,7 @@ class DartList<T> extends Object
         super();
 
   final List<T> _list;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<T> get iter => _list;

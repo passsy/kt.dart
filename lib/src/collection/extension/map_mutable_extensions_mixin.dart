@@ -11,7 +11,7 @@ abstract class KtMutableMapExtensionsMixin<K, V>
       return true;
     }());
     final value = get(key);
-    if (value != null) return value;
+    if (value != null) return value as V;
     final answer = defaultValue();
     put(key, answer);
     return answer;
@@ -32,5 +32,9 @@ abstract class KtMutableMapExtensionsMixin<K, V>
   }
 
   @override
-  V putIfAbsent(K key, V value) => get(key) ?? put(key, value);
+  V? putIfAbsent(K key, V value) {
+    final V? value = get(key);
+    if (value != null) return value as V;
+    return put(key, value);
+  }
 }

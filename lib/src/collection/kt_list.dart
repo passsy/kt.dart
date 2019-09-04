@@ -24,16 +24,16 @@ abstract class KtList<T> implements KtCollection<T>, KtListExtension<T> {
   ///
   /// Elements aren't allowed to be `null`. If your list requires `null` values use [KtList.from]
   factory KtList.of(
-      [T arg0,
-      T arg1,
-      T arg2,
-      T arg3,
-      T arg4,
-      T arg5,
-      T arg6,
-      T arg7,
-      T arg8,
-      T arg9]) {
+      [T? arg0,
+      T? arg1,
+      T? arg2,
+      T? arg3,
+      T? arg4,
+      T? arg5,
+      T? arg6,
+      T? arg7,
+      T? arg8,
+      T? arg9]) {
     final args =
         argsToList(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
     return KtList.from(args);
@@ -128,8 +128,7 @@ abstract class KtListExtension<T> {
   /// Use [predicate] to return the first element matching the given [predicate]
   ///
   /// @throws [NoSuchElementException] if the collection is empty.
-  @nonNull
-  T first([bool Function(T) predicate]);
+  T first([bool Function(T)? predicate]);
 
   /// Accumulates value starting with [initial] value and applying [operation] from right to left to each element and current accumulator value.
   R foldRight<R>(R initial, R Function(T, R acc) operation);
@@ -141,7 +140,6 @@ abstract class KtListExtension<T> {
   R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation);
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-  @nonNull
   T getOrElse(int index, T Function(int) defaultValue);
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
@@ -151,7 +149,7 @@ abstract class KtListExtension<T> {
   /// Returns the last element matching the given [predicate].
   /// @throws [NoSuchElementException] if no such element is found.
   @nonNull
-  T last([bool Function(T) predicate]);
+  T last([bool Function(T)? predicate]);
 
   /// Accumulates value starting with last element and applying [operation] from right to left to each element and current accumulator value.
   S reduceRight<S>(S Function(T, S acc) operation);

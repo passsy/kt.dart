@@ -55,7 +55,8 @@ class DartMutableSet<T> extends Object
 
   @override
   int get hashCode =>
-      hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
+      hashObjects(_set.map((e) => e.hashCode).toList(growable: false)
+        ..sort());
 
   @override
   bool operator ==(dynamic other) {
@@ -119,17 +120,18 @@ class DartMutableSet<T> extends Object
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
   _MutableSetIterator(KtMutableSet<T> set)
       : _set = set,
-        _iterator = set.iter.iterator {
-    lastReturned = null;
+        _iterator = set.iter.iterator,
+        lastReturned = null {
     _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
   }
 
+
   KtMutableSet<T> _set;
   final Iterator<T> _iterator;
-  T nextValue;
-  T lastReturned;
-  bool _hasNext;
+  late T nextValue;
+  T? lastReturned;
+  late bool _hasNext;
 
   @override
   bool hasNext() => _hasNext;

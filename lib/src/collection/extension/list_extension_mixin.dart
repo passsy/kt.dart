@@ -51,7 +51,7 @@ abstract class KtListExtensionsMixin<T>
   T elementAtOrNull(int index) => getOrNull(index);
 
   @override
-  T first([bool Function(T) predicate]) {
+  T first([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(0);
@@ -120,7 +120,7 @@ abstract class KtListExtensionsMixin<T>
   }
 
   @override
-  T last([bool Function(T) predicate]) {
+  T last([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(lastIndex);
@@ -175,7 +175,7 @@ abstract class KtListExtensionsMixin<T>
   }
 
   @override
-  T single([bool Function(T) predicate]) {
+  T single([bool Function(T)? predicate]) {
     if (predicate == null) {
       switch (size) {
         case 0:
@@ -186,7 +186,7 @@ abstract class KtListExtensionsMixin<T>
           throw ArgumentError("List has more than one element.");
       }
     } else {
-      T single;
+      late T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -207,7 +207,7 @@ abstract class KtListExtensionsMixin<T>
   }
 
   @override
-  T singleOrNull([bool Function(T) predicate]) {
+  T singleOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (size == 1) {
         return get(0);
@@ -215,7 +215,7 @@ abstract class KtListExtensionsMixin<T>
         return null;
       }
     } else {
-      T single;
+      late T single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {

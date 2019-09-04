@@ -225,7 +225,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("associateWithTo requires valueSelector to be non null", () {
       final iterable = iterableOf(["a", "b", "c"]);
-      const String Function(String item) predicate = null;
+      const String Function(String item)? predicate = null;
       final other = mutableMapFrom<String, String>();
       final e = catchException<ArgumentError>(
           () => iterable.associateWithTo(other, predicate));

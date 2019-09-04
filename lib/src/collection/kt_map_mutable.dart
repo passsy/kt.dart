@@ -34,8 +34,7 @@ abstract class KtMutableMap<K, V>
   /// Associates the specified [value] with the specified [key] in the map.
   ///
   /// @return the previous value associated with the key, or `null` if the key was not present in the map.
-  @nullable
-  V put(K key, V value);
+  V? put(K key, V value);
 
   /// Associates the specified [value] with the specified [key] in the map.
   void operator []=(K key, V value);
@@ -43,8 +42,7 @@ abstract class KtMutableMap<K, V>
   /// Removes the specified key and its corresponding value from this map.
   ///
   /// @return the previous value associated with the key, or `null` if the key was not present in the map.
-  @nullable
-  V remove(K key);
+  V? remove(K key);
 
   /// Removes the entry for the specified key only if it is mapped to the specified value.
   ///
@@ -78,8 +76,7 @@ abstract class KtMutableMapEntry<K, V> extends KtMapEntry<K, V> {
   /// Changes the value associated with the key of this entry.
   ///
   /// @return the previous value corresponding to the key.
-  @nullable
-  V setValue(V newValue);
+  V? setValue(V newValue);
 }
 
 abstract class KtMutableMapExtension<K, V> {
@@ -87,8 +84,7 @@ abstract class KtMutableMapExtension<K, V> {
   /// puts its result into the map under the given key and returns it.
   ///
   /// Note that the operation is not guaranteed to be atomic if the map is being modified concurrently.
-  @nonNull
-  V getOrPut(K key, V Function() defaultValue);
+  V? getOrPut(K key, V Function() defaultValue);
 
   /// Returns an [Iterator] over the entries in the [Map].
   KtMutableIterator<KtMutableMapEntry<K, V>> iterator();
@@ -99,6 +95,5 @@ abstract class KtMutableMapExtension<K, V> {
   /// If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.
   ///
   ///  return the previous value associated with the specified key, or `null` if there was no mapping for the key. (A `null` return can also indicate that the map previously associated `null` with the key, if the implementation supports `null` values.)
-  @nullable
-  V putIfAbsent(K key, V value);
+  V? putIfAbsent(K key, V value);
 }

@@ -45,10 +45,10 @@ void testCollection(
       expect(list, equals(mutableCollectionOf(["a", "b"])));
     });
     test("add null works", () {
-      final list = mutableCollectionOf(["a"]);
+      final list = mutableCollectionOf(<String?>["a"]);
       list.add(null);
       expect(list.size, equals(2));
-      expect(list, equals(mutableCollectionOf(["a", null])));
+      expect(list, equals(mutableCollectionOf(<String?>["a", null])));
     });
   });
   group("addAll", () {

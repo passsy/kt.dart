@@ -55,7 +55,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     {bool ordered = true}) {
   group("contains", () {
     test("no elements", () {
-      final list = emptyCollection<String>();
+      final list = emptyCollection<String?>();
       expect(list.contains("a"), isFalse);
       expect(list.contains(null), isFalse);
     });
@@ -67,7 +67,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
 
     test("does not contain", () {
-      final list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf<String?>(["a", "b", "c", "d", "e"]);
       expect(list.contains("x"), isFalse);
       expect(list.contains(null), isFalse);
     });

@@ -38,7 +38,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  int count([bool Function(KtMapEntry<K, V>) predicate]) {
+  int count([bool Function(KtMapEntry<K, V>)? predicate]) {
     if (predicate == null) {
       return size;
     }
@@ -82,15 +82,17 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  M filterNotTo<M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
+  M filterNotTo<M extends KtMutableMap<dynamic, dynamic>>(M destination,
+      bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination
+            .runtimeType}"
+            "\ndestination (${destination
+            .runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -105,15 +107,17 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
+  M filterTo<M extends KtMutableMap<dynamic, dynamic>>(M destination,
+      bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination
+            .runtimeType}"
+            "\ndestination (${destination
+            .runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
             "\n\n$kBug35518GenericTypeError");
       }
@@ -159,7 +163,9 @@ abstract class KtMapExtensionsMixin<K, V>
       }
       return true;
     }());
-    return get(key) ?? defaultValue();
+    final V? value = get(key);
+    if (value != null) return value as V;
+    return defaultValue();
   }
 
   @override
@@ -168,7 +174,7 @@ abstract class KtMapExtensionsMixin<K, V>
     if (value == null) {
       throw NoSuchElementException("Key $key is missing in the map.");
     }
-    return value;
+    return value as V;
   }
 
   @override
@@ -190,16 +196,18 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  M mapKeysTo<R, M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, R Function(KtMapEntry<K, V> entry) transform) {
+  M mapKeysTo<R, M extends KtMutableMap<dynamic, dynamic>>(M destination,
+      R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<R, V> && mutableMapFrom<R, V>() is! M) {
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
+            "\nExpected: KtMutableMap<$R, $V>, Actual: ${destination
+            .runtimeType}"
             "\nEntries after key transformation with $transform have type KtMapEntry<$R, $V> "
-            "and can't be copied into destination of type ${destination.runtimeType}."
+            "and can't be copied into destination of type ${destination
+            .runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
@@ -211,17 +219,19 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  M mapTo<R, M extends KtMutableCollection<dynamic>>(
-      M destination, R Function(KtMapEntry<K, V> entry) transform) {
+  M mapTo<R, M extends KtMutableCollection<dynamic>>(M destination,
+      R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableCollection<R> &&
           mutableListFrom<R>() is! M) {
         throw ArgumentError("mapTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$R>, Actual: ${destination.runtimeType}"
+            "\nExpected: KtMutableCollection<$R>, Actual: ${destination
+            .runtimeType}"
             "\nEntries after key transformation with $transform have type $R "
-            "and can't be copied into destination of type ${destination.runtimeType}."
+            "and can't be copied into destination of type ${destination
+            .runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
@@ -239,16 +249,18 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  M mapValuesTo<R, M extends KtMutableMap<dynamic, dynamic>>(
-      M destination, R Function(KtMapEntry<K, V> entry) transform) {
+  M mapValuesTo<R, M extends KtMutableMap<dynamic, dynamic>>(M destination,
+      R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<K, R> && mutableMapFrom<K, R>() is! M) {
         throw ArgumentError("mapValuesTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
+            "\nExpected: KtMutableMap<$K, $R>, Actual: ${destination
+            .runtimeType}"
             "\nEntries after key transformation with $transform have type KtMapEntry<$K, $R> "
-            "and can't be copied into destination of type ${destination.runtimeType}."
+            "and can't be copied into destination of type ${destination
+            .runtimeType}."
             "\n\n$kBug35518GenericTypeError");
       }
       return true;
@@ -260,7 +272,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+  KtMapEntry<K, V>? maxBy<R extends Comparable<R>>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -282,7 +294,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator) {
+  KtMapEntry<K, V>? maxWith(Comparator<KtMapEntry<K, V>> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
       return true;
@@ -300,13 +312,15 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMap<K, V> minus(K key) => toMutableMap()..remove(key);
+  KtMap<K, V> minus(K key) =>
+      toMutableMap()
+        ..remove(key);
 
   @override
   KtMap<K, V> operator -(K key) => minus(key);
 
   @override
-  KtMapEntry<K, V> minBy<R extends Comparable<R>>(
+  KtMapEntry<K, V>? minBy<R extends Comparable<R>>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -328,7 +342,7 @@ abstract class KtMapExtensionsMixin<K, V>
   }
 
   @override
-  KtMapEntry<K, V> minWith(Comparator<KtMapEntry<K, V>> comparator) {
+  KtMapEntry<K, V>? minWith(Comparator<KtMapEntry<K, V>> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
       return true;
@@ -368,7 +382,8 @@ abstract class KtMapExtensionsMixin<K, V>
       if (map == null) throw ArgumentError("map can't be null");
       return true;
     }());
-    return toMutableMap()..putAll(map);
+    return toMutableMap()
+      ..putAll(map);
   }
 
   @override
@@ -395,6 +410,8 @@ abstract class KtMapExtensionsMixin<K, V>
   String _entryToString(KtMapEntry<K, V> entry) =>
       "${_toString(entry.key)}=${_toString(entry.value)}";
 
-  String _toString(Object o) =>
-      identical(o, this) ? "(this Map)" : o.toString();
+  String _toString(Object? o) {
+    if (o == null) return "null";
+    return identical(o, this) ? "(this Map)" : o.toString();
+  }
 }

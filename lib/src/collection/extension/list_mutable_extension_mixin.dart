@@ -64,8 +64,12 @@ abstract class KtMutableListExtensionsMixin<T>
   }
 
   @override
-  void shuffle([Random random]) {
-    // delegate to darts list implementation for shuffling
-    asList().shuffle(random);
+  void shuffle([Random? random]) {
+    if(random == null) {
+      // delegate to darts list implementation for shuffling
+      asList().shuffle();
+    } else {
+      asList().shuffle(random);
+    }
   }
 }

@@ -12,7 +12,7 @@ class DartSet<T> extends Object
         super();
 
   final Set<T> _set;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<T> get iter => _set;
@@ -68,15 +68,14 @@ class DartSet<T> extends Object
 }
 
 class _DartToKIterator<T> extends KtIterator<T> {
-  _DartToKIterator(this.iterator) {
-    lastReturned = null;
-    _hasNext = iterator.moveNext();
+  _DartToKIterator(this.iterator):
+    lastReturned = null,
+    _hasNext = iterator.moveNext(),
     nextValue = iterator.current;
-  }
 
   final Iterator<T> iterator;
   T nextValue;
-  T lastReturned;
+  T? lastReturned;
   bool _hasNext;
 
   @override
