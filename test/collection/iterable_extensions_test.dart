@@ -1512,18 +1512,19 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   }
 
   group("max", () {
-    test("gets max value", () {
+    test("gets max value int", () {
       final iterable = iterableOf([1, 3, 2]);
       expect(iterable.max(), 3);
+    });
+
+    test("gets max value double", () {
+      final iterable = iterableOf([1.0, 3.2, 2.0]);
+      expect(iterable.max(), 3.2);
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
       expect(iterable.max(), null);
-    });
-
-    test("throws for non nums", () {
-      expect(() => iterableOf(["1", "2", "3"]).max(), throwsArgumentError);
     });
   });
 
@@ -1547,10 +1548,16 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("maxWith", () {
     int _intComparison(int value, int other) => value.compareTo(other);
+    int _doubleComparison(double value, double other) => value.compareTo(other);
 
-    test("gets max value", () {
+    test("gets max value int", () {
       final iterable = iterableOf([2, 1, 3]);
       expect(iterable.maxWith(_intComparison), 3);
+    });
+
+    test("gets max value double", () {
+      final iterable = iterableOf([2.0, 1.0, 3.2]);
+      expect(iterable.maxWith(_doubleComparison), 3.2);
     });
 
     test("empty iterable return null", () {
@@ -1574,10 +1581,6 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
       expect(iterable.min(), null);
-    });
-
-    test("throws for non nums", () {
-      expect(() => iterableOf(["1", "2", "3"]).min(), throwsArgumentError);
     });
   });
 
@@ -1955,10 +1958,6 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final sum = iterableOf([1.0, 2.1, 3.2]).sum();
       expect(sum, closeTo(6.3, 0.000000001));
     });
-
-    test("sum of strings throws", () {
-      expect(() => iterableOf(["1", "2", "3"]).sum(), throwsArgumentError);
-    });
   });
 
   group("sumBy", () {
@@ -2217,7 +2216,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("partial doesn't crash on empty iterable", () {
       expect(
-          emptyIterable().windowedTransform(3, (l) => l.sum(),
+          emptyIterable().windowedTransform(
+              3, (l) => throw StateError("this gets never executed"),
               step: 2, partialWindows: true),
           emptyList());
     });

@@ -15,6 +15,96 @@ abstract class KtIterable<T> {
   KtIterator<T> iterator();
 }
 
+extension KtIntIterableExtension on KtIterable<int> {
+  /// Returns the largest element or `null` if there are no elements.
+  @nullable
+  int max() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    int max = i.next();
+    if (max.isNaN) return max;
+    while (i.hasNext()) {
+      final int e = i.next();
+      if (e.isNaN) return e;
+      if (max < e) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  /// Returns the smallest element or `null` if there are no elements.
+  @nullable
+  int min() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    int min = i.next();
+    if (min.isNaN) return min;
+    while (i.hasNext()) {
+      final int e = i.next();
+      if (e.isNaN) return e;
+      if (min > e) {
+        min = e;
+      }
+    }
+    return min;
+  }
+
+  /// Returns the sum of all elements in the collection.
+  int sum() {
+    int sum = 0;
+    for (final element in iter) {
+      sum += element;
+    }
+    return sum;
+  }
+}
+
+extension KtDoubleIterableExtension on KtIterable<double> {
+  /// Returns the largest element or `null` if there are no elements.
+  @nullable
+  double max() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    double max = i.next();
+    if (max.isNaN) return max;
+    while (i.hasNext()) {
+      final double e = i.next();
+      if (e.isNaN) return e;
+      if (max < e) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  /// Returns the smallest element or `null` if there are no elements.
+  @nullable
+  double min() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    double min = i.next();
+    if (min.isNaN) return min;
+    while (i.hasNext()) {
+      final double e = i.next();
+      if (e.isNaN) return e;
+      if (min > e) {
+        min = e;
+      }
+    }
+    return min;
+  }
+
+  /// Returns the sum of all elements in the collection.
+  double sum() {
+    double sum = 0;
+    for (final element in iter) {
+      sum += element;
+    }
+    return sum;
+  }
+}
+
 extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns `true` if all elements match the given [predicate].
   bool all([bool Function(T element) predicate]) {
@@ -1022,29 +1112,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  /// Returns the largest element or `null` if there are no elements.
-  @TooGeneric(extensionForType: "KtIterable<num>")
-  @nullable
-  num max() {
-    if (this is! KtIterable<num>) {
-      throw ArgumentError(
-          "sum is only supported for type KtIterable<num>, not $runtimeType");
-    }
-
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    num max = i.next() as num;
-    if (max.isNaN) return max;
-    while (i.hasNext()) {
-      final num e = i.next() as num;
-      if (e.isNaN) return e;
-      if (max < e) {
-        max = e;
-      }
-    }
-    return max;
-  }
-
   /// Returns the first element yielding the largest value of the given function or `null` if there are no elements.
   @nullable
   T maxBy<R extends Comparable<R>>(R Function(T) selector) {
@@ -1084,29 +1151,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
     }
     return max;
-  }
-
-  /// Returns the smallest element or `null` if there are no elements.
-  @TooGeneric(extensionForType: "KtIterable<num>")
-  @nullable
-  num min() {
-    if (this is! KtIterable<num>) {
-      throw ArgumentError(
-          "sum is only supported for type KtIterable<num>, not $runtimeType");
-    }
-
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    num min = i.next() as num;
-    if (min.isNaN) return min;
-    while (i.hasNext()) {
-      final num e = i.next() as num;
-      if (e.isNaN) return e;
-      if (min > e) {
-        min = e;
-      }
-    }
-    return min;
   }
 
   /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
@@ -1420,23 +1464,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final set = toMutableSet();
     set.removeAll(other);
     return set;
-  }
-
-  /// Returns the sum of all elements in the collection.
-  ///
-  /// Requires [T] to be [num]
-  @TooGeneric(extensionForType: "KtIterable<num>")
-  num sum() {
-    if (this is! KtIterable<num>) {
-      throw ArgumentError(
-          "sum is only supported for type KtIterable<num>, not $runtimeType");
-    }
-
-    num sum = 0;
-    for (final element in iter) {
-      sum += element as num;
-    }
-    return sum;
   }
 
   /// Returns the sum of all values produced by [selector] function applied to each element in the collection.
