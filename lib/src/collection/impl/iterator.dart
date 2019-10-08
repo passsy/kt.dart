@@ -34,7 +34,7 @@ class InterOpKtListIterator<T>
 
   int _cursor; // index of next element to return
   int _lastRet = -1; // index of last element returned; -1 if no such
-  List<T> _list;
+  final List<T> _list;
 
   @override
   bool hasNext() => _cursor != _list.length;

@@ -1199,6 +1199,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///          .map((it) => it.toUpperCase())
   ///          .getOrNull(0); // prints: a
   ///
+  // ignore: comment_references
   /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
   void onEach(void Function(T) action) {
     assert(() {

@@ -14,7 +14,6 @@ abstract class KtCollection<T> implements KtIterable<T> {
   bool isEmpty();
 
   /// Checks if the specified element is contained in this collection.
-  @override
   bool contains(T element);
 
   @override

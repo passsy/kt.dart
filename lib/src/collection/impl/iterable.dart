@@ -13,7 +13,7 @@ class EmptyIterable<T> extends KtIterable<T> {
 class DartIterable<T> extends KtIterable<T> {
   DartIterable(this._iterable);
 
-  Iterable<T> _iterable;
+  final Iterable<T> _iterable;
 
   @override
   Iterable<T> get iter => _iterable;
@@ -26,7 +26,7 @@ class DartMutableIterable<T> extends KtMutableIterable<T> {
   DartMutableIterable(this._iterable);
 
   // only allow lists for now, because the mutable iterator only supports lists
-  List<T> _iterable;
+  final List<T> _iterable;
 
   @override
   Iterable<T> get iter => _iterable;

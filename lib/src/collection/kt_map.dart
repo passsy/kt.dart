@@ -35,6 +35,7 @@ abstract class KtMap<K, V> {
   /// kt.dart world.
   ///
   /// - Use [iter] to iterate over the elements of this [KtMap] using a for-loop
+  // ignore: comment_references
   /// - Use [KtMapExtensions.toMap] to copy the map
   Map<K, V> asMap();
 
