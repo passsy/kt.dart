@@ -1755,3 +1755,17 @@ extension NestedKtIterableExtensions<T> on KtIterable<KtIterable<T>> {
   }
 }
 
+extension UnzipKtIterableExtensions<T, R> on KtIterable<KtPair<T, R>> {
+  /// Returns a pair of lists, where
+  /// *first* list is built from the first values of each pair from this collection,
+  /// *second* list is built from the second values of each pair from this collection.
+  KtPair<KtList<T>, KtList<R>> unzip() {
+    final listT = KtMutableList<T>.empty();
+    final listR = KtMutableList<R>.empty();
+    for (final pair in iter) {
+      listT.add(pair.first);
+      listR.add(pair.second);
+    }
+    return listT.to(listR);
+  }
+}
