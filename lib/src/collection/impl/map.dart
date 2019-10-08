@@ -74,6 +74,12 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
     return entries.joinToString(
         separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
   }
+
+  String _entryToString(KtMapEntry<K, V> entry) =>
+      "${_toString(entry.key)}=${_toString(entry.value)}";
+
+  String _toString(Object o) =>
+      identical(o, this) ? "(this Map)" : o.toString();
 }
 
 class _Entry<K, V> extends KtMapEntry<K, V> {

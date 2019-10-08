@@ -352,11 +352,4 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   }
 
   KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
-
-  String _entryToString(KtMapEntry<K, V> entry) =>
-      "${__toString(entry.key)}=${__toString(entry.value)}";
-
-  // TODO report: conflicts with another _toString method
-  String __toString(Object o) =>
-      identical(o, this) ? "(this Map)" : o.toString();
 }
