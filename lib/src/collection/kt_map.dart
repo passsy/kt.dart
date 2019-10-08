@@ -543,3 +543,8 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// The returned map preserves the entry iteration order of the original map.
   KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
 }
+
+extension NullableKtMapExtensions<K, V> on KtMap<K, V> /*?*/ {
+  /// Returns the [KtMap] if its not `null`, or the empty [KtMap] otherwise.
+  KtMap<K, V> orEmpty() => this ?? KtMap<K, V>.empty();
+}

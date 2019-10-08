@@ -408,3 +408,8 @@ extension KtListExtensions<T> on KtList<T> {
     return toList();
   }
 }
+
+extension NullableKtListExtensions<T> on KtList<T> /*?*/ {
+  /// Returns this [KtList] if it's not `null` and the empty list otherwise.
+  KtList<T> orEmpty() => this ?? KtList<T>.empty();
+}
