@@ -1,3 +1,6 @@
+import 'package:kt_dart/annotation.dart';
+import 'package:kt_dart/collection.dart';
+
 /// Represents a generic pair of two values.
 ///
 /// There is no meaning attached to values in this class, it can be used for any purpose.
@@ -26,6 +29,17 @@ class KtPair<A, B> {
 
   @override
   int get hashCode => first.hashCode ^ second.hashCode;
+}
+
+extension PairBuilder<A> on A {
+  @experimental
+  KtPair<A, B> to<B>(B other) => KtPair(this, other);
+}
+
+extension PairDeconstruction<T> on KtPair<T, T> {
+  /// Converts this pair into a list.
+  @experimental
+  KtList<T> toList() => KtList.from([first, second]);
 }
 
 /// Represents a triad of values
@@ -60,4 +74,10 @@ class KtTriple<A, B, C> {
 
   @override
   int get hashCode => first.hashCode ^ second.hashCode ^ third.hashCode;
+}
+
+extension TripleDeconstruction<T> on KtTriple<T, T, T> {
+  /// Returns string representation of the [Triple] including its [first], [second] and [third] values.
+  @experimental
+  KtList<T> toList() => KtList.from([first, second, third]);
 }
