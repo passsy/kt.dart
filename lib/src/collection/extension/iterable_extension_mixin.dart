@@ -1111,7 +1111,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
-  KtList<T> operator -(KtIterable<T> other) => minus(other);
+  KtList<T> operator -(KtIterable<T> elements) => minus(elements);
 
   /// Returns a list containing all elements of the original collection without the first occurrence of the given [element].
   KtList<T> minusElement(T element) {
@@ -1188,7 +1188,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///          .map((it) => it.toUpperCase())
   ///          .getOrNull(0); // prints: a
   ///
-  /// Without the cascade syntax (..) [KtList.getOrNull] wouldn't be available.
+  /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
   void onEach(void Function(T) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");

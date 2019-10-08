@@ -5,7 +5,6 @@ export "package:kt_dart/exception.dart";
 export "package:kt_dart/src/collection/collections.dart";
 export "package:kt_dart/src/collection/comparisons.dart";
 export "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-export "package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/list_extension_mixin.dart";

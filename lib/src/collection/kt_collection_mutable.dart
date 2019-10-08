@@ -41,5 +41,3 @@ abstract class KtMutableCollection<T>
   /// Removes all elements from this collection.
   void clear();
 }
-
-abstract class KtMutableCollectionExtension<T> {}

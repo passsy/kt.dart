@@ -1,5 +1,3 @@
-import "dart:math" as math show Random;
-
 import "package:kt_dart/collection.dart";
 
 /// A generic collection of elements. Methods in this interface support only read-only access to the collection;
@@ -23,21 +21,4 @@ abstract class KtCollection<T> implements KtIterable<T> {
   // Bulk Operations
   /// Checks if all elements in the specified collection are contained in this collection.
   bool containsAll(KtCollection<T> elements);
-
-  // TODO enable again
-  //@override
-  //KtList<T> drop(int n);
-}
-
-abstract class KtCollectionExtension<T> {
-  /// Returns `true` if the collection is not empty.
-  bool isNotEmpty();
-
-  /// Returns a random element from this collection.
-  ///
-  /// @throws NoSuchElementException if this collection is empty.
-  T random([math.Random random]);
-
-  /// Returns a [KtMutableList] filled with all elements of this collection.
-  KtMutableList<T> toMutableList();
 }

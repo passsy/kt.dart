@@ -105,30 +105,3 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   @override
   KtMutableList<T> subList(int fromIndex, int toIndex);
 }
-
-abstract class KtMutableListExtension<T> {
-  /// Fills the list with the provided [value].
-  ///
-  /// Each element in the list gets replaced with the [value].
-  void fill(T value);
-
-  /// Reverses elements in the list in-place.
-  void reverse();
-
-  /// Sorts elements in the list in-place according to natural sort order of the value returned by specified [selector] function.
-  void sortBy<R extends Comparable<R>>(R Function(T) selector);
-
-  /// Sorts elements in the list in-place descending according to natural sort order of the value returned by specified [selector] function.
-  void sortByDescending<R extends Comparable<R>>(R Function(T) selector);
-
-  /// Sorts elements in the list in-place according to the specified [comparator]
-  void sortWith(Comparator<T> comparator);
-
-  /// Swaps the elements at the specified positions in the specified list.
-  /// (If the specified positions are equal, invoking this method leaves
-  /// the list unchanged.)
-  void swap(int indexA, int indexB);
-
-  /// Shuffles elements in the list.
-  void shuffle([Random random]);
-}
