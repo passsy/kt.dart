@@ -1743,3 +1743,15 @@ class _MovingSubList<T> {
 
   int get size => _size;
 }
+
+extension NestedKtIterableExtensions<T> on KtIterable<KtIterable<T>> {
+  /// Returns a single list of all elements from all collections in the given collection.
+  KtList<T> flatten() {
+    final result = KtMutableList<T>.empty();
+    for (final element in iter) {
+      result.addAll(element);
+    }
+    return result;
+  }
+}
+
