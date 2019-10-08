@@ -34,7 +34,10 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtIterable<T> asIterable() => this;
 
   KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform) {
-    return associateTo(linkedMapFrom<K, V>(), transform);
+    final map = associateTo(linkedMapFrom<K, V>(), transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartLinkedHashMap<String, String>' is not a subtype of type 'Null'
+    return map;
   }
 
   KtMap<K, T> associateBy<K>(K Function(T) keySelector) {
@@ -44,7 +47,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   KtMap<K, V> associateByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
-    return associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
+    final map =
+        associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type 'DartLinkedHashMap<int, String>' is not a subtype of type 'Null'
+    return map;
   }
 
   M associateByTo<K, V, M extends KtMutableMap<K, V>>(
@@ -64,7 +71,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   M associateTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, KtPair<K, V> Function(T) transform) {
     assert(() {
@@ -78,7 +84,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
@@ -86,7 +91,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return associated;
   }
 
-  
   M associateWithTo<V, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
@@ -110,7 +114,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   double averageBy(num Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -125,7 +128,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return count == 0 ? double.nan : sum / count;
   }
 
-  
   KtList<KtList<T>> chunked(int size) {
     assert(() {
       if (size == null) throw ArgumentError("size can't be null");
@@ -134,7 +136,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return windowed(size, step: size, partialWindows: true);
   }
 
-  
   KtList<R> chunkedTransform<R>(int size, R Function(KtList<T>) transform) {
     assert(() {
       if (size == null) throw ArgumentError("size can't be null");
@@ -143,13 +144,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return windowedTransform(size, transform, step: size, partialWindows: true);
   }
 
-  
   bool contains(T element) {
     if (this is KtCollection) return (this as KtCollection).contains(element);
     return indexOf(element) >= 0;
   }
 
-  
   int count([bool Function(T) predicate]) {
     if (predicate == null && this is KtCollection) {
       return (this as KtCollection).size;
@@ -168,10 +167,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return count;
   }
 
-  
-  KtList<T> distinct() => toMutableSet().toList();
+  KtList<T> distinct() => KtIterableExtensions(toMutableSet()).toList();
 
-  
   KtList<T> distinctBy<K>(K Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -188,7 +185,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   KtList<T> drop(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -204,7 +200,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   KtList<T> dropWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -225,7 +220,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   T elementAt(int index) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -238,7 +232,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     });
   }
 
-  
   T elementAtOrElse(int index, T Function(int) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -261,7 +254,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return defaultValue(index);
   }
 
-  
   T elementAtOrNull(int index) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
@@ -281,7 +273,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return null;
   }
 
-  
   KtList<T> filter(bool Function(T) predicate) {
     final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -289,7 +280,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return filtered;
   }
 
-  
   KtList<T> filterIndexed(bool Function(int index, T) predicate) {
     final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -297,7 +287,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return filtered;
   }
 
-  
   C filterIndexedTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
@@ -322,7 +311,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   KtList<R> filterIsInstance<R>() {
     final destination = mutableListOf<R>();
     for (final element in iter) {
@@ -333,7 +321,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   KtList<T> filterNot(bool Function(T) predicate) {
     final list = filterNotTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -341,7 +328,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   KtList<T> filterNotNull() {
     final list = filterNotNullTo(mutableListOf<T>());
     // TODO ping dort-lang/sdk team to check type bug
@@ -349,7 +335,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
@@ -371,7 +356,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   C filterNotTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -394,7 +378,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   C filterTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
@@ -417,7 +400,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   T find(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -426,7 +408,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return firstOrNull(predicate);
   }
 
-  
   T findLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -435,7 +416,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return lastOrNull(predicate);
   }
 
-  
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -452,7 +432,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   T firstOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) {
@@ -476,7 +455,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   KtList<R> flatMap<R>(KtIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
@@ -484,7 +462,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   C flatMapTo<R, C extends KtMutableCollection<R>>(
       C destination, KtIterable<R> Function(T) transform) {
     assert(() {
@@ -499,7 +476,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   R fold<R>(R initial, R Function(R acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -512,7 +488,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return accumulator;
   }
 
-  
   R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -526,7 +501,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return accumulator;
   }
 
-  
   void forEach(void Function(T element) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -539,7 +513,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   void forEachIndexed(void Function(int index, T element) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -551,13 +524,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   KtMap<K, KtList<T>> groupBy<K>(K Function(T) keySelector) {
     final groups = groupByTo(linkedMapFrom<K, KtMutableList<T>>(), keySelector);
     return groups;
   }
 
-  
   KtMap<K, KtList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final groups = groupByToTransform(
@@ -565,7 +536,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return groups;
   }
 
-  
   M groupByTo<K, M extends KtMutableMap<K, KtMutableList<dynamic>>>(
       M destination, K Function(T) keySelector) {
     assert(() {
@@ -583,13 +553,13 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }());
     for (final element in iter) {
       final key = keySelector(element);
-      final list = destination.getOrPut(key, () => mutableListOf<T>());
+      final list = KtMutableMapExtensions(destination)
+          .getOrPut(key, () => mutableListOf<T>());
       list.add(element);
     }
     return destination;
   }
 
-  
   M groupByToTransform<K, V, M extends KtMutableMap<K, KtMutableList<V>>>(
       M destination, K Function(T) keySelector, V Function(T) valueTransform) {
     assert(() {
@@ -608,7 +578,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   int indexOf(T element) {
     if (this is KtList) return (this as KtList).indexOf(element);
     var index = 0;
@@ -619,7 +588,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return -1;
   }
 
-  
   int indexOfFirst(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -635,7 +603,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return -1;
   }
 
-  
   int indexOfLast(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -652,14 +619,12 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return lastIndex;
   }
 
-  
   KtSet<T> intersect(KtIterable<T> other) {
     final set = toMutableSet();
     set.retainAll(other);
     return set;
   }
 
-  
   String joinToString(
       {String separator = ", ",
       String prefix = "",
@@ -689,7 +654,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return buffer.toString();
   }
 
-  
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) return (this as KtList<T>).last();
@@ -719,7 +683,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   int lastIndexOf(T element) {
     if (this is KtList) return (this as KtList).lastIndexOf(element);
     var lastIndex = -1;
@@ -733,7 +696,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return lastIndex;
   }
 
-  
   T lastOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       if (this is KtList) {
@@ -761,7 +723,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   KtList<R> map<R>(R Function(T) transform) {
     final KtMutableList<R> list = mutableListOf<R>();
     final mapped = mapTo(list, transform);
@@ -770,7 +731,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mapped;
   }
 
-  
   KtList<R> mapIndexed<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -778,7 +738,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mapped;
   }
 
-  
   KtList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -786,7 +745,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mapped;
   }
 
-  
   C mapIndexedNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
@@ -804,7 +762,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   C mapIndexedTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
     assert(() {
@@ -819,7 +776,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   KtList<R> mapNotNull<R>(R Function(T) transform) {
     final mapped = mapNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -827,7 +783,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mapped;
   }
 
-  
   C mapNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
     assert(() {
@@ -844,7 +799,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   C mapTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
     assert(() {
@@ -858,7 +812,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   num max() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -879,7 +832,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return max;
   }
 
-  
   T maxBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -900,7 +852,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return maxElement;
   }
 
-  
   T maxWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -918,7 +869,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return max;
   }
 
-  
   num min() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -939,7 +889,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return min;
   }
 
-  
   KtList<T> minus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -948,13 +897,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     if (this is KtCollection && (this as KtCollection).isEmpty()) {
       return toList();
     }
-    return filterNot((it) => elements.contains(it));
+    return filterNot((it) => KtIterableExtensions(elements).contains(it));
   }
 
-  
   KtList<T> operator -(KtIterable<T> other) => minus(other);
 
-  
   KtList<T> minusElement(T element) {
     final result = mutableListOf<T>();
     var removed = false;
@@ -969,7 +916,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return result;
   }
 
-  
   T minBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -990,7 +936,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return minElement;
   }
 
-  
   T minWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -1008,7 +953,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return min;
   }
 
-  
   bool none([bool Function(T) predicate]) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
     if (predicate == null) return !iterator().hasNext();
@@ -1020,7 +964,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return true;
   }
 
-  
   void onEach(void Function(T) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -1031,7 +974,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   KtPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -1049,7 +991,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return KtPair(first, second);
   }
 
-  
   KtList<T> plus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -1061,10 +1002,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return result;
   }
 
-  
   KtList<T> operator +(KtIterable<T> elements) => plus(elements);
 
-  
   KtList<T> plusElement(T element) {
     final result = mutableListOf<T>();
     result.addAll(asIterable());
@@ -1072,7 +1011,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return result;
   }
 
-  
   S reduce<S>(S Function(S acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -1089,7 +1027,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return accumulator;
   }
 
-  
   S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
     assert(() {
       if (operation == null) throw ArgumentError("operation can't be null");
@@ -1108,7 +1045,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
-  
+
   KtIterable<T> requireNoNulls() {
     for (final element in iter) {
       if (element == null) {
@@ -1118,7 +1055,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return this;
   }
 
-  
   KtList<T> reversed() {
     if (this is KtCollection && (this as KtCollection).size <= 1) {
       return toList();
@@ -1128,7 +1064,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   T single([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1161,7 +1096,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   T singleOrNull([bool Function(T) predicate]) {
     if (predicate == null) {
       final i = iterator();
@@ -1186,10 +1120,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
-  
   KtList<T> sorted() => sortedWith(naturalOrder());
 
-  
   KtList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1198,7 +1130,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sortedWith(compareBy(selector));
   }
 
-  
   KtList<T> sortedByDescending<R extends Comparable<R>>(
       R Function(T) selector) {
     assert(() {
@@ -1208,10 +1139,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sortedWith(compareByDescending(selector));
   }
 
-  
   KtList<T> sortedDescending() => sortedWith(reverseOrder());
 
-  
   KtList<T> sortedWith(Comparator<T> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -1223,7 +1152,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mutableList;
   }
 
-  
   KtSet<T> subtract(KtIterable<T> other) {
     assert(() {
       if (other == null) throw ArgumentError("other can't be null");
@@ -1234,7 +1162,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return set;
   }
 
-  
   num sum() {
     if (this is! KtIterable<num>) {
       throw ArgumentError(
@@ -1248,7 +1175,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sum;
   }
 
-  
   int sumBy(int Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1261,7 +1187,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sum;
   }
 
-  
   double sumByDouble(double Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -1274,7 +1199,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sum;
   }
 
-  
   KtList<T> take(int n) {
     assert(() {
       if (n == null) throw ArgumentError("n can't be null");
@@ -1301,10 +1225,9 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       list.add(item);
     }
-    return list.toList();
+    return KtIterableExtensions(list).toList();
   }
 
-  
   KtList<T> takeWhile(bool Function(T) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -1320,7 +1243,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
       if (destination == null) throw ArgumentError("destination can't be null");
@@ -1340,22 +1262,16 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return destination;
   }
 
-  
   KtMutableSet<T> toHashSet() => hashSetFrom(iter);
 
-  
   KtList<T> toList() => listFrom(iter);
 
-  
   KtMutableList<T> toMutableList() => mutableListFrom(iter);
 
-  
   KtMutableSet<T> toMutableSet() => linkedSetFrom(iter);
 
-  
   KtSet<T> toSet() => linkedSetFrom(iter);
 
-  
   KtSet<T> union(KtIterable<T> other) {
     assert(() {
       if (other == null) throw ArgumentError("other can't be null");
@@ -1366,7 +1282,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return set;
   }
 
-  
   KtList<KtList<T>> windowed(int size,
       {int step = 1, bool partialWindows = false}) {
     assert(() {
@@ -1391,7 +1306,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return result;
   }
 
-  
   KtList<R> windowedTransform<R>(int size, R Function(KtList<T>) transform,
       {int step = 1, bool partialWindows = false}) {
     assert(() {
@@ -1417,11 +1331,9 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return result;
   }
 
-  
   KtList<KtPair<T, R>> zip<R>(KtIterable<R> other) =>
       zipTransform(other, (T a, R b) => KtPair(a, b));
 
-  
   KtList<V> zipTransform<R, V>(
       KtIterable<R> other, V Function(T a, R b) transform) {
     assert(() {
@@ -1438,11 +1350,9 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
-  
   KtList<KtPair<T, T>> zipWithNext<R>() =>
       zipWithNextTransform((a, b) => KtPair(a, b));
 
-  
   KtList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
     assert(() {
       if (transform == null) throw ArgumentError("transform can't be null");

@@ -5,7 +5,7 @@ homepage: https://github.com/passsy/kt.dart
 author: Pascal Welsch <pascal.welsch@gmail.com>
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.6.0-dev.5.0 <3.0.0'
 
 dev_dependencies:
   test: ^1.0.0

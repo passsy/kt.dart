@@ -8,10 +8,10 @@ export "package:kt_dart/src/collection/extension/collection_extension_mixin.dart
 export "package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
-//export "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
+export "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
 export "package:kt_dart/src/collection/extension/list_mutable_extension_mixin.dart";
-//export "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
-//export "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
+export "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
+export "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
 export "package:kt_dart/src/collection/kt_collection.dart";
 export "package:kt_dart/src/collection/kt_collection_mutable.dart";
 export "package:kt_dart/src/collection/kt_iterable.dart";

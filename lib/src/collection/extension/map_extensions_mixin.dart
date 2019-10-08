@@ -1,9 +1,7 @@
 import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/util/errors.dart";
 
-
 extension KtMapExtensions<K, V> on KtMap<K, V> {
-  
   bool all(Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -20,7 +18,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return true;
   }
 
-  
   bool any(Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -37,7 +34,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return false;
   }
 
-  
   int count([bool Function(KtMapEntry<K, V>) predicate]) {
     if (predicate == null) {
       return size;
@@ -52,14 +48,12 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return count;
   }
 
-  
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
 
-  
   KtMap<K, V> filterKeys(bool Function(K) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -74,14 +68,12 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return result;
   }
 
-  
   KtMap<K, V> filterNot(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterNotTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
     return filtered;
   }
 
-  
   M filterNotTo<M extends KtMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
@@ -104,7 +96,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return destination;
   }
 
-  
   M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
@@ -127,7 +118,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return destination;
   }
 
-  
   KtMap<K, V> filterValues(bool Function(V) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -142,7 +132,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return result;
   }
 
-  
   void forEach(Function(K key, V value) action) {
     assert(() {
       if (action == null) throw ArgumentError("action can't be null");
@@ -151,7 +140,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     entries.forEach((entry) => action(entry.key, entry.value));
   }
 
-  
   V getOrElse(K key, V Function() defaultValue) {
     assert(() {
       if (defaultValue == null) {
@@ -162,7 +150,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return get(key) ?? defaultValue();
   }
 
-  
   V getValue(K key) {
     final value = get(key);
     if (value == null) {
@@ -171,25 +158,20 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return value;
   }
 
-  
   KtIterator<KtMapEntry<K, V>> iterator() => entries.iterator();
 
-  
   bool isNotEmpty() => !isEmpty();
 
-  
   KtList<R> map<R>(R Function(KtMapEntry<K, V> entry) transform) {
     final mapped = mapTo(mutableListOf<R>(), transform);
     return mapped;
   }
 
-  
   KtMap<R, V> mapKeys<R>(R Function(KtMapEntry<K, V>) transform) {
     final mapped = mapKeysTo(linkedMapFrom<R, V>(), transform);
     return mapped;
   }
 
-  
   M mapKeysTo<R, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
@@ -210,7 +192,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return destination;
   }
 
-  
   M mapTo<R, M extends KtMutableCollection<dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
@@ -232,13 +213,11 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return destination;
   }
 
-  
   KtMap<K, R> mapValues<R>(R Function(KtMapEntry<K, V>) transform) {
     final mapped = mapValuesTo(linkedMapFrom<K, R>(), transform);
     return mapped;
   }
 
-  
   M mapValuesTo<R, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
@@ -259,7 +238,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return destination;
   }
 
-  
   KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
@@ -281,7 +259,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return maxElement;
   }
 
-  
   KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -299,13 +276,10 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return max;
   }
 
-  
   KtMap<K, V> minus(K key) => toMutableMap()..remove(key);
 
-  
   KtMap<K, V> operator -(K key) => minus(key);
 
-  
   KtMapEntry<K, V> minBy<R extends Comparable<R>>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
@@ -327,7 +301,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return minElement;
   }
 
-  
   KtMapEntry<K, V> minWith(Comparator<KtMapEntry<K, V>> comparator) {
     assert(() {
       if (comparator == null) throw ArgumentError("comparator can't be null");
@@ -345,7 +318,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return min;
   }
 
-  
   bool none(Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
@@ -362,7 +334,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return true;
   }
 
-  
   KtMap<K, V> plus(KtMap<K, V> map) {
     assert(() {
       if (map == null) throw ArgumentError("map can't be null");
@@ -371,30 +342,21 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return toMutableMap()..putAll(map);
   }
 
-  
   KtMap<K, V> operator +(KtMap<K, V> map) => plus(map);
 
-  
   KtList<KtPair<K, V>> toList() => listFrom(iter.map((it) => it.toPair()));
 
-  
   KtMap<K, V> toMap() {
     if (size == 0) return emptyMap();
     return toMutableMap();
   }
 
-  
   KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
 
-  
-  String toString() {
-    return entries.joinToString(
-        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
-  }
-
   String _entryToString(KtMapEntry<K, V> entry) =>
-      "${_toString(entry.key)}=${_toString(entry.value)}";
+      "${__toString(entry.key)}=${__toString(entry.value)}";
 
-  String _toString(Object o) =>
+  // TODO report: conflicts with another _toString method
+  String __toString(Object o) =>
       identical(o, this) ? "(this Map)" : o.toString();
 }

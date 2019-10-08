@@ -11,14 +11,4 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
     final r = random ?? math.Random();
     return elementAt(r.nextInt(size));
   }
-
-  String toString() {
-    return joinToString(
-      separator: ", ",
-      prefix: "[",
-      postfix: "]",
-      transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
-    );
-  }
 }

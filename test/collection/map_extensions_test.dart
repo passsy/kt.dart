@@ -1,5 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 import "package:test/test.dart";
 
@@ -754,9 +753,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 }
 
-class ThirdPartyMap<K, V> extends Object
-    with KtMapExtensionsMixin<K, V>
-    implements KtMap<K, V> {
+class ThirdPartyMap<K, V> implements KtMap<K, V> {
   ThirdPartyMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification

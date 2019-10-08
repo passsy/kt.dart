@@ -1,10 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_mutable_extension_mixin.dart";
 import "package:kt_dart/src/collection/impl/iterator.dart";
 import "package:kt_dart/src/util/hash.dart";
 
@@ -201,5 +195,16 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
       if (other[i] != this[i]) return false;
     }
     return true;
+  }
+
+  @override
+  String toString() {
+    return joinToString(
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
   }
 }

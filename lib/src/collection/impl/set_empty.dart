@@ -1,6 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
 import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
 

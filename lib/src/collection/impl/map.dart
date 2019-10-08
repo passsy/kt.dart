@@ -1,5 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
 class DartMap<K, V> extends Object implements KtMap<K, V> {
@@ -68,6 +67,12 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
         .map((key) => hash2(key.hashCode, _map[key].hashCode))
         .toList(growable: false)
           ..sort());
+  }
+
+  @override
+  String toString() {
+    return entries.joinToString(
+        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
   }
 }
 

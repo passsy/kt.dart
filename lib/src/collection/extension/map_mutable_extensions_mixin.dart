@@ -1,8 +1,6 @@
 import "package:kt_dart/collection.dart";
 
-
 extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
-  
   V getOrPut(K key, V Function() defaultValue) {
     assert(() {
       if (defaultValue == null) {
@@ -17,10 +15,8 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
     return answer;
   }
 
-  
   KtMutableIterator<KtMutableMapEntry<K, V>> iterator() => entries.iterator();
 
-  
   void putAllPairs(KtIterable<KtPair<K, V>> pairs) {
     assert(() {
       if (pairs == null) throw ArgumentError("pairs can't be null");
@@ -31,6 +27,5 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
     }
   }
 
-  
   V putIfAbsent(K key, V value) => get(key) ?? put(key, value);
 }

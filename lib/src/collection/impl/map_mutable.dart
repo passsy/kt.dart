@@ -1,6 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
-import "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
 class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
@@ -112,6 +110,12 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
       .map((key) => hash2(key.hashCode, _map[key].hashCode))
       .toList(growable: false)
         ..sort());
+
+  @override
+  String toString() {
+    return entries.joinToString(
+        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
+  }
 }
 
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
