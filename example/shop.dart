@@ -148,13 +148,14 @@ final KtMap<String, Customer> jbCustomers =
 final orderedProducts =
     setOf(idea, reSharper, dotTrace, dotMemory, rubyMine, webStorm, phpStorm);
 
-final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
-    .map((it) => jbCustomers[it]);
+// TODO type inference bug https://github.com/dart-lang/sdk/issues/38755
+//final sortedCustomers = listOf(cooper, nathan, bajram, asuka, lucas, riku, reka)
+//    .map((it) => jbCustomers[it]);
 
-final groupedByCities = mapFrom({
-  canberra: listOf(lucas, cooper),
-  vancouver: listOf(nathan),
-  budapest: listOf(reka),
-  ankara: listOf(bajram),
-  tokyo: listOf(asuka, riku),
-}).mapValues((it) => it.value.map((name) => jbCustomers[name]));
+//final groupedByCities = mapFrom({
+//  canberra: listOf(lucas, cooper),
+//  vancouver: listOf(nathan),
+//  budapest: listOf(reka),
+//  ankara: listOf(bajram),
+//  tokyo: listOf(asuka, riku),
+//}).mapValues((it) => it.value.map((name) => jbCustomers[name]));
