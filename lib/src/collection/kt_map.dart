@@ -282,6 +282,19 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return value;
   }
 
+  /// Returns this map if it's not empty
+  /// or the result of calling [defaultValue] function if the map is empty.
+  R ifEmpty<R extends KtMap<K, V>>(R Function() defaultValue) {
+    assert(() {
+      if (defaultValue == null) {
+        throw ArgumentError("defaultValue can't be null");
+      }
+      return true;
+    }());
+    if (isEmpty()) return defaultValue();
+    return this;
+  }
+
   /// Returns `true` if this map is not empty.
   bool isNotEmpty() => !isEmpty();
 
