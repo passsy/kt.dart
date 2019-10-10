@@ -75,9 +75,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   int get size => _list.length;
 
   @override
-  int get lastIndex => size - 1;
-
-  @override
   bool add(T element) {
     _list.add(element);
     return true;

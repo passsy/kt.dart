@@ -67,9 +67,6 @@ class EmptyList<T> extends Object implements KtList<T> {
   int get size => 0;
 
   @override
-  int get lastIndex => -1;
-
-  @override
   KtList<T> subList(int fromIndex, int toIndex) {
     assert(() {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
