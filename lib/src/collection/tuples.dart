@@ -1,5 +1,5 @@
-import 'package:kt_dart/annotation.dart';
-import 'package:kt_dart/collection.dart';
+import "package:kt_dart/annotation.dart";
+import "package:kt_dart/collection.dart";
 
 /// Represents a generic pair of two values.
 ///
@@ -77,7 +77,7 @@ class KtTriple<A, B, C> {
 }
 
 extension TripleDeconstruction<T> on KtTriple<T, T, T> {
-  /// Returns string representation of the [Triple] including its [first], [second] and [third] values.
+  /// Returns string representation of the [KtTriple] including its [first], [second] and [third] values.
   @experimental
   KtList<T> toList() => KtList.from([first, second, third]);
 }
