@@ -12,6 +12,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
+    - run: pub get
     - run: ./tool/run_coverage_locally.sh
     - uses: codecov/codecov-action@v1.0.2
       with:

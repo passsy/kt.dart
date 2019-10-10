@@ -12,6 +12,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
+    - run: pub get
     - run: pub run tool/reformat.dart
     - run: dartanalyzer --fatal-infos --fatal-warnings .
     - run: pub publish -n
