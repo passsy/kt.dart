@@ -1,0 +1,17 @@
+name: Analyze
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+    
+    container:
+      image:  google/dart:2.6-dev
+    
+    steps:
+    - uses: actions/checkout@master
+    - run: pub run tool/reformat.dart
+    - run: dartanalyzer --fatal-infos --fatal-warnings .
+    - run: pub publish -n
