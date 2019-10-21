@@ -1514,22 +1514,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("max", () {
     test("gets max value int", () {
       final iterable = iterableOf([1, 3, 2]);
-      expect(iterable.max(), 3);
+      final int max = iterable.max();
+      expect(max, 3);
     });
 
     test("gets max value double", () {
       final iterable = iterableOf([1.0, 3.2, 2.0]);
-      expect(iterable.max(), 3.2);
+      final double max = iterable.max();
+      expect(max, 3.2);
     });
 
     test("gets max value comparable", () {
       final iterable = iterableOf(["a", "x", "b"]);
-      expect(iterable.max(), "x");
+      final String max = iterable.max();
+      expect(max, "x");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.max(), null);
+      final int max = iterable.max();
+      expect(max, null);
     });
   });
 
@@ -1580,22 +1584,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("min", () {
     test("gets min int value", () {
       final KtIterable<int> iterable = iterableOf([3, 1, 2]);
-      expect(iterable.min(), 1);
+      final int min = iterable.min();
+      expect(min, 1);
     });
 
     test("gets min double value", () {
       final KtIterable<double> iterable = iterableOf([3.2, 1.4, 2.2]);
-      expect(iterable.min(), 1.4);
+      final double min = iterable.min();
+      expect(min, 1.4);
     });
 
     test("gets max value comparable", () {
       final iterable = iterableOf(["x", "b", "a", "h"]);
-      expect(iterable.min(), "a");
+      final String min = iterable.min();
+      expect(min, "a");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.min(), null);
+      final int min = iterable.min();
+      expect(min, null);
     });
   });
 
