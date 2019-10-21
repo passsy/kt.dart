@@ -906,6 +906,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("flatten", () {
+    test("empty", () {
+      final KtIterable<KtIterable<int>> nested = emptyIterable();
+      expect(nested.flatten(), emptyList());
+    });
+
+    test("flatten KtIterable<KtIterable<T>>", () {
+      final nested = iterableOf([
+        iterableOf([1, 2, 3]),
+        iterableOf([4, 5, 6]),
+        iterableOf([7, 8, 9]),
+      ]);
+      if (ordered) {
+        expect(nested.flatten(), listFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      } else {
+        expect(nested.flatten().toSet(), setFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      }
+    });
+  });
+
   group("fold", () {
     if (ordered) {
       test("fold division", () {
