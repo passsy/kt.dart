@@ -4,78 +4,82 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("list", () {
-    testList(
-        <T>() => emptyList<T>(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            listOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
-  });
-  group("KtList", () {
-    testList(
-        <T>() => KtList<T>.empty(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            KtList.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtList.from(iterable));
-  });
-  group("mutableList", () {
-    testList(
-        <T>() => mutableListOf<T>(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            mutableListOf(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable),
-        mutable: true);
-  });
-  group("KtMutableList", () {
-    testList(
-        <T>() => KtMutableList<T>.empty(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            KtMutableList.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable),
-        mutable: true);
+  group("KtListExtensions", () {
+    group("list", () {
+      testList(
+          <T>() => emptyList<T>(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              listOf(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
+    });
+    group("KtList", () {
+      testList(
+          <T>() => KtList<T>.empty(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              KtList.of(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) => KtList.from(iterable));
+    });
+    group("mutableList", () {
+      testList(
+          <T>() => mutableListOf<T>(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              mutableListOf(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable),
+          mutable: true);
+    });
+    group("KtMutableList", () {
+      testList(
+          <T>() => KtMutableList<T>.empty(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              KtMutableList.of(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) =>
+              KtMutableList.from(iterable),
+          mutable: true);
+    });
   });
 }
 

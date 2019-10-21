@@ -4,170 +4,174 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("KtSet", () {
-    testSet(
-      emptySet: <T>() => KtSet<T>.empty(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          KtSet<T>.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) => KtSet.from(iterable),
-      mutable: false,
-    );
-  });
-  group("set", () {
-    testSet(
-      emptySet: <T>() => emptySet<T>(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          setOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) => setFrom(iterable),
-      mutable: false,
-    );
-  });
-  group("KtMutableSet", () {
-    testSet(
-      emptySet: <T>() => KtMutableSet<T>.empty(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          KtMutableSet<T>.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) =>
-          KtMutableSet.from(iterable),
-      mutable: true,
-    );
-  });
-  group("mutableSet", () {
-    testSet(
-      emptySet: <T>() => mutableSetOf<T>(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          mutableSetOf(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) =>
-          mutableSetFrom(iterable),
-      mutable: true,
-    );
-  });
+  group("KtSetExtensions", () {
+    group("KtSet", () {
+      testSet(
+        emptySet: <T>() => KtSet<T>.empty(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KtSet<T>.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) => KtSet.from(iterable),
+        mutable: false,
+      );
+    });
+    group("set", () {
+      testSet(
+        emptySet: <T>() => emptySet<T>(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            setOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) => setFrom(iterable),
+        mutable: false,
+      );
+    });
+    group("KtMutableSet", () {
+      testSet(
+        emptySet: <T>() => KtMutableSet<T>.empty(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KtMutableSet<T>.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            KtMutableSet.from(iterable),
+        mutable: true,
+      );
+    });
+    group("mutableSet", () {
+      testSet(
+        emptySet: <T>() => mutableSetOf<T>(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            mutableSetOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            mutableSetFrom(iterable),
+        mutable: true,
+      );
+    });
 
-  group("KtHashSet", () {
-    testSet(
-      emptySet: <T>() => KtHashSet<T>.empty(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          KtHashSet<T>.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) =>
-          KtHashSet.from(iterable),
-      mutable: true,
-    );
-  });
-  group("hashSet", () {
-    testSet(
-      emptySet: <T>() => hashSetOf<T>(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          hashSetOf(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) => hashSetFrom(iterable),
-      mutable: true,
-    );
-  });
+    group("KtHashSet", () {
+      testSet(
+        emptySet: <T>() => KtHashSet<T>.empty(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KtHashSet<T>.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            KtHashSet.from(iterable),
+        mutable: true,
+      );
+    });
+    group("hashSet", () {
+      testSet(
+        emptySet: <T>() => hashSetOf<T>(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            hashSetOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            hashSetFrom(iterable),
+        mutable: true,
+      );
+    });
 
-  group("KtLinkedSet", () {
-    testSet(
-      emptySet: <T>() => KtLinkedSet<T>.empty(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          KtLinkedSet<T>.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) =>
-          KtLinkedSet.from(iterable),
-      mutable: true,
-    );
-  });
-  group("linkedSet", () {
-    testSet(
-      emptySet: <T>() => linkedSetOf<T>(),
-      setOf: <T>(
-              [T arg0,
-              T arg1,
-              T arg2,
-              T arg3,
-              T arg4,
-              T arg5,
-              T arg6,
-              T arg7,
-              T arg8,
-              T arg9]) =>
-          linkedSetOf(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      setFrom: <T>([Iterable<T> iterable = const []]) =>
-          linkedSetFrom(iterable),
-      mutable: true,
-    );
+    group("KtLinkedSet", () {
+      testSet(
+        emptySet: <T>() => KtLinkedSet<T>.empty(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            KtLinkedSet<T>.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            KtLinkedSet.from(iterable),
+        mutable: true,
+      );
+    });
+    group("linkedSet", () {
+      testSet(
+        emptySet: <T>() => linkedSetOf<T>(),
+        setOf: <T>(
+                [T arg0,
+                T arg1,
+                T arg2,
+                T arg3,
+                T arg4,
+                T arg5,
+                T arg6,
+                T arg7,
+                T arg8,
+                T arg9]) =>
+            linkedSetOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        setFrom: <T>([Iterable<T> iterable = const []]) =>
+            linkedSetFrom(iterable),
+        mutable: true,
+      );
+    });
   });
 }
 
