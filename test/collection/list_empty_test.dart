@@ -4,41 +4,40 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("emptyList", () {
-    testEmptyList(<T>() => emptyList<T>(), mutable: false);
-  });
-  group("listOf", () {
-    testEmptyList(<T>() => listOf<T>(), mutable: false);
-  });
-  group("listFrom", () {
-    testEmptyList(<T>() => listFrom<T>(), mutable: false);
-  });
-  group("KtList.empty", () {
-    testEmptyList(<T>() => KtList<T>.empty(), mutable: false);
-  });
-  group("KtList.of", () {
-    testEmptyList(<T>() => KtList<T>.of(), mutable: false);
-  });
-  group("KtList.of", () {
-    testEmptyList(<T>() => KtList<T>.from(), mutable: false);
-  });
-  group("mutableList", () {
-    testEmptyList(<T>() => emptyList<T>());
-  });
-  group("mutableListOf", () {
-    testEmptyList(<T>() => mutableListOf<T>());
-  });
-  group("mutableListFrom", () {
-    testEmptyList(<T>() => mutableListFrom<T>());
-  });
-  group("KtMutableList.empty", () {
-    testEmptyList(<T>() => KtMutableList<T>.empty());
-  });
-  group("KtMutableList.of", () {
-    testEmptyList(<T>() => KtMutableList<T>.of());
-  });
-  group("KtMutableList.from", () {
-    testEmptyList(<T>() => KtMutableList<T>.from());
+  group("EmptyList", () {
+    group("emptyList", () {
+      testEmptyList(<T>() => emptyList<T>(), mutable: false);
+    });
+    group("listOf", () {
+      testEmptyList(<T>() => listOf<T>(), mutable: false);
+    });
+    group("listFrom", () {
+      testEmptyList(<T>() => listFrom<T>(), mutable: false);
+    });
+    group("KtList.empty", () {
+      testEmptyList(<T>() => KtList<T>.empty(), mutable: false);
+    });
+    group("KtList.of", () {
+      testEmptyList(<T>() => KtList<T>.of(), mutable: false);
+    });
+    group("KtList.of", () {
+      testEmptyList(<T>() => KtList<T>.from(), mutable: false);
+    });
+    group("mutableListOf", () {
+      testEmptyList(<T>() => mutableListOf<T>());
+    });
+    group("mutableListFrom", () {
+      testEmptyList(<T>() => mutableListFrom<T>());
+    });
+    group("KtMutableList.empty", () {
+      testEmptyList(<T>() => KtMutableList<T>.empty());
+    });
+    group("KtMutableList.of", () {
+      testEmptyList(<T>() => KtMutableList<T>.of());
+    });
+    group("KtMutableList.from", () {
+      testEmptyList(<T>() => KtMutableList<T>.from());
+    });
   });
 }
 
@@ -217,6 +216,15 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
         final dartList = emptyList<int>().list;
         final e = catchException<UnsupportedError>(() => dartList.add(1));
         expect(e.message, contains("unmodifiable"));
+      });
+    } else {
+      test("deprecated list property returns an modifiable list", () {
+        final original = emptyList<int>();
+        // ignore: deprecated_member_use_from_same_package
+        final dartList = original.list;
+        dartList.add(1);
+        expect(original, listOf(1));
+        expect(dartList, [1]);
       });
     }
   });

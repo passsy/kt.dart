@@ -4,38 +4,40 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          mutableSetOf(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => mutableSetFrom(iterable),
-    );
-  });
-  group("KMutableSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtMutableSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtMutableSet.from(iterable),
-    );
-  });
-  group("KHashSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtHashSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtHashSet.from(iterable),
-      ordered: false,
-    );
-  });
-  group("KLinkedSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtLinkedSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtLinkedSet.from(iterable),
-    );
+  group("KtMutableSet", () {
+    group("mutableSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            mutableSetOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => mutableSetFrom(iterable),
+      );
+    });
+    group("KtMutableSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtMutableSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtMutableSet.from(iterable),
+      );
+    });
+    group("KtHashSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtHashSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtHashSet.from(iterable),
+        ordered: false,
+      );
+    });
+    group("KtLinkedSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtLinkedSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtLinkedSet.from(iterable),
+      );
+    });
   });
 }
 

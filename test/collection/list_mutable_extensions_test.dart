@@ -6,41 +6,44 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableList", () {
-    testList(
-        <T>() => mutableListOf<T>(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            mutableListOf(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
-  });
-  group("KtMutableList", () {
-    testList(
-        <T>() => KtMutableList<T>.empty(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            KtMutableList.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable));
+  group("KtMutableListExtensions", () {
+    group("mutableList", () {
+      testList(
+          <T>() => mutableListOf<T>(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              mutableListOf(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
+    });
+    group("KtMutableList", () {
+      testList(
+          <T>() => KtMutableList<T>.empty(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              KtMutableList.of(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) =>
+              KtMutableList.from(iterable));
+    });
   });
 }
 
@@ -72,6 +75,16 @@ void testList(
       expect(list.size, 0);
       list.clear();
       expect(list.size, 0);
+    });
+  });
+
+  group("dart property", () {
+    test("dart property is mutating original collection", () {
+      final original = mutableListOf("a", "b", "c");
+      final dartList = original.dart;
+      dartList.add("x");
+      expect(dartList, ["a", "b", "c", "x"]);
+      expect(original, listOf("a", "b", "c", "x"));
     });
   });
 

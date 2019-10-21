@@ -4,31 +4,33 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableList", () {
-    testCollection(<T>() => mutableListOf<T>(),
-        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
-  });
-  group("KtMutableList", () {
-    testCollection(<T>() => KtMutableList<T>.empty(),
-        <T>(Iterable<T> iterable) => KtMutableList.from(iterable));
-  });
-  group("hashset", () {
-    testCollection(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
-        ordered: false);
-  });
-  group("KHashSet", () {
-    testCollection(<T>() => KtHashSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KtHashSet.from(iterable),
-        ordered: false);
-  });
-  group("linkedSet", () {
-    testCollection(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
-  });
-  group("KLinkedSet", () {
-    testCollection(<T>() => KtLinkedSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KtLinkedSet.from(iterable));
+  group("KtMutableCollection", () {
+    group("mutableList", () {
+      testCollection(<T>() => mutableListOf<T>(),
+          <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+    });
+    group("KtMutableList", () {
+      testCollection(<T>() => KtMutableList<T>.empty(),
+          <T>(Iterable<T> iterable) => KtMutableList.from(iterable));
+    });
+    group("hashset", () {
+      testCollection(<T>() => hashSetOf<T>(),
+          <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+          ordered: false);
+    });
+    group("KHashSet", () {
+      testCollection(<T>() => KtHashSet<T>.empty(),
+          <T>(Iterable<T> iterable) => KtHashSet.from(iterable),
+          ordered: false);
+    });
+    group("linkedSet", () {
+      testCollection(<T>() => linkedSetOf<T>(),
+          <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+    });
+    group("KLinkedSet", () {
+      testCollection(<T>() => KtLinkedSet<T>.empty(),
+          <T>(Iterable<T> iterable) => KtLinkedSet.from(iterable));
+    });
   });
 }
 

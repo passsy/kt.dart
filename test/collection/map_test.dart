@@ -4,29 +4,31 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mapFrom", () {
-    testMap(<K, V>(Map<K, V> map) => mapFrom<K, V>(map));
-  });
-  group("KtMap.from", () {
-    testMap(<K, V>(Map<K, V> map) => KtMap<K, V>.from(map));
-  });
-  group("mutableMapFrom", () {
-    testMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
-  });
-  group("KtMutableMap.from", () {
-    testMap(<K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
-  });
-  group("hashMapFrom", () {
-    testMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map));
-  });
-  group("KHashMap", () {
-    testMap(<K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map));
-  });
-  group("linkedMapOf", () {
-    testMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
-  });
-  group("KLinkedMap", () {
-    testMap(<K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+  group("KtMap", () {
+    group("mapFrom", () {
+      testMap(<K, V>(Map<K, V> map) => mapFrom<K, V>(map));
+    });
+    group("KtMap.from", () {
+      testMap(<K, V>(Map<K, V> map) => KtMap<K, V>.from(map));
+    });
+    group("mutableMapFrom", () {
+      testMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+    });
+    group("KtMutableMap.from", () {
+      testMap(<K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
+    });
+    group("hashMapFrom", () {
+      testMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map));
+    });
+    group("KtHashMap", () {
+      testMap(<K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map));
+    });
+    group("linkedMapOf", () {
+      testMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+    });
+    group("KtLinkedMap", () {
+      testMap(<K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+    });
   });
 }
 

@@ -100,6 +100,12 @@ abstract class KtList<T> implements KtCollection<T> {
 }
 
 extension KtListExtensions<T> on KtList<T> {
+  /// Returns a read-only dart:core [List]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  List<T> get dart => asList();
+
   /// Returns a list containing all elements except last [n] elements.
   KtList<T> dropLast(int n) {
     assert(() {
