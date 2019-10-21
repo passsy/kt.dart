@@ -230,5 +230,20 @@ void testSet(
       final e = catchException<ArgumentError>(() => setFrom(null));
       expect(e.message, contains("elements can't be null"));
     });
+
+    group("orEmpty", () {
+      test("null -> empty set", () {
+        const KtSet<int> set = null;
+        expect(set.orEmpty(), isNotNull);
+        expect(set.orEmpty(), isA<KtSet<int>>());
+        expect(set.orEmpty().isEmpty(), isTrue);
+        expect(set.orEmpty().size, 0);
+      });
+      test("set -> just return the set", () {
+        final KtSet<int> set = setOf(1, 2, 3);
+        expect(set.orEmpty(), set);
+        expect(identical(set.orEmpty(), set), isTrue);
+      });
+    });
   });
 }
