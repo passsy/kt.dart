@@ -1,3 +1,19 @@
+## 0.7.0-dev.2
+
+New `.dart` extensions to convert KtDart collections back to dart collections.
+
+```dart
+  // New: Converting dart collections to KtDart collections (mutable views)
+  final KtMutableList<String> ktList = ["hey"].kt;
+  final KtMutableSet<String> ktSet = {"hey"}.kt;
+  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+
+  // Converting KtDart collections to dart collections
+  final List<String> dartList = KtList.of("hey").dart;
+  final Set<String> dartSet = KtSet.of("hey").dart;
+  final Map<String, int> dartMap = KtMap.from({"hey": 1}).dart;
+```
+
 ## 0.7.0-dev.1
 
 **KtDart makes full use of darts static extension methods, introduced with Dart 2.6.**
@@ -9,20 +25,20 @@ The public API stays unchanged and is backwards compatible.
 It is now easier then ever to convert dart to ktdart collections and vice versa. Use the `.kt` property to convert dart collections to KtDart collections. (Note: `.kt` create a view, which allows you to mutate the original dart collection).
  
 ```dart
-// New: Make dart collections immutable
-final KtList<String> = ["hey"].immutable();
-final KtSet<String> = {"hey"}.immutable();
-final KtMap<String, int> = {"hey": 1}.immutable();
+  // New: Make dart collections immutable
+  final KtList<String> list = ["hey"].immutable();
+  final KtSet<String> set = {"hey"}.immutable();
+  final KtMap<String, int> map = {"hey": 1}.immutable();
 
-// New: Converting dart collections to KtDart collections (mutable views)
-final KtMutableList<String> = ["hey"].kt;
-final KtMutableSet<String> = {"hey"}.kt;
-final KtMutableMap<String, int> = {"hey": 1}.kt;
+  // New: Converting dart collections to KtDart collections (mutable views)
+  final KtMutableList<String> ktList = ["hey"].kt;
+  final KtMutableSet<String> ktSet = {"hey"}.kt;
+  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
 
-// Converting KtDart collections to dart collections
-final List<String> = KtList.of("hey").asList();
-final Set<String> = KtSet.of("hey").asSet();
-final Map<String> = KtMap.form({"hey": 1}).asMap();
+  // Converting KtDart collections to dart collections
+  final List<String> dartList = KtList.of("hey").asList();
+  final Set<String> dartSet = KtSet.of("hey").asSet();
+  final Map<String, int> dartMap = KtMap.from({"hey": 1}).asMap();
 ```
 
 # Tuple improvements

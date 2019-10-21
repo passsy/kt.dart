@@ -107,6 +107,15 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
 }
 
 extension KtMutableListExtensions<T> on KtMutableList<T> {
+  /// Creates a [List] instance that wraps the original [KtList]. It acts as a view.
+  ///
+  /// Mutations on the returned [List] are reflected on the original [KtList]
+  /// and vice versa.
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  List<T> get dart => asList();
+
   /// Fills the list with the provided [value].
   ///
   /// Each element in the list gets replaced with the [value].

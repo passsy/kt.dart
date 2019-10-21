@@ -133,9 +133,11 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
     });
     if (mutable) {
       test("asMap is mutable", () {
-        final Map<String, int> map = emptyMap<String, int>().asMap();
+        final original = emptyMap<String, int>();
+        final Map<String, int> map = original.asMap();
         map["a"] = 1;
         expect(map["a"], 1);
+        expect(original["a"], 1);
       });
     } else {
       test("asMap is immutable", () {
@@ -144,6 +146,27 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
         expect(e.message, contains("unmodifiable"));
       });
     }
+
+    test("dart property has zero length", () {
+      final Map<String, int> map = emptyMap<String, int>().dart;
+      expect(map.length, 0);
+    });
+    if (mutable) {
+      test("dart property is mutating original collection", () {
+        final original = emptyMap<String, int>();
+        final Map<String, int> map = original.dart;
+        map["a"] = 1;
+        expect(map["a"], 1);
+        expect(original["a"], 1);
+      });
+    } else {
+      test("dart property is immutable", () {
+        final Map<String, int> map = emptyMap<String, int>().dart;
+        final e = catchException<UnsupportedError>(() => map["a"] = 1);
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
+
     test("containsKeyalways returns false", () {
       expect(emptyMap().containsKey(2), isFalse);
       expect(emptyMap().containsKey(null), isFalse);

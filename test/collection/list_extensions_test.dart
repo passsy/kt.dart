@@ -55,7 +55,8 @@ void main() {
                 T arg9]) =>
             mutableListOf(
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
+        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable),
+        mutable: true);
   });
   group("KtMutableList", () {
     testList(
@@ -73,26 +74,47 @@ void main() {
                 T arg9]) =>
             KtMutableList.of(
                 arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable));
+        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable),
+        mutable: true);
   });
 }
 
 void testList(
-    KtList<T> Function<T>() emptyList,
-    KtList<T> Function<T>(
-            [T arg0,
-            T arg1,
-            T arg2,
-            T arg3,
-            T arg4,
-            T arg5,
-            T arg6,
-            T arg7,
-            T arg8,
-            T arg9])
-        listOf,
-    KtList<T> Function<T>([Iterable<T> iterable]) listFrom,
-    {bool ordered = true}) {
+  KtList<T> Function<T>() emptyList,
+  KtList<T> Function<T>(
+          [T arg0,
+          T arg1,
+          T arg2,
+          T arg3,
+          T arg4,
+          T arg5,
+          T arg6,
+          T arg7,
+          T arg8,
+          T arg9])
+      listOf,
+  KtList<T> Function<T>([Iterable<T> iterable]) listFrom, {
+  bool ordered = true,
+  bool mutable = false,
+}) {
+  group("dart property", () {
+    if (mutable) {
+      test("dart property is mutating original collection", () {
+        final original = listFrom<String>(["a", "b", "c"]);
+        final dartList = original.dart;
+        dartList.add("x");
+        expect(dartList, ["a", "b", "c", "x"]);
+        expect(original, listOf("a", "b", "c", "x"));
+      });
+    } else {
+      test("dart property returns an unmodifiable list", () {
+        final dartList = listFrom<String>(["a", "b", "c"]).dart;
+        final e = catchException<UnsupportedError>(() => dartList.add("x"));
+        expect(e.message, contains("unmodifiable"));
+      });
+    }
+  });
+
   group("dropLast", () {
     test("drop last 3 items", () {
       final list = listOf(1, 2, 3, 4, 5, 6, 7);

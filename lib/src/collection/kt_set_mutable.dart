@@ -69,3 +69,14 @@ abstract class KtMutableSet<T> implements KtSet<T>, KtMutableCollection<T> {
   @override
   void clear();
 }
+
+extension KtMutableSetExtension<T> on KtMutableSet<T> {
+  /// Creates a [Set] instance that wraps the original [KtSet]. It acts as a view.
+  ///
+  /// Mutations on the returned [Set] are reflected on the original [KtSet]
+  /// and vice versa.
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Set<T> get dart => asSet();
+}

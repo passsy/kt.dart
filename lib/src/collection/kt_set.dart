@@ -71,6 +71,14 @@ abstract class KtSet<T> implements KtCollection<T> {
   KtIterator<T> iterator();
 }
 
+extension KtSetExtension<T> on KtSet<T> {
+  /// Returns a read-only dart:core [Set]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Set<T> get dart => asSet();
+}
+
 extension NullableKtSetExtensions<T> on KtSet<T> /*?*/ {
   /// Returns this [KtSet] if it's not `null` and the empty set otherwise.
   KtSet<T> orEmpty() => this ?? KtSet<T>.empty();

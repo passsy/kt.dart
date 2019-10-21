@@ -22,9 +22,6 @@ void main() {
   group("KtList.of", () {
     testEmptyList(<T>() => KtList<T>.from(), mutable: false);
   });
-  group("mutableList", () {
-    testEmptyList(<T>() => emptyList<T>());
-  });
   group("mutableListOf", () {
     testEmptyList(<T>() => mutableListOf<T>());
   });
@@ -217,6 +214,15 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
         final dartList = emptyList<int>().list;
         final e = catchException<UnsupportedError>(() => dartList.add(1));
         expect(e.message, contains("unmodifiable"));
+      });
+    } else {
+      test("deprecated list property returns an modifiable list", () {
+        final original = emptyList<int>();
+        // ignore: deprecated_member_use_from_same_package
+        final dartList = original.list;
+        dartList.add(1);
+        expect(original, listOf(1));
+        expect(dartList, [1]);
       });
     }
   });

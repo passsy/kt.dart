@@ -85,6 +85,12 @@ abstract class KtMapEntry<K, V> {
 }
 
 extension KtMapExtensions<K, V> on KtMap<K, V> {
+  /// Returns a read-only dart:core [Map]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Map<K, V> get dart => asMap();
+
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.
   bool all(Function(K key, V value) predicate) {

@@ -15,29 +15,33 @@ void main() {
   });
   group("mutableMapFrom", () {
     testMap(<K, V>() => mutableMapFrom<K, V>(),
-        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map),
+        mutable: true);
   });
   group("KtMutableMap.from", () {
     testMap(<K, V>() => KtMutableMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
+        <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map),
+        mutable: true);
   });
   group("hashMapFrom", () {
     testMap(<K, V>() => hashMapFrom<K, V>(),
         <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
-        ordered: false);
+        ordered: false, mutable: true);
   });
   group("KHashMap", () {
     testMap(<K, V>() => KtHashMap<K, V>.empty(),
         <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
-        ordered: false);
+        ordered: false, mutable: true);
   });
   group("linkedMapFrom", () {
     testMap(<K, V>() => linkedMapFrom<K, V>(),
-        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map),
+        mutable: true);
   });
   group("KLinkedMap", () {
     testMap(<K, V>() => KtLinkedMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+        <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map),
+        mutable: true);
   });
   group("ThirdPartyMap", () {
     testMap(<K, V>() => ThirdPartyMap<K, V>(),
@@ -47,7 +51,7 @@ void main() {
 
 void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
-    {bool ordered = true}) {
+    {bool ordered = true, bool mutable = false}) {
   final pokemon = mapFrom({
     1: "Bulbasaur",
     2: "Ivysaur",
@@ -99,6 +103,24 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final e = catchException<ArgumentError>(() => emptyMap().any(null));
       expect(e.message, allOf(contains("null"), contains("predicate")));
     });
+  });
+
+  group("dart property", () {
+    if (!mutable) {
+      test("is immutable", () {
+        final Map<String, int> map = emptyMap<String, int>().dart;
+        final e = catchException<UnsupportedError>(() => map["a"] = 1);
+        expect(e.message, contains("unmodifiable"));
+      });
+    } else {
+      test("allows mutation of original map", () {
+        final original = emptyMap<String, int>();
+        final Map<String, int> map = original.dart;
+        map["a"] = 1;
+        expect(map["a"], 1);
+        expect(original["a"], 1);
+      });
+    }
   });
 
   group("filter", () {
