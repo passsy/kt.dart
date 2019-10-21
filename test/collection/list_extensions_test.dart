@@ -249,7 +249,7 @@ void testList(
     });
     test("slice with empty list results in empty list", () {
       final list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9);
-      final result = list.slice(emptyList());
+      final result = list.slice(emptyList<int>());
       expect(result, emptyList());
     });
     test("indices can't be null", () {
