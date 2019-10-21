@@ -598,6 +598,20 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("orEmpty", () {
+    test("null -> empty collection", () {
+      const KtMap<int, String> map = null;
+      expect(map.orEmpty(), isNotNull);
+      expect(map.orEmpty(), isA<KtMap<int, String>>());
+      expect(map.orEmpty().isEmpty(), isTrue);
+      expect(map.orEmpty().size, 0);
+    });
+    test("collection -> just return the collection", () {
+      expect(pokemon.orEmpty(), pokemon);
+      expect(identical(pokemon.orEmpty(), pokemon), isTrue);
+    });
+  });
+
   group("plus", () {
     test("add element", () {
       final map = mapFrom({
