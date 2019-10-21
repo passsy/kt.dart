@@ -1,15 +1,7 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
-class DartMutableSet<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtMutableIterableExtensionsMixin<T>
-    implements KtMutableSet<T> {
+class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   DartMutableSet([Iterable<T> iterable = const []])
       : _set = Set.from(iterable),
         super();
@@ -114,6 +106,17 @@ class DartMutableSet<T> extends Object
     _set.removeWhere((it) => !elements.contains(it));
     return oldSize != size;
   }
+
+  @override
+  String toString() {
+    return joinToString(
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
+  }
 }
 
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
@@ -125,7 +128,7 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
     nextValue = _iterator.current;
   }
 
-  KtMutableSet<T> _set;
+  final KtMutableSet<T> _set;
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;

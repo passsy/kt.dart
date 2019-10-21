@@ -1,11 +1,7 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
-import "package:kt_dart/src/collection/extension/map_mutable_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
-class DartMutableMap<K, V> extends Object
-    with KtMapExtensionsMixin<K, V>, KtMutableMapExtensionsMixin<K, V>
-    implements KtMutableMap<K, V> {
+class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   DartMutableMap([Map<K, V> map = const {}])
       :
         // copy list to prevent external modification
@@ -114,6 +110,18 @@ class DartMutableMap<K, V> extends Object
       .map((key) => hash2(key.hashCode, _map[key].hashCode))
       .toList(growable: false)
         ..sort());
+
+  @override
+  String toString() {
+    return entries.joinToString(
+        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
+  }
+
+  String _entryToString(KtMapEntry<K, V> entry) =>
+      "${_toString(entry.key)}=${_toString(entry.value)}";
+
+  String _toString(Object o) =>
+      identical(o, this) ? "(this Map)" : o.toString();
 }
 
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {

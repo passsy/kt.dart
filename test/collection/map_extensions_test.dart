@@ -1,5 +1,4 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 import "package:test/test.dart";
 
@@ -251,6 +250,24 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     test("getOrElse doesn't allow null as defaultValue function", () {
       final e =
           catchException<ArgumentError>(() => pokemon.getOrElse(10, null));
+      expect(e.message, allOf(contains("null"), contains("defaultValue")));
+    });
+  });
+
+  group("ifEmpty", () {
+    test("not empty returns original", () {
+      final result = pokemon.ifEmpty(() => mapFrom({0: "nobody"}));
+      expect(identical(result, pokemon), isTrue);
+    });
+
+    test("empty returns defaultValue", () {
+      final result =
+          emptyMap<int, String>().ifEmpty(() => mapFrom({0: "nobody"}));
+      expect(result, mapFrom({0: "nobody"}));
+    });
+
+    test("ifEmpty doesn't allow null as defaultValue function", () {
+      final e = catchException<ArgumentError>(() => pokemon.ifEmpty(null));
       expect(e.message, allOf(contains("null"), contains("defaultValue")));
     });
   });
@@ -581,6 +598,20 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("orEmpty", () {
+    test("null -> empty collection", () {
+      const KtMap<int, String> map = null;
+      expect(map.orEmpty(), isNotNull);
+      expect(map.orEmpty(), isA<KtMap<int, String>>());
+      expect(map.orEmpty().isEmpty(), isTrue);
+      expect(map.orEmpty().size, 0);
+    });
+    test("collection -> just return the collection", () {
+      expect(pokemon.orEmpty(), pokemon);
+      expect(identical(pokemon.orEmpty(), pokemon), isTrue);
+    });
+  });
+
   group("plus", () {
     test("add element", () {
       final map = mapFrom({
@@ -754,9 +785,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 }
 
-class ThirdPartyMap<K, V> extends Object
-    with KtMapExtensionsMixin<K, V>
-    implements KtMap<K, V> {
+class ThirdPartyMap<K, V> implements KtMap<K, V> {
   ThirdPartyMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification

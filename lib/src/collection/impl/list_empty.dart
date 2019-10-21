@@ -1,15 +1,7 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
 import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 
-class EmptyList<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtListExtensionsMixin<T>
-    implements KtList<T> {
+class EmptyList<T> extends Object implements KtList<T> {
   EmptyList();
 
   @override
@@ -73,9 +65,6 @@ class EmptyList<T> extends Object
 
   @override
   int get size => 0;
-
-  @override
-  int get lastIndex => -1;
 
   @override
   KtList<T> subList(int fromIndex, int toIndex) {

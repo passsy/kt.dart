@@ -115,6 +115,21 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
   });
 
+  group("orEmpty", () {
+    test("null -> empty collection", () {
+      const KtCollection<int> collection = null;
+      expect(collection.orEmpty(), isNotNull);
+      expect(collection.orEmpty(), isA<KtCollection<int>>());
+      expect(collection.orEmpty().isEmpty(), isTrue);
+      expect(collection.orEmpty().size, 0);
+    });
+    test("collection -> just return the collection", () {
+      final KtCollection<int> collection = collectionOf([1, 2, 3]);
+      expect(collection.orEmpty(), collection);
+      expect(identical(collection.orEmpty(), collection), isTrue);
+    });
+  });
+
   group("random", () {
     test("random item with random parameter", () {
       final collection = collectionOf(["a", "b", "c"]);

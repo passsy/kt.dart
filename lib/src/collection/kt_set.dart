@@ -70,3 +70,8 @@ abstract class KtSet<T> implements KtCollection<T> {
   @override
   KtIterator<T> iterator();
 }
+
+extension NullableKtSetExtensions<T> on KtSet<T> /*?*/ {
+  /// Returns this [KtSet] if it's not `null` and the empty set otherwise.
+  KtSet<T> orEmpty() => this ?? KtSet<T>.empty();
+}

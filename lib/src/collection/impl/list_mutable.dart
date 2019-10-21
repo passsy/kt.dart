@@ -1,27 +1,17 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/collection_mutable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_mutable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_mutable_extension_mixin.dart";
 import "package:kt_dart/src/collection/impl/iterator.dart";
 import "package:kt_dart/src/util/hash.dart";
 
 /// [KtList] based on a dart [List]
-class DartMutableList<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtMutableIterableExtensionsMixin<T>,
-        KtMutableCollectionExtensionMixin<T>,
-        KtListExtensionsMixin<T>,
-        KtMutableListExtensionsMixin<T>
-    implements KtMutableList<T> {
+class DartMutableList<T> extends Object implements KtMutableList<T> {
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification
         _list = List.from(iterable, growable: true),
+        super();
+
+  DartMutableList.noCopy(List<T> list)
+      : _list = list,
         super();
 
   final List<T> _list;
@@ -83,9 +73,6 @@ class DartMutableList<T> extends Object
 
   @override
   int get size => _list.length;
-
-  @override
-  int get lastIndex => size - 1;
 
   @override
   bool add(T element) {
@@ -209,5 +196,16 @@ class DartMutableList<T> extends Object
       if (other[i] != this[i]) return false;
     }
     return true;
+  }
+
+  @override
+  String toString() {
+    return joinToString(
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
   }
 }

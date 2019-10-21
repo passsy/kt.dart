@@ -290,7 +290,7 @@ void testList(
     });
 
     test("access dart list", () {
-      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+      // ignore: deprecated_member_use_from_same_package
       final List<String> list = listFrom<String>(["a", "b", "c"]).list;
       expect(list.length, 3);
       expect(list, equals(["a", "b", "c"]));
@@ -401,15 +401,29 @@ void testList(
       });
     }
 
-    group("lastIndex", () {
-      test("lastIndex for an empty list is -1", () {
-        final list = emptyList();
-        expect(list.lastIndex, -1);
+    group("last", () {
+      test("get last element", () {
+        expect(listOf("a", "b").last(), "b");
       });
 
-      test("lastIndex for 3 items is 2", () {
-        final list = listOf("a", "b", "c");
-        expect(list.lastIndex, 2);
+      test("last throws for no elements", () {
+        expect(() => emptyList().last(),
+            throwsA(const TypeMatcher<NoSuchElementException>()));
+      });
+
+      test("finds nothing throws", () {
+        expect(() => listOf<String>("a", "b", "c").last((it) => it == "x"),
+            throwsA(const TypeMatcher<NoSuchElementException>()));
+      });
+
+      test("finds nothing in empty throws", () {
+        expect(() => emptyList().last((it) => it == "x"),
+            throwsA(const TypeMatcher<NoSuchElementException>()));
+      });
+
+      test("returns null when null is the last element", () {
+        expect(listFrom([1, 2, null]).last(), null);
+        expect(listFrom([1, null, 2]).last(), 2);
       });
     });
   });

@@ -1,17 +1,9 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/collection_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/iterable_extension_mixin.dart";
-import "package:kt_dart/src/collection/extension/list_extension_mixin.dart";
 import "package:kt_dart/src/collection/impl/iterator.dart";
 import "package:kt_dart/src/util/hash.dart";
 
 /// [KtList] implementation based on a dart [List]
-class DartList<T> extends Object
-    with
-        KtIterableExtensionsMixin<T>,
-        KtCollectionExtensionMixin<T>,
-        KtListExtensionsMixin<T>
-    implements KtList<T> {
+class DartList<T> extends Object implements KtList<T> {
   /// Create an immutable [KtList] by copying the incoming [iterable] into a [List]
   DartList([Iterable<T> iterable = const []])
       : _list = List.unmodifiable(iterable),
@@ -81,9 +73,6 @@ class DartList<T> extends Object
   int get size => _list.length;
 
   @override
-  int get lastIndex => size - 1;
-
-  @override
   KtList<T> subList(int fromIndex, int toIndex) {
     assert(() {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
@@ -113,5 +102,16 @@ class DartList<T> extends Object
       if (other[i] != this[i]) return false;
     }
     return true;
+  }
+
+  @override
+  String toString() {
+    return joinToString(
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
   }
 }

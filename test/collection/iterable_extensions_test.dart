@@ -906,6 +906,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("flatten", () {
+    test("empty", () {
+      final KtIterable<KtIterable<int>> nested = emptyIterable();
+      expect(nested.flatten(), emptyList());
+    });
+
+    test("flatten KtIterable<KtIterable<T>>", () {
+      final nested = iterableOf([
+        iterableOf([1, 2, 3]),
+        iterableOf([4, 5, 6]),
+        iterableOf([7, 8, 9]),
+      ]);
+      if (ordered) {
+        expect(nested.flatten(), listFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      } else {
+        expect(nested.flatten().toSet(), setFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      }
+    });
+  });
+
   group("fold", () {
     if (ordered) {
       test("fold division", () {
@@ -1512,18 +1532,28 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   }
 
   group("max", () {
-    test("gets max value", () {
+    test("gets max value int", () {
       final iterable = iterableOf([1, 3, 2]);
-      expect(iterable.max(), 3);
+      final int max = iterable.max();
+      expect(max, 3);
+    });
+
+    test("gets max value double", () {
+      final iterable = iterableOf([1.0, 3.2, 2.0]);
+      final double max = iterable.max();
+      expect(max, 3.2);
+    });
+
+    test("gets max value comparable", () {
+      final iterable = iterableOf(["a", "x", "b"]);
+      final String max = iterable.max();
+      expect(max, "x");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.max(), null);
-    });
-
-    test("throws for non nums", () {
-      expect(() => iterableOf(["1", "2", "3"]).max(), throwsArgumentError);
+      final int max = iterable.max();
+      expect(max, null);
     });
   });
 
@@ -1547,10 +1577,16 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("maxWith", () {
     int _intComparison(int value, int other) => value.compareTo(other);
+    int _doubleComparison(double value, double other) => value.compareTo(other);
 
-    test("gets max value", () {
+    test("gets max value int", () {
       final iterable = iterableOf([2, 1, 3]);
       expect(iterable.maxWith(_intComparison), 3);
+    });
+
+    test("gets max value double", () {
+      final iterable = iterableOf([2.0, 1.0, 3.2]);
+      expect(iterable.maxWith(_doubleComparison), 3.2);
     });
 
     test("empty iterable return null", () {
@@ -1566,18 +1602,28 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("min", () {
-    test("gets min value", () {
-      final iterable = iterableOf([3, 1, 2]);
-      expect(iterable.min(), 1);
+    test("gets min int value", () {
+      final KtIterable<int> iterable = iterableOf([3, 1, 2]);
+      final int min = iterable.min();
+      expect(min, 1);
+    });
+
+    test("gets min double value", () {
+      final KtIterable<double> iterable = iterableOf([3.2, 1.4, 2.2]);
+      final double min = iterable.min();
+      expect(min, 1.4);
+    });
+
+    test("gets max value comparable", () {
+      final iterable = iterableOf(["x", "b", "a", "h"]);
+      final String min = iterable.min();
+      expect(min, "a");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.min(), null);
-    });
-
-    test("throws for non nums", () {
-      expect(() => iterableOf(["1", "2", "3"]).min(), throwsArgumentError);
+      final int min = iterable.min();
+      expect(min, null);
     });
   });
 
@@ -1955,10 +2001,6 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final sum = iterableOf([1.0, 2.1, 3.2]).sum();
       expect(sum, closeTo(6.3, 0.000000001));
     });
-
-    test("sum of strings throws", () {
-      expect(() => iterableOf(["1", "2", "3"]).sum(), throwsArgumentError);
-    });
   });
 
   group("sumBy", () {
@@ -2185,6 +2227,31 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("unzip", () {
+    test("empty", () {
+      final KtIterable<KtPair<String, int>> zipped = emptyIterable();
+      final unzipped = zipped.unzip();
+      expect(unzipped.first, emptyList());
+      expect(unzipped.second, emptyList());
+    });
+
+    test("unzip pairs", () {
+      final zipped = iterableOf([
+        "a".to(1),
+        "b".to(2),
+        "c".to(3),
+      ]);
+      final unzipped = zipped.unzip();
+      if (ordered) {
+        expect(unzipped.first, listOf("a", "b", "c"));
+        expect(unzipped.second, listOf(1, 2, 3));
+      } else {
+        expect(unzipped.first.toSet(), setOf("a", "b", "c"));
+        expect(unzipped.second.toSet(), setOf(1, 2, 3));
+      }
+    });
+  });
+
   group("windowedTransform", () {
     test("default step", () {
       expect(iterableOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()),
@@ -2217,7 +2284,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("partial doesn't crash on empty iterable", () {
       expect(
-          emptyIterable().windowedTransform(3, (l) => l.sum(),
+          emptyIterable().windowedTransform(
+              3, (l) => throw StateError("this gets never executed"),
               step: 2, partialWindows: true),
           emptyList());
     });

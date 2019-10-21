@@ -1,10 +1,7 @@
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/extension/map_extensions_mixin.dart";
 import "package:kt_dart/src/util/hash.dart";
 
-class DartMap<K, V> extends Object
-    with KtMapExtensionsMixin<K, V>
-    implements KtMap<K, V> {
+class DartMap<K, V> extends Object implements KtMap<K, V> {
   DartMap([Map<K, V> map = const {}])
       :
 // copy list to prevent external modification
@@ -71,6 +68,18 @@ class DartMap<K, V> extends Object
         .toList(growable: false)
           ..sort());
   }
+
+  @override
+  String toString() {
+    return entries.joinToString(
+        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
+  }
+
+  String _entryToString(KtMapEntry<K, V> entry) =>
+      "${_toString(entry.key)}=${_toString(entry.value)}";
+
+  String _toString(Object o) =>
+      identical(o, this) ? "(this Map)" : o.toString();
 }
 
 class _Entry<K, V> extends KtMapEntry<K, V> {

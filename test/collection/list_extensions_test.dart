@@ -141,6 +141,107 @@ void testList(
     });
   });
 
+  group("elementAt", () {
+    test("returns correct elements", () {
+      final iterable = listOf("a", "b", "c");
+      expect(iterable.elementAt(0), equals("a"));
+      expect(iterable.elementAt(1), equals("b"));
+      expect(iterable.elementAt(2), equals("c"));
+    });
+
+    test("throws out of bounds exceptions", () {
+      final list = listOf("a", "b", "c");
+      final eOver =
+          catchException<IndexOutOfBoundsException>(() => list.elementAt(3));
+      expect(eOver.message, allOf(contains("index"), contains("3")));
+
+      final eUnder =
+          catchException<IndexOutOfBoundsException>(() => list.elementAt(-1));
+      expect(eUnder.message, allOf(contains("index"), contains("-1")));
+    });
+
+    test("null is not a valid index", () {
+      final list = listOf("a", "b", "c");
+      final e = catchException<ArgumentError>(() => list.elementAt(null));
+      expect(e.message, allOf(contains("index"), contains("null")));
+    });
+  });
+
+  group("elementAtOrElse", () {
+    if (ordered) {
+      test("returns correct elements", () {
+        final list = listOf("a", "b", "c");
+        expect(list.elementAtOrElse(0, (i) => "x"), equals("a"));
+        expect(list.elementAtOrElse(1, (i) => "x"), equals("b"));
+        expect(list.elementAtOrElse(2, (i) => "x"), equals("c"));
+      });
+    } else {
+      test("returns all elements", () {
+        final list = listOf("a", "b", "c");
+        final set = setOf(
+            list.elementAtOrElse(0, (i) => "x"),
+            list.elementAtOrElse(1, (i) => "x"),
+            list.elementAtOrElse(2, (i) => "x"));
+        expect(set.containsAll(list.toSet()), isTrue);
+      });
+    }
+
+    test("returns else case", () {
+      final list = listOf("a", "b", "c");
+      expect(list.elementAtOrElse(-1, (i) => "x"), equals("x"));
+    });
+
+    test("returns else case based on index", () {
+      final list = listOf("a", "b", "c");
+      expect(list.elementAtOrElse(-1, (i) => "$i"), equals("-1"));
+      expect(list.elementAtOrElse(10, (i) => "$i"), equals("10"));
+    });
+
+    test("null is not a valid index", () {
+      final list = listOf("a", "b", "c");
+      final e = catchException<ArgumentError>(
+          () => list.elementAtOrElse(null, (i) => "x"));
+      expect(e.message, allOf(contains("index"), contains("null")));
+    });
+
+    test("null is not a function", () {
+      final list = listOf("a", "b", "c");
+      final e =
+          catchException<ArgumentError>(() => list.elementAtOrElse(1, null));
+      expect(e.message, allOf(contains("defaultValue"), contains("null")));
+    });
+  });
+
+  group("elementAtOrNull", () {
+    if (ordered) {
+      test("returns correct elements", () {
+        final list = listOf("a", "b", "c");
+        expect(list.elementAtOrNull(0), equals("a"));
+        expect(list.elementAtOrNull(1), equals("b"));
+        expect(list.elementAtOrNull(2), equals("c"));
+      });
+    } else {
+      test("returns all elements", () {
+        final list = listOf("a", "b", "c");
+        final set = setOf(list.elementAtOrNull(0), list.elementAtOrNull(1),
+            list.elementAtOrNull(2));
+        expect(set.containsAll(list.toSet()), isTrue);
+      });
+    }
+
+    test("returns null when out of range", () {
+      final list = listOf("a", "b", "c");
+      expect(list.elementAtOrNull(-1), isNull);
+      expect(list.elementAtOrNull(10), isNull);
+    });
+
+    test("null is not a valid index", () {
+      final list = listOf("a", "b", "c");
+      final e = catchException<ArgumentError>(() => list.elementAtOrNull(null));
+      expect(e.message, allOf(contains("index"), contains("null")));
+    });
+  });
+
   group("foldRight", () {
     test("foldRight division", () {
       final iterable = listOf([1, 2], [3, 4], [5, 6]);
@@ -241,6 +342,92 @@ void testList(
     });
   });
 
+  group("lastIndex", () {
+    test("lastIndex for an empty list is -1", () {
+      final list = emptyList();
+      expect(list.lastIndex, -1);
+    });
+
+    test("lastIndex for 3 items is 2", () {
+      final list = listOf("a", "b", "c");
+      expect(list.lastIndex, 2);
+    });
+  });
+
+  group("orEmpty", () {
+    test("null -> empty list", () {
+      const KtList<int> collection = null;
+      expect(collection.orEmpty(), isNotNull);
+      expect(collection.orEmpty(), isA<KtList<int>>());
+      expect(collection.orEmpty().isEmpty(), isTrue);
+      expect(collection.orEmpty().size, 0);
+    });
+    test("list -> just return the list", () {
+      final KtList<int> collection = listOf(1, 2, 3);
+      expect(collection.orEmpty(), collection);
+      expect(identical(collection.orEmpty(), collection), isTrue);
+    });
+  });
+
+  group("single", () {
+    test("single", () {
+      expect(listOf(1).single(), 1);
+    });
+    test("single throws when list has more elements", () {
+      final e = catchException<ArgumentError>(() => listOf(1, 2).single());
+      expect(e.message, contains("has more than one element"));
+    });
+    test("single throws for empty iterables", () {
+      final e =
+          catchException<NoSuchElementException>(() => emptyList().single());
+      expect(e.message, contains("is empty"));
+    });
+    test("single with predicate finds item", () {
+      final found = listOf("paul", "john", "max", "lisa")
+          .single((it) => it.contains("x"));
+      expect(found, "max");
+    });
+    test("single with predicate without match", () {
+      final e = catchException<NoSuchElementException>(() =>
+          listOf("paul", "john", "max", "lisa")
+              .single((it) => it.contains("y")));
+      expect(e.message, contains("no element matching the predicate"));
+    });
+    test("single with predicate multiple matches", () {
+      final e = catchException<ArgumentError>(() =>
+          listOf("paul", "john", "max", "lisa")
+              .single((it) => it.contains("l")));
+      expect(e.message, contains("more than one matching element"));
+    });
+  });
+
+  group("singleOrNull", () {
+    test("singleOrNull", () {
+      expect(listOf(1).singleOrNull(), 1);
+    });
+    test("singleOrNull on multiple iterable returns null", () {
+      expect(listOf(1, 2).singleOrNull(), null);
+    });
+    test("singleOrNull on empty iterable returns null", () {
+      expect(emptyList().singleOrNull(), null);
+    });
+    test("singleOrNull with predicate finds item", () {
+      final found = listOf("paul", "john", "max", "lisa")
+          .singleOrNull((it) => it.contains("x"));
+      expect(found, "max");
+    });
+    test("singleOrNull with predicate without match returns null", () {
+      final result = listOf("paul", "john", "max", "lisa")
+          .singleOrNull((it) => it.contains("y"));
+      expect(result, null);
+    });
+    test("singleOrNull with predicate multiple matches returns null", () {
+      final result = listOf("paul", "john", "max", "lisa")
+          .singleOrNull((it) => it.contains("l"));
+      expect(result, null);
+    });
+  });
+
   group("slice", () {
     test("slice", () {
       final list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -249,7 +436,7 @@ void testList(
     });
     test("slice with empty list results in empty list", () {
       final list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9);
-      final result = list.slice(emptyList());
+      final result = list.slice(emptyList<int>());
       expect(result, emptyList());
     });
     test("indices can't be null", () {

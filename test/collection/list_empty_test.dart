@@ -206,14 +206,14 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
     });
 
     test("deprecated list property returns an empty list", () {
-      // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+      // ignore: deprecated_member_use_from_same_package
       final dartList = emptyList<int>().list;
       expect(dartList.length, 0);
     });
 
     if (!mutable) {
       test("deprecated list property returns an unmodifiable list", () {
-        // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+        // ignore: deprecated_member_use_from_same_package
         final dartList = emptyList<int>().list;
         final e = catchException<UnsupportedError>(() => dartList.add(1));
         expect(e.message, contains("unmodifiable"));
