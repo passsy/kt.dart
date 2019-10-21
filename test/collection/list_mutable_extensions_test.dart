@@ -78,6 +78,16 @@ void testList(
     });
   });
 
+  group("dart property", () {
+    test("dart property is mutating original collection", () {
+      final original = mutableListOf("a", "b", "c");
+      final dartList = original.dart;
+      dartList.add("x");
+      expect(dartList, ["a", "b", "c", "x"]);
+      expect(original, listOf("a", "b", "c", "x"));
+    });
+  });
+
   group("fill", () {
     test("replace all elements", () {
       final list = mutableListOf("a", "b", "c");

@@ -23,6 +23,8 @@ import "collection/map_mutable_test.dart" as map_mutable_test;
 import "collection/map_test.dart" as map_test;
 import "collection/set_empty_test.dart" as set_empty_test;
 import "collection/set_extensions_test.dart" as set_extensions_test;
+import "collection/set_mutable_extensions_test.dart"
+    as set_mutable_extensions_test;
 import "collection/set_mutable_test.dart" as set_mutable_test;
 import "collection/set_test.dart" as set_test;
 import "collection/tuples_test.dart" as tuples_test;
@@ -53,6 +55,7 @@ void main() {
   map_test.main();
   set_empty_test.main();
   set_extensions_test.main();
+  set_mutable_extensions_test.main();
   set_mutable_test.main();
   set_test.main();
   tuples_test.main();

@@ -100,6 +100,16 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("dart property", () {
+    test("allows mutation of original map", () {
+      final original = emptyMap<String, int>();
+      final Map<String, int> map = original.dart;
+      map["a"] = 1;
+      expect(map["a"], 1);
+      expect(original["a"], 1);
+    });
+  });
+
   group("get", () {
     test("get", () {
       final pokemon = mutableMapFrom({
