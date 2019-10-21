@@ -17,7 +17,7 @@ abstract class KtIterable<T> {
 
 extension KtComparableIterableExtension<T extends Comparable<T>>
     on KtIterable<T> {
-  /// Returns a  art:core [Iterable]
+  /// Returns a dart:core [Iterable]
   ///
   /// This method can be used to interop between the dart:collection and the
   /// kt.dart world.

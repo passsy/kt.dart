@@ -343,6 +343,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("dart property", () {
+    test("dart property returns a dart iterable", () {
+      final Iterable<String> iterable = iterableOf(["a", "b", "c"]).dart;
+      if (ordered) {
+        expect(iterable.first, "a");
+        expect(iterable.skip(1).first, "b");
+        expect(iterable.skip(2).first, "c");
+      }
+      expect(iterable.length, 3);
+    });
+    test("dart property returns empty as original", () {
+      final Iterable<String> iterable = emptyIterable<String>().dart;
+      expect(iterable.length, 0);
+    });
+  });
+
   group("drop", () {
     if (ordered) {
       test("drop first value ordered", () {
