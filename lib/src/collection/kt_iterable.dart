@@ -15,16 +15,49 @@ abstract class KtIterable<T> {
   KtIterator<T> iterator();
 }
 
-extension KtIntIterableExtension on KtIterable<int> {
+extension KtComparableIterableExtension<T extends Comparable<T>>
+    on KtIterable<T> {
   /// Returns the largest element or `null` if there are no elements.
   @nullable
-  int max() {
+  T max() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
-    int max = i.next();
+    T max = i.next();
+    while (i.hasNext()) {
+      final T e = i.next();
+      if (Comparable.compare(max, e) < 0) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  /// Returns the smallest element or `null` if there are no elements.
+  @nullable
+  T min() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T min = i.next();
+    while (i.hasNext()) {
+      final T e = i.next();
+      if (Comparable.compare(min, e) > 0) {
+        min = e;
+      }
+    }
+    return min;
+  }
+}
+
+extension KtNumIterableExtension<T extends num> on KtIterable<T> {
+  /// Returns the largest element or `null` if there are no elements.
+  @nullable
+  T max() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T max = i.next();
     if (max.isNaN) return max;
     while (i.hasNext()) {
-      final int e = i.next();
+      final T e = i.next();
       if (e.isNaN) return e;
       if (max < e) {
         max = e;
@@ -35,13 +68,13 @@ extension KtIntIterableExtension on KtIterable<int> {
 
   /// Returns the smallest element or `null` if there are no elements.
   @nullable
-  int min() {
+  T min() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
-    int min = i.next();
+    T min = i.next();
     if (min.isNaN) return min;
     while (i.hasNext()) {
-      final int e = i.next();
+      final T e = i.next();
       if (e.isNaN) return e;
       if (min > e) {
         min = e;
@@ -49,7 +82,9 @@ extension KtIntIterableExtension on KtIterable<int> {
     }
     return min;
   }
+}
 
+extension KtIntIterableExtension on KtIterable<int> {
   /// Returns the sum of all elements in the collection.
   int sum() {
     int sum = 0;
@@ -61,43 +96,9 @@ extension KtIntIterableExtension on KtIterable<int> {
 }
 
 extension KtDoubleIterableExtension on KtIterable<double> {
-  /// Returns the largest element or `null` if there are no elements.
-  @nullable
-  double max() {
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    double max = i.next();
-    if (max.isNaN) return max;
-    while (i.hasNext()) {
-      final double e = i.next();
-      if (e.isNaN) return e;
-      if (max < e) {
-        max = e;
-      }
-    }
-    return max;
-  }
-
-  /// Returns the smallest element or `null` if there are no elements.
-  @nullable
-  double min() {
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    double min = i.next();
-    if (min.isNaN) return min;
-    while (i.hasNext()) {
-      final double e = i.next();
-      if (e.isNaN) return e;
-      if (min > e) {
-        min = e;
-      }
-    }
-    return min;
-  }
-
   /// Returns the sum of all elements in the collection.
   double sum() {
-    double sum = 0;
+    double sum = 0.0;
     for (final element in iter) {
       sum += element;
     }
