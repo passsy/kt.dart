@@ -1,3 +1,53 @@
+## 0.7.0-dev.1
+
+**KtDart makes full use of darts static extension methods, introduced with Dart 2.6.**
+
+The public API stays unchanged and is backwards compatible.
+
+### Improved interopt with dart collections
+
+It is now easier then ever to convert dart to ktdart collections and vice versa. Use the `.kt` property to convert dart collections to KtDart collections. (Note: `.kt` create a view, which allows you to mutate the original dart collection).
+ 
+```dart
+// New: Make dart collections immutable
+final KtList<String> = ["hey"].immutable();
+final KtSet<String> = {"hey"}.immutable();
+final KtMap<String, int> = {"hey": 1}.immutable();
+
+// New: Converting dart collections to KtDart collections (mutable views)
+final KtMutableList<String> = ["hey"].kt;
+final KtMutableSet<String> = {"hey"}.kt;
+final KtMutableMap<String, int> = {"hey": 1}.kt;
+
+// Converting KtDart collections to dart collections
+final List<String> = KtList.of("hey").asList();
+final Set<String> = KtSet.of("hey").asSet();
+final Map<String> = KtMap.form({"hey": 1}).asMap();
+```
+
+# Tuple improvements
+
+`KtPair`s can now created with the `T0.to(T1)` extension.
+```dart
+final KtPair<String, int> pair = "foo".to(42);
+```
+
+Also, `KtPair` and `KtTriple` now have a new `toList()` function to convert the values to a `KtList`.
+
+
+# New Extensions
+
+- `KtList?.orEmpty()` returns an empty list when the list is `null`
+- `KtSet?.orEmpty()` returns an empty set when the set is `null`
+- `KtMap?.orEmpty()` returns an empty map when the map is `null`
+- `KtMap.ifEmpty(() -> defaultValue)` returns the default value when the map is empty
+- `KtIterable<KtIterable<T>>.flatten()` flattens the nested collections to `KtIterable<T>`
+- `KtIterable<KtPair<T, U>>.unzip(): KtPair<KtList<T>, KtList<U>>` unzips list of pairs to list of their first and second values
+- `KtIterable<Comparable<T>>.min()` returns the smallest element of any comparable iterable
+- `KtIterable<Comparable<T>>.max()` returns the largest element of any comparable iterable
+
+
+
 ## 0.6.2
 
 [diff v0.6.1...v0.6.2](https://github.com/passsy/kt.dart/compare/v0.6.1...v0.6.2)
