@@ -355,14 +355,14 @@ void testList(
   });
 
   group("orEmpty", () {
-    test("null -> empty collection", () {
+    test("null -> empty list", () {
       const KtList<int> collection = null;
       expect(collection.orEmpty(), isNotNull);
       expect(collection.orEmpty(), isA<KtList<int>>());
       expect(collection.orEmpty().isEmpty(), isTrue);
       expect(collection.orEmpty().size, 0);
     });
-    test("collection -> just return the collection", () {
+    test("list -> just return the list", () {
       final KtList<int> collection = listOf(1, 2, 3);
       expect(collection.orEmpty(), collection);
       expect(identical(collection.orEmpty(), collection), isTrue);
