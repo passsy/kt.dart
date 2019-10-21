@@ -41,7 +41,7 @@ It is now easier then ever to convert dart to ktdart collections and vice versa.
   final Map<String, int> dartMap = KtMap.from({"hey": 1}).asMap();
 ```
 
-# Tuple improvements
+### Tuple improvements
 
 `KtPair`s can now created with the `T0.to(T1)` extension.
 ```dart
@@ -51,7 +51,7 @@ final KtPair<String, int> pair = "foo".to(42);
 Also, `KtPair` and `KtTriple` now have a new `toList()` function to convert the values to a `KtList`.
 
 
-# New Extensions
+### New Extensions
 
 - `KtList?.orEmpty()` returns an empty list when the list is `null`
 - `KtSet?.orEmpty()` returns an empty set when the set is `null`
