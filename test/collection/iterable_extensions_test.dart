@@ -2227,6 +2227,31 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("unzip", () {
+    test("empty", () {
+      final KtIterable<KtPair<String, int>> zipped = emptyIterable();
+      final unzipped = zipped.unzip();
+      expect(unzipped.first, emptyList());
+      expect(unzipped.second, emptyList());
+    });
+
+    test("unzip pairs", () {
+      final zipped = iterableOf([
+        "a".to(1),
+        "b".to(2),
+        "c".to(3),
+      ]);
+      final unzipped = zipped.unzip();
+      if (ordered) {
+        expect(unzipped.first, listOf("a", "b", "c"));
+        expect(unzipped.second, listOf(1, 2, 3));
+      } else {
+        expect(unzipped.first.toSet(), setOf("a", "b", "c"));
+        expect(unzipped.second.toSet(), setOf(1, 2, 3));
+      }
+    });
+  });
+
   group("windowedTransform", () {
     test("default step", () {
       expect(iterableOf([1, 2, 3, 4, 5]).windowedTransform(3, (l) => l.sum()),
