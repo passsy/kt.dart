@@ -3,6 +3,14 @@ import "package:test/test.dart";
 
 void main() {
   group("interopt", () {
+    group("Iterable.kt", () {
+      test("convert to KtIterable", () {
+        final Iterable<int> dartIterable = Iterable.generate(3);
+        final KtIterable<int> ktIterable = dartIterable.kt;
+        expect(dartIterable.toList(), [0, 1, 2]);
+        expect(ktIterable.toList(), listOf(0, 1, 2));
+      });
+    });
     group("List.kt", () {
       test("mutating kt list mutates original list", () {
         final List<int> dartList = [1, 2, 3];
