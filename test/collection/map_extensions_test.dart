@@ -254,6 +254,24 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     });
   });
 
+  group("ifEmpty", () {
+    test("not empty returns original", () {
+      final result = pokemon.ifEmpty(() => mapFrom({0: "nobody"}));
+      expect(identical(result, pokemon), isTrue);
+    });
+
+    test("empty returns defaultValue", () {
+      final result =
+          emptyMap<int, String>().ifEmpty(() => mapFrom({0: "nobody"}));
+      expect(result, mapFrom({0: "nobody"}));
+    });
+
+    test("ifEmpty doesn't allow null as defaultValue function", () {
+      final e = catchException<ArgumentError>(() => pokemon.ifEmpty(null));
+      expect(e.message, allOf(contains("null"), contains("defaultValue")));
+    });
+  });
+
   group("isEmpty", () {
     test("is empty", () {
       expect(mutableMapFrom({}).isEmpty(), true);
