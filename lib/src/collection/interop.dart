@@ -12,14 +12,20 @@ extension IterableInterop<T> on Iterable<T> {
 extension ListInterop<T> on List<T> {
   @experimental
   KtMutableList<T> get kt => DartMutableList.noCopy(this);
+
+  KtList<T> immutable() => KtList.from(this);
 }
 
 extension SetInterop<T> on Set<T> {
   @experimental
   KtMutableSet<T> get kt => DartMutableSet.noCopy(this);
+
+  KtSet<T> immutable() => KtSet.from(this);
 }
 
 extension MapInterop<K, V> on Map<K, V> {
   @experimental
   KtMutableMap<K, V> get kt => DartMutableMap.noCopy(this);
+
+  KtMap<K, V> immutable() => KtMap.from(this);
 }
