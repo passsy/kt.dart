@@ -412,5 +412,20 @@ void testList(
         expect(list.lastIndex, 2);
       });
     });
+
+    group("orEmpty", () {
+      test("null -> empty collection", () {
+        const KtList<int> collection = null;
+        expect(collection.orEmpty(), isNotNull);
+        expect(collection.orEmpty(), isA<KtList<int>>());
+        expect(collection.orEmpty().isEmpty(), isTrue);
+        expect(collection.orEmpty().size, 0);
+      });
+      test("collection -> just return the collection", () {
+        final KtList<int> collection = listOf(1, 2, 3);
+        expect(collection.orEmpty(), collection);
+        expect(identical(collection.orEmpty(), collection), isTrue);
+      });
+    });
   });
 }
