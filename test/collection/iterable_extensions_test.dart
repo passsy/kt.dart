@@ -1968,6 +1968,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(result, listOf("lisa", "paul", "john", "max"));
     });
 
+    test("sortedBy for ints", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length);
+      if (ordered) {
+        expect(result, listOf("max", "paul", "john", "lisa"));
+      } else {
+        expect(result.first(), "max");
+      }
+    });
+
+    test("sortedBy with doubles", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length / it.indexOf("a"));
+      expect(result, listOf("john", "lisa", "max", "paul"));
+    });
+
     test("sortedByDescending", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .sortedByDescending(lastChar);
