@@ -1583,12 +1583,12 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.maxBy((it) => it), null);
+      expect(iterable.maxBy<num>((it) => it), null);
     });
 
     test("maxBy requires a non null selector", () {
       final e =
-          catchException<ArgumentError>(() => emptyIterable().maxBy(null));
+          catchException<ArgumentError>(() => emptyIterable().maxBy<num>(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -2263,8 +2263,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("unzip", () {
     test("empty", () {
-      final KtIterable<KtPair<String, int>> zipped =
-          emptyIterable<KtPair<String, int>>();
+      final KtIterable<KtPair<String, int>> zipped = emptyIterable();
       final unzipped = zipped.unzip();
       expect(unzipped.first, emptyList());
       expect(unzipped.second, emptyList());
