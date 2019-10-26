@@ -1583,12 +1583,12 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.maxBy<num>((it) => it), null);
+      expect(iterable.maxBy((it) => it), null);
     });
 
     test("maxBy requires a non null selector", () {
       final e =
-          catchException<ArgumentError>(() => emptyIterable().maxBy<num>(null));
+          catchException<ArgumentError>(() => emptyIterable().maxBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });
@@ -1967,6 +1967,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(result, listOf("lisa", "paul", "john", "max"));
     });
 
+    test("sortedBy for ints", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length);
+      if (ordered) {
+        expect(result, listOf("max", "paul", "john", "lisa"));
+      } else {
+        expect(result.first(), "max");
+      }
+    });
+
+    test("sortedBy with doubles", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length / it.indexOf("a"));
+      expect(result, listOf("john", "lisa", "max", "paul"));
+    });
+
     test("sortedByDescending", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .sortedByDescending(lastChar);
@@ -2247,7 +2263,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("unzip", () {
     test("empty", () {
-      final KtIterable<KtPair<String, int>> zipped = emptyIterable();
+      final KtIterable<KtPair<String, int>> zipped =
+          emptyIterable<KtPair<String, int>>();
       final unzipped = zipped.unzip();
       expect(unzipped.first, emptyList());
       expect(unzipped.second, emptyList());

@@ -1121,7 +1121,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the first element yielding the largest value of the given function or `null` if there are no elements.
   @nullable
-  T maxBy<R extends Comparable<R>>(R Function(T) selector) {
+  T maxBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1192,7 +1192,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the first element yielding the smallest value of the given function or `null` if there are no elements.
   @nullable
-  T minBy<R extends Comparable<R>>(R Function(T) selector) {
+  T minBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1427,7 +1427,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> sorted() => sortedWith(naturalOrder());
 
   /// Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
-  KtList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) {
+  KtList<T> sortedBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1436,8 +1436,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
-  KtList<T> sortedByDescending<R extends Comparable<R>>(
-      R Function(T) selector) {
+  KtList<T> sortedByDescending<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
