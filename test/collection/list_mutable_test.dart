@@ -7,7 +7,7 @@ void main() {
   group("KtMutableList", () {
     group("mutableList", () {
       testList(
-          <T>() => emptyList<T>(),
+          <T>() => mutableListOf<T>(),
           <T>(
                   [T arg0,
                   T arg1,

@@ -926,7 +926,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("flatten", () {
     test("empty", () {
-      final KtIterable<KtIterable<int>> nested = emptyIterable();
+      final KtIterable<KtIterable<int>> nested =
+          emptyIterable<KtIterable<int>>();
       expect(nested.flatten(), emptyList());
     });
 
@@ -2247,7 +2248,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("unzip", () {
     test("empty", () {
-      final KtIterable<KtPair<String, int>> zipped = emptyIterable();
+      final KtIterable<KtPair<String, int>> zipped =
+          emptyIterable<KtPair<String, int>>();
       final unzipped = zipped.unzip();
       expect(unzipped.first, emptyList());
       expect(unzipped.second, emptyList());

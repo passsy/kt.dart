@@ -201,7 +201,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     for (final element in iter) {
       final key = keySelector(element);
       final V value =
-          valueTransform == null ? element : valueTransform(element);
+          valueTransform == null ? element as V : valueTransform(element);
       destination.put(key, value);
     }
     return destination;
@@ -1200,7 +1200,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T minElement = i.next();
-    R minValue = selector(minElement);
+    Comparable minValue = selector(minElement);
     while (i.hasNext()) {
       final e = i.next();
       final v = selector(e);

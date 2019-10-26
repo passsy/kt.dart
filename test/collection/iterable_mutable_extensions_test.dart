@@ -8,7 +8,7 @@ void main() {
   group("KtMutableIterableExtensions", () {
     group("mutableIterable", () {
       testIterable(<T>() => DartMutableIterable<T>([]),
-          <T>(Iterable<T> iterable) => DartMutableIterable(iterable));
+          <T>(Iterable<T> iterable) => DartMutableIterable(iterable.toList()));
     });
     group("mutableList", () {
       testIterable(<T>() => mutableListOf<T>(),

@@ -93,7 +93,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.
-  bool all(Function(K key, V value) predicate) {
+  bool all(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -111,7 +111,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns true if there is at least one entry that matches the given [predicate].
   /// [predicate] must not be null.
-  bool any(Function(K key, V value) predicate) {
+  bool any(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -298,7 +298,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
       return true;
     }());
     if (isEmpty()) return defaultValue();
-    return this;
+    return this as R;
   }
 
   /// Returns `true` if this map is not empty.
@@ -512,7 +512,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns `true` if there is no entries in the map that match the given [predicate].
   /// [predicate] must not be null.
-  bool none(Function(K key, V value) predicate) {
+  bool none(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
