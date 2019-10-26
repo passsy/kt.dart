@@ -1,4 +1,9 @@
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    
 linter:
   rules:
     - always_declare_return_types

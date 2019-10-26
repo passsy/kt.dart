@@ -33,7 +33,7 @@ class KtPair<A, B> {
 
 extension PairBuilder<A> on A {
   @experimental
-  KtPair<A, B> to<B>(B other) => KtPair(this, other);
+  KtPair<A, B> to<B>(B other) => KtPair(this as A, other);
 }
 
 extension PairDeconstruction<T> on KtPair<T, T> {
