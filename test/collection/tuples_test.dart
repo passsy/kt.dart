@@ -40,7 +40,7 @@ void main() {
     });
 
     test("construct pair with T1.to(T2)", () {
-      final KtPair<String, int> pair = "foo".to(42);
+      final KtPair<String, int> pair = KtPair("foo", 42);
       expect(pair.first, "foo");
       expect(pair.second, 42);
     });

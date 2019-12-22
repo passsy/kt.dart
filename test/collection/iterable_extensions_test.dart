@@ -2273,9 +2273,9 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("unzip pairs", () {
       final zipped = iterableOf([
-        "a".to(1),
-        "b".to(2),
-        "c".to(3),
+        const KtPair("a", 1),
+        const KtPair("b", 2),
+        const KtPair("c", 3),
       ]);
       final unzipped = zipped.unzip();
       if (ordered) {

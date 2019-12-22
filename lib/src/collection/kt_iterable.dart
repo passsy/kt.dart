@@ -1772,6 +1772,6 @@ extension UnzipKtIterableExtensions<T, R> on KtIterable<KtPair<T, R>> {
       listT.add(pair.first);
       listR.add(pair.second);
     }
-    return listT.to(listR);
+    return KtPair(listT, listR);
   }
 }
