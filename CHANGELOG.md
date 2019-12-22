@@ -2,6 +2,7 @@
 
 - Rename `(List|Set|Map).immutable()` extension to `.toImmutableList()` to match Dart SDK naming schema. 
 - Remove `int.rangeTo(X)` extension. Please use the [`dartx`](https://github.com/leisim/dartx) as replacement which offers the same extension
+- Remove `T.to(X)` extension to create a `KtPair`. It's too general and should be offered by the dart SDK not a 3rd party package
 
 ## 0.7.0-dev.2
 
