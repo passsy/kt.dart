@@ -120,15 +120,12 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 }
 
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
-  _MutableSetIterator(KtMutableSet<T> set)
-      : _set = set,
-        _iterator = set.iter.iterator {
+  _MutableSetIterator(KtMutableSet<T> set) : _iterator = set.iter.iterator {
     lastReturned = null;
     _hasNext = _iterator.moveNext();
     nextValue = _iterator.current;
   }
 
-  final KtMutableSet<T> _set;
   final Iterator<T> _iterator;
   T nextValue;
   T lastReturned;
