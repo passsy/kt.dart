@@ -7,6 +7,10 @@ import "package:kt_dart/src/collection/impl/set_mutable.dart";
 extension IterableInterop<T> on Iterable<T> {
   @experimental
   KtIterable<T> get kt => DartIterable(this);
+
+  /// Converts the [Iterable] to a truly immutable [KtList]
+  @experimental
+  KtList<T> toImmutableList() => KtList.from(this);
 }
 
 extension ListInterop<T> on List<T> {
