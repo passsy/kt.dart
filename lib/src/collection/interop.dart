@@ -11,6 +11,10 @@ extension IterableInterop<T> on Iterable<T> {
   /// Converts the [Iterable] to a truly immutable [KtList]
   @experimental
   KtList<T> toImmutableList() => KtList.from(this);
+
+  /// Converts the [Iterable] to a truly immutable [KtSet]
+  @experimental
+  KtSet<T> toImmutableSet() => KtSet.from(this);
 }
 
 extension ListInterop<T> on List<T> {

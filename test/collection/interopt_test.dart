@@ -39,6 +39,18 @@ void main() {
       });
     });
 
+    group("Iterable.toImmutableList()", () {
+      test("converts to KtList", () {
+        final iterable = Iterable.generate(5);
+        expect(iterable.toImmutableList(), listOf(0, 1, 2, 3, 4));
+      });
+    });
+    group("Iterable.toImmutableSet()", () {
+      test("converts to KtSet", () {
+        final iterable = Iterable.generate(5);
+        expect(iterable.toImmutableSet(), setOf(3, 4, 0, 1, 2));
+      });
+    });
     group("List.toImmutableList()", () {
       test("doesn't mutate original list", () {
         final List<int> dartList = [1, 2, 3];
