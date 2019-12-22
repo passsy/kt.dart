@@ -31,11 +31,6 @@ class KtPair<A, B> {
   int get hashCode => first.hashCode ^ second.hashCode;
 }
 
-extension PairBuilder<A> on A {
-  @experimental
-  KtPair<A, B> to<B>(B other) => KtPair(this as A, other);
-}
-
 extension PairDeconstruction<T> on KtPair<T, T> {
   /// Converts this pair into a list.
   @experimental
