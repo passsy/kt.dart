@@ -1,3 +1,8 @@
+## 0.7.0-dev.3
+
+- Rename `(List|Set|Map).immutable()` extension to `.toImmutableList()` to match Dart SDK naming schema. 
+- Remove `int.rangeTo(X)` extension. Please use the [`dartx`](https://github.com/leisim/dartx) as replacement which offers the same extension
+
 ## 0.7.0-dev.2
 
 New `.dart` extensions to convert KtDart collections back to dart collections.
