@@ -97,8 +97,8 @@ extension KtNumIterableExtension<T extends num> on KtIterable<T> {
     if (!iterator().hasNext()) return double.nan;
     while (i.hasNext()) {
       final next = i.next();
+      // nan values are ignored
       if (!next.isNaN) {
-        // nan values are ignored
         sum += next;
         count++;
       }
@@ -297,6 +297,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     var count = 0;
     for (final element in iter) {
       final value = selector(element);
+      // nan values are ignored
       if (!value.isNaN) {
         sum += value;
         count++;
