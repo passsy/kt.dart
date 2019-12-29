@@ -1,4 +1,4 @@
-## 0.7.0-dev.3
+## 0.7.0-dev.4
 
 - New extension `Iterable.toImmutableList(): KtList`
 - New extension `Iterable.toImmutableSet(): KtSet`
