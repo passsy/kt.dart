@@ -496,11 +496,14 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   group("maxBy", () {
     test("gets max value", () {
       final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
+      expect(map.maxBy((it) => int.parse(it.key)).value, "Ivysaur");
       expect(map.maxBy((it) => num.parse(it.key)).value, "Ivysaur");
     });
 
     test("empty iterable return null", () {
       final map = emptyMap<int, String>();
+      expect(map.maxBy((it) => it.key), null);
+      // with generic type
       expect(map.maxBy<num>((it) => it.key), null);
     });
 
@@ -508,6 +511,10 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final e =
           catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
+      // with generic type
+      final e1 =
+          catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
+      expect(e1.message, allOf(contains("null"), contains("selector")));
     });
   });
 
@@ -582,17 +589,16 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   group("minBy", () {
     test("gets min value", () {
       final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
-      expect(map.minBy((it) => num.parse(it.key)).value, "Bulbasaur");
+      expect(map.minBy((it) => int.parse(it.key)).value, "Bulbasaur");
     });
 
     test("empty iterable return null", () {
       final map = emptyMap<int, String>();
-      expect(map.minBy<num>((it) => it.key), null);
+      expect(map.minBy((it) => it.key), null);
     });
 
     test("minBy requires a non null selector", () {
-      final e =
-          catchException<ArgumentError>(() => emptyMap().minBy<num>(null));
+      final e = catchException<ArgumentError>(() => emptyMap().minBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
   });

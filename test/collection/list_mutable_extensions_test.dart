@@ -149,10 +149,29 @@ void testList(
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
 
+    test("sortBy works for ints", () {
+      // without specifying sortBy<num> as generic parameters
+      final result = mutableListOf(3, 4, 2, 1)..sortBy((it) => it);
+      expect(result, listOf(1, 2, 3, 4));
+
+      final result2 = mutableListOf(3, 4, 2, 1)..sortBy<num>((it) => it);
+      expect(result, result2);
+    });
+
     test("sortByDescending", () {
       final result = mutableListOf("paul", "john", "max", "lisa")
         ..sortByDescending(lastChar);
       expect(result, listOf("max", "john", "paul", "lisa"));
+    });
+
+    test("sortByDescending works for ints", () {
+      // without specifying sortByDescending<num> as generic parameters
+      final result = mutableListOf(3, 4, 2, 1)..sortByDescending((it) => it);
+      expect(result, listOf(4, 3, 2, 1));
+
+      final result2 = mutableListOf(3, 4, 2, 1)
+        ..sortByDescending<num>((it) => it);
+      expect(result, result2);
     });
 
     test("sortByDescending doesn't allow null as argument", () {
