@@ -418,7 +418,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
   @nullable
-  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+  KtMapEntry<K, V> maxBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -470,7 +470,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
   @nullable
-  KtMapEntry<K, V> minBy<R extends Comparable<R>>(
+  KtMapEntry<K, V> minBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
