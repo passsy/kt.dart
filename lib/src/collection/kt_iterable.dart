@@ -1224,7 +1224,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T minElement = i.next();
-    Comparable minValue = selector(minElement);
+    R minValue = selector(minElement);
     while (i.hasNext()) {
       final e = i.next();
       final v = selector(e);

@@ -139,7 +139,7 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
   }
 
   /// Sorts elements in the list in-place according to natural sort order of the value returned by specified [selector] function.
-  void sortBy<R extends Comparable<R>>(R Function(T) selector) {
+  void sortBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -150,7 +150,7 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
   }
 
   /// Sorts elements in the list in-place descending according to natural sort order of the value returned by specified [selector] function.
-  void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
+  void sortByDescending<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;

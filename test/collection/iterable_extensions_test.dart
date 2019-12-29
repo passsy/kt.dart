@@ -1687,18 +1687,25 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("minBy", () {
     test("gets min value", () {
       final iterable = iterableOf(["1", "3", "2"]);
+      expect(iterable.minBy((it) => int.parse(it)), "1");
       expect(iterable.minBy((it) => num.parse(it)), "1");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
+      expect(iterable.minBy((it) => it), null);
+      // with generic type
       expect(iterable.minBy<num>((it) => it), null);
     });
 
     test("minBy requires a non null selector", () {
       final e =
-          catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
+          catchException<ArgumentError>(() => emptyIterable().minBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
+      // with generic type
+      final e1 =
+          catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
+      expect(e1.message, allOf(contains("null"), contains("selector")));
     });
   });
 
