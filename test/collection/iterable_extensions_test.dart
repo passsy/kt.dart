@@ -244,16 +244,49 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("average", () {
     test("average of ints", () {
       final ints = iterableOf([1, 2, 3, 4]);
-      final result = ints.averageBy((it) => it);
+      final result = ints.average();
       expect(result, equals(2.5));
     });
     test("average of empty is NaN", () {
       final ints = emptyIterable<num>();
-      final result = ints.averageBy((it) => it);
+      final result = ints.average();
       expect(identical(result, double.nan), isTrue);
     });
     test("average of nums", () {
       final ints = iterableOf([1, 2.0, 3, 4]);
+      final result = ints.average();
+      expect(result, equals(2.5));
+    });
+    test("average of nums with NaN (nan is ignored)", () {
+      final ints = iterableOf([1, 2.0, double.nan, 3, double.nan, 4]);
+      final result = ints.average();
+      expect(result, equals(2.5));
+    });
+    test("average of nan only returns nan", () {
+      final ints = iterableOf([double.nan, double.nan, double.nan]);
+      final result = ints.average();
+      expect(identical(result, double.nan), isTrue);
+    });
+  });
+
+  group("averageBy", () {
+    test("averageBy of ints", () {
+      final ints = iterableOf([1, 2, 3, 4]);
+      final result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+    test("averageBy of empty is NaN", () {
+      final ints = emptyIterable<num>();
+      final result = ints.averageBy((it) => it);
+      expect(identical(result, double.nan), isTrue);
+    });
+    test("averageBy of nums", () {
+      final ints = iterableOf([1, 2.0, 3, 4]);
+      final result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+    test("averageBy of nums with NaN (nan is ignored)", () {
+      final ints = iterableOf([1, 2.0, double.nan, 3, double.nan, 4]);
       final result = ints.averageBy((it) => it);
       expect(result, equals(2.5));
     });
@@ -261,6 +294,11 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final list = emptyIterable<String>();
       final e = catchException<ArgumentError>(() => list.averageBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+    test("average of nan only returns nan", () {
+      final ints = iterableOf([double.nan, double.nan, double.nan]);
+      final result = ints.averageBy((it) => it);
+      expect(identical(result, double.nan), isTrue);
     });
   });
 

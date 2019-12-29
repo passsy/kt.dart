@@ -88,6 +88,23 @@ extension KtNumIterableExtension<T extends num> on KtIterable<T> {
     }
     return min;
   }
+
+  /// Returns the average or `null` if there are no elements.
+  double average() {
+    var count = 0;
+    num sum = 0;
+    final i = iterator();
+    if (!iterator().hasNext()) return double.nan;
+    while (i.hasNext()) {
+      final next = i.next();
+      if (!next.isNaN) {
+        // nan values are ignored
+        sum += next;
+        count++;
+      }
+    }
+    return sum / count;
+  }
 }
 
 extension KtIntIterableExtension on KtIterable<int> {
@@ -279,10 +296,16 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     num sum = 0.0;
     var count = 0;
     for (final element in iter) {
-      sum += selector(element);
-      ++count;
+      final value = selector(element);
+      if (!value.isNaN) {
+        sum += value;
+        count++;
+      }
     }
-    return count == 0 ? double.nan : sum / count;
+    if (count == 0) {
+      return double.nan;
+    }
+    return sum / count;
   }
 
   /// Splits this collection into a list of lists each not exceeding the given [size].
