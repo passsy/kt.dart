@@ -1,5 +1,20 @@
 ## 0.7.0-dev.3
 
+- New extension `Iterable.toImmutableList(): KtList`
+- New extension `Iterable.toImmutableSet(): KtSet`
+- New extension `KtIterable<num>.average(): double`
+- Relax `sortBy`/`sortByDescending`, `maxBy`/`minBy` typing to work better with ints and doubles
+```dart
+// Was: int doesn't not implement Comparable<int> but Comparable<num>
+// minBy therefore required some help to figure out the correct type (<num>) 
+users.minBy<num>((it) => it.age);
+
+// Now: minBy doesn't require the Comparable (num) to have the same same as the value (int).
+users.minBy((it) => it.age);
+```
+
+## 0.7.0-dev.3
+
 - Rename `(List|Set|Map).immutable()` extension to `.toImmutableList()` to match Dart SDK naming schema. 
 - Remove `int.rangeTo(X)` extension. Please use the [`dartx`](https://github.com/leisim/dartx) as replacement which offers the same extension
 - Remove `T.to(X)` extension to create a `KtPair`. It's too general and should be offered by the dart SDK not a 3rd party package
