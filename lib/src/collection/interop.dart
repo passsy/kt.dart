@@ -34,7 +34,7 @@ extension ListInterop<T> on List<T> {
 extension SetInterop<T> on Set<T> {
   /// Wraps this [Set] with a [KtMutableSet] interface.
   ///
-  /// In most cases you don't want mutability. Use [toImmutableList] instead.
+  /// In most cases you don't want mutability. Use [toImmutableSet] instead.
   ///
   /// Mutations on the [KtMutableSet] are operated on the original [Set].
   @experimental
@@ -42,13 +42,13 @@ extension SetInterop<T> on Set<T> {
 
   /// Converts the [Set] to a truly immutable [KtSet]
   @experimental
-  KtSet<T> toImmutableList() => KtSet.from(this);
+  KtSet<T> toImmutableSet() => KtSet.from(this);
 }
 
 extension MapInterop<K, V> on Map<K, V> {
   /// Wraps this [Map] with a [KtMutableMap] interface.
   ///
-  /// In most cases you don't want mutability. Use [toImmutableList] instead.
+  /// In most cases you don't want mutability. Use [toImmutableMap] instead.
   ///
   /// Mutations on the [KtMutableMap] are operated on the original [Map].
   @experimental
@@ -56,5 +56,5 @@ extension MapInterop<K, V> on Map<K, V> {
 
   /// Converts the [Map] to a truly immutable [KtMap]
   @experimental
-  KtMap<K, V> toImmutableList() => KtMap.from(this);
+  KtMap<K, V> toImmutableMap() => KtMap.from(this);
 }

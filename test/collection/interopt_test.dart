@@ -61,21 +61,20 @@ void main() {
         expect(ktList, listOf(1, 3));
       });
     });
-    group("Set.toImmutableList()", () {
+    group("Set.toImmutableSet()", () {
       test("doesn't mutate original set", () {
         final Set<int> dartSet = {1, 2, 3};
-        final KtMutableSet<int> ktSet =
-            dartSet.toImmutableList().toMutableSet();
+        final KtMutableSet<int> ktSet = dartSet.toImmutableSet().toMutableSet();
         expect(ktSet.remove(2), isTrue);
         expect(dartSet, [1, 2, 3]);
         expect(ktSet, setOf(1, 3));
       });
     });
-    group("Map.toImmutableList()", () {
+    group("Map.toImmutableMap()", () {
       test("doesn't mutate original map", () {
         final Map<String, int> dartMap = {"a": 1, "b": 2};
         final KtMutableMap<String, int> ktMap =
-            dartMap.toImmutableList().toMutableMap();
+            dartMap.toImmutableMap().toMutableMap();
         expect(ktMap.remove("a"), 1);
         expect(dartMap, {"a": 1, "b": 2});
         expect(ktMap, mapFrom({"b": 2}));
