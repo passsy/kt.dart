@@ -1723,7 +1723,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a list of pairs of each two adjacent elements in this collection.
   ///
   /// The returned list is empty if this collection contains less than two elements.
-  KtList<KtPair<T, T>> zipWithNext<R>() =>
+  KtList<KtPair<T, T>> zipWithNext() =>
       zipWithNextTransform((a, b) => KtPair(a, b));
 
   /// Returns a list containing the results of applying the given [transform] function
