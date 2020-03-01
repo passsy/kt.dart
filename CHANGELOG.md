@@ -1,3 +1,7 @@
+## 0.7.1
+
+- Fix unused import
+
 ## 0.7.0
 
 The library has be upgrade to use [`Static Extension Methods`](https://github.com/dart-lang/language/issues/41).
