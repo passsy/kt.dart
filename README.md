@@ -42,7 +42,7 @@ void addDevice(List<Widget> widgets, Device device) {
 }
 ```
 
-### `kt.dart` collections
+### `kt_dart` collections
 
 `KtList` and `KtMutableList` are two different Types. `KtList` is immutable by default and has no mutation methods (such as `add`). Methods like `map((T)->R)` or `plusElement(T)` return a new `KtList` leaving the old one unmodified.
 ```dart
@@ -106,7 +106,7 @@ Function deepEq = const DeepCollectionEquality().equals;
 print(deepEq(x, y)); // true, finally
 ```
 
-### `kt.dart` collections
+### `kt_dart` collections
 
 `KtList` and all other collection types implement `equals` by deeply comparing all items.
 
@@ -135,7 +135,7 @@ final kList = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9));
 final dFlat = dList.expand((l) => l).toList();
 print(dFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-// kt.dart
+// kt_dart
 final kFlat = kList.flatMap((l) => l);
 print(kFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
@@ -149,7 +149,7 @@ final kNames = listFrom(dNames);
 final dShortNames = dNames.where((name) => name.length <= 4).toList();
 print(dShortNames); // [Chet, Tor, Jake]
 
-// kt.dart
+// kt_dart
 final kShortNames = kNames.filter((name) => name.length <= 4);
 print(kShortNames); // [Chet, Tor, Jake]
 ```
@@ -164,34 +164,174 @@ dNames.firstWhere((name) => name.contains("k")); // Jake
 dNames.firstWhere((name) => name.contains("x"), orElse: () => null); // null
 dNames.firstWhere((name) => name.contains("x"), orElse: () => "Nobody"); // Nobody
 
-// kt.dart
+// kt_dart
 kNames.first((name) => name.contains("k")); // Jake
 kNames.firstOrNull((name) => name.contains("x")); // null
 kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 ```
 </details>
 
-# Packages
+## KtList
 
-> ## [annotation](https://github.com/passsy/kt.dart/tree/master/lib/src/annotation)
->
-> `import 'package:kt_dart/annotation.dart';`
-> 
-> Annotations such as `@nullable` or `@nonNull` giving hints about method return and argument types
->
+`KtList` is a read-only list of elements. It is immutable because it doesn't offer mutation methods such as `remove` or `add`.
+Use `KtMutableMap` if you want to use a mutable list. 
+
+To create a `KtList`/`KtMutableList` use the `KtList.of` constructor or convert an existing Dart `List` to a `KtList` with the `list.toImmutableList()` extension.
+
+### Create a KtList
+
+```dart
+// Create a KtList from scratch
+final beatles = KtList.of("John", "Paul", "George", "Ringo");
+
+// Convert a existing List to KtList
+final abba = ["Agnetha", "Björn", "Benny", "Anni-Frid"];
+final immutableAbba = abba.toImmutableList();
+```
+
+### Create a KtMutableList
+
+`KtList` is immutable by default, which means it doesn't offer methods like `add` or `remove`.
+ To create mutable list with **kt_dart** use the `KtMutableList` constructor.
+```dart
+// Create a KtMutableList from scratch
+final beatles = KtMutableList.of("John", "Paul", "George", "Ringo");
+beatles.removeAt(0);
+print(beatles); // [Paul, George, Ringo]
+```
+
+### Mutable/Immutable conversion
+
+Conversions between `KtList` and `KtMutableList` can be done with `KtList.toMutableList()` and `KtMutableList.toList()`;
+
+```dart
+final beatles = KtList.of("John", "Paul", "George", "Ringo");
+final mutable = beatles.toMutableList();
+mutable.removeAt(0);
+print(mutable); // [Paul, George, Ringo]
+print(beatles); // [John, Paul, George, Ringo]
+```
+
+### for loop
+
+**kt_dart** collections do not implement `Iterable`.
+It is therefore not possible to directly iterate over the entries of a `KtList`.
+
+All **kt_dart** collections offer a `.iter` property which exposes a Dart `Iterable`.
+For-loops therefore don't look much different.
+
+```dart
+final beatles = KtList.of("John", "Paul", "George", "Ringo");
+for (final member in beatles.iter) {
+  print(member);
+}
+```
+
+Yes, alternatively you could use `.asList()` instead which returns a Dart `List`.
+
+### Kotlin syntax
+Kotlin users might be more familiar with the `listOf()` and `mutableListOf()` functions.
+Use them if you like but keep in mind that the dart community is much more used to use constructors instead of top-level functions.
+
+```dart
+final beatles = listOf("John", "Paul", "George", "Ringo");
+final abba = mutableListOf("Agnetha", "Björn", "Benny", "Anni-Frid");
+```
 
 
-> ## [collection](https://github.com/passsy/kt_stdlib/tree/master/lib/src/collection)
->
-> `import 'package:kt_dart/collection.dart';`
-> 
-> Collection types, such as `KtIterable`, `KtCollection`, `KtList`, `KtSet`, `KtMap`  with over 150 methods as well as related top-level functions.
-The collections are immutable by default but offer a mutable counterpart i.e. `KtMutableList`.
->
+## KtSet
 
-### Planned
+A `KtSet` is a unordered collection of elements without duplicates.
 
-Planned modules for the future are `async`, `tuples`, `comparison`, `range`, `sequence`, `text`
+Creating a `KtSet`/`KtMutableSet` is very similar to the `KtList` API. 
+
+```dart
+// Create a KtSet from scratch
+final beatles = KtSet.of("John", "Paul", "George", "Ringo");
+
+// Convert a existing Set to KtSet
+final abba = {"Agnetha", "Björn", "Benny", "Anni-Frid"};
+final immutableAbba = abba.toImmutableSet();
+```
+
+## KtMap
+
+To create a `KtMap`/`KtMutableMap` start with Dart `Map` and then convert it to a `KtMap` with either:
+- `pokemon.toImmutableMap(): KtMap` (since Dart 2.7)
+- `KtMap.from(pokemon): KtMap`
+- `pokemon.kt: KtMutableMap` (since Dart 2.7)
+- `KtMutableMap.from(pokemon): KtMutableMap`
+
+```dart
+// immutable
+final pokemon = {
+  1: "Bulbasaur",
+  2: "Ivysaur",
+  3: "Stegosaur",
+}.toImmutableMap();
+
+final newPokemon = KtMap.from({
+  152: "Chikorita",
+  153: "Bayleef",
+  154: "Meganium",
+});
+
+// mutable
+final mutablePokemon = {
+  1: "Bulbasaur",
+  2: "Ivysaur",
+  3: "Stegosaur",
+}.kt;
+
+final newMutablePokemon = KtMutableMap.from({
+  152: "Chikorita",
+  153: "Bayleef",
+  154: "Meganium",
+});
+```
+
+### KtHashMap and KtLinkedMap
+
+You may want to use a specific `Map` implementation. **kt_dart** offers:
+ - `KtLinkedMap` - based on Darts `LinkedHashMap` where the insertion order of keys is remembered and keys are iterated in the order they were inserted into the map
+- `KtHashMap` - based on Darts `HashMap` where keys of a `HashMap` must have consistent \[Object.==\] and \[Object.hashCode\] implementations. Iterating the map's keys, values or entries (through \[forEach\]) may happen in any order.
+
+## KtPair, KtTriple
+
+**kt_dart** offer two types of tuples, `KtPair` with two elements and `KtTriple` with three elements.
+They are used by some collection APIs and prevent a 3rd party dependency. 
+
+```dart
+final beatles = KtList.of("John", "Paul", "George", "Ringo");
+final partitions = beatles.partition((it) => it.contains("n"));
+print(partitions.first); // [John, Ringo]
+print(partitions.second); // [Paul, George]
+```
+
+There won't be a `KtQuadruple` or `TupleN` in this library.
+If you want to use tuples heavily in you application consider using the [`tuple`](https://pub.dev/packages/tuple) package.
+Better, use [`freezed`](https://github.com/rrousselGit/freezed) to generated data classes which makes for a much better API.
+
+## Annotations
+
+### `@nullable`
+
+Kotlin already has Non-Nullable types, something which is coming to Dart soon™.
+**kt_dart** already makes use of Non-Nullable Types and never returns `null` unless a method is annotated with `@nullable`.
+
+https://github.com/passsy/kt.dart/blob/490a3b205ffef27d9865d6018381a4168119e69f/lib/src/collection/kt_map.dart#L51-L53
+
+There isn't any tooling which will warn you about the wrong usage but at least it's documented.
+And once nnbd lands in Dart it will be fairly easy to convert.
+
+### `@nonNull`
+
+This annotation annotates methods which never return `null`.
+Although this is the default in **kt_dart**, is makes it very obvious for methods which sometimes return `null` in other languages.
+
+### `@experimental`
+
+A method/class annotated with `@experimental` marks the method/class as experimental feature. Experimental APIs can be changed or removed at any time.
 
 ## License
 
