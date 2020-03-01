@@ -5,38 +5,40 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableIterable", () {
-    testIterable(<T>() => DartMutableIterable<T>([]),
-        <T>(Iterable<T> iterable) => DartMutableIterable(iterable));
-  });
-  group("mutableList", () {
-    testIterable(<T>() => mutableListOf<T>(),
-        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
-  });
+  group("KtMutableIterableExtensions", () {
+    group("mutableIterable", () {
+      testIterable(<T>() => DartMutableIterable<T>([]),
+          <T>(Iterable<T> iterable) => DartMutableIterable(iterable.toList()));
+    });
+    group("mutableList", () {
+      testIterable(<T>() => mutableListOf<T>(),
+          <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+    });
 
-  group("hashset", () {
-    testIterable(<T>() => hashSetOf<T>(),
-        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
-        ordered: false);
-  });
-  group("KHashSet", () {
-    testIterable(<T>() => KtHashSet<T>.of(),
-        <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable));
-  });
+    group("hashset", () {
+      testIterable(<T>() => hashSetOf<T>(),
+          <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+          ordered: false);
+    });
+    group("KtHashSet", () {
+      testIterable(<T>() => KtHashSet<T>.of(),
+          <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable));
+    });
 
-  group("linkedSet", () {
-    testIterable(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
-  });
-  group("KHashSet", () {
-    testIterable(<T>() => KtLinkedSet<T>.of(),
-        <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
-  });
+    group("linkedSet", () {
+      testIterable(<T>() => linkedSetOf<T>(),
+          <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+    });
+    group("KtHashSet", () {
+      testIterable(<T>() => KtLinkedSet<T>.of(),
+          <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
+    });
 
-  test("DartMutableIterable exposes dart Iterable via iter", () {
-    final dartIterable = [];
-    final exposedIter = DartMutableIterable(dartIterable).iter;
-    expect(identical(dartIterable, exposedIter), isTrue);
+    test("DartMutableIterable exposes dart Iterable via iter", () {
+      final dartIterable = [];
+      final exposedIter = DartMutableIterable(dartIterable).iter;
+      expect(identical(dartIterable, exposedIter), isTrue);
+    });
   });
 }
 

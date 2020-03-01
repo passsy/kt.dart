@@ -10,6 +10,10 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
         _list = List.from(iterable, growable: true),
         super();
 
+  DartMutableList.noCopy(List<T> list)
+      : _list = list,
+        super();
+
   final List<T> _list;
 
   @override
@@ -69,9 +73,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   int get size => _list.length;
-
-  @override
-  int get lastIndex => size - 1;
 
   @override
   bool add(T element) {

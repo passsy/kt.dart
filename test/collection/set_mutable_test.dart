@@ -4,38 +4,40 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          mutableSetOf(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => mutableSetFrom(iterable),
-    );
-  });
-  group("KMutableSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtMutableSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtMutableSet.from(iterable),
-    );
-  });
-  group("KHashSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtHashSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtHashSet.from(iterable),
-      ordered: false,
-    );
-  });
-  group("KLinkedSet", () {
-    testMutableSet(
-      <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-          KtLinkedSet.of(
-              arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-      <T>(iterable) => KtLinkedSet.from(iterable),
-    );
+  group("KtMutableSet", () {
+    group("mutableSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            mutableSetOf(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => mutableSetFrom(iterable),
+      );
+    });
+    group("KtMutableSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtMutableSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtMutableSet.from(iterable),
+      );
+    });
+    group("KtHashSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtHashSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtHashSet.from(iterable),
+        ordered: false,
+      );
+    });
+    group("KtLinkedSet", () {
+      testMutableSet(
+        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
+            KtLinkedSet.of(
+                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+        <T>(iterable) => KtLinkedSet.from(iterable),
+      );
+    });
   });
 }
 
@@ -97,7 +99,7 @@ void testMutableSet(
   test("using the internal dart set allows mutation - empty", () {
     final kset = mutableSetOf();
     expect(kset.isEmpty(), isTrue);
-    // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+    // ignore: deprecated_member_use_from_same_package
     kset.set.add("asdf");
     // unchanged
     expect(kset.isEmpty(), isFalse);
@@ -107,7 +109,7 @@ void testMutableSet(
   test("using the internal dart set allows mutation", () {
     final kset = mutableSetOf("a");
     expect(kset, setOf("a"));
-    // ignore: deprecated_member_use_from_same_package, deprecated_member_use
+    // ignore: deprecated_member_use_from_same_package
     kset.set.add("b");
     // unchanged
     expect(kset, setOf("a", "b"));

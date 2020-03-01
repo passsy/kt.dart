@@ -4,6 +4,7 @@ import "collection/collections_test.dart" as collections_test;
 import "collection/comparisons_test.dart" as comparisons_test;
 import "collection/dart_unmodifiable_set_view_test.dart"
     as dart_unmodifiable_set_view_test;
+import "collection/interopt_test.dart" as interopt_test;
 import "collection/iterable_extensions_test.dart" as iterable_extensions_test;
 import "collection/iterable_mutable_extensions_test.dart"
     as iterable_mutable_extensions_test;
@@ -21,10 +22,14 @@ import "collection/map_mutable_extensions_test.dart"
 import "collection/map_mutable_test.dart" as map_mutable_test;
 import "collection/map_test.dart" as map_test;
 import "collection/set_empty_test.dart" as set_empty_test;
+import "collection/set_extensions_test.dart" as set_extensions_test;
+import "collection/set_mutable_extensions_test.dart"
+    as set_mutable_extensions_test;
 import "collection/set_mutable_test.dart" as set_mutable_test;
 import "collection/set_test.dart" as set_test;
 import "collection/tuples_test.dart" as tuples_test;
 import "exception/exceptions_test.dart" as exceptions_test;
+import "issues/all_issues.dart" as all_issues;
 import "util/annotation_test.dart" as annotation_test;
 import "util/arguments_test.dart" as arguments_test;
 import "util/hash_test.dart" as hash_test;
@@ -35,6 +40,7 @@ void main() {
   collections_test.main();
   comparisons_test.main();
   dart_unmodifiable_set_view_test.main();
+  interopt_test.main();
   iterable_extensions_test.main();
   iterable_mutable_extensions_test.main();
   iterator_test.main();
@@ -49,10 +55,13 @@ void main() {
   map_mutable_test.main();
   map_test.main();
   set_empty_test.main();
+  set_extensions_test.main();
+  set_mutable_extensions_test.main();
   set_mutable_test.main();
   set_test.main();
   tuples_test.main();
   exceptions_test.main();
+  all_issues.main();
   annotation_test.main();
   arguments_test.main();
   hash_test.main();

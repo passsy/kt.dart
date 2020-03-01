@@ -38,6 +38,17 @@ void main() {
       expect(KtPair("a", "b").toString(), "(a, b)");
       expect(KtPair(null, null).toString(), "(null, null)");
     });
+
+    test("construct pair with T1.to(T2)", () {
+      final KtPair<String, int> pair = KtPair("foo", 42);
+      expect(pair.first, "foo");
+      expect(pair.second, 42);
+    });
+
+    test("toList", () {
+      final pair = KtPair("a", "b");
+      expect(pair.toList(), listOf("a", "b"));
+    });
   });
 
   group("KtTriple", () {
@@ -76,6 +87,11 @@ void main() {
     test("toString", () {
       expect(KtTriple("a", "b", "c").toString(), "(a, b, c)");
       expect(KtTriple(null, "b", null).toString(), "(null, b, null)");
+    });
+
+    test("toList", () {
+      final triple = KtTriple("a", "b", "c");
+      expect(triple.toList(), listOf("a", "b", "c"));
     });
   });
 }

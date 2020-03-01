@@ -82,6 +82,15 @@ abstract class KtMutableMapEntry<K, V> extends KtMapEntry<K, V> {
 }
 
 extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
+  /// Creates a [Map] instance that wraps the original [KtMap]. It acts as a view.
+  ///
+  /// Mutations on the returned [Map] are reflected on the original [KtMap]
+  /// and vice versa.
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Map<K, V> get dart => asMap();
+
   /// Returns the value for the given key. If the key is not found in the map, calls the [defaultValue] function,
   /// puts its result into the map under the given key and returns it.
   ///

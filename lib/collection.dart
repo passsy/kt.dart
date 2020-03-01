@@ -4,6 +4,7 @@ export "package:kt_dart/annotation.dart";
 export "package:kt_dart/exception.dart";
 export "package:kt_dart/src/collection/collections.dart";
 export "package:kt_dart/src/collection/comparisons.dart";
+export "package:kt_dart/src/collection/interop.dart";
 export "package:kt_dart/src/collection/kt_collection.dart";
 export "package:kt_dart/src/collection/kt_collection_mutable.dart";
 export "package:kt_dart/src/collection/kt_iterable.dart";

@@ -47,9 +47,6 @@ abstract class KtList<T> implements KtCollection<T> {
   @override
   int get size;
 
-  /// Returns the index of the last item in the list or -1 if the list is empty.
-  int get lastIndex;
-
   /// Returns a read-only dart:core [List]
   ///
   /// This method can be used to interop between the dart:collection and the
@@ -103,6 +100,12 @@ abstract class KtList<T> implements KtCollection<T> {
 }
 
 extension KtListExtensions<T> on KtList<T> {
+  /// Returns a read-only dart:core [List]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  List<T> get dart => asList();
+
   /// Returns a list containing all elements except last [n] elements.
   KtList<T> dropLast(int n) {
     assert(() {
@@ -256,6 +259,9 @@ extension KtListExtensions<T> on KtList<T> {
     }
   }
 
+  /// Returns the index of the last item in the list or -1 if the list is empty.
+  int get lastIndex => size - 1;
+
   /// Accumulates value starting with last element and applying [operation] from right to left to each element and current accumulator value.
   S reduceRight<S>(S Function(T, S acc) operation) {
     assert(() {
@@ -407,4 +413,9 @@ extension KtListExtensions<T> on KtList<T> {
     }
     return toList();
   }
+}
+
+extension NullableKtListExtensions<T> on KtList<T> /*?*/ {
+  /// Returns this [KtList] if it's not `null` and the empty list otherwise.
+  KtList<T> orEmpty() => this ?? KtList<T>.empty();
 }

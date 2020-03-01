@@ -4,31 +4,33 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableMapFrom", () {
-    testMutableMap(<K, V>() => mutableMapFrom<K, V>(),
-        <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
-  });
-  group("KtMutableMap", () {
-    testMutableMap(<K, V>() => KtMutableMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
-  });
-  group("hashMapFrom", () {
-    testMutableMap(<K, V>() => hashMapFrom<K, V>(),
-        <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
-        ordered: false);
-  });
-  group("KHashMap", () {
-    testMutableMap(<K, V>() => KtHashMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
-        ordered: false);
-  });
-  group("linkedMapFrom", () {
-    testMutableMap(<K, V>() => linkedMapFrom<K, V>(),
-        <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
-  });
-  group("KLinkedMap", () {
-    testMutableMap(<K, V>() => KtLinkedMap<K, V>.empty(),
-        <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+  group("KtMutableMapExtensions", () {
+    group("mutableMapFrom", () {
+      testMutableMap(<K, V>() => mutableMapFrom<K, V>(),
+          <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+    });
+    group("KtMutableMap", () {
+      testMutableMap(<K, V>() => KtMutableMap<K, V>.empty(),
+          <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
+    });
+    group("hashMapFrom", () {
+      testMutableMap(<K, V>() => hashMapFrom<K, V>(),
+          <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
+          ordered: false);
+    });
+    group("KtHashMap", () {
+      testMutableMap(<K, V>() => KtHashMap<K, V>.empty(),
+          <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
+          ordered: false);
+    });
+    group("linkedMapFrom", () {
+      testMutableMap(<K, V>() => linkedMapFrom<K, V>(),
+          <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+    });
+    group("KtLinkedMap", () {
+      testMutableMap(<K, V>() => KtLinkedMap<K, V>.empty(),
+          <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+    });
   });
 }
 
@@ -95,6 +97,16 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     test("count even", () {
       final map = mapFrom({1: "a", 2: "b", 3: "c"});
       expect(map.count((it) => it.key % 2 == 0), 1);
+    });
+  });
+
+  group("dart property", () {
+    test("allows mutation of original map", () {
+      final original = emptyMap<String, int>();
+      final Map<String, int> map = original.dart;
+      map["a"] = 1;
+      expect(map["a"], 1);
+      expect(original["a"], 1);
     });
   });
 

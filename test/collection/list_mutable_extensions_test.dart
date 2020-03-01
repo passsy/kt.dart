@@ -6,41 +6,44 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("mutableList", () {
-    testList(
-        <T>() => mutableListOf<T>(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            mutableListOf(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
-  });
-  group("KtMutableList", () {
-    testList(
-        <T>() => KtMutableList<T>.empty(),
-        <T>(
-                [T arg0,
-                T arg1,
-                T arg2,
-                T arg3,
-                T arg4,
-                T arg5,
-                T arg6,
-                T arg7,
-                T arg8,
-                T arg9]) =>
-            KtMutableList.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>([Iterable<T> iterable = const []]) => KtMutableList.from(iterable));
+  group("KtMutableListExtensions", () {
+    group("mutableList", () {
+      testList(
+          <T>() => mutableListOf<T>(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              mutableListOf(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable));
+    });
+    group("KtMutableList", () {
+      testList(
+          <T>() => KtMutableList<T>.empty(),
+          <T>(
+                  [T arg0,
+                  T arg1,
+                  T arg2,
+                  T arg3,
+                  T arg4,
+                  T arg5,
+                  T arg6,
+                  T arg7,
+                  T arg8,
+                  T arg9]) =>
+              KtMutableList.of(
+                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
+          <T>([Iterable<T> iterable = const []]) =>
+              KtMutableList.from(iterable));
+    });
   });
 }
 
@@ -72,6 +75,16 @@ void testList(
       expect(list.size, 0);
       list.clear();
       expect(list.size, 0);
+    });
+  });
+
+  group("dart property", () {
+    test("dart property is mutating original collection", () {
+      final original = mutableListOf("a", "b", "c");
+      final dartList = original.dart;
+      dartList.add("x");
+      expect(dartList, ["a", "b", "c", "x"]);
+      expect(original, listOf("a", "b", "c", "x"));
     });
   });
 
@@ -136,10 +149,29 @@ void testList(
       expect(e.message, allOf(contains("null"), contains("selector")));
     });
 
+    test("sortBy works for ints", () {
+      // without specifying sortBy<num> as generic parameters
+      final result = mutableListOf(3, 4, 2, 1)..sortBy((it) => it);
+      expect(result, listOf(1, 2, 3, 4));
+
+      final result2 = mutableListOf(3, 4, 2, 1)..sortBy<num>((it) => it);
+      expect(result, result2);
+    });
+
     test("sortByDescending", () {
       final result = mutableListOf("paul", "john", "max", "lisa")
         ..sortByDescending(lastChar);
       expect(result, listOf("max", "john", "paul", "lisa"));
+    });
+
+    test("sortByDescending works for ints", () {
+      // without specifying sortByDescending<num> as generic parameters
+      final result = mutableListOf(3, 4, 2, 1)..sortByDescending((it) => it);
+      expect(result, listOf(4, 3, 2, 1));
+
+      final result2 = mutableListOf(3, 4, 2, 1)
+        ..sortByDescending<num>((it) => it);
+      expect(result, result2);
     });
 
     test("sortByDescending doesn't allow null as argument", () {

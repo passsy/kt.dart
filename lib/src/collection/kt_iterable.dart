@@ -15,16 +15,55 @@ abstract class KtIterable<T> {
   KtIterator<T> iterator();
 }
 
-extension KtIntIterableExtension on KtIterable<int> {
+extension KtComparableIterableExtension<T extends Comparable<T>>
+    on KtIterable<T> {
+  /// Returns a dart:core [Iterable]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Iterable<T> get dart => iter;
+
   /// Returns the largest element or `null` if there are no elements.
   @nullable
-  int max() {
+  T max() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
-    int max = i.next();
+    T max = i.next();
+    while (i.hasNext()) {
+      final T e = i.next();
+      if (Comparable.compare(max, e) < 0) {
+        max = e;
+      }
+    }
+    return max;
+  }
+
+  /// Returns the smallest element or `null` if there are no elements.
+  @nullable
+  T min() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T min = i.next();
+    while (i.hasNext()) {
+      final T e = i.next();
+      if (Comparable.compare(min, e) > 0) {
+        min = e;
+      }
+    }
+    return min;
+  }
+}
+
+extension KtNumIterableExtension<T extends num> on KtIterable<T> {
+  /// Returns the largest element or `null` if there are no elements.
+  @nullable
+  T max() {
+    final i = iterator();
+    if (!iterator().hasNext()) return null;
+    T max = i.next();
     if (max.isNaN) return max;
     while (i.hasNext()) {
-      final int e = i.next();
+      final T e = i.next();
       if (e.isNaN) return e;
       if (max < e) {
         max = e;
@@ -35,13 +74,13 @@ extension KtIntIterableExtension on KtIterable<int> {
 
   /// Returns the smallest element or `null` if there are no elements.
   @nullable
-  int min() {
+  T min() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
-    int min = i.next();
+    T min = i.next();
     if (min.isNaN) return min;
     while (i.hasNext()) {
-      final int e = i.next();
+      final T e = i.next();
       if (e.isNaN) return e;
       if (min > e) {
         min = e;
@@ -50,6 +89,25 @@ extension KtIntIterableExtension on KtIterable<int> {
     return min;
   }
 
+  /// Returns the average or `null` if there are no elements.
+  double average() {
+    var count = 0;
+    num sum = 0;
+    final i = iterator();
+    if (!iterator().hasNext()) return double.nan;
+    while (i.hasNext()) {
+      final next = i.next();
+      // nan values are ignored
+      if (!next.isNaN) {
+        sum += next;
+        count++;
+      }
+    }
+    return sum / count;
+  }
+}
+
+extension KtIntIterableExtension on KtIterable<int> {
   /// Returns the sum of all elements in the collection.
   int sum() {
     int sum = 0;
@@ -61,43 +119,9 @@ extension KtIntIterableExtension on KtIterable<int> {
 }
 
 extension KtDoubleIterableExtension on KtIterable<double> {
-  /// Returns the largest element or `null` if there are no elements.
-  @nullable
-  double max() {
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    double max = i.next();
-    if (max.isNaN) return max;
-    while (i.hasNext()) {
-      final double e = i.next();
-      if (e.isNaN) return e;
-      if (max < e) {
-        max = e;
-      }
-    }
-    return max;
-  }
-
-  /// Returns the smallest element or `null` if there are no elements.
-  @nullable
-  double min() {
-    final i = iterator();
-    if (!iterator().hasNext()) return null;
-    double min = i.next();
-    if (min.isNaN) return min;
-    while (i.hasNext()) {
-      final double e = i.next();
-      if (e.isNaN) return e;
-      if (min > e) {
-        min = e;
-      }
-    }
-    return min;
-  }
-
   /// Returns the sum of all elements in the collection.
   double sum() {
-    double sum = 0;
+    double sum = 0.0;
     for (final element in iter) {
       sum += element;
     }
@@ -194,7 +218,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     for (final element in iter) {
       final key = keySelector(element);
       final V value =
-          valueTransform == null ? element : valueTransform(element);
+          valueTransform == null ? element as V : valueTransform(element);
       destination.put(key, value);
     }
     return destination;
@@ -272,10 +296,17 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     num sum = 0.0;
     var count = 0;
     for (final element in iter) {
-      sum += selector(element);
-      ++count;
+      final value = selector(element);
+      // nan values are ignored
+      if (!value.isNaN) {
+        sum += value;
+        count++;
+      }
     }
-    return count == 0 ? double.nan : sum / count;
+    if (count == 0) {
+      return double.nan;
+    }
+    return sum / count;
   }
 
   /// Splits this collection into a list of lists each not exceeding the given [size].
@@ -1114,7 +1145,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the first element yielding the largest value of the given function or `null` if there are no elements.
   @nullable
-  T maxBy<R extends Comparable<R>>(R Function(T) selector) {
+  T maxBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1185,7 +1216,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the first element yielding the smallest value of the given function or `null` if there are no elements.
   @nullable
-  T minBy<R extends Comparable<R>>(R Function(T) selector) {
+  T minBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1420,7 +1451,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> sorted() => sortedWith(naturalOrder());
 
   /// Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
-  KtList<T> sortedBy<R extends Comparable<R>>(R Function(T) selector) {
+  KtList<T> sortedBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1429,8 +1460,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
-  KtList<T> sortedByDescending<R extends Comparable<R>>(
-      R Function(T) selector) {
+  KtList<T> sortedByDescending<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -1693,7 +1723,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a list of pairs of each two adjacent elements in this collection.
   ///
   /// The returned list is empty if this collection contains less than two elements.
-  KtList<KtPair<T, T>> zipWithNext<R>() =>
+  KtList<KtPair<T, T>> zipWithNext() =>
       zipWithNextTransform((a, b) => KtPair(a, b));
 
   /// Returns a list containing the results of applying the given [transform] function
@@ -1742,4 +1772,30 @@ class _MovingSubList<T> {
   KtList<T> snapshot() => list.subList(_fromIndex, _fromIndex + _size);
 
   int get size => _size;
+}
+
+extension NestedKtIterableExtensions<T> on KtIterable<KtIterable<T>> {
+  /// Returns a single list of all elements from all collections in the given collection.
+  KtList<T> flatten() {
+    final result = KtMutableList<T>.empty();
+    for (final element in iter) {
+      result.addAll(element);
+    }
+    return result;
+  }
+}
+
+extension UnzipKtIterableExtensions<T, R> on KtIterable<KtPair<T, R>> {
+  /// Returns a pair of lists, where
+  /// *first* list is built from the first values of each pair from this collection,
+  /// *second* list is built from the second values of each pair from this collection.
+  KtPair<KtList<T>, KtList<R>> unzip() {
+    final listT = KtMutableList<T>.empty();
+    final listR = KtMutableList<R>.empty();
+    for (final pair in iter) {
+      listT.add(pair.first);
+      listR.add(pair.second);
+    }
+    return KtPair(listT, listR);
+  }
 }

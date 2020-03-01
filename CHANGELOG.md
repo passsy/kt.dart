@@ -1,3 +1,150 @@
+## 0.7.0+1
+
+- Fix unused import
+
+## 0.7.0
+
+The library has be upgrade to use [`Static Extension Methods`](https://github.com/dart-lang/language/issues/41).
+
+### Interop
+
+This update also includes extensions for Dart collections which allow easy interoperability between dart and kt.dart collections using the `.kt` and `.dart` getters.
+
+```dart
+  // New: Converting dart collections to KtDart collections (mutable views)
+  final KtMutableList<String> ktList = ["hey"].kt;
+  final KtMutableSet<String> ktSet = {"hey"}.kt;
+  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+
+  // Converting KtDart collections to dart collections
+  final List<String> dartList = KtList.of("hey").dart;
+  final Set<String> dartSet = KtSet.of("hey").dart;
+  final Map<String, int> dartMap = KtMap.from({"hey": 1}).dart;
+```
+
+Note: `["Hello", "World"].kt` returns a `KtMutableList<String>` and mutations are reflected on the original dart list. It is not a copy! Because it doesn't copy it is very cheap and only syntax sugar.
+ 
+To convert dart collections to their immutable kt.dart counterparts use: `.toImmutableList()`, `.toImmutableSet()`, `.toImmutableMap()`
+
+```dart
+  // New: Make dart collections immutable
+  final KtList<String> list = ["hey"].toImmutableList();
+  final KtSet<String> set = {"hey"}.toImmutableSet();
+  final KtMap<String, int> map = {"hey": 1}.toImmutableMap();
+```
+
+### Possible breaking changes
+
+- Relax `sortBy`/`sortByDescending`, `maxBy`/`minBy` typing to work better with ints and doubles [#116](https://github.com/passsy/kt.dart/pull/116)
+```dart
+// Was: int doesn't not implement Comparable<int> but Comparable<num>
+// minBy therefore required some help to figure out the correct type (<num>) 
+users.minBy<num>((it) => it.age);
+
+// Now: minBy doesn't require the Comparable (num) to have the same same as the value (int).
+users.minBy((it) => it.age);
+```
+- Remove unnecessary generic `R` from `KtIterable.zipWithNext` [#118](https://github.com/passsy/kt.dart/pull/118)
+
+### New Extensions
+- `KtPair` and `KtTriple` now have a new `toList()` function to convert the values to a `KtList`
+- `KtList?.orEmpty()` returns an empty list when the list is `null`
+- `KtSet?.orEmpty()` returns an empty set when the set is `null`
+- `KtMap?.orEmpty()` returns an empty map when the map is `null`
+- `KtMap.ifEmpty(() -> defaultValue)` returns the default value when the map is empty
+- `KtIterable<KtIterable<T>>.flatten()` flattens the nested collections to `KtIterable<T>`
+- `KtIterable<KtPair<T, U>>.unzip(): KtPair<KtList<T>, KtList<U>>` unzips list of pairs to list of their first and second values
+- `KtIterable<Comparable<T>>.min()` returns the smallest element of any comparable iterable
+- `KtIterable<Comparable<T>>.max()` returns the largest element of any comparable iterable
+
+
+## 0.7.0-dev.4
+
+- New extension `Iterable.toImmutableList(): KtList`
+- New extension `Iterable.toImmutableSet(): KtSet`
+- New extension `KtIterable<num>.average(): double`
+- Relax `sortBy`/`sortByDescending`, `maxBy`/`minBy` typing to work better with ints and doubles
+```dart
+// Was: int doesn't not implement Comparable<int> but Comparable<num>
+// minBy therefore required some help to figure out the correct type (<num>) 
+users.minBy<num>((it) => it.age);
+
+// Now: minBy doesn't require the Comparable (num) to have the same same as the value (int).
+users.minBy((it) => it.age);
+```
+
+## 0.7.0-dev.3
+
+- Rename `(List|Set|Map).immutable()` extension to `.toImmutableList()` to match Dart SDK naming schema. 
+- Remove `int.rangeTo(X)` extension. Please use the [`dartx`](https://github.com/leisim/dartx) as replacement which offers the same extension
+- Remove `T.to(X)` extension to create a `KtPair`. It's too general and should be offered by the dart SDK not a 3rd party package
+
+## 0.7.0-dev.2
+
+New `.dart` extensions to convert KtDart collections back to dart collections.
+
+```dart
+  // New: Converting dart collections to KtDart collections (mutable views)
+  final KtMutableList<String> ktList = ["hey"].kt;
+  final KtMutableSet<String> ktSet = {"hey"}.kt;
+  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+
+  // Converting KtDart collections to dart collections
+  final List<String> dartList = KtList.of("hey").dart;
+  final Set<String> dartSet = KtSet.of("hey").dart;
+  final Map<String, int> dartMap = KtMap.from({"hey": 1}).dart;
+```
+
+## 0.7.0-dev.1
+
+**KtDart makes full use of darts static extension methods, introduced with Dart 2.6.**
+
+The public API stays unchanged and is backwards compatible.
+
+### Improved interopt with dart collections
+
+It is now easier then ever to convert dart to ktdart collections and vice versa. Use the `.kt` property to convert dart collections to KtDart collections. (Note: `.kt` create a view, which allows you to mutate the original dart collection).
+ 
+```dart
+  // New: Make dart collections immutable
+  final KtList<String> list = ["hey"].immutable();
+  final KtSet<String> set = {"hey"}.immutable();
+  final KtMap<String, int> map = {"hey": 1}.immutable();
+
+  // New: Converting dart collections to KtDart collections (mutable views)
+  final KtMutableList<String> ktList = ["hey"].kt;
+  final KtMutableSet<String> ktSet = {"hey"}.kt;
+  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+
+  // Converting KtDart collections to dart collections
+  final List<String> dartList = KtList.of("hey").asList();
+  final Set<String> dartSet = KtSet.of("hey").asSet();
+  final Map<String, int> dartMap = KtMap.from({"hey": 1}).asMap();
+```
+
+### Tuple improvements
+
+`KtPair`s can now created with the `T0.to(T1)` extension.
+```dart
+final KtPair<String, int> pair = "foo".to(42);
+```
+
+Also, `KtPair` and `KtTriple` now have a new `toList()` function to convert the values to a `KtList`.
+
+
+### New Extensions
+
+- `KtList?.orEmpty()` returns an empty list when the list is `null`
+- `KtSet?.orEmpty()` returns an empty set when the set is `null`
+- `KtMap?.orEmpty()` returns an empty map when the map is `null`
+- `KtMap.ifEmpty(() -> defaultValue)` returns the default value when the map is empty
+- `KtIterable<KtIterable<T>>.flatten()` flattens the nested collections to `KtIterable<T>`
+- `KtIterable<KtPair<T, U>>.unzip(): KtPair<KtList<T>, KtList<U>>` unzips list of pairs to list of their first and second values
+- `KtIterable<Comparable<T>>.min()` returns the smallest element of any comparable iterable
+- `KtIterable<Comparable<T>>.max()` returns the largest element of any comparable iterable
+
+
+
 ## 0.6.2
 
 [diff v0.6.1...v0.6.2](https://github.com/passsy/kt.dart/compare/v0.6.1...v0.6.2)

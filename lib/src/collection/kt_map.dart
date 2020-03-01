@@ -85,9 +85,15 @@ abstract class KtMapEntry<K, V> {
 }
 
 extension KtMapExtensions<K, V> on KtMap<K, V> {
+  /// Returns a read-only dart:core [Map]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Map<K, V> get dart => asMap();
+
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.
-  bool all(Function(K key, V value) predicate) {
+  bool all(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -105,7 +111,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns true if there is at least one entry that matches the given [predicate].
   /// [predicate] must not be null.
-  bool any(Function(K key, V value) predicate) {
+  bool any(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -282,6 +288,19 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
     return value;
   }
 
+  /// Returns this map if it's not empty
+  /// or the result of calling [defaultValue] function if the map is empty.
+  R ifEmpty<R extends KtMap<K, V>>(R Function() defaultValue) {
+    assert(() {
+      if (defaultValue == null) {
+        throw ArgumentError("defaultValue can't be null");
+      }
+      return true;
+    }());
+    if (isEmpty()) return defaultValue();
+    return this as R;
+  }
+
   /// Returns `true` if this map is not empty.
   bool isNotEmpty() => !isEmpty();
 
@@ -399,7 +418,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
   @nullable
-  KtMapEntry<K, V> maxBy<R extends Comparable<R>>(
+  KtMapEntry<K, V> maxBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -451,7 +470,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
   @nullable
-  KtMapEntry<K, V> minBy<R extends Comparable<R>>(
+  KtMapEntry<K, V> minBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
@@ -493,7 +512,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns `true` if there is no entries in the map that match the given [predicate].
   /// [predicate] must not be null.
-  bool none(Function(K key, V value) predicate) {
+  bool none(bool Function(K key, V value) predicate) {
     assert(() {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       return true;
@@ -542,4 +561,9 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// The returned map preserves the entry iteration order of the original map.
   KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
+}
+
+extension NullableKtMapExtensions<K, V> on KtMap<K, V> /*?*/ {
+  /// Returns the [KtMap] if its not `null`, or the empty [KtMap] otherwise.
+  KtMap<K, V> orEmpty() => this ?? KtMap<K, V>.empty();
 }

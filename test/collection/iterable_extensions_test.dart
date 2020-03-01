@@ -5,52 +5,54 @@ import "package:test/test.dart";
 import "../test/assert_dart.dart";
 
 void main() {
-  group("iterable", () {
-    // TODO replace with Iterable.generate once implemented
-    testIterable(<T>() => EmptyIterable<T>(),
-        <T>(Iterable<T> iterable) => DartIterable(iterable));
-  });
-  group("list", () {
-    testIterable(<T>() => emptyList<T>(),
-        <T>(Iterable<T> iterable) => listFrom(iterable));
-  });
-  group("KtList", () {
-    testIterable(<T>() => KtList<T>.empty(),
-        <T>(Iterable<T> iterable) => KtList<T>.from(iterable));
-  });
-  group("mutableList", () {
-    testIterable(<T>() => emptyList<T>(),
-        <T>(Iterable<T> iterable) => mutableListFrom(iterable));
-  });
-  group("KtMutableList", () {
-    testIterable(<T>() => KtMutableList<T>.empty(),
-        <T>(Iterable<T> iterable) => KtMutableList<T>.from(iterable));
-  });
-  group("set", () {
-    testIterable(
-        <T>() => emptySet<T>(), <T>(Iterable<T> iterable) => setFrom(iterable));
-  });
-  group("KtSet", () {
-    testIterable(<T>() => KtSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KtSet<T>.from(iterable));
-  });
-  group("hashset", () {
-    testIterable(<T>() => emptySet<T>(),
-        <T>(Iterable<T> iterable) => hashSetFrom(iterable),
-        ordered: false);
-  });
-  group("KHashSet", () {
-    testIterable(<T>() => KtHashSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable),
-        ordered: false);
-  });
-  group("linkedSet", () {
-    testIterable(<T>() => linkedSetOf<T>(),
-        <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
-  });
-  group("KLinkedSet", () {
-    testIterable(<T>() => KtLinkedSet<T>.empty(),
-        <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
+  group("KtIterableExtensions", () {
+    group("iterable", () {
+      // TODO replace with Iterable.generate once implemented
+      testIterable(<T>() => EmptyIterable<T>(),
+          <T>(Iterable<T> iterable) => DartIterable(iterable));
+    });
+    group("list", () {
+      testIterable(<T>() => emptyList<T>(),
+          <T>(Iterable<T> iterable) => listFrom(iterable));
+    });
+    group("KtList", () {
+      testIterable(<T>() => KtList<T>.empty(),
+          <T>(Iterable<T> iterable) => KtList<T>.from(iterable));
+    });
+    group("mutableList", () {
+      testIterable(<T>() => emptyList<T>(),
+          <T>(Iterable<T> iterable) => mutableListFrom(iterable));
+    });
+    group("KtMutableList", () {
+      testIterable(<T>() => KtMutableList<T>.empty(),
+          <T>(Iterable<T> iterable) => KtMutableList<T>.from(iterable));
+    });
+    group("set", () {
+      testIterable(<T>() => emptySet<T>(),
+          <T>(Iterable<T> iterable) => setFrom(iterable));
+    });
+    group("KtSet", () {
+      testIterable(<T>() => KtSet<T>.empty(),
+          <T>(Iterable<T> iterable) => KtSet<T>.from(iterable));
+    });
+    group("hashset", () {
+      testIterable(<T>() => emptySet<T>(),
+          <T>(Iterable<T> iterable) => hashSetFrom(iterable),
+          ordered: false);
+    });
+    group("KHashSet", () {
+      testIterable(<T>() => KtHashSet<T>.empty(),
+          <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable),
+          ordered: false);
+    });
+    group("linkedSet", () {
+      testIterable(<T>() => linkedSetOf<T>(),
+          <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
+    });
+    group("KLinkedSet", () {
+      testIterable(<T>() => KtLinkedSet<T>.empty(),
+          <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
+    });
   });
 }
 
@@ -242,16 +244,49 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("average", () {
     test("average of ints", () {
       final ints = iterableOf([1, 2, 3, 4]);
-      final result = ints.averageBy((it) => it);
+      final result = ints.average();
       expect(result, equals(2.5));
     });
     test("average of empty is NaN", () {
       final ints = emptyIterable<num>();
-      final result = ints.averageBy((it) => it);
+      final result = ints.average();
       expect(identical(result, double.nan), isTrue);
     });
     test("average of nums", () {
       final ints = iterableOf([1, 2.0, 3, 4]);
+      final result = ints.average();
+      expect(result, equals(2.5));
+    });
+    test("average of nums with NaN (nan is ignored)", () {
+      final ints = iterableOf([1, 2.0, double.nan, 3, double.nan, 4]);
+      final result = ints.average();
+      expect(result, equals(2.5));
+    });
+    test("average of nan only returns nan", () {
+      final ints = iterableOf([double.nan, double.nan, double.nan]);
+      final result = ints.average();
+      expect(identical(result, double.nan), isTrue);
+    });
+  });
+
+  group("averageBy", () {
+    test("averageBy of ints", () {
+      final ints = iterableOf([1, 2, 3, 4]);
+      final result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+    test("averageBy of empty is NaN", () {
+      final ints = emptyIterable<num>();
+      final result = ints.averageBy((it) => it);
+      expect(identical(result, double.nan), isTrue);
+    });
+    test("averageBy of nums", () {
+      final ints = iterableOf([1, 2.0, 3, 4]);
+      final result = ints.averageBy((it) => it);
+      expect(result, equals(2.5));
+    });
+    test("averageBy of nums with NaN (nan is ignored)", () {
+      final ints = iterableOf([1, 2.0, double.nan, 3, double.nan, 4]);
       final result = ints.averageBy((it) => it);
       expect(result, equals(2.5));
     });
@@ -259,6 +294,11 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final list = emptyIterable<String>();
       final e = catchException<ArgumentError>(() => list.averageBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
+    });
+    test("average of nan only returns nan", () {
+      final ints = iterableOf([double.nan, double.nan, double.nan]);
+      final result = ints.averageBy((it) => it);
+      expect(identical(result, double.nan), isTrue);
     });
   });
 
@@ -338,6 +378,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final e =
           catchException<ArgumentError>(() => list.chunkedTransform(3, null));
       expect(e.message, allOf(contains("null"), contains("transform")));
+    });
+  });
+
+  group("dart property", () {
+    test("dart property returns a dart iterable", () {
+      final Iterable<String> iterable = iterableOf(["a", "b", "c"]).dart;
+      if (ordered) {
+        expect(iterable.first, "a");
+        expect(iterable.skip(1).first, "b");
+        expect(iterable.skip(2).first, "c");
+      }
+      expect(iterable.length, 3);
+    });
+    test("dart property returns empty as original", () {
+      final Iterable<String> iterable = emptyIterable<String>().dart;
+      expect(iterable.length, 0);
     });
   });
 
@@ -903,6 +959,27 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final e = catchException<ArgumentError>(
           () => iterable.flatMapTo(null, (_) => emptyIterable()));
       expect(e.message, allOf(contains("null"), contains("destination")));
+    });
+  });
+
+  group("flatten", () {
+    test("empty", () {
+      final KtIterable<KtIterable<int>> nested =
+          emptyIterable<KtIterable<int>>();
+      expect(nested.flatten(), emptyList());
+    });
+
+    test("flatten KtIterable<KtIterable<T>>", () {
+      final nested = iterableOf([
+        iterableOf([1, 2, 3]),
+        iterableOf([4, 5, 6]),
+        iterableOf([7, 8, 9]),
+      ]);
+      if (ordered) {
+        expect(nested.flatten(), listFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      } else {
+        expect(nested.flatten().toSet(), setFrom([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      }
     });
   });
 
@@ -1514,17 +1591,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("max", () {
     test("gets max value int", () {
       final iterable = iterableOf([1, 3, 2]);
-      expect(iterable.max(), 3);
+      final int max = iterable.max();
+      expect(max, 3);
     });
 
     test("gets max value double", () {
       final iterable = iterableOf([1.0, 3.2, 2.0]);
-      expect(iterable.max(), 3.2);
+      final double max = iterable.max();
+      expect(max, 3.2);
+    });
+
+    test("gets max value comparable", () {
+      final iterable = iterableOf(["a", "x", "b"]);
+      final String max = iterable.max();
+      expect(max, "x");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.max(), null);
+      final int max = iterable.max();
+      expect(max, null);
     });
   });
 
@@ -1573,32 +1659,53 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("min", () {
-    test("gets min value", () {
-      final iterable = iterableOf([3, 1, 2]);
-      expect(iterable.min(), 1);
+    test("gets min int value", () {
+      final KtIterable<int> iterable = iterableOf([3, 1, 2]);
+      final int min = iterable.min();
+      expect(min, 1);
+    });
+
+    test("gets min double value", () {
+      final KtIterable<double> iterable = iterableOf([3.2, 1.4, 2.2]);
+      final double min = iterable.min();
+      expect(min, 1.4);
+    });
+
+    test("gets max value comparable", () {
+      final iterable = iterableOf(["x", "b", "a", "h"]);
+      final String min = iterable.min();
+      expect(min, "a");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.min(), null);
+      final int min = iterable.min();
+      expect(min, null);
     });
   });
 
   group("minBy", () {
     test("gets min value", () {
       final iterable = iterableOf(["1", "3", "2"]);
+      expect(iterable.minBy((it) => int.parse(it)), "1");
       expect(iterable.minBy((it) => num.parse(it)), "1");
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
+      expect(iterable.minBy((it) => it), null);
+      // with generic type
       expect(iterable.minBy<num>((it) => it), null);
     });
 
     test("minBy requires a non null selector", () {
       final e =
-          catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
+          catchException<ArgumentError>(() => emptyIterable().minBy(null));
       expect(e.message, allOf(contains("null"), contains("selector")));
+      // with generic type
+      final e1 =
+          catchException<ArgumentError>(() => emptyIterable().minBy<num>(null));
+      expect(e1.message, allOf(contains("null"), contains("selector")));
     });
   });
 
@@ -1906,6 +2013,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(result, listOf("lisa", "paul", "john", "max"));
     });
 
+    test("sortedBy for ints", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length);
+      if (ordered) {
+        expect(result, listOf("max", "paul", "john", "lisa"));
+      } else {
+        expect(result.first(), "max");
+      }
+    });
+
+    test("sortedBy with doubles", () {
+      final result = iterableOf(["paul", "john", "max", "lisa"])
+          .sortedBy((it) => it.length / it.indexOf("a"));
+      expect(result, listOf("john", "lisa", "max", "paul"));
+    });
+
     test("sortedByDescending", () {
       final result = iterableOf(["paul", "john", "max", "lisa"])
           .sortedByDescending(lastChar);
@@ -2181,6 +2304,32 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final e = catchException<ArgumentError>(
           () => iterable.windowed(3, partialWindows: null));
       expect(e.message, allOf(contains("null"), contains("partialWindows")));
+    });
+  });
+
+  group("unzip", () {
+    test("empty", () {
+      final KtIterable<KtPair<String, int>> zipped =
+          emptyIterable<KtPair<String, int>>();
+      final unzipped = zipped.unzip();
+      expect(unzipped.first, emptyList());
+      expect(unzipped.second, emptyList());
+    });
+
+    test("unzip pairs", () {
+      final zipped = iterableOf([
+        const KtPair("a", 1),
+        const KtPair("b", 2),
+        const KtPair("c", 3),
+      ]);
+      final unzipped = zipped.unzip();
+      if (ordered) {
+        expect(unzipped.first, listOf("a", "b", "c"));
+        expect(unzipped.second, listOf(1, 2, 3));
+      } else {
+        expect(unzipped.first.toSet(), setOf("a", "b", "c"));
+        expect(unzipped.second.toSet(), setOf(1, 2, 3));
+      }
     });
   });
 

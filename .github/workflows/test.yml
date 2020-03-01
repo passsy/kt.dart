@@ -1,0 +1,20 @@
+name: Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+    
+    container:
+      image: google/dart:2.7
+    
+    steps:
+    - uses: actions/checkout@master
+    - run: pub get
+    - run: ./tool/run_coverage_locally.sh
+    - uses: codecov/codecov-action@v1.0.2
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        flags: unittests

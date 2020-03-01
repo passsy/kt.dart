@@ -107,6 +107,15 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
 }
 
 extension KtMutableListExtensions<T> on KtMutableList<T> {
+  /// Creates a [List] instance that wraps the original [KtList]. It acts as a view.
+  ///
+  /// Mutations on the returned [List] are reflected on the original [KtList]
+  /// and vice versa.
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  List<T> get dart => asList();
+
   /// Fills the list with the provided [value].
   ///
   /// Each element in the list gets replaced with the [value].
@@ -130,7 +139,7 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
   }
 
   /// Sorts elements in the list in-place according to natural sort order of the value returned by specified [selector] function.
-  void sortBy<R extends Comparable<R>>(R Function(T) selector) {
+  void sortBy<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;
@@ -141,7 +150,7 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
   }
 
   /// Sorts elements in the list in-place descending according to natural sort order of the value returned by specified [selector] function.
-  void sortByDescending<R extends Comparable<R>>(R Function(T) selector) {
+  void sortByDescending<R extends Comparable>(R Function(T) selector) {
     assert(() {
       if (selector == null) throw ArgumentError("selector can't be null");
       return true;

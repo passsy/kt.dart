@@ -39,3 +39,8 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
   /// Returns a [KtMutableList] filled with all elements of this collection.
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 }
+
+extension NullableKtCollectionExtensions<T> on KtCollection<T> /*?*/ {
+  /// Returns this [KtCollection] if it's not `null` and the empty list otherwise.
+  KtCollection<T> orEmpty() => this ?? KtList<T>.empty();
+}
