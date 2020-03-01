@@ -33,7 +33,6 @@ class KtPair<A, B> {
 
 extension PairDeconstruction<T> on KtPair<T, T> {
   /// Converts this pair into a list.
-  @experimental
   KtList<T> toList() => KtList.from([first, second]);
 }
 
@@ -73,6 +72,5 @@ class KtTriple<A, B, C> {
 
 extension TripleDeconstruction<T> on KtTriple<T, T, T> {
   /// Returns string representation of the [KtTriple] including its [first], [second] and [third] values.
-  @experimental
   KtList<T> toList() => KtList.from([first, second, third]);
 }
