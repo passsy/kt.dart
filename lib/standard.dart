@@ -34,9 +34,6 @@ extension StandardKt<T> on T {
   }
 }
 
-/// Calls the specified function [block] and returns its result.
-R run<R>(R Function() block) => block();
-
 /// Executes the given function [action] specified number of [times].
 ///
 /// A zero-based index of current iteration is passed as a parameter to [action].
