@@ -1,4 +1,3 @@
-import "package:kt_dart/annotation.dart";
 import "package:kt_dart/collection.dart";
 
 /// Represents a generic pair of two values.
