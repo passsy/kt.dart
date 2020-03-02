@@ -6,11 +6,10 @@ class EmptySet<T> extends Object implements KtSet<T> {
   EmptySet();
 
   @override
-  // TODO replace with const set literal {}
-  Set<T> get set => UnmodifiableSetView(Set());
+  Set<T> get set => UnmodifiableSetView(<T>{});
 
   @override
-  Set<T> asSet() => UnmodifiableSetView(Set());
+  Set<T> asSet() => UnmodifiableSetView(<T>{});
 
   @override
   bool contains(T element) => false;
