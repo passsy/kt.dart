@@ -72,12 +72,12 @@ class UnmodifiableSetView<E> extends Object
   /// Throws an [UnsupportedError];
   /// operations that change the set are disallowed.
   @override
-  void removeWhere(bool test(E element)) => _throw();
+  void removeWhere(bool Function(E element) test) => _throw();
 
   /// Throws an [UnsupportedError];
   /// operations that change the set are disallowed.
   @override
-  void retainWhere(bool test(E element)) => _throw();
+  void retainWhere(bool Function(E element) test) => _throw();
 
   /// Throws an [UnsupportedError];
   /// operations that change the set are disallowed.
