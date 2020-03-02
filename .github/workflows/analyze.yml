@@ -20,3 +20,4 @@ jobs:
     - run: pub run tool/reformat.dart
     - run: dartanalyzer --fatal-infos --fatal-warnings .
     - run: pub publish -n
+      if: matrix.version != '2.6'
