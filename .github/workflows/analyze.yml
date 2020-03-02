@@ -6,9 +6,13 @@ jobs:
   build:
 
     runs-on: ubuntu-18.04
-    
+
+    strategy:
+      matrix:
+        version: ["2.6", "2.7", "dev"]
+
     container:
-      image: google/dart:2.7
+      image: google/dart:${{ matrix.version }}
     
     steps:
     - uses: actions/checkout@master
@@ -16,3 +20,4 @@ jobs:
     - run: pub run tool/reformat.dart
     - run: dartanalyzer --fatal-infos --fatal-warnings .
     - run: pub publish -n
+      if: matrix.version != '2.6'

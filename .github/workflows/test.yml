@@ -6,15 +6,20 @@ jobs:
   build:
 
     runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        version: ["2.6", "2.7", "dev"]
     
     container:
-      image: google/dart:2.7
+      image: google/dart:${{ matrix.version }}
     
     steps:
     - uses: actions/checkout@master
     - run: pub get
     - run: ./tool/run_coverage_locally.sh
     - uses: codecov/codecov-action@v1.0.2
+      if: matrix.version == '2.7'
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         flags: unittests
