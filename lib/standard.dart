@@ -18,21 +18,21 @@ void TODO() => throw const NotImplementedException();
 @experimental
 extension StandardKt<T> on T {
   /// Calls the specified function [block] with `this` value as its argument and returns its result.
-  R let<R>(R Function(T) block) => block(this);
+  R let<R>(R Function(T) block) => block(this as T);
 
   /// Calls the specified function [block] with `this` value as its argument and returns `this` value.
   @experimental
   @nonNull
   T also(void Function(T) block) {
-    block(this);
-    return this;
+    block(this as T);
+    return this as T;
   }
 
   /// Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't.
   @experimental
   @nullable
   T /*?*/ takeIf(bool Function(T) predicate) {
-    if (predicate(this)) return this;
+    if (predicate(this as T)) return this as T;
     return null;
   }
 
@@ -40,7 +40,7 @@ extension StandardKt<T> on T {
   @experimental
   @nullable
   T /*?*/ takeUnless(bool Function(T) predicate) {
-    if (!predicate(this)) return this;
+    if (!predicate(this as T)) return this as T;
     return null;
   }
 }
