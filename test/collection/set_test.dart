@@ -5,52 +5,42 @@ import "../test/assert_dart.dart";
 
 void main() {
   group("KtSet", () {
+    group("Set", () {
+      testSet(setOf, setOf, setFrom, mutable: false);
+    });
     group("mutableSet", () {
-      testSet(
-        <T>() => mutableSetOf<T>(),
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            mutableSetOf(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => mutableSetFrom(iterable),
-      );
+      testSet(mutableSetOf, mutableSetOf, mutableSetFrom);
     });
-    group("KtSet", () {
-      testSet(
-        <T>() => KtSet<T>.empty(),
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtSet.from(iterable),
-        mutable: false,
-      );
+    group("hashSet", () {
+      testSet(hashSetOf, hashSetOf, hashSetFrom, ordered: false);
     });
-    group("KtMutableSet", () {
-      testSet(
-        <T>() => KtMutableSet<T>.empty(),
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtMutableSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtMutableSet.from(iterable),
-      );
+    group("linkedSet", () {
+      testSet(linkedSetOf, linkedSetOf, linkedSetFrom);
     });
-    group("KtHashSet", () {
-      testSet(
-        <T>() => KtHashSet<T>.empty(),
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtHashSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtHashSet.from(iterable),
-        ordered: false,
-      );
+  });
+
+  group("KtSet.of constructor", () {
+    test("creates correct size", () {
+      final list = KtSet.of("1", "2", "3");
+      expect(list.size, 3);
     });
-    group("KtLinkedSet", () {
-      testSet(
-        <T>() => KtLinkedSet<T>.empty(),
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtLinkedSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtLinkedSet.from(iterable),
-      );
+    test("creates empty", () {
+      final list = KtSet<String>.of();
+      expect(list.isEmpty(), isTrue);
+      expect(list.size, 0);
+      expect(list, emptyList<String>());
+    });
+    test("allows null", () {
+      final list = KtSet.of("1", null, "3");
+      expect(list.size, 3);
+      expect(list.dart, ["1", null, "3"]);
+      expect(list, KtList.from(["1", null, "3"]));
+    });
+    test("only null is fine", () {
+      final list = KtSet<String>.of(null);
+      expect(list.size, 1);
+      expect(list.dart, [null]);
+      expect(list, KtList.from([null]));
     });
   });
 }

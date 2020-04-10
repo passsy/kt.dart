@@ -6,78 +6,10 @@ import "../test/assert_dart.dart";
 void main() {
   group("KtListExtensions", () {
     group("list", () {
-      testList(
-          <T>() => emptyList<T>(),
-          <T>(
-                  [T arg0,
-                  T arg1,
-                  T arg2,
-                  T arg3,
-                  T arg4,
-                  T arg5,
-                  T arg6,
-                  T arg7,
-                  T arg8,
-                  T arg9]) =>
-              listOf(
-                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-          <T>([Iterable<T> iterable = const []]) => listFrom(iterable));
-    });
-    group("KtList", () {
-      testList(
-          <T>() => KtList<T>.empty(),
-          <T>(
-                  [T arg0,
-                  T arg1,
-                  T arg2,
-                  T arg3,
-                  T arg4,
-                  T arg5,
-                  T arg6,
-                  T arg7,
-                  T arg8,
-                  T arg9]) =>
-              KtList.of(
-                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-          <T>([Iterable<T> iterable = const []]) => KtList.from(iterable));
+      testList(emptyList, listOf, listFrom);
     });
     group("mutableList", () {
-      testList(
-          <T>() => mutableListOf<T>(),
-          <T>(
-                  [T arg0,
-                  T arg1,
-                  T arg2,
-                  T arg3,
-                  T arg4,
-                  T arg5,
-                  T arg6,
-                  T arg7,
-                  T arg8,
-                  T arg9]) =>
-              mutableListOf(
-                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-          <T>([Iterable<T> iterable = const []]) => mutableListFrom(iterable),
-          mutable: true);
-    });
-    group("KtMutableList", () {
-      testList(
-          <T>() => KtMutableList<T>.empty(),
-          <T>(
-                  [T arg0,
-                  T arg1,
-                  T arg2,
-                  T arg3,
-                  T arg4,
-                  T arg5,
-                  T arg6,
-                  T arg7,
-                  T arg8,
-                  T arg9]) =>
-              KtMutableList.of(
-                  arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-          <T>([Iterable<T> iterable = const []]) =>
-              KtMutableList.from(iterable),
+      testList(<T>() => KtMutableList.empty(), mutableListOf, mutableListFrom,
           mutable: true);
     });
   });
@@ -98,7 +30,6 @@ void testList(
           T arg9])
       listOf,
   KtList<T> Function<T>([Iterable<T> iterable]) listFrom, {
-  bool ordered = true,
   bool mutable = false,
 }) {
   group("dart property", () {
@@ -194,23 +125,12 @@ void testList(
   });
 
   group("elementAtOrElse", () {
-    if (ordered) {
-      test("returns correct elements", () {
-        final list = listOf("a", "b", "c");
-        expect(list.elementAtOrElse(0, (i) => "x"), equals("a"));
-        expect(list.elementAtOrElse(1, (i) => "x"), equals("b"));
-        expect(list.elementAtOrElse(2, (i) => "x"), equals("c"));
-      });
-    } else {
-      test("returns all elements", () {
-        final list = listOf("a", "b", "c");
-        final set = setOf(
-            list.elementAtOrElse(0, (i) => "x"),
-            list.elementAtOrElse(1, (i) => "x"),
-            list.elementAtOrElse(2, (i) => "x"));
-        expect(set.containsAll(list.toSet()), isTrue);
-      });
-    }
+    test("returns correct elements", () {
+      final list = listOf("a", "b", "c");
+      expect(list.elementAtOrElse(0, (i) => "x"), equals("a"));
+      expect(list.elementAtOrElse(1, (i) => "x"), equals("b"));
+      expect(list.elementAtOrElse(2, (i) => "x"), equals("c"));
+    });
 
     test("returns else case", () {
       final list = listOf("a", "b", "c");
@@ -239,21 +159,12 @@ void testList(
   });
 
   group("elementAtOrNull", () {
-    if (ordered) {
-      test("returns correct elements", () {
-        final list = listOf("a", "b", "c");
-        expect(list.elementAtOrNull(0), equals("a"));
-        expect(list.elementAtOrNull(1), equals("b"));
-        expect(list.elementAtOrNull(2), equals("c"));
-      });
-    } else {
-      test("returns all elements", () {
-        final list = listOf("a", "b", "c");
-        final set = setOf(list.elementAtOrNull(0), list.elementAtOrNull(1),
-            list.elementAtOrNull(2));
-        expect(set.containsAll(list.toSet()), isTrue);
-      });
-    }
+    test("returns correct elements", () {
+      final list = listOf("a", "b", "c");
+      expect(list.elementAtOrNull(0), equals("a"));
+      expect(list.elementAtOrNull(1), equals("b"));
+      expect(list.elementAtOrNull(2), equals("c"));
+    });
 
     test("returns null when out of range", () {
       final list = listOf("a", "b", "c");
@@ -527,26 +438,20 @@ void testList(
       expect(list.takeLastWhile((it) => true), list.toList());
     });
 
-    if (ordered) {
-      test("takeLastWhile larger 2", () {
-        final list = listOf(1, 2, 3, 4);
-        expect(list.takeLastWhile((it) => it > 2), listOf(3, 4));
-      });
-    }
+    test("takeLastWhile larger 2", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLastWhile((it) => it > 2), listOf(3, 4));
+    });
 
-    if (ordered) {
-      test("takeLastWhile larger 1", () {
-        final list = listOf(1, 2, 3, 4);
-        expect(list.takeLastWhile((it) => it > 1), listOf(2, 3, 4));
-      });
-    }
+    test("takeLastWhile larger 1", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLastWhile((it) => it > 1), listOf(2, 3, 4));
+    });
 
-    if (ordered) {
-      test("takeLastWhile larger 3", () {
-        final list = listOf(1, 2, 3, 4);
-        expect(list.takeLastWhile((it) => it > 3), listOf(4));
-      });
-    }
+    test("takeLastWhile larger 3", () {
+      final list = listOf(1, 2, 3, 4);
+      expect(list.takeLastWhile((it) => it > 3), listOf(4));
+    });
 
     test("predicate can't be null", () {
       final list = listOf("a", "b", "c");

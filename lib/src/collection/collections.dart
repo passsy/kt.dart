@@ -1,22 +1,50 @@
 import "dart:collection";
 
 import "package:kt_dart/kt.dart";
+import 'package:kt_dart/src/util/arguments.dart';
 
 /// Returns a new read-only list of given elements.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [listFrom]
-KtList<T> listOf<T>(
-        [T arg0,
-        T arg1,
-        T arg2,
-        T arg3,
-        T arg4,
-        T arg5,
-        T arg6,
-        T arg7,
-        T arg8,
-        T arg9]) =>
-    KtList.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+/// `null` is a valid argument
+const KtList<T> Function<T>(
+    [T arg0,
+    T arg1,
+    T arg2,
+    T arg3,
+    T arg4,
+    T arg5,
+    T arg6,
+    T arg7,
+    T arg8,
+    T arg9]) listOf = _listOf;
+
+/// Implementation of [listOf] which creates a list of provided arguments
+/// where `T` might be `T` or `null`.
+KtList<T> _listOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtList.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
+}
 
 /// Returns a new read-only list based on [elements].
 KtList<T> listFrom<T>([Iterable<T> elements = const []]) =>
@@ -27,8 +55,8 @@ KtList<T> emptyList<T>() => KtList<T>.empty();
 
 /// Returns a new mutable list of given elements.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [mutableListFrom]
-KtMutableList<T> mutableListOf<T>(
+/// `null` is a valid argument
+const KtMutableList<T> Function<T>(
     [T arg0,
     T arg1,
     T arg2,
@@ -38,9 +66,32 @@ KtMutableList<T> mutableListOf<T>(
     T arg6,
     T arg7,
     T arg8,
-    T arg9]) {
-  return KtMutableList.of(
-      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    T arg9]) mutableListOf = _mutableListOf;
+
+KtMutableList<T> _mutableListOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtMutableList.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
 }
 
 /// Returns a new mutable list based on [elements].
@@ -80,19 +131,45 @@ KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
 /// Returns a new read-only set with the given elements.
 /// Elements of the set are iterated in the order they were specified.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [setFrom]
-KtSet<T> setOf<T>(
-        [T arg0,
-        T arg1,
-        T arg2,
-        T arg3,
-        T arg4,
-        T arg5,
-        T arg6,
-        T arg7,
-        T arg8,
-        T arg9]) =>
-    KtSet.of(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+/// `null` is a valid argument
+const KtSet<T> Function<T>([
+  T arg0,
+  T arg1,
+  T arg2,
+  T arg3,
+  T arg4,
+  T arg5,
+  T arg6,
+  T arg7,
+  T arg8,
+  T arg9,
+]) setOf = _setOf;
+
+KtSet<T> _setOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtSet.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
+}
 
 /// Returns a new read-only set based on [elements].
 /// Elements of the set are iterated in the order they were specified.
@@ -104,20 +181,44 @@ KtSet<T> emptySet<T>() => KtSet<T>.empty();
 /// Returns a new [KtMutableSet] based on [LinkedHashSet] with the given elements.
 /// Elements of the set are iterated in the order they were specified.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
-KtMutableSet<T> mutableSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
-  return KtMutableSet.of(
-      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+/// `null` is a valid argument
+KtMutableSet<T> Function<T>([
+  T arg0,
+  T arg1,
+  T arg2,
+  T arg3,
+  T arg4,
+  T arg5,
+  T arg6,
+  T arg7,
+  T arg8,
+  T arg9,
+]) mutableSetOf = _mutableSetOf;
+
+KtMutableSet<T> _mutableSetOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtMutableSet.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
 }
 
 /// Returns a new [LinkedHashSet] based on [elements].
@@ -128,20 +229,44 @@ KtMutableSet<T> mutableSetFrom<T>([Iterable<T> elements = const []]) =>
 /// Returns a new [KtMutableSet] based on [LinkedHashSet] with the given elements.
 /// Elements of the set are iterated in the order they were specified.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [linkedSetFrom]
-KtLinkedSet<T> linkedSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
-  return KtLinkedSet.of(
-      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+/// `null` is a valid argument
+KtLinkedSet<T> Function<T>([
+  T arg0,
+  T arg1,
+  T arg2,
+  T arg3,
+  T arg4,
+  T arg5,
+  T arg6,
+  T arg7,
+  T arg8,
+  T arg9,
+]) linkedSetOf = _linkedSetOf;
+
+KtLinkedSet<T> _linkedSetOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtLinkedSet.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
 }
 
 /// Returns a new [LinkedHashSet] based on [elements].
@@ -152,20 +277,44 @@ KtLinkedSet<T> linkedSetFrom<T>([Iterable<T> elements = const []]) =>
 /// Returns a new [KtMutableSet] based on [HashSet] with the given elements.
 /// Elements of the set are iterated in unpredictable order.
 ///
-/// Elements aren't allowed to be `null`. If your list requires `null` values use [hashSetFrom]
-KtHashSet<T> hashSetOf<T>(
-    [T arg0,
-    T arg1,
-    T arg2,
-    T arg3,
-    T arg4,
-    T arg5,
-    T arg6,
-    T arg7,
-    T arg8,
-    T arg9]) {
-  return KtHashSet.of(
-      arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+/// `null` is a valid argument
+KtHashSet<T> Function<T>([
+  T arg0,
+  T arg1,
+  T arg2,
+  T arg3,
+  T arg4,
+  T arg5,
+  T arg6,
+  T arg7,
+  T arg8,
+  T arg9,
+]) hashSetOf = _hashSetOf;
+
+KtHashSet<T> _hashSetOf<T>([
+  Object arg0 = defaultArgument,
+  Object arg1 = defaultArgument,
+  Object arg2 = defaultArgument,
+  Object arg3 = defaultArgument,
+  Object arg4 = defaultArgument,
+  Object arg5 = defaultArgument,
+  Object arg6 = defaultArgument,
+  Object arg7 = defaultArgument,
+  Object arg8 = defaultArgument,
+  Object arg9 = defaultArgument,
+]) {
+  return KtHashSet.from([
+    if (arg0 != defaultArgument) arg0 as T,
+    if (arg1 != defaultArgument) arg1 as T,
+    if (arg2 != defaultArgument) arg2 as T,
+    if (arg3 != defaultArgument) arg3 as T,
+    if (arg4 != defaultArgument) arg4 as T,
+    if (arg5 != defaultArgument) arg5 as T,
+    if (arg6 != defaultArgument) arg6 as T,
+    if (arg7 != defaultArgument) arg7 as T,
+    if (arg8 != defaultArgument) arg8 as T,
+    if (arg9 != defaultArgument) arg9 as T,
+  ]);
 }
 
 /// Returns a new [HashSet] based on [elements].
