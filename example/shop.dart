@@ -1,4 +1,4 @@
-// ignore_for_file: type_annotate_public_apis
+// ignore_for_file: type_annotate_public_apis, avoid_print
 import "package:kt_dart/kt.dart";
 
 void main() {

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import "package:kt_dart/kt.dart";
 
 void main() {

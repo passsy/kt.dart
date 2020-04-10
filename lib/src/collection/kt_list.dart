@@ -142,7 +142,7 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
   @nonNull
-  T elementAtOrElse(int index, T defaultValue(int index)) {
+  T elementAtOrElse(int index, T Function(int index) defaultValue) {
     assert(() {
       if (index == null) throw ArgumentError("index can't be null");
       if (defaultValue == null) {
