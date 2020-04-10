@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_cast, (dart 2.6 need some help in extensions)
 import "package:kt_dart/annotation.dart";
 
 /// An exception is thrown to indicate that a method body remains to be implemented.
