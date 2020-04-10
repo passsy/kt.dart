@@ -27,19 +27,19 @@ void main() {
       final list = KtMutableSet<String>.of();
       expect(list.isEmpty(), isTrue);
       expect(list.size, 0);
-      expect(list, emptyList<String>());
+      expect(list, emptySet<String>());
     });
     test("allows null", () {
       final list = KtMutableSet.of("1", null, "3");
       expect(list.size, 3);
       expect(list.dart, ["1", null, "3"]);
-      expect(list, KtList.from(["1", null, "3"]));
+      expect(list, KtSet.from(["1", null, "3"]));
     });
     test("only null is fine", () {
       final list = KtMutableSet<String>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);
-      expect(list, KtList.from([null]));
+      expect(list, KtSet.from([null]));
     });
   });
 }
