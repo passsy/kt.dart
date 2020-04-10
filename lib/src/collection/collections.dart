@@ -6,7 +6,7 @@ import 'package:kt_dart/src/util/arguments.dart';
 /// Returns a new read-only list of given elements.
 ///
 /// `null` is a valid argument
-const KtList<T> Function<T>(
+KtList<T> Function<T>(
     [T arg0,
     T arg1,
     T arg2,
@@ -56,7 +56,7 @@ KtList<T> emptyList<T>() => KtList<T>.empty();
 /// Returns a new mutable list of given elements.
 ///
 /// `null` is a valid argument
-const KtMutableList<T> Function<T>(
+KtMutableList<T> Function<T>(
     [T arg0,
     T arg1,
     T arg2,
@@ -132,7 +132,7 @@ KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
 /// Elements of the set are iterated in the order they were specified.
 ///
 /// `null` is a valid argument
-const KtSet<T> Function<T>([
+KtSet<T> Function<T>([
   T arg0,
   T arg1,
   T arg2,
