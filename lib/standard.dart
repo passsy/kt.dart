@@ -14,7 +14,7 @@ class NotImplementedException implements Exception {
 // TODO: return `Never` when nnbd is released
 @experimental
 // ignore: non_constant_identifier_names
-void TODO() => throw const NotImplementedException();
+void TODO([String reason]) => throw NotImplementedException(reason);
 
 @experimental
 extension StandardKt<T> on T {
