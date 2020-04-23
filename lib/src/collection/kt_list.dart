@@ -8,7 +8,7 @@ import "package:kt_dart/src/util/arguments.dart";
 /// @param [T] the type of elements contained in the list. The list is covariant on its element type.
 abstract class KtList<T> implements KtCollection<T> {
   /// Returns an empty read-only list.
-  factory KtList.empty() = EmptyList<T>;
+  const factory KtList.empty() = EmptyList<T>;
 
   /// Returns a new read-only list based on [elements].
   factory KtList.from([@nonNull Iterable<T> elements = const []]) {

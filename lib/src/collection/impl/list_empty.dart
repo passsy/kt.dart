@@ -2,7 +2,7 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 
 class EmptyList<T> extends Object implements KtList<T> {
-  EmptyList();
+  const EmptyList();
 
   @override
   List<T> get list => List.unmodifiable(const []);
