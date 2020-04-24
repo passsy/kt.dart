@@ -9,7 +9,7 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   /// Doesn't copy the incoming list which is more efficient but risks accidental modification of the incoming map.
   ///
   /// Use with care!
-  DartMutableSet.noCopy(Set<T> set)
+  const DartMutableSet.noCopy(Set<T> set)
       : _set = set,
         super();
 

@@ -1,7 +1,7 @@
 import "package:kt_dart/collection.dart";
 
 class EmptyMap<K, V> extends Object implements KtMap<K, V> {
-  EmptyMap();
+  const EmptyMap();
 
   @override
   Iterable<KtMapEntry<K, V>> get iter => List.unmodifiable(const []);
