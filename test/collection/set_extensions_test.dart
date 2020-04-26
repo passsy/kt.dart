@@ -6,6 +6,7 @@ import "../test/assert_dart.dart";
 void main() {
   group("KtSetExtensions", () {
     group("Set", () {
+      // ignore: prefer_const_constructors
       testSet(<T>() => KtSet.empty(), setOf, setFrom);
     });
     group("mutableSet", () {

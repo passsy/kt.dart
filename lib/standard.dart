@@ -5,7 +5,7 @@ import "package:kt_dart/annotation.dart";
 @experimental
 class NotImplementedException implements Exception {
   NotImplementedException([String message])
-      : this.message = message ?? "An operation is not implemented.";
+      : message = message ?? "An operation is not implemented.";
 
   final String message;
 

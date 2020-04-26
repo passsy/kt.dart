@@ -28,7 +28,7 @@ void main() {
       final list = KtSet<String>.of();
       expect(list.isEmpty(), isTrue);
       expect(list.size, 0);
-      expect(list, KtSet.empty());
+      expect(list, const KtSet.empty());
     });
     test("allows null", () {
       final list = KtSet.of("1", null, "3");

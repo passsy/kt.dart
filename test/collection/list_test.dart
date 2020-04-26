@@ -7,6 +7,7 @@ void main() {
   group("KtList", () {
     group("list", () {
       testList(emptyList, listOf, listFrom, mutable: false);
+      // ignore: prefer_const_constructors
       testList(<T>() => KtList.empty(), listOf, listFrom, mutable: false);
     });
     group("mutableList", () {

@@ -23,12 +23,12 @@ void main() {
 
   group("let", () {
     test("on non-null", () {
-      final int charDec = 97;
+      const int charDec = 97;
       final char = charDec.let((it) => String.fromCharCode(it));
       expect(char, "a");
     });
     test("on null", () {
-      final int charDec = null;
+      const int charDec = null;
       final char = charDec?.let((it) => String.fromCharCode(it));
       expect(char, isNull);
     });
@@ -46,7 +46,7 @@ void main() {
       expect(list, ["a", "b", "side-effect"]);
     });
     test("on null", () {
-      final List<String> list = null;
+      const List<String> list = null;
       int called = 0;
       final listRef = list?.also((it) {
         called++;
@@ -114,7 +114,7 @@ void main() {
       expect(i, 0);
     });
     test("calls closure with index", () {
-      List<int> list = [];
+      final List<int> list = [];
       repeat(3, (i) {
         list.add(i);
       });
