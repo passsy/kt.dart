@@ -4,15 +4,18 @@ import "package:kt_dart/annotation.dart";
 /// An exception is thrown to indicate that a method body remains to be implemented.
 @experimental
 class NotImplementedException implements Exception {
-  const NotImplementedException(
-      [this.message = "An operation is not implemented."]);
+  NotImplementedException([String message])
+      : this.message = message ?? "An operation is not implemented.";
 
   final String message;
+
+  @override
+  String toString() => "Exception: $message";
 }
 
 /// Always throws [NotImplementedException] stating that operation is not implemented.
 // TODO: return `Never` when nnbd is released
-@pragma('vm:prefer-inline') // inline for better stacktrace
+@pragma('vm:prefer-inline')
 @pragma('dart2js:tryInline')
 @experimental
 // ignore: non_constant_identifier_names
@@ -23,7 +26,13 @@ extension StandardKt<T> on T {
   /// Calls the specified function [block] with `this` value as its argument and returns its result.
   @pragma('vm:prefer-inline')
   @pragma('dart2js:tryInline')
-  R let<R>(R Function(T) block) => block(this as T);
+  R let<R>(R Function(T) block) {
+    assert(() {
+      if (block == null) throw ArgumentError("block can't be null");
+      return true;
+    }());
+    return block(this as T);
+  }
 
   /// Calls the specified function [block] with `this` value as its argument and returns `this` value.
   @pragma('vm:prefer-inline')
@@ -31,6 +40,10 @@ extension StandardKt<T> on T {
   @experimental
   @nonNull
   T also(void Function(T) block) {
+    assert(() {
+      if (block == null) throw ArgumentError("block can't be null");
+      return true;
+    }());
     block(this as T);
     return this as T;
   }
@@ -41,6 +54,10 @@ extension StandardKt<T> on T {
   @experimental
   @nullable
   T /*?*/ takeIf(bool Function(T) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     if (predicate(this as T)) return this as T;
     return null;
   }
@@ -51,6 +68,10 @@ extension StandardKt<T> on T {
   @experimental
   @nullable
   T /*?*/ takeUnless(bool Function(T) predicate) {
+    assert(() {
+      if (predicate == null) throw ArgumentError("predicate can't be null");
+      return true;
+    }());
     if (!predicate(this as T)) return this as T;
     return null;
   }
@@ -63,6 +84,11 @@ extension StandardKt<T> on T {
 @pragma('dart2js:tryInline')
 @experimental
 void repeat(int times, void Function(int) action) {
+  assert(() {
+    if (times == null) throw ArgumentError("times can't be null");
+    if (action == null) throw ArgumentError("action can't be null");
+    return true;
+  }());
   for (var i = 0; i < times; i++) {
     action(i);
   }
