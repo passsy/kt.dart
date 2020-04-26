@@ -7,41 +7,45 @@ void main() {
   group("KtMutableSet", () {
     group("mutableSet", () {
       testMutableSet(
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            mutableSetOf(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => mutableSetFrom(iterable),
-      );
+          <T>() => KtMutableSet.empty(), mutableSetOf, mutableSetFrom);
     });
-    group("KtMutableSet", () {
-      testMutableSet(
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtMutableSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtMutableSet.from(iterable),
-      );
+    group("hashSet", () {
+      testMutableSet(<T>() => KtHashSet.empty(), hashSetOf, hashSetFrom,
+          ordered: false);
     });
-    group("KtHashSet", () {
-      testMutableSet(
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtHashSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtHashSet.from(iterable),
-        ordered: false,
-      );
+    group("linkedSet", () {
+      testMutableSet(<T>() => KtLinkedSet.empty(), linkedSetOf, linkedSetFrom);
     });
-    group("KtLinkedSet", () {
-      testMutableSet(
-        <T>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) =>
-            KtLinkedSet.of(
-                arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9),
-        <T>(iterable) => KtLinkedSet.from(iterable),
-      );
+  });
+
+  group("KtMutableSet.of constructor", () {
+    test("creates correct size", () {
+      final list = KtMutableSet.of("1", "2", "3");
+      expect(list.size, 3);
+    });
+    test("creates empty", () {
+      final list = KtMutableSet<String>.of();
+      expect(list.isEmpty(), isTrue);
+      expect(list.size, 0);
+      expect(list, emptySet<String>());
+    });
+    test("allows null", () {
+      final list = KtMutableSet.of("1", null, "3");
+      expect(list.size, 3);
+      expect(list.dart, ["1", null, "3"]);
+      expect(list, KtSet.from(["1", null, "3"]));
+    });
+    test("only null is fine", () {
+      final list = KtMutableSet<String>.of(null);
+      expect(list.size, 1);
+      expect(list.dart, [null]);
+      expect(list, KtSet.from([null]));
     });
   });
 }
 
 void testMutableSet(
+    KtMutableSet<T> Function<T>() emptySet,
     KtMutableSet<T> Function<T>(
             [T arg0,
             T arg1,
@@ -97,13 +101,13 @@ void testMutableSet(
   }
 
   test("using the internal dart set allows mutation - empty", () {
-    final kset = mutableSetOf();
-    expect(kset.isEmpty(), isTrue);
+    final set = emptySet();
+    expect(set.isEmpty(), isTrue);
     // ignore: deprecated_member_use_from_same_package
-    kset.set.add("asdf");
+    set.set.add("asdf");
     // unchanged
-    expect(kset.isEmpty(), isFalse);
-    expect(kset, setOf("asdf"));
+    expect(set.isEmpty(), isFalse);
+    expect(set, setOf("asdf"));
   });
 
   test("using the internal dart set allows mutation", () {

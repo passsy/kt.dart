@@ -79,7 +79,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     test("no elements", () {
       final list = emptyCollection<String>();
       expect(list.containsAll(listOf("a")), isFalse);
-      expect(list.containsAll(listOf()), isTrue);
+      expect(list.containsAll(listOf<String>()), isTrue);
     });
 
     test("contains all", () {
