@@ -100,7 +100,8 @@ extension KtSetExtension<T> on KtSet<T> {
   /// kt.dart world.
   Set<T> get dart => asSet();
 
-  /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+  /// Returns a set containing all elements of the original collection except
+  /// the elements contained in the given [elements] collection.
   KtSet<T> minus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -111,10 +112,12 @@ extension KtSetExtension<T> on KtSet<T> {
     return result;
   }
 
-  /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+  /// Returns a set containing all elements of the original collection except
+  /// the elements contained in the given [elements] collection.
   KtSet<T> operator -(KtIterable<T> elements) => minus(elements);
 
-  /// Returns a list containing all elements of the original collection without the first occurrence of the given [element].
+  /// Returns a set containing all elements of the original collection without
+  /// the first occurrence of the given [element].
   KtSet<T> minusElement(T element) {
     final result = KtMutableSet<T>.of();
     var removed = false;
@@ -129,7 +132,8 @@ extension KtSetExtension<T> on KtSet<T> {
     return result;
   }
 
-  /// Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+  /// Returns a set containing all elements of the original collection and then
+  /// all elements of the given [elements] collection.
   KtSet<T> plus(KtIterable<T> elements) {
     assert(() {
       if (elements == null) throw ArgumentError("elements can't be null");
@@ -141,10 +145,12 @@ extension KtSetExtension<T> on KtSet<T> {
     return result;
   }
 
-  /// Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+  /// Returns a set containing all elements of the original collection and then
+  /// all elements of the given [elements] collection.
   KtSet<T> operator +(KtIterable<T> elements) => plus(elements);
 
-  /// Returns a list containing all elements of the original collection and then the given [element].
+  /// Returns a set containing all elements of the original collection and then
+  /// the given [element].
   KtSet<T> plusElement(T element) {
     final result = KtMutableSet<T>.of();
     result.addAll(asIterable());
