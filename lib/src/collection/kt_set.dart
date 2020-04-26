@@ -99,6 +99,58 @@ extension KtSetExtension<T> on KtSet<T> {
   /// This method can be used to interop between the dart:collection and the
   /// kt.dart world.
   Set<T> get dart => asSet();
+
+  /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+  KtSet<T> minus(KtIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
+    final result = toMutableSet();
+    result.removeAll(elements);
+    return result;
+  }
+
+  /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
+  KtSet<T> operator -(KtIterable<T> elements) => minus(elements);
+
+  /// Returns a list containing all elements of the original collection without the first occurrence of the given [element].
+  KtSet<T> minusElement(T element) {
+    final result = KtMutableSet<T>.of();
+    var removed = false;
+    filterTo(result, (it) {
+      if (!removed && it == element) {
+        removed = true;
+        return false;
+      } else {
+        return true;
+      }
+    });
+    return result;
+  }
+
+  /// Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+  KtSet<T> plus(KtIterable<T> elements) {
+    assert(() {
+      if (elements == null) throw ArgumentError("elements can't be null");
+      return true;
+    }());
+    final result = KtMutableSet<T>.of();
+    result.addAll(asIterable());
+    result.addAll(elements);
+    return result;
+  }
+
+  /// Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
+  KtSet<T> operator +(KtIterable<T> elements) => plus(elements);
+
+  /// Returns a list containing all elements of the original collection and then the given [element].
+  KtSet<T> plusElement(T element) {
+    final result = KtMutableSet<T>.of();
+    result.addAll(asIterable());
+    result.add(element);
+    return result;
+  }
 }
 
 extension NullableKtSetExtensions<T> on KtSet<T> /*?*/ {

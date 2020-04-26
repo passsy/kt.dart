@@ -78,4 +78,59 @@ void testSet(
       expect(identical(set.orEmpty(), set), isTrue);
     });
   });
+
+  group("minus", () {
+    test("remove iterable", () {
+      final result =
+          setOf("paul", "john", "max", "lisa").minus(setOf("max", "john"));
+      expect(result, setOf("paul", "lisa"));
+    });
+    test("infix", () {
+      final result = setOf("paul", "john", "max", "lisa") - setOf("max");
+      expect(result.toSet(), setOf("paul", "john", "lisa"));
+    });
+    test("empty gets returned empty", () {
+      final result = emptySet<String>() - setOf("max");
+      expect(result.toList(), emptyList());
+    });
+    test("minus doesn't allow null as elements", () {
+      final iterable = emptySet<String>();
+      final e = catchException<ArgumentError>(() => iterable.minus(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+  });
+
+  group("minusElement", () {
+    test("remove one item", () {
+      final result = setOf("paul", "john", "max", "lisa").minusElement("max");
+      expect(result.toSet(), setOf("paul", "john", "lisa"));
+    });
+  });
+
+  group("plus", () {
+    test("concat two iterables", () {
+      final result = setOf(1, 2, 3).plus(setOf(4, 5, 6));
+      expect(result, setOf(1, 2, 3, 4, 5, 6));
+    });
+    test("infix", () {
+      final result = setOf(1, 2, 3) + setOf(4, 5, 6);
+      expect(result, setOf(1, 2, 3, 4, 5, 6));
+    });
+    test("plus doesn't allow null as elements", () {
+      final iterable = emptySet<String>();
+      final e = catchException<ArgumentError>(() => iterable.plus(null));
+      expect(e.message, allOf(contains("null"), contains("elements")));
+    });
+  });
+
+  group("plusElement", () {
+    test("concat item", () {
+      final result = setOf(1, 2, 3).plusElement(5);
+      expect(result, setOf(1, 2, 3, 5));
+    });
+    test("element can be null", () {
+      final result = setOf(1, 2, 3).plusElement(null);
+      expect(result, setOf(1, 2, 3, null));
+    });
+  });
 }
