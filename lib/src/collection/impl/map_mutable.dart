@@ -11,7 +11,7 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   /// Doesn't copy the incoming list which is more efficient but risks accidental modification of the incoming map.
   ///
   /// Use with care!
-  DartMutableMap.noCopy(Map<K, V> map)
+  const DartMutableMap.noCopy(Map<K, V> map)
       : _map = map,
         super();
 

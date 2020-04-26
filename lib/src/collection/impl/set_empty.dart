@@ -3,7 +3,7 @@ import "package:kt_dart/src/collection/impl/dart_iterable.dart";
 import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
 
 class EmptySet<T> extends Object implements KtSet<T> {
-  EmptySet();
+  const EmptySet();
 
   @override
   Set<T> get set => UnmodifiableSetView(<T>{});
