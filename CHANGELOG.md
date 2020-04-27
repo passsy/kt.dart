@@ -1,3 +1,12 @@
+## 0.8.0-dev.1
+
+- [#124](https://github.com/passsy/kt.dart/pull/124) `KtList.of` and `KtSet.of` now allow `null` as parameters. Same for `listOf` and `setOf`
+- [#120](https://github.com/passsy/kt.dart/pull/120) Standard extensions `let`, `also`, `takeIf` and `takeUnless`
+- [#120](https://github.com/passsy/kt.dart/pull/120) `TODO([String message])` top-level function which throws `NotImplementedException`
+- [#120](https://github.com/passsy/kt.dart/pull/120) `repeat(int times, void Function(int) action)` top-level function
+- [#126](https://github.com/passsy/kt.dart/pull/126) Allow const `.empty()` constructors for `KtList`, `KtMap` and `KtSet` (Thanks @TimWhiting)
+- [#127](https://github.com/passsy/kt.dart/pull/127) `plus`, `minus` operator overrides for `KtSet`, returning `KtSet` and not `KtList` as the `KtIterable` operators do
+
 ## 0.7.0+1
 
 - Fix unused import
