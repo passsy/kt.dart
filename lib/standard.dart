@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_cast, (dart 2.6 need some help in extensions)
 import "package:kt_dart/annotation.dart";
+import 'package:meta/meta.dart';
 
 /// An exception is thrown to indicate that a method body remains to be implemented.
 @experimental
@@ -18,6 +19,7 @@ class NotImplementedException implements Exception {
 @pragma('vm:prefer-inline')
 @pragma('dart2js:tryInline')
 @experimental
+@alwaysThrows
 // ignore: non_constant_identifier_names
 void TODO([String reason]) => throw NotImplementedException(reason);
 
