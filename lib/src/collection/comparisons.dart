@@ -30,7 +30,7 @@ extension KtComparatorExtensions<T> on Comparator<T> {
   /// Combines this [Comparator] and the given comparator such that the latter is applied only when the former considered values equal.
   ///
   /// ```dart
-  /// myList.sort(compareBy((o) => firstProperty).then(naturalOrder))
+  /// myList.sort(compareBy((o) => o.firstProperty).then(naturalOrder))
   /// ```
   Comparator<T> then(Comparator<T> comparator) {
     int compareTo(T a, T b) {
@@ -45,7 +45,7 @@ extension KtComparatorExtensions<T> on Comparator<T> {
   /// The provided comparator is applied in reverse order.
   ///
   /// ```dart
-  /// myList.sort(compareBy((o) => firstProperty).thenDescending(naturalOrder))
+  /// myList.sort(compareBy((o) => o.firstProperty).thenDescending(naturalOrder))
   /// ```
   Comparator<T> thenDescending(Comparator<T> comparator) {
     return then(reverse(comparator));
@@ -54,7 +54,7 @@ extension KtComparatorExtensions<T> on Comparator<T> {
   /// Combines this [Comparator] and the given selector such that the latter is applied only when the former considered values equal.
   ///
   /// ```dart
-  /// myList.sort(compareBy((o) => firstProperty).thenBy((o) => secondProperty))
+  /// myList.sort(compareBy((o) => o.firstProperty).thenBy((o) => o.secondProperty))
   /// ```
   Comparator<T> thenBy(Comparable Function(T) selector) {
     final thenComparator = compareBy(selector);
@@ -65,7 +65,7 @@ extension KtComparatorExtensions<T> on Comparator<T> {
   /// The provided selector is used for sorting in reverse.
   ///
   /// ```dart
-  /// myList.sort(compareBy((o) => firstProperty).thenByDescending((o) => secondProperty))
+  /// myList.sort(compareBy((o) => o.firstProperty).thenByDescending((o) => o.secondProperty))
   /// ```
   Comparator<T> thenByDescending(Comparable Function(T) selector) {
     final thenComparator = compareByDescending(selector);
