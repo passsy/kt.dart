@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@master
     - run: pub get
     - run: ./tool/run_coverage_locally.sh
-    - uses: codecov/codecov-action@v1.0.2
+    - uses: codecov/codecov-action@v1
       if: matrix.version == '2.7'
       with:
         token: ${{secrets.CODECOV_TOKEN}}
