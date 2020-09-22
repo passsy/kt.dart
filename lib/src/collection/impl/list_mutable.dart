@@ -7,7 +7,7 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   DartMutableList([Iterable<T> iterable = const []])
       :
         // copy list to prevent external modification
-        _list = List.from(iterable, growable: true),
+        _list = List.from(iterable),
         super();
 
   const DartMutableList.noCopy(List<T> list)

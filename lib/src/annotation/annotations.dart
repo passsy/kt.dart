@@ -42,12 +42,3 @@ class TooGeneric {
   /// The type which would be a better fit
   final String extensionForType;
 }
-
-/// A method/class annotated with @experimental marks the method/class as experimental feature.
-///
-/// Experimental APIs can be changed or removed at any time.
-const Object experimental = _Experimental();
-
-class _Experimental {
-  const _Experimental();
-}
