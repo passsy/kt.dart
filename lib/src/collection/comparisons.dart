@@ -25,3 +25,27 @@ Comparator<T> compareByDescending<T>(Comparable Function(T) selector) {
   int compareTo(T a, T b) => selector(b).compareTo(selector(a));
   return compareTo;
 }
+
+extension KtComparatorExtensions<T> on Comparator<T> {
+  Comparator<T> thenBy(Comparable Function(T) selector) {
+    final thenComparator = compareBy(selector);
+
+    int compareTo(T a, T b) {
+      final res = this(a, b);
+      return res != 0 ? res : thenComparator(a, b);
+    }
+
+    return compareTo;
+  }
+
+  Comparator<T> thenByDescending(Comparable Function(T) selector) {
+    final thenComparator = compareByDescending(selector);
+
+    int compareTo(T a, T b) {
+      final res = this(a, b);
+      return res != 0 ? res : thenComparator(a, b);
+    }
+
+    return compareTo;
+  }
+}

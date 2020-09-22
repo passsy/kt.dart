@@ -152,6 +152,45 @@ void testList(
           () => mutableListOf<String>()..sortWith(null));
       expect(e.message, allOf(contains("null"), contains("comparator")));
     });
+
+    test('sortWith with thenBy', () {
+      const unordered = [
+        KtPair(2, "c"),
+        KtPair(3, "a"),
+        KtPair(1, "b"),
+        KtPair(1, "a"),
+        KtPair(2, "c"),
+      ];
+
+      final result1 =
+          mutableListFrom<KtPair<int, String>>(unordered).sortedWith(
+        compareBy<KtPair<int, String>>((v) => v.first).thenBy((v) => v.second),
+      );
+      expect(
+          result1,
+          KtList.from(const [
+            KtPair(1, "a"),
+            KtPair(1, "b"),
+            KtPair(2, "c"),
+            KtPair(2, "c"),
+            KtPair(3, "a")
+          ]));
+
+      final result2 =
+          mutableListFrom<KtPair<int, String>>(unordered).sortedWith(
+        compareBy<KtPair<int, String>>((v) => v.first)
+            .thenByDescending((v) => v.second),
+      );
+      expect(
+          result2,
+          KtList.from(const [
+            KtPair(1, "b"),
+            KtPair(1, "a"),
+            KtPair(2, "c"),
+            KtPair(2, "c"),
+            KtPair(3, "a")
+          ]));
+    });
   });
 
   group("shuffle", () {
