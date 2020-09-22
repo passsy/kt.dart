@@ -153,58 +153,77 @@ void testList(
       expect(e.message, allOf(contains("null"), contains("comparator")));
     });
 
-    test('sortWith with thenBy', () {
-      const unordered = [
+    group('then', () {
+      final unordered = listFrom(const [
         KtPair(2, "c"),
         KtPair(3, "a"),
         KtPair(1, "b"),
         KtPair(1, "a"),
         KtPair(2, "c"),
-      ];
+      ]);
 
-      final result1 =
-          mutableListFrom<KtPair<int, String>>(unordered).sortedWith(
-        compareBy<KtPair<int, String>>((v) => v.first).thenBy((v) => v.second),
-      );
-      expect(
-          result1,
-          KtList.from(const [
-            KtPair(1, "a"),
-            KtPair(1, "b"),
-            KtPair(2, "c"),
-            KtPair(2, "c"),
-            KtPair(3, "a")
-          ]));
+      test('then', () {
+        final result = unordered.sortedWith(
+          compareBy<KtPair<int, String>>((v) => v.first)
+              .then((a, b) => a.second.compareTo(b.second)),
+        );
+        expect(
+            result,
+            KtList.from(const [
+              KtPair(1, "a"),
+              KtPair(1, "b"),
+              KtPair(2, "c"),
+              KtPair(2, "c"),
+              KtPair(3, "a")
+            ]));
+      });
 
-      final result2 =
-          mutableListFrom<KtPair<int, String>>(unordered).sortedWith(
-        compareBy<KtPair<int, String>>((v) => v.first)
-            .thenByDescending((v) => v.second),
-      );
-      expect(
-          result2,
-          KtList.from(const [
-            KtPair(1, "b"),
-            KtPair(1, "a"),
-            KtPair(2, "c"),
-            KtPair(2, "c"),
-            KtPair(3, "a")
-          ]));
+      test('thenDescending', () {
+        final result = unordered.sortedWith(
+          compareBy<KtPair<int, String>>((v) => v.first)
+              .thenDescending((a, b) => a.second.compareTo(b.second)),
+        );
+        expect(
+            result,
+            KtList.from(const [
+              KtPair(1, "b"),
+              KtPair(1, "a"),
+              KtPair(2, "c"),
+              KtPair(2, "c"),
+              KtPair(3, "a")
+            ]));
+      });
 
-      final result3 =
-          mutableListFrom<KtPair<int, String>>(unordered).sortedWith(
-        compareBy<KtPair<int, String>>((v) => v.first)
-            .thenWithDescending((a, b) => a.second.compareTo(b.second)),
-      );
-      expect(
-          result3,
-          KtList.from(const [
-            KtPair(1, "b"),
-            KtPair(1, "a"),
-            KtPair(2, "c"),
-            KtPair(2, "c"),
-            KtPair(3, "a")
-          ]));
+      test('thenBy', () {
+        final result = unordered.sortedWith(
+          compareBy<KtPair<int, String>>((v) => v.first)
+              .thenBy((v) => v.second),
+        );
+        expect(
+            result,
+            KtList.from(const [
+              KtPair(1, "a"),
+              KtPair(1, "b"),
+              KtPair(2, "c"),
+              KtPair(2, "c"),
+              KtPair(3, "a")
+            ]));
+      });
+      test('thenByDescending', () {
+        final result = unordered.sortedWith(
+          compareBy<KtPair<int, String>>((v) => v.first)
+              .thenByDescending((v) => v.second),
+        );
+        expect(
+            result,
+            KtList.from(const [
+              KtPair(1, "b"),
+              KtPair(1, "a"),
+              KtPair(2, "c"),
+              KtPair(2, "c"),
+              KtPair(3, "a")
+            ]));
+      });
     });
   });
 
