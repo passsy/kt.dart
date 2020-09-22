@@ -369,7 +369,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a list containing only distinct elements from the given collection.
   ///
   /// The elements in the resulting list are in the same order as they were in the source collection.
-  KtList<T> distinct() => KtIterableExtensions(toMutableSet()).toList();
+  KtList<T> distinct() => KtIterableExtensions<T>(toMutableSet()).toList();
 
   /// Returns a list containing only elements from the given collection
   /// having distinct keys returned by the given [selector] function.
@@ -1549,7 +1549,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       list.add(item);
     }
-    return KtIterableExtensions(list).toList();
+    return KtIterableExtensions<T>(list).toList();
   }
 
   /// Returns a list containing first elements satisfying the given [predicate].

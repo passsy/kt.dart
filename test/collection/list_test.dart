@@ -34,6 +34,7 @@ void main() {
       expect(list, KtList.from(["1", null, "3"]));
     });
     test("only null is fine", () {
+      // ignore: avoid_redundant_argument_values
       final list = KtList<String>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);

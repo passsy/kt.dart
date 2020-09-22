@@ -36,6 +36,7 @@ void main() {
       expect(list, KtSet.from(["1", null, "3"]));
     });
     test("only null is fine", () {
+      // ignore: avoid_redundant_argument_values
       final list = KtMutableSet<String>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);

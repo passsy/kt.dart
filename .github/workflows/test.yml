@@ -3,13 +3,13 @@ name: Test
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     timeout-minutes: 5
     runs-on: ubuntu-18.04
 
     strategy:
       matrix:
-        version: ["2.6", "2.7", "dev"]
+        version: ["2.6", "2.7", "2.8", "2.9", "dev"]
     
     container:
       image: google/dart:${{ matrix.version }}
@@ -18,8 +18,8 @@ jobs:
     - uses: actions/checkout@master
     - run: pub get
     - run: ./tool/run_coverage_locally.sh
-    - uses: codecov/codecov-action@v1.0.2
-      if: matrix.version == '2.7'
+    - uses: codecov/codecov-action@v1
+      if: matrix.version == '2.9'
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         flags: unittests
