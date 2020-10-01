@@ -1,16 +1,16 @@
-import "dart:async";
-import "dart:io";
+import 'dart:async';
+import 'dart:io';
 
 Future<void> main(List<String> args) async {
-  stdout.writeln("Reformatting project with dartfmt");
-  final Process dartfmt = await Process.start("dartfmt", [
-    "--set-exit-if-changed",
-    "-w",
-    "--fix",
-    "example",
-    "lib",
-    "test",
-    "tool",
+  stdout.writeln('Reformatting project with dartfmt');
+  final Process dartfmt = await Process.start('dartfmt', [
+    '--set-exit-if-changed',
+    '-w',
+    '--fix',
+    'example',
+    'lib',
+    'test',
+    'tool',
   ]);
 
   // ignore: unawaited_futures
@@ -19,25 +19,25 @@ Future<void> main(List<String> args) async {
   stdout.addStream(dartfmt.stdout
       // help dartfmt formatting
       .map((it) => String.fromCharCodes(it))
-      .where((it) => !it.contains("Unchanged"))
+      .where((it) => !it.contains('Unchanged'))
       .map(reformatDartfmtStdout)
       .map((it) => it.codeUnits));
 
   final reformatExit = await dartfmt.exitCode;
 
-  stdout.writeln("");
+  stdout.writeln('');
   if (reformatExit == 0) {
-    stdout.writeln("All files are correctly formatted");
+    stdout.writeln('All files are correctly formatted');
   } else {
-    stdout.writeln("Error: Some files require reformatting with dartfmt");
-    stdout.writeln("run: ./flutterw packages pub run tool/reformat.dart");
+    stdout.writeln('Error: Some files require reformatting with dartfmt');
+    stdout.writeln('run: ./flutterw packages pub run tool/reformat.dart');
   }
   exit(reformatExit);
 }
 
 String reformatDartfmtStdout(String line) {
-  if (line.startsWith("Formatting directory")) {
-    return line.replaceFirst("Formatting directory ", "");
+  if (line.startsWith('Formatting directory')) {
+    return line.replaceFirst('Formatting directory ', '');
   }
-  return "- $line";
+  return '- $line';
 }

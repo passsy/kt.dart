@@ -1,28 +1,28 @@
-import "package:kt_dart/collection.dart";
-import "package:test/test.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:test/test.dart';
 
-import "../test/assert_dart.dart";
+import '../test/assert_dart.dart';
 
 void main() {
-  group("KtMutableMap", () {
-    group("mutableMapFrom", () {
+  group('KtMutableMap', () {
+    group('mutableMapFrom', () {
       testMutableMap(<K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
     });
-    group("KtMutableMap.from", () {
+    group('KtMutableMap.from', () {
       testMutableMap(<K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
     });
-    group("hashMapFrom", () {
+    group('hashMapFrom', () {
       testMutableMap(<K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
           ordered: false);
     });
-    group("KtHashMap", () {
+    group('KtHashMap', () {
       testMutableMap(<K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
           ordered: false);
     });
-    group("linkedMapFrom", () {
+    group('linkedMapFrom', () {
       testMutableMap(<K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
     });
-    group("KtLinkedMap", () {
+    group('KtLinkedMap', () {
       testMutableMap(<K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
     });
   });
@@ -31,49 +31,49 @@ void main() {
 void testMutableMap(
     KtMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
     {bool ordered = true}) {
-  group("add item", () {
-    test("add item", () {
+  group('add item', () {
+    test('add item', () {
       final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+        1: 'Bulbasaur',
+        2: 'Ivysaur',
       });
-      expect(pokemon.put(3, "Venusaur"), null);
+      expect(pokemon.put(3, 'Venusaur'), null);
       expect(pokemon.size, 3);
     });
-    test("override item", () {
+    test('override item', () {
       final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+        1: 'Bulbasaur',
+        2: 'Ivysaur',
       });
-      expect(pokemon.put(2, "Ditto"), "Ivysaur");
+      expect(pokemon.put(2, 'Ditto'), 'Ivysaur');
       expect(pokemon.size, 2);
     });
   });
-  group("remove item", () {
-    test("remove item", () {
+  group('remove item', () {
+    test('remove item', () {
       final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+        1: 'Bulbasaur',
+        2: 'Ivysaur',
       });
-      expect(pokemon.remove(2), "Ivysaur");
+      expect(pokemon.remove(2), 'Ivysaur');
       expect(pokemon.size, 1);
     });
   });
 
-  group("_MutableEntry", () {
-    test("entries can be converted to pairs", () {
+  group('_MutableEntry', () {
+    test('entries can be converted to pairs', () {
       final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+        1: 'Bulbasaur',
+        2: 'Ivysaur',
       });
       expect(pokemon.entries.map((it) => it.toPair()),
-          listOf(const KtPair(1, "Bulbasaur"), const KtPair(2, "Ivysaur")));
+          listOf(const KtPair(1, 'Bulbasaur'), const KtPair(2, 'Ivysaur')));
     });
 
-    test("set value for mutable entry", () {
+    test('set value for mutable entry', () {
       final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+        1: 'Bulbasaur',
+        2: 'Ivysaur',
       });
 
       final e = catchException(() {
@@ -87,8 +87,8 @@ void testMutableMap(
       // expect(
       //    pokemon,
       //     mapFrom({
-      //       1: "BULBASAUR",
-      //      2: "IVYSAUR",
+      //       1: 'BULBASAUR',
+      //      2: 'IVYSAUR',
       //    }));
     });
   });

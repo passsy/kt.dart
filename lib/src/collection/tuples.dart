@@ -1,4 +1,4 @@
-import "package:kt_dart/collection.dart";
+import 'package:kt_dart/collection.dart';
 
 /// Represents a generic pair of two values.
 ///
@@ -16,7 +16,7 @@ class KtPair<A, B> {
   final B second;
 
   @override
-  String toString() => "($first, $second)";
+  String toString() => '($first, $second)';
 
   @override
   bool operator ==(Object other) =>
@@ -54,7 +54,7 @@ class KtTriple<A, B, C> {
   final C third;
 
   @override
-  String toString() => "($first, $second, $third)";
+  String toString() => '($first, $second, $third)';
 
   @override
   bool operator ==(Object other) =>

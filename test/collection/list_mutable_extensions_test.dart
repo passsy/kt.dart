@@ -1,13 +1,13 @@
-import "dart:math";
+import 'dart:math';
 
-import "package:kt_dart/collection.dart";
-import "package:test/test.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:test/test.dart';
 
-import "../test/assert_dart.dart";
+import '../test/assert_dart.dart';
 
 void main() {
-  group("KtMutableListExtensions", () {
-    group("mutableList", () {
+  group('KtMutableListExtensions', () {
+    group('mutableList', () {
       testList(<T>() => KtMutableList.empty(), mutableListOf, mutableListFrom);
     });
   });
@@ -29,14 +29,14 @@ void testList(
         mutableListOf,
     KtMutableList<T> Function<T>([Iterable<T> iterable]) mutableListFrom,
     {bool ordered = true}) {
-  group("clear", () {
-    test("clear list", () {
-      final list = mutableListOf("a", "b", "c");
+  group('clear', () {
+    test('clear list', () {
+      final list = mutableListOf('a', 'b', 'c');
       expect(list.size, 3);
       list.clear();
       expect(list.size, 0);
     });
-    test("clear empty list", () {
+    test('clear empty list', () {
       final list = mutableListOf();
       expect(list.size, 0);
       list.clear();
@@ -44,78 +44,78 @@ void testList(
     });
   });
 
-  group("dart property", () {
-    test("dart property is mutating original collection", () {
-      final original = mutableListOf("a", "b", "c");
+  group('dart property', () {
+    test('dart property is mutating original collection', () {
+      final original = mutableListOf('a', 'b', 'c');
       final dartList = original.dart;
-      dartList.add("x");
-      expect(dartList, ["a", "b", "c", "x"]);
-      expect(original, listOf("a", "b", "c", "x"));
+      dartList.add('x');
+      expect(dartList, ['a', 'b', 'c', 'x']);
+      expect(original, listOf('a', 'b', 'c', 'x'));
     });
   });
 
-  group("fill", () {
-    test("replace all elements", () {
-      final list = mutableListOf("a", "b", "c");
-      list.fill("x");
-      expect(list, listOf("x", "x", "x"));
+  group('fill', () {
+    test('replace all elements', () {
+      final list = mutableListOf('a', 'b', 'c');
+      list.fill('x');
+      expect(list, listOf('x', 'x', 'x'));
     });
 
-    test("on empty list", () {
+    test('on empty list', () {
       final list = mutableListFrom<String>([]);
-      list.fill("x");
+      list.fill('x');
       expect(list, emptyList());
     });
   });
 
-  group("removeAt", () {
+  group('removeAt', () {
     test("index can't be null", () {
       final e =
           catchException<ArgumentError>(() => mutableListOf().removeAt(null));
-      expect(e.message, allOf(contains("null"), contains("index")));
+      expect(e.message, allOf(contains('null'), contains('index')));
     });
 
-    test("removes item at index", () {
-      final list = mutableListOf("a", "b", "c");
+    test('removes item at index', () {
+      final list = mutableListOf('a', 'b', 'c');
       list.removeAt(1);
-      expect(list, listOf("a", "c"));
+      expect(list, listOf('a', 'c'));
     });
 
-    test("removeAt throw for indexes greater size", () {
-      final list = mutableListOf("a", "b", "c");
+    test('removeAt throw for indexes greater size', () {
+      final list = mutableListOf('a', 'b', 'c');
       final e =
           catchException<IndexOutOfBoundsException>(() => list.removeAt(-1));
-      expect(e.message, allOf(contains("3"), contains("")));
+      expect(e.message, allOf(contains('3'), contains('')));
     });
 
-    test("removeAt throw for indexes below 0", () {
-      final list = mutableListOf("a", "b", "c");
+    test('removeAt throw for indexes below 0', () {
+      final list = mutableListOf('a', 'b', 'c');
       final e =
           catchException<IndexOutOfBoundsException>(() => list.removeAt(-1));
-      expect(e.message, allOf(contains("-1"), contains("")));
+      expect(e.message, allOf(contains('-1'), contains('')));
     });
   });
 
-  group("sorted", () {
+  group('sorted', () {
     String lastChar(String it) {
       final last = it.runes.last;
       return String.fromCharCode(last);
     }
 
-    test("sortBy", () {
-      final result = mutableListOf("paul", "john", "max", "lisa")
+    test('sortBy', () {
+      final result = mutableListOf('paul', 'john', 'max', 'lisa')
         ..sortBy(lastChar);
-      expect(result, listOf("lisa", "paul", "john", "max"));
+      expect(result, listOf('lisa', 'paul', 'john', 'max'));
     });
 
     test("sortBy doesn't allow null as argument", () {
       const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortBy(selector));
-      expect(e.message, allOf(contains("null"), contains("selector")));
+      expect(e.message, allOf(contains('null'), contains('selector')));
     });
 
-    test("sortBy works for ints", () {
+    test('sortBy works for ints', () {
       // without specifying sortBy<num> as generic parameters
       final result = mutableListOf(3, 4, 2, 1)..sortBy((it) => it);
       expect(result, listOf(1, 2, 3, 4));
@@ -124,13 +124,13 @@ void testList(
       expect(result, result2);
     });
 
-    test("sortByDescending", () {
-      final result = mutableListOf("paul", "john", "max", "lisa")
+    test('sortByDescending', () {
+      final result = mutableListOf('paul', 'john', 'max', 'lisa')
         ..sortByDescending(lastChar);
-      expect(result, listOf("max", "john", "paul", "lisa"));
+      expect(result, listOf('max', 'john', 'paul', 'lisa'));
     });
 
-    test("sortByDescending works for ints", () {
+    test('sortByDescending works for ints', () {
       // without specifying sortByDescending<num> as generic parameters
       final result = mutableListOf(3, 4, 2, 1)..sortByDescending((it) => it);
       expect(result, listOf(4, 3, 2, 1));
@@ -144,22 +144,22 @@ void testList(
       const num Function(dynamic) selector = null;
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortByDescending(selector));
-      expect(e.message, allOf(contains("null"), contains("selector")));
+      expect(e.message, allOf(contains('null'), contains('selector')));
     });
 
     test("sortWith doesn't allow null as argument", () {
       final e = catchException<ArgumentError>(
           () => mutableListOf<String>()..sortWith(null));
-      expect(e.message, allOf(contains("null"), contains("comparator")));
+      expect(e.message, allOf(contains('null'), contains('comparator')));
     });
 
     group('then', () {
       final unordered = listFrom(const [
-        KtPair(2, "c"),
-        KtPair(3, "a"),
-        KtPair(1, "b"),
-        KtPair(1, "a"),
-        KtPair(2, "c"),
+        KtPair(2, 'c'),
+        KtPair(3, 'a'),
+        KtPair(1, 'b'),
+        KtPair(1, 'a'),
+        KtPair(2, 'c'),
       ]);
 
       test('then', () {
@@ -170,11 +170,11 @@ void testList(
         expect(
             result,
             KtList.from(const [
-              KtPair(1, "a"),
-              KtPair(1, "b"),
-              KtPair(2, "c"),
-              KtPair(2, "c"),
-              KtPair(3, "a")
+              KtPair(1, 'a'),
+              KtPair(1, 'b'),
+              KtPair(2, 'c'),
+              KtPair(2, 'c'),
+              KtPair(3, 'a')
             ]));
       });
 
@@ -186,11 +186,11 @@ void testList(
         expect(
             result,
             KtList.from(const [
-              KtPair(1, "b"),
-              KtPair(1, "a"),
-              KtPair(2, "c"),
-              KtPair(2, "c"),
-              KtPair(3, "a")
+              KtPair(1, 'b'),
+              KtPair(1, 'a'),
+              KtPair(2, 'c'),
+              KtPair(2, 'c'),
+              KtPair(3, 'a')
             ]));
       });
 
@@ -202,11 +202,11 @@ void testList(
         expect(
             result,
             KtList.from(const [
-              KtPair(1, "a"),
-              KtPair(1, "b"),
-              KtPair(2, "c"),
-              KtPair(2, "c"),
-              KtPair(3, "a")
+              KtPair(1, 'a'),
+              KtPair(1, 'b'),
+              KtPair(2, 'c'),
+              KtPair(2, 'c'),
+              KtPair(3, 'a')
             ]));
       });
       test('thenByDescending', () {
@@ -217,18 +217,18 @@ void testList(
         expect(
             result,
             KtList.from(const [
-              KtPair(1, "b"),
-              KtPair(1, "a"),
-              KtPair(2, "c"),
-              KtPair(2, "c"),
-              KtPair(3, "a")
+              KtPair(1, 'b'),
+              KtPair(1, 'a'),
+              KtPair(2, 'c'),
+              KtPair(2, 'c'),
+              KtPair(3, 'a')
             ]));
       });
     });
   });
 
-  group("shuffle", () {
-    test("shuffle shuffles items in a list with provided Random object", () {
+  group('shuffle', () {
+    test('shuffle shuffles items in a list with provided Random object', () {
       final firstList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
       firstList.shuffle(Random(1));
       final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);

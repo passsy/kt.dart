@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/iterator.dart";
-import "package:kt_dart/src/util/hash.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/iterator.dart';
+import 'package:kt_dart/src/util/hash.dart';
 
 /// [KtList] based on a dart [List]
 class DartMutableList<T> extends Object implements KtMutableList<T> {
@@ -123,7 +123,7 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
       return true;
     }());
     if (index < 0 || index >= size) {
-      throw IndexOutOfBoundsException("index: $index, size: $size");
+      throw IndexOutOfBoundsException('index: $index, size: $size');
     }
     return _list.removeAt(index);
   }
@@ -172,13 +172,13 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
       if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
       if (toIndex == null) throw ArgumentError("toIndex can't be null");
       if (fromIndex > toIndex) {
-        throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+        throw ArgumentError('fromIndex: $fromIndex > toIndex: $toIndex');
       }
       return true;
     }());
     if (fromIndex < 0 || toIndex > size) {
       throw IndexOutOfBoundsException(
-          "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+          'fromIndex: $fromIndex, toIndex: $toIndex, size: $size');
     }
     return DartMutableList(_list.sublist(fromIndex, toIndex));
   }
@@ -201,11 +201,11 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   @override
   String toString() {
     return joinToString(
-      separator: ", ",
-      prefix: "[",
-      postfix: "]",
+      separator: ', ',
+      prefix: '[',
+      postfix: ']',
       transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+          identical(it, this) ? '(this Collection)' : it.toString(),
     );
   }
 }

@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/dart_iterable.dart";
-import "package:kt_dart/src/collection/impl/iterator.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/dart_iterable.dart';
+import 'package:kt_dart/src/collection/impl/iterator.dart';
 
 class EmptyIterable<T> extends KtIterable<T> {
   @override

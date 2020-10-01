@@ -1,5 +1,5 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/util/hash.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/util/hash.dart';
 
 class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   DartMutableMap([Map<K, V> map = const {}])
@@ -114,14 +114,14 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   @override
   String toString() {
     return entries.joinToString(
-        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
+        separator: ', ', prefix: '{', postfix: '}', transform: _entryToString);
   }
 
   String _entryToString(KtMapEntry<K, V> entry) =>
-      "${_toString(entry.key)}=${_toString(entry.value)}";
+      '${_toString(entry.key)}=${_toString(entry.value)}';
 
   String _toString(Object o) =>
-      identical(o, this) ? "(this Map)" : o.toString();
+      identical(o, this) ? '(this Map)' : o.toString();
 }
 
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
@@ -146,7 +146,7 @@ class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
     // see how kotlin solved this:
     // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
     throw UnimplementedError(
-        "setValue() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/55 for prioritization");
+        'setValue() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/55 for prioritization');
   }
 
   @override

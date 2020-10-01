@@ -30,5 +30,5 @@ if type genhtml >/dev/null 2>&1; then
  genhtml -o out/coverage/html out/coverage/lcov.info
  echo "open coverage report $PWD/out/coverage/html/index.html"
 else
- echo "genhtml not installed, can't generate html coverage output"
+ echo "genhtml not installed, can\'t generate html coverage output"
 fi

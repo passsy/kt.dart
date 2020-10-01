@@ -1,17 +1,17 @@
 // ignore_for_file: unnecessary_cast, (dart 2.6 need some help in extensions)
-import "package:kt_dart/annotation.dart";
+import 'package:kt_dart/annotation.dart';
 import 'package:meta/meta.dart';
 
 /// An exception is thrown to indicate that a method body remains to be implemented.
 @experimental
 class NotImplementedException implements Exception {
   NotImplementedException([String message])
-      : message = message ?? "An operation is not implemented.";
+      : message = message ?? 'An operation is not implemented.';
 
   final String message;
 
   @override
-  String toString() => "Exception: $message";
+  String toString() => 'Exception: $message';
 }
 
 /// Always throws [NotImplementedException] stating that operation is not implemented.

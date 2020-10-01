@@ -1,61 +1,61 @@
-import "package:kt_dart/collection.dart";
-import "package:test/test.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:test/test.dart';
 
-import "../test/assert_dart.dart";
+import '../test/assert_dart.dart';
 
 void main() {
-  group("EmptyList", () {
-    group("emptyList", () {
+  group('EmptyList', () {
+    group('emptyList', () {
       testEmptyList(<T>() => emptyList<T>(), mutable: false);
     });
-    group("listOf", () {
+    group('listOf', () {
       testEmptyList(<T>() => listOf<T>(), mutable: false);
     });
-    group("listFrom", () {
+    group('listFrom', () {
       testEmptyList(<T>() => listFrom<T>(), mutable: false);
     });
-    group("KtList.empty", () {
+    group('KtList.empty', () {
       testEmptyList(<T>() => KtList<T>.empty(), mutable: false);
     });
-    group("KtList.of", () {
+    group('KtList.of', () {
       testEmptyList(<T>() => KtList<T>.of(), mutable: false);
     });
-    group("KtList.of", () {
+    group('KtList.of', () {
       testEmptyList(<T>() => KtList<T>.from(), mutable: false);
     });
-    group("mutableListOf", () {
+    group('mutableListOf', () {
       testEmptyList(<T>() => mutableListOf<T>());
     });
-    group("mutableListFrom", () {
+    group('mutableListFrom', () {
       testEmptyList(<T>() => mutableListFrom<T>());
     });
-    group("KtMutableList.empty", () {
+    group('KtMutableList.empty', () {
       testEmptyList(<T>() => KtMutableList<T>.empty());
     });
-    group("KtMutableList.of", () {
+    group('KtMutableList.of', () {
       testEmptyList(<T>() => KtMutableList<T>.of());
     });
-    group("KtMutableList.from", () {
+    group('KtMutableList.from', () {
       testEmptyList(<T>() => KtMutableList<T>.from());
     });
   });
 }
 
 void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
-  group("empty list", () {
-    test("has no elements", () {
+  group('empty list', () {
+    test('has no elements', () {
       final empty = emptyList<String>();
       expect(empty.size, equals(0));
     });
 
-    test("contains nothing", () {
-      expect(emptyList<String>().contains("asdf"), isFalse);
+    test('contains nothing', () {
+      expect(emptyList<String>().contains('asdf'), isFalse);
       expect(emptyList<int>().contains(null), isFalse);
       expect(emptyList<int>().contains(0), isFalse);
       expect(emptyList<List>().contains([]), isFalse);
     });
 
-    test("iterator has no next", () {
+    test('iterator has no next', () {
       final empty = emptyList();
 
       expect(empty.iterator().hasNext(), isFalse);
@@ -63,19 +63,19 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
           throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
-    test("is empty", () {
+    test('is empty', () {
       final empty = emptyList();
 
       expect(empty.isEmpty(), isTrue);
     });
 
-    test("iterator have correct type", () {
+    test('iterator have correct type', () {
       final list = emptyList<Map<int, String>>();
       expect(list.iterator().runtimeType.toString(),
-          contains("Map<int, String>>"));
+          contains('Map<int, String>>'));
     });
 
-    test("throws when accessing an element", () {
+    test('throws when accessing an element', () {
       final empty = emptyList();
 
       expect(() => empty.get(0),
@@ -88,25 +88,25 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
           () => empty.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
-    test("indexOf always returns -1", () {
+    test('indexOf always returns -1', () {
       final empty = emptyList();
 
-      expect(empty.indexOf(""), equals(-1));
+      expect(empty.indexOf(''), equals(-1));
       expect(empty.indexOf([]), equals(-1));
       expect(empty.indexOf(0), equals(-1));
       expect(empty.indexOf(null), equals(-1));
     });
 
-    test("lastIndexOf always returns -1", () {
+    test('lastIndexOf always returns -1', () {
       final empty = emptyList();
 
-      expect(empty.lastIndexOf(""), equals(-1));
+      expect(empty.lastIndexOf(''), equals(-1));
       expect(empty.lastIndexOf([]), equals(-1));
       expect(empty.lastIndexOf(0), equals(-1));
       expect(empty.lastIndexOf(null), equals(-1));
     });
 
-    test("is equals to another empty list", () {
+    test('is equals to another empty list', () {
       final empty0 = emptyList();
       final empty1 = emptyList();
 
@@ -114,7 +114,7 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(empty0.hashCode, equals(empty1.hashCode));
     });
 
-    test("empty lists of different type are equal", () {
+    test('empty lists of different type are equal', () {
       final empty0 = emptyList<int>();
       final empty1 = emptyList<String>();
 
@@ -122,7 +122,7 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(empty0.hashCode, equals(empty1.hashCode));
     });
 
-    test("is equals to another list without items", () {
+    test('is equals to another list without items', () {
       final empty0 = emptyList<String>();
       final empty1 = mutableListOf();
 
@@ -133,23 +133,23 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
     test("sublist doesn't allow null as fromIndex", () {
       final e =
           catchException<ArgumentError>(() => emptyList().subList(null, 10));
-      expect(e.message, allOf(contains("null"), contains("fromIndex")));
+      expect(e.message, allOf(contains('null'), contains('fromIndex')));
     });
 
     test("sublist doesn't allow null as toIndex", () {
       final e =
           catchException<ArgumentError>(() => emptyList().subList(0, null));
-      expect(e.message, allOf(contains("null"), contains("toIndex")));
+      expect(e.message, allOf(contains('null'), contains('toIndex')));
     });
 
-    test("sublist works for index 0 to 0", () {
+    test('sublist works for index 0 to 0', () {
       final empty = emptyList<Object>();
       final subList = empty.subList(0, 0);
       expect(subList.size, equals(0));
       expect(subList, equals(empty));
     });
 
-    test("sublist throws for all other ranges", () {
+    test('sublist throws for all other ranges', () {
       final empty = emptyList<int>();
 
       expect(() => empty.subList(0, 1),
@@ -162,19 +162,19 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
     });
 
-    test("access dart list", () {
+    test('access dart list', () {
       final List<String> list = emptyList<String>().asList();
       expect(list.length, 0);
     });
 
-    test("listIterator requires index", () {
+    test('listIterator requires index', () {
       final ArgumentError e =
           catchException(() => emptyList().listIterator(null));
-      expect(e.message, contains("index"));
-      expect(e.message, contains("null"));
+      expect(e.message, contains('index'));
+      expect(e.message, contains('null'));
     });
 
-    test("[] get operator", () {
+    test('[] get operator', () {
       final list = emptyList();
 
       final e0 = catchException<IndexOutOfBoundsException>(() => list[0]);
@@ -185,11 +185,11 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(e2.message, contains("doesn't contain element at index: 3"));
 
       final e3 = catchException<ArgumentError>(() => list[null]);
-      expect(e3.message, allOf(contains("null"), contains("index")));
+      expect(e3.message, allOf(contains('null'), contains('index')));
     });
 
-    test("toString prints empty list", () {
-      expect(emptyList().toString(), "[]");
+    test('toString prints empty list', () {
+      expect(emptyList().toString(), '[]');
     });
 
     test("listIterator doesn't iterate", () {
@@ -204,21 +204,21 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
           () => i.next(), throwsA(const TypeMatcher<NoSuchElementException>()));
     });
 
-    test("deprecated list property returns an empty list", () {
+    test('deprecated list property returns an empty list', () {
       // ignore: deprecated_member_use_from_same_package
       final dartList = emptyList<int>().list;
       expect(dartList.length, 0);
     });
 
     if (!mutable) {
-      test("deprecated list property returns an unmodifiable list", () {
+      test('deprecated list property returns an unmodifiable list', () {
         // ignore: deprecated_member_use_from_same_package
         final dartList = emptyList<int>().list;
         final e = catchException<UnsupportedError>(() => dartList.add(1));
-        expect(e.message, contains("unmodifiable"));
+        expect(e.message, contains('unmodifiable'));
       });
     } else {
-      test("deprecated list property returns an modifiable list", () {
+      test('deprecated list property returns an modifiable list', () {
         final original = emptyList<int>();
         // ignore: deprecated_member_use_from_same_package
         final dartList = original.list;

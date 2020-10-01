@@ -1,5 +1,5 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/kt_iterator_mutable.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/kt_iterator_mutable.dart';
 
 class InterOpKIterator<T> implements KtIterator<T> {
   InterOpKIterator(this.iterator) {
@@ -28,7 +28,7 @@ class InterOpKtListIterator<T>
     implements KtListIterator<T>, KtMutableListIterator<T> {
   InterOpKtListIterator(this._list, int index) : _cursor = index {
     if (index < 0 || index > _list.length) {
-      throw IndexOutOfBoundsException("index: $index, size: $_list.length");
+      throw IndexOutOfBoundsException('index: $index, size: $_list.length');
     }
   }
 
@@ -54,7 +54,7 @@ class InterOpKtListIterator<T>
     // see how kotlin solved this:
     // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
     throw UnimplementedError(
-        "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
+        'remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization');
   }
 
   @override
@@ -84,7 +84,7 @@ class InterOpKtListIterator<T>
   void set(T element) {
     if (_lastRet < 0) {
       throw const IndexOutOfBoundsException(
-          "illegal cursor state -1. next() or previous() not called");
+          'illegal cursor state -1. next() or previous() not called');
     }
     _list.replaceRange(_lastRet, _lastRet + 1, [element]);
   }

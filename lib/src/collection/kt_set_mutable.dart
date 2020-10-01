@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/set_mutable.dart";
-import "package:kt_dart/src/util/arguments.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/set_mutable.dart';
+import 'package:kt_dart/src/util/arguments.dart';
 
 /// A generic unordered collection of elements that does not support duplicate elements, and supports
 /// adding and removing elements.

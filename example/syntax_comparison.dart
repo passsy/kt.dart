@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-import "package:kt_dart/kt.dart";
+import 'package:kt_dart/kt.dart';
 
 void main() {
   /// Kotlin like, function based syntax
@@ -31,16 +31,16 @@ void main() {
   /// Map
   // Create immutable maps
   emptyMap<int, String>();
-  mapFrom({1: "a", 2: "b"});
+  mapFrom({1: 'a', 2: 'b'});
 
   // Create mutable maps
-  mutableMapFrom({1: "a", 2: "b"});
+  mutableMapFrom({1: 'a', 2: 'b'});
 
   // Create mutable maps without specified order when iterating over items
-  hashMapFrom({1: "a", 2: "b"});
+  hashMapFrom({1: 'a', 2: 'b'});
 
   // Create mutable maps which keep the order of the items
-  linkedMapFrom({1: "a", 2: "b"});
+  linkedMapFrom({1: 'a', 2: 'b'});
 
   /// Dart like, constructor based syntax
 
@@ -79,19 +79,19 @@ void main() {
   /// Map
   // Create immutable maps
   const KtMap.empty();
-  KtMap.from({1: "a", 2: "b"});
+  KtMap.from({1: 'a', 2: 'b'});
 
   // Create mutable maps
   KtMutableMap<int, String>.empty();
-  KtMutableMap.from({1: "a", 2: "b"});
+  KtMutableMap.from({1: 'a', 2: 'b'});
 
   // Create mutable maps without specified order when iterating over items
   KtHashMap<int, String>.empty();
-  KtHashMap.from({1: "a", 2: "b"});
+  KtHashMap.from({1: 'a', 2: 'b'});
 
   // Create mutable maps which keep the order of the items
   KtLinkedMap<int, String>.empty();
-  KtLinkedMap.from({1: "a", 2: "b"});
+  KtLinkedMap.from({1: 'a', 2: 'b'});
 
-  print("Everything works!");
+  print('Everything works!');
 }

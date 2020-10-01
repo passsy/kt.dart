@@ -1,5 +1,5 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/dart_iterable.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/dart_iterable.dart';
 
 class EmptyList<T> extends Object implements KtList<T> {
   const EmptyList();
@@ -75,11 +75,11 @@ class EmptyList<T> extends Object implements KtList<T> {
     }());
     if (fromIndex == 0 && toIndex == 0) return this;
     throw IndexOutOfBoundsException(
-        "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+        'fromIndex: $fromIndex, toIndex: $toIndex, size: $size');
   }
 
   @override
-  String toString() => "[]";
+  String toString() => '[]';
 
   @override
   int get hashCode => 1;

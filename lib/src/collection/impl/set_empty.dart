@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/dart_iterable.dart";
-import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/dart_iterable.dart';
+import 'package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart';
 
 class EmptySet<T> extends Object implements KtSet<T> {
   const EmptySet();
@@ -39,7 +39,7 @@ class EmptySet<T> extends Object implements KtSet<T> {
   int get hashCode => 0;
 
   @override
-  String toString() => "[]";
+  String toString() => '[]';
 
   @override
   Iterable<T> get iter => EmptyDartIterable();

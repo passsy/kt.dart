@@ -3,8 +3,8 @@
 [![Pub](https://img.shields.io/pub/v/kt_dart.svg)](https://pub.dartlang.org/packages/kt_dart)
 [![codecov](https://codecov.io/gh/passsy/kt.dart/branch/master/graph/badge.svg)](https://codecov.io/gh/passsy/kt.dart)
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/1096485/51038827-6e47b300-15b4-11e9-8618-da9f2af61738.png">
+<p align='center'>
+  <img src='https://user-images.githubusercontent.com/1096485/51038827-6e47b300-15b4-11e9-8618-da9f2af61738.png'>
 </p>
 
 This project is a port of Kotlin's [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as other packages which can improve every Dart/Flutter app. 
@@ -97,8 +97,8 @@ Function listEq = const ListEquality().equals;
 print(listEq(a, b)); // true
 
 // MapEquality isn't deep by default
-final x = {1: ["a", "b", "c"], 2: ["xx", "yy", "zz"]};
-final y = {1: ["a", "b", "c"], 2: ["xx", "yy", "zz"]};
+final x = {1: ['a', 'b', 'c'], 2: ['xx', 'yy', 'zz']};
+final y = {1: ['a', 'b', 'c'], 2: ['xx', 'yy', 'zz']};
 Function mapEq = const MapEquality().equals;
 print(mapEq(x, y)); // false, wtf?!
 
@@ -115,8 +115,8 @@ final a = listOf(1, 2, 3, 4);
 final b = listOf(1, 2, 3, 4);
 print(a == b); // true, as expected
 
-final x = mapFrom({1: listOf("a", "b", "c"), 2: listOf("xx", "yy", "zz")});
-final y = mapFrom({1: listOf("a", "b", "c"), 2: listOf("xx", "yy", "zz")});
+final x = mapFrom({1: listOf('a', 'b', 'c'), 2: listOf('xx', 'yy', 'zz')});
+final y = mapFrom({1: listOf('a', 'b', 'c'), 2: listOf('xx', 'yy', 'zz')});
 print(x == y); // deep equals by default
 ```
 </details>
@@ -142,7 +142,7 @@ print(kFlat); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 ### where -> filter
 ```dart
-final dNames = ["Chet", "Tor", "Romain", "Jake", "Dianne"];
+final dNames = ['Chet', 'Tor', 'Romain', 'Jake', 'Dianne'];
 final kNames = listFrom(dNames);
 
 // dart:core
@@ -156,18 +156,18 @@ print(kShortNames); // [Chet, Tor, Jake]
 
 ### firstWhere -> first, firstOrNull
 ```dart
-final dNames = ["Chet", "Tor", "Romain", "Jake", "Dianne"];
+final dNames = ['Chet', 'Tor', 'Romain', 'Jake', 'Dianne'];
 final kNames = listFrom(dNames);
 
 // dart:core
-dNames.firstWhere((name) => name.contains("k")); // Jake
-dNames.firstWhere((name) => name.contains("x"), orElse: () => null); // null
-dNames.firstWhere((name) => name.contains("x"), orElse: () => "Nobody"); // Nobody
+dNames.firstWhere((name) => name.contains('k')); // Jake
+dNames.firstWhere((name) => name.contains('x'), orElse: () => null); // null
+dNames.firstWhere((name) => name.contains('x'), orElse: () => 'Nobody'); // Nobody
 
 // kt_dart
-kNames.first((name) => name.contains("k")); // Jake
-kNames.firstOrNull((name) => name.contains("x")); // null
-kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
+kNames.first((name) => name.contains('k')); // Jake
+kNames.firstOrNull((name) => name.contains('x')); // null
+kNames.firstOrNull((name) => name.contains('x')) ?? 'Nobody'; // Nobody
 ```
 </details>
 
@@ -182,10 +182,10 @@ To create a `KtList`/`KtMutableList` use the `KtList.of` constructor or convert 
 
 ```dart
 // Create a KtList from scratch
-final beatles = KtList.of("John", "Paul", "George", "Ringo");
+final beatles = KtList.of('John', 'Paul', 'George', 'Ringo');
 
 // Convert a existing List to KtList
-final abba = ["Agnetha", "Björn", "Benny", "Anni-Frid"];
+final abba = ['Agnetha', 'Björn', 'Benny', 'Anni-Frid'];
 final immutableAbba = abba.toImmutableList();
 ```
 
@@ -195,7 +195,7 @@ final immutableAbba = abba.toImmutableList();
  To create mutable list with **kt_dart** use the `KtMutableList` constructor.
 ```dart
 // Create a KtMutableList from scratch
-final beatles = KtMutableList.of("John", "Paul", "George", "Ringo");
+final beatles = KtMutableList.of('John', 'Paul', 'George', 'Ringo');
 beatles.removeAt(0);
 print(beatles); // [Paul, George, Ringo]
 ```
@@ -205,7 +205,7 @@ print(beatles); // [Paul, George, Ringo]
 Conversions between `KtList` and `KtMutableList` can be done with `KtList.toMutableList()` and `KtMutableList.toList()`;
 
 ```dart
-final beatles = KtList.of("John", "Paul", "George", "Ringo");
+final beatles = KtList.of('John', 'Paul', 'George', 'Ringo');
 final mutable = beatles.toMutableList();
 mutable.removeAt(0);
 print(mutable); // [Paul, George, Ringo]
@@ -221,7 +221,7 @@ All **kt_dart** collections offer a `.iter` property which exposes a Dart `Itera
 For-loops therefore don't look much different.
 
 ```dart
-final beatles = KtList.of("John", "Paul", "George", "Ringo");
+final beatles = KtList.of('John', 'Paul', 'George', 'Ringo');
 for (final member in beatles.iter) {
   print(member);
 }
@@ -234,8 +234,8 @@ Kotlin users might be more familiar with the `listOf()` and `mutableListOf()` fu
 Use them if you like but keep in mind that the dart community is much more used to use constructors instead of top-level functions.
 
 ```dart
-final beatles = listOf("John", "Paul", "George", "Ringo");
-final abba = mutableListOf("Agnetha", "Björn", "Benny", "Anni-Frid");
+final beatles = listOf('John', 'Paul', 'George', 'Ringo');
+final abba = mutableListOf('Agnetha', 'Björn', 'Benny', 'Anni-Frid');
 ```
 
 
@@ -247,10 +247,10 @@ Creating a `KtSet`/`KtMutableSet` is very similar to the `KtList` API.
 
 ```dart
 // Create a KtSet from scratch
-final beatles = KtSet.of("John", "Paul", "George", "Ringo");
+final beatles = KtSet.of('John', 'Paul', 'George', 'Ringo');
 
 // Convert a existing Set to KtSet
-final abba = {"Agnetha", "Björn", "Benny", "Anni-Frid"};
+final abba = {'Agnetha', 'Björn', 'Benny', 'Anni-Frid'};
 final immutableAbba = abba.toImmutableSet();
 ```
 
@@ -265,28 +265,28 @@ To create a `KtMap`/`KtMutableMap` start with Dart `Map` and then convert it to 
 ```dart
 // immutable
 final pokemon = {
-  1: "Bulbasaur",
-  2: "Ivysaur",
-  3: "Stegosaur",
+  1: 'Bulbasaur',
+  2: 'Ivysaur',
+  3: 'Stegosaur',
 }.toImmutableMap();
 
 final newPokemon = KtMap.from({
-  152: "Chikorita",
-  153: "Bayleef",
-  154: "Meganium",
+  152: 'Chikorita',
+  153: 'Bayleef',
+  154: 'Meganium',
 });
 
 // mutable
 final mutablePokemon = {
-  1: "Bulbasaur",
-  2: "Ivysaur",
-  3: "Stegosaur",
+  1: 'Bulbasaur',
+  2: 'Ivysaur',
+  3: 'Stegosaur',
 }.kt;
 
 final newMutablePokemon = KtMutableMap.from({
-  152: "Chikorita",
-  153: "Bayleef",
-  154: "Meganium",
+  152: 'Chikorita',
+  153: 'Bayleef',
+  154: 'Meganium',
 });
 ```
 
@@ -302,8 +302,8 @@ You may want to use a specific `Map` implementation. **kt_dart** offers:
 They are used by some collection APIs and prevent a 3rd party dependency. 
 
 ```dart
-final beatles = KtList.of("John", "Paul", "George", "Ringo");
-final partitions = beatles.partition((it) => it.contains("n"));
+final beatles = KtList.of('John', 'Paul', 'George', 'Ringo');
+final partitions = beatles.partition((it) => it.contains('n'));
 print(partitions.first); // [John, Ringo]
 print(partitions.second); // [Paul, George]
 ```
@@ -338,14 +338,14 @@ A method/class annotated with `@experimental` marks the method/class as experime
 ```
 Copyright 2019 Pascal Welsch
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the 'License');
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an 'AS IS' BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.

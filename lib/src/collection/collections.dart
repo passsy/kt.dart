@@ -1,6 +1,6 @@
-import "dart:collection";
+import 'dart:collection';
 
-import "package:kt_dart/kt.dart";
+import 'package:kt_dart/kt.dart';
 import 'package:kt_dart/src/util/arguments.dart';
 
 /// Returns a new read-only list of given elements.

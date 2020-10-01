@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart";
-import "package:kt_dart/src/util/hash.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/dart_unmodifiable_set_view.dart';
+import 'package:kt_dart/src/util/hash.dart';
 
 class DartSet<T> extends Object implements KtSet<T> {
   DartSet([Iterable<T> iterable = const []])
@@ -65,11 +65,11 @@ class DartSet<T> extends Object implements KtSet<T> {
   @override
   String toString() {
     return joinToString(
-      separator: ", ",
-      prefix: "[",
-      postfix: "]",
+      separator: ', ',
+      prefix: '[',
+      postfix: ']',
       transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+          identical(it, this) ? '(this Collection)' : it.toString(),
     );
   }
 }

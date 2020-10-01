@@ -1,8 +1,8 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/iterable.dart";
-import "package:kt_dart/src/collection/impl/list_mutable.dart";
-import "package:kt_dart/src/collection/impl/map_mutable.dart";
-import "package:kt_dart/src/collection/impl/set_mutable.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/iterable.dart';
+import 'package:kt_dart/src/collection/impl/list_mutable.dart';
+import 'package:kt_dart/src/collection/impl/map_mutable.dart';
+import 'package:kt_dart/src/collection/impl/set_mutable.dart';
 
 extension IterableInterop<T> on Iterable<T> {
   KtIterable<T> get kt => DartIterable(this);

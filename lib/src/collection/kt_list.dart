@@ -1,7 +1,7 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/list.dart";
-import "package:kt_dart/src/collection/impl/list_empty.dart";
-import "package:kt_dart/src/util/arguments.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/list.dart';
+import 'package:kt_dart/src/collection/impl/list_empty.dart';
+import 'package:kt_dart/src/util/arguments.dart';
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
@@ -64,7 +64,7 @@ abstract class KtList<T> implements KtCollection<T> {
   }
 
   /// Deprecated, use [asList] or [iter] for loops
-  @Deprecated("use asList() or iter instead")
+  @Deprecated('use asList() or iter instead')
   List<T> get list;
 
   // Query Operations
@@ -189,14 +189,14 @@ extension KtListExtensions<T> on KtList<T> {
   @nonNull
   T first([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (isEmpty()) throw const NoSuchElementException("List is empty.");
+      if (isEmpty()) throw const NoSuchElementException('List is empty.');
       return get(0);
     } else {
       for (final element in iter) {
         if (predicate(element)) return element;
       }
       throw const NoSuchElementException(
-          "Collection contains no element matching the predicate.");
+          'Collection contains no element matching the predicate.');
     }
   }
 
@@ -265,12 +265,12 @@ extension KtListExtensions<T> on KtList<T> {
   @nonNull
   T last([bool Function(T) predicate]) {
     if (predicate == null) {
-      if (isEmpty()) throw const NoSuchElementException("List is empty.");
+      if (isEmpty()) throw const NoSuchElementException('List is empty.');
       return get(lastIndex);
     } else {
       final i = listIterator(size);
       if (!i.hasPrevious()) {
-        throw const NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException('Collection is empty');
       }
       while (i.hasPrevious()) {
         final element = i.previous();
@@ -279,7 +279,7 @@ extension KtListExtensions<T> on KtList<T> {
         }
       }
       throw const NoSuchElementException(
-          "Collection contains no element matching the predicate.");
+          'Collection contains no element matching the predicate.');
     }
   }
 
@@ -329,11 +329,11 @@ extension KtListExtensions<T> on KtList<T> {
     if (predicate == null) {
       switch (size) {
         case 0:
-          throw const NoSuchElementException("List is empty");
+          throw const NoSuchElementException('List is empty');
         case 1:
           return get(0);
         default:
-          throw ArgumentError("List has more than one element.");
+          throw ArgumentError('List has more than one element.');
       }
     } else {
       T single;
@@ -342,7 +342,7 @@ extension KtListExtensions<T> on KtList<T> {
         if (predicate(element)) {
           if (found) {
             throw ArgumentError(
-                "Collection contains more than one matching element.");
+                'Collection contains more than one matching element.');
           }
           single = element;
           found = true;
@@ -350,7 +350,7 @@ extension KtListExtensions<T> on KtList<T> {
       }
       if (!found) {
         throw const NoSuchElementException(
-            "Collection contains no element matching the predicate.");
+            'Collection contains no element matching the predicate.');
       }
       return single;
     }
@@ -403,7 +403,7 @@ extension KtListExtensions<T> on KtList<T> {
       return true;
     }());
     if (n < 0) {
-      throw ArgumentError("Requested element count $n is less than zero.");
+      throw ArgumentError('Requested element count $n is less than zero.');
     }
     if (n == 0) return emptyList();
     if (n >= size) return toList();

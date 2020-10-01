@@ -29,13 +29,13 @@ Both APIs, factory constructor and function based one, **are equally supported.*
   /// Map
   // Create immutable maps
   emptyMap<int, String>();
-  mapFrom({1: "a", 2: "b"});
+  mapFrom({1: 'a', 2: 'b'});
   // Create mutable maps
-  mutableMapFrom({1: "a", 2: "b"});
+  mutableMapFrom({1: 'a', 2: 'b'});
   // Create mutable maps without specified order when iterating over items
-  hashMapFrom({1: "a", 2: "b"});
+  hashMapFrom({1: 'a', 2: 'b'});
   // Create mutable maps which keep the order of the items
-  linkedMapFrom({1: "a", 2: "b"});
+  linkedMapFrom({1: 'a', 2: 'b'});
 ```
 #### Dart like, constructor based syntax
 ```dart
@@ -70,11 +70,11 @@ Both APIs, factory constructor and function based one, **are equally supported.*
   /// Map
   // Create mutable maps
   KMutableMap<int, String>.empty();
-  KMutableMap.from({1: "a", 2: "b"});
+  KMutableMap.from({1: 'a', 2: 'b'});
   // Create mutable maps without specified order when iterating over items
   KHashMap<int, String>.empty();
-  KHashMap.from({1: "a", 2: "b"});
+  KHashMap.from({1: 'a', 2: 'b'});
   // Create mutable maps which keep the order of the items
   KLinkedMap<int, String>.empty();
-  KLinkedMap.from({1: "a", 2: "b"});
+  KLinkedMap.from({1: 'a', 2: 'b'});
 ```

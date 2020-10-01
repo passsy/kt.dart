@@ -1,3 +1,7 @@
+## 0.8.0
+
+
+
 ## 0.8.0-dev.1
 
 - [#124](https://github.com/passsy/kt.dart/pull/124) `KtList.of` and `KtSet.of` now allow `null` as parameters. Same for `listOf` and `setOf`
@@ -21,25 +25,25 @@ This update also includes extensions for Dart collections which allow easy inter
 
 ```dart
   // New: Converting dart collections to KtDart collections (mutable views)
-  final KtMutableList<String> ktList = ["hey"].kt;
-  final KtMutableSet<String> ktSet = {"hey"}.kt;
-  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+  final KtMutableList<String> ktList = ['hey'].kt;
+  final KtMutableSet<String> ktSet = {'hey'}.kt;
+  final KtMutableMap<String, int> ktMap = {'hey': 1}.kt;
 
   // Converting KtDart collections to dart collections
-  final List<String> dartList = KtList.of("hey").dart;
-  final Set<String> dartSet = KtSet.of("hey").dart;
-  final Map<String, int> dartMap = KtMap.from({"hey": 1}).dart;
+  final List<String> dartList = KtList.of('hey').dart;
+  final Set<String> dartSet = KtSet.of('hey').dart;
+  final Map<String, int> dartMap = KtMap.from({'hey': 1}).dart;
 ```
 
-Note: `["Hello", "World"].kt` returns a `KtMutableList<String>` and mutations are reflected on the original dart list. It is not a copy! Because it doesn't copy it is very cheap and only syntax sugar.
+Note: `['Hello', 'World'].kt` returns a `KtMutableList<String>` and mutations are reflected on the original dart list. It is not a copy! Because it doesn't copy it is very cheap and only syntax sugar.
  
 To convert dart collections to their immutable kt.dart counterparts use: `.toImmutableList()`, `.toImmutableSet()`, `.toImmutableMap()`
 
 ```dart
   // New: Make dart collections immutable
-  final KtList<String> list = ["hey"].toImmutableList();
-  final KtSet<String> set = {"hey"}.toImmutableSet();
-  final KtMap<String, int> map = {"hey": 1}.toImmutableMap();
+  final KtList<String> list = ['hey'].toImmutableList();
+  final KtSet<String> set = {'hey'}.toImmutableSet();
+  final KtMap<String, int> map = {'hey': 1}.toImmutableMap();
 ```
 
 ### Possible breaking changes
@@ -94,14 +98,14 @@ New `.dart` extensions to convert KtDart collections back to dart collections.
 
 ```dart
   // New: Converting dart collections to KtDart collections (mutable views)
-  final KtMutableList<String> ktList = ["hey"].kt;
-  final KtMutableSet<String> ktSet = {"hey"}.kt;
-  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+  final KtMutableList<String> ktList = ['hey'].kt;
+  final KtMutableSet<String> ktSet = {'hey'}.kt;
+  final KtMutableMap<String, int> ktMap = {'hey': 1}.kt;
 
   // Converting KtDart collections to dart collections
-  final List<String> dartList = KtList.of("hey").dart;
-  final Set<String> dartSet = KtSet.of("hey").dart;
-  final Map<String, int> dartMap = KtMap.from({"hey": 1}).dart;
+  final List<String> dartList = KtList.of('hey').dart;
+  final Set<String> dartSet = KtSet.of('hey').dart;
+  final Map<String, int> dartMap = KtMap.from({'hey': 1}).dart;
 ```
 
 ## 0.7.0-dev.1
@@ -116,26 +120,26 @@ It is now easier then ever to convert dart to ktdart collections and vice versa.
  
 ```dart
   // New: Make dart collections immutable
-  final KtList<String> list = ["hey"].immutable();
-  final KtSet<String> set = {"hey"}.immutable();
-  final KtMap<String, int> map = {"hey": 1}.immutable();
+  final KtList<String> list = ['hey'].immutable();
+  final KtSet<String> set = {'hey'}.immutable();
+  final KtMap<String, int> map = {'hey': 1}.immutable();
 
   // New: Converting dart collections to KtDart collections (mutable views)
-  final KtMutableList<String> ktList = ["hey"].kt;
-  final KtMutableSet<String> ktSet = {"hey"}.kt;
-  final KtMutableMap<String, int> ktMap = {"hey": 1}.kt;
+  final KtMutableList<String> ktList = ['hey'].kt;
+  final KtMutableSet<String> ktSet = {'hey'}.kt;
+  final KtMutableMap<String, int> ktMap = {'hey': 1}.kt;
 
   // Converting KtDart collections to dart collections
-  final List<String> dartList = KtList.of("hey").asList();
-  final Set<String> dartSet = KtSet.of("hey").asSet();
-  final Map<String, int> dartMap = KtMap.from({"hey": 1}).asMap();
+  final List<String> dartList = KtList.of('hey').asList();
+  final Set<String> dartSet = KtSet.of('hey').asSet();
+  final Map<String, int> dartMap = KtMap.from({'hey': 1}).asMap();
 ```
 
 ### Tuple improvements
 
 `KtPair`s can now created with the `T0.to(T1)` extension.
 ```dart
-final KtPair<String, int> pair = "foo".to(42);
+final KtPair<String, int> pair = 'foo'.to(42);
 ```
 
 Also, `KtPair` and `KtTriple` now have a new `toList()` function to convert the values to a `KtList`.
@@ -190,14 +194,14 @@ Read about further details [here](https://github.com/passsy/kt.dart/issues/79).
 If you have used properties to iterate over the collections using a for-loop you should now always use `iter` which is available for all kt.dart collections.
 
 ```dart
-for (final element in listOf("a", "b", "c").iter) {
+for (final element in listOf('a', 'b', 'c').iter) {
   print(element); 
 }
-for (final element in setOf("a", "b", "c").iter) {
+for (final element in setOf('a', 'b', 'c').iter) {
   print(element); 
 }
-for (final p in mapFrom({1: "Bulbasaur", 2: "Ivysaur"}).iter) {
-  print("${p.key} -> ${p.value}"); 
+for (final p in mapFrom({1: 'Bulbasaur', 2: 'Ivysaur'}).iter) {
+  print('${p.key} -> ${p.value}'); 
 }
 ```
 
@@ -339,13 +343,13 @@ Here is a list of all collection creation APIs.
   /// Map
   // Create immutable maps
   emptyMap<int, String>();
-  mapFrom({1: "a", 2: "b"});
+  mapFrom({1: 'a', 2: 'b'});
   // Create mutable maps
-  mutableMapFrom({1: "a", 2: "b"});
+  mutableMapFrom({1: 'a', 2: 'b'});
   // Create mutable maps without specified order when iterating over items
-  hashMapFrom({1: "a", 2: "b"});
+  hashMapFrom({1: 'a', 2: 'b'});
   // Create mutable maps which keep the order of the items
-  linkedMapFrom({1: "a", 2: "b"});
+  linkedMapFrom({1: 'a', 2: 'b'});
 ```
 #### Dart like, constructor based syntax
 ```dart
@@ -380,13 +384,13 @@ Here is a list of all collection creation APIs.
   /// Map
   // Create mutable maps
   KMutableMap<int, String>.empty();
-  KMutableMap.from({1: "a", 2: "b"});
+  KMutableMap.from({1: 'a', 2: 'b'});
   // Create mutable maps without specified order when iterating over items
   KHashMap<int, String>.empty();
-  KHashMap.from({1: "a", 2: "b"});
+  KHashMap.from({1: 'a', 2: 'b'});
   // Create mutable maps which keep the order of the items
   KLinkedMap<int, String>.empty();
-  KLinkedMap.from({1: "a", 2: "b"});
+  KLinkedMap.from({1: 'a', 2: 'b'});
 ```
 
 ## 0.3.2
@@ -416,7 +420,7 @@ Passing `null` in any method will throw `ArgumentError` unless documented otherw
 
 ### Behavior changes
 
-- [#36](https://github.com/passsy/dart_kollection/pull/36) All method arguments are now validated for nullability. If a argument isn't documented as "nullable" the method will throw `ArgumentError` (when asserts are enabled)
+- [#36](https://github.com/passsy/dart_kollection/pull/36) All method arguments are now validated for nullability. If a argument isn't documented as 'nullable' the method will throw `ArgumentError` (when asserts are enabled)
 - [#51](https://github.com/passsy/dart_kollection/pull/51), [#46](https://github.com/passsy/dart_kollection/pull/46) `KIterable<T>.associateWithTo`, `Kiterable<T>.filterTo`, `KIterable<T>.filterIndexedTo`, `KIterable<T>.filterNotTo`, `KIterable<T>.filterNotNullTo` , `KIterable<T>.groupByTo` ,`KMap<T>.mapKeysTo` ,`KMap<T>.mapValuesTo`, `KIterable.toCollection` did not compile when called directly due to [dart-lang/sdk/issues/35518](https://github.com/dart-lang/sdk/issues/35518). The type of `destination` of those methods has been changed to a dynamic type (i.e. `KMutableList<T>` -> `KMutableList<dynamic>`). Those methods will now be checked at runtime. This has one advantage: It allows to pass in contravariant types.
 ```dart
 final KIterable<int> iterable = listOf([4, 25, -12, 10]);
@@ -432,7 +436,7 @@ expect(result, listOf([4, -12]));
 
 - [#38](https://github.com/passsy/dart_kollection/pull/38) Breaking: Removed `hashMapFrom(KIterable<KPair>)` because, unlike Kotlin, it feels unnatural in Dart. Instead use [`hashMapOf`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/collections.dart#L59) to construct a [`KMutableMap`](https://github.com/passsy/dart_kollection/blob/efbabc1b45125f26557457344c56850107f58b7b/lib/src/k_map_mutable.dart#L9)
 - [#17](https://github.com/passsy/dart_kollection/pull/17) Breaking: [`KMap.associateBy`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L56) now takes only a single parameter (`K Function(T) keySelector`). If you used `valueTransform` use [`KMap.associateByTransform`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_iterable.dart#L66) as replacement
-- [#23](https://github.com/passsy/dart_kollection/pull/23) New [`KMutableList.[]=`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_list_mutable.dart#L60) operator. Example: `list[4] = "Hello"`
+- [#23](https://github.com/passsy/dart_kollection/pull/23) New [`KMutableList.[]=`](https://github.com/passsy/dart_kollection/blob/94b5b7c6be1fb6c34047dd72692849f42b77b0e9/lib/src/k_list_mutable.dart#L60) operator. Example: `list[4] = 'Hello'`
 - [#47](https://github.com/passsy/dart_kollection/pull/47) New [`KMap`](https://github.com/passsy/dart_kollection/blob/6065e3b93e462e08061df2202e4638d7577caad8/lib/src/k_map.dart#L12) methods [`filter`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L101), [`filterTo`](filterTo), [`filterNot`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L121), [`filterNotTo`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_map.dart#L133), 
 
 - [#37](https://github.com/passsy/dart_kollection/pull/37) [`KCollection.random`](https://github.com/passsy/dart_kollection/blob/bbe6d2482a65193a590accc2fc02f23bddbb1e16/lib/src/k_collection.dart#L52) now optionally accepts a `Random` as argument which can be seeded

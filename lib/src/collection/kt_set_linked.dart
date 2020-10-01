@@ -1,6 +1,6 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/impl/set_hash_linked.dart";
-import "package:kt_dart/src/util/arguments.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/impl/set_hash_linked.dart';
+import 'package:kt_dart/src/util/arguments.dart';
 
 abstract class KtLinkedSet<T> implements KtMutableSet<T> {
   factory KtLinkedSet.empty() => KtLinkedSet.from();

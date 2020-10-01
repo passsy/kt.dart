@@ -1,5 +1,5 @@
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/util/hash.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/util/hash.dart';
 
 class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   DartMutableSet([Iterable<T> iterable = const []])
@@ -110,11 +110,11 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   @override
   String toString() {
     return joinToString(
-      separator: ", ",
-      prefix: "[",
-      postfix: "]",
+      separator: ', ',
+      prefix: '[',
+      postfix: ']',
       transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+          identical(it, this) ? '(this Collection)' : it.toString(),
     );
   }
 }
@@ -151,6 +151,6 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
     // see how kotlin solved this:
     // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
     throw UnimplementedError(
-        "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
+        'remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization');
   }
 }

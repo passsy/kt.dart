@@ -1,4 +1,4 @@
-import "dart:collection";
+import 'dart:collection';
 
 /// An unmodifiable set.
 ///
@@ -42,7 +42,7 @@ class UnmodifiableSetView<E> extends Object
   Set<E> toSet() => _set.toSet();
 
   static T _throw<T>() =>
-      throw UnsupportedError("Cannot modify an unmodifiable Set");
+      throw UnsupportedError('Cannot modify an unmodifiable Set');
 
   /// Throws an [UnsupportedError];
   /// operations that change the set are disallowed.

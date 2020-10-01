@@ -1,1 +1,7 @@
 include: package:lint/analysis_options_package.yaml
+
+linter:
+  rules:
+    # pana requires single quotes for a perfect score ¯\_(ツ)_/¯
+    prefer_single_quotes: true
+    omit_local_variable_types: true

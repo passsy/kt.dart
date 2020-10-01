@@ -1,4 +1,4 @@
-import "package:kt_dart/collection.dart";
+import 'package:kt_dart/collection.dart';
 
 class EmptyMap<K, V> extends Object implements KtMap<K, V> {
   const EmptyMap();
@@ -46,5 +46,5 @@ class EmptyMap<K, V> extends Object implements KtMap<K, V> {
   int get hashCode => 0;
 
   @override
-  String toString() => "{}";
+  String toString() => '{}';
 }

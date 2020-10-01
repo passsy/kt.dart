@@ -1,8 +1,8 @@
-import "dart:math" as math;
+import 'dart:math' as math;
 
-import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/comparisons.dart";
-import "package:kt_dart/src/util/errors.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:kt_dart/src/collection/comparisons.dart';
+import 'package:kt_dart/src/util/errors.dart';
 
 /// Classes that inherit from this interface can be represented as a sequence of elements that can
 /// be iterated over.
@@ -251,7 +251,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return associated;
   }
 
@@ -273,11 +273,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       if (destination is! KtMutableMap<T, V> && mutableMapFrom<T, V>() is! M) {
         throw ArgumentError(
-            "associateWithTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<$T, $V>, Actual: ${destination.runtimeType}"
+            'associateWithTo destination has wrong type parameters.'
+            '\nExpected: KtMutableMap<$T, $V>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) items aren't subtype of "
             "$runtimeType items. Items can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -491,7 +491,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> filter(bool Function(T) predicate) {
     final filtered = filterTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return filtered;
   }
 
@@ -501,7 +501,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> filterIndexed(bool Function(int index, T) predicate) {
     final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return filtered;
   }
 
@@ -520,11 +520,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
-            "filterIndexedTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            'filterIndexedTo destination has wrong type parameters.'
+            '\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -552,7 +552,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> filterNot(bool Function(T) predicate) {
     final list = filterNotTo(mutableListOf<T>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return list;
   }
 
@@ -560,7 +560,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<T> filterNotNull() {
     final list = filterNotNullTo(mutableListOf<T>());
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return list;
   }
 
@@ -575,11 +575,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
-            "filterNotNullTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            'filterNotNullTo destination has wrong type parameters.'
+            '\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -603,11 +603,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
-        throw ArgumentError("filterNotTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+        throw ArgumentError('filterNotTo destination has wrong type parameters.'
+            '\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -631,11 +631,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
-        throw ArgumentError("filterTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+        throw ArgumentError('filterTo destination has wrong type parameters.'
+            '\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -677,7 +677,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
-        throw const NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException('Collection is empty');
       }
       return i.next();
     } else {
@@ -685,7 +685,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
         if (predicate(element)) return element;
       }
       throw const NoSuchElementException(
-          "Collection contains no element matching the predicate.");
+          'Collection contains no element matching the predicate.');
     }
   }
 
@@ -829,11 +829,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (keySelector == null) throw ArgumentError("keySelector can't be null");
       if (destination is! KtMutableMap<K, KtMutableList<T>> &&
           mutableMapFrom<K, KtMutableList<T>>() is! M) {
-        throw ArgumentError("groupByTo destination has wrong type parameters."
-            "\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination.runtimeType}"
+        throw ArgumentError('groupByTo destination has wrong type parameters.'
+            '\nExpected: KtMutableMap<K, KtMutableList<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -925,13 +925,13 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
   ///
   /// If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]
-  /// elements will be appended, followed by the [truncated] string (which defaults to "...").
+  /// elements will be appended, followed by the [truncated] string (which defaults to '...').
   String joinToString(
-      {String separator = ", ",
-      String prefix = "",
-      String postfix = "",
+      {String separator = ', ',
+      String prefix = '',
+      String postfix = '',
       int limit = -1,
-      String truncated = "...",
+      String truncated = '...',
       String Function(T) transform}) {
     final buffer = StringBuffer();
     buffer.write(prefix);
@@ -963,7 +963,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (this is KtList) return (this as KtList<T>).last();
       final i = iterator();
       if (!i.hasNext()) {
-        throw const NoSuchElementException("Collection is empty");
+        throw const NoSuchElementException('Collection is empty');
       }
       var last = i.next();
       while (i.hasNext()) {
@@ -981,7 +981,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       if (!found) {
         throw const NoSuchElementException(
-            "Collection contains no element matching the predicate.");
+            'Collection contains no element matching the predicate.');
       }
       return last;
     }
@@ -1036,7 +1036,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final KtMutableList<R> list = mutableListOf<R>();
     final mapped = mapTo(list, transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
   }
 
@@ -1047,7 +1047,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> mapIndexed<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
   }
 
@@ -1058,7 +1058,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> mapIndexedNotNull<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
   }
 
@@ -1106,7 +1106,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> mapNotNull<R>(R Function(T) transform) {
     final mapped = mapNotNullTo(mutableListOf<R>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    // When in single line: type 'DartMutableList<String>' is not a subtype of type 'Null'
     return mapped;
   }
 
@@ -1269,7 +1269,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Performs the given [action] on each element. Use with cascade syntax to return self.
   ///
-  ///       (listOf("a", "b", "c")
+  ///       (listOf('a', 'b', 'c')
   ///          ..onEach(print))
   ///          .map((it) => it.toUpperCase())
   ///          .getOrNull(0); // prints: a
@@ -1371,7 +1371,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtIterable<T> requireNoNulls() {
     for (final element in iter) {
       if (element == null) {
-        throw ArgumentError("null element found in $this.");
+        throw ArgumentError('null element found in $this.');
       }
     }
     return this;
@@ -1393,11 +1393,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
-        throw const NoSuchElementException("Collection is empty.");
+        throw const NoSuchElementException('Collection is empty.');
       }
       final single = i.next();
       if (i.hasNext()) {
-        throw ArgumentError("Collection has more than one element.");
+        throw ArgumentError('Collection has more than one element.');
       }
       return single;
     } else {
@@ -1407,7 +1407,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
         if (predicate(element)) {
           if (found) {
             throw ArgumentError(
-                "Collection contains more than one matching element.");
+                'Collection contains more than one matching element.');
           }
           single = element;
           found = true;
@@ -1415,7 +1415,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       if (!found) {
         throw const NoSuchElementException(
-            "Collection contains no element matching the predicate.");
+            'Collection contains no element matching the predicate.');
       }
       return single;
     }
@@ -1529,7 +1529,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       return true;
     }());
     if (n < 0) {
-      throw ArgumentError("Requested element count $n is less than zero.");
+      throw ArgumentError('Requested element count $n is less than zero.');
     }
     if (n == 0) return emptyList();
     if (this is KtCollection) {
@@ -1579,11 +1579,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       if (destination == null) throw ArgumentError("destination can't be null");
       if (mutableListOf<T>() is! C) {
         throw ArgumentError(
-            "toCollection destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            'toCollection destination has wrong type parameters.'
+            '\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}'
             "\ndestination (${destination.runtimeType}) entries aren't subtype of "
             "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
+            '\n\n$kBug35518GenericTypeError');
       }
       return true;
     }());
@@ -1760,10 +1760,10 @@ class _MovingSubList<T> {
   void move(int fromIndex, int toIndex) {
     if (fromIndex < 0 || toIndex > list.size) {
       throw IndexOutOfBoundsException(
-          "fromIndex: $fromIndex, toIndex: $toIndex, size: ${list.size}");
+          'fromIndex: $fromIndex, toIndex: $toIndex, size: ${list.size}');
     }
     if (fromIndex > toIndex) {
-      throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
+      throw ArgumentError('fromIndex: $fromIndex > toIndex: $toIndex');
     }
     _fromIndex = fromIndex;
     _size = toIndex - fromIndex;

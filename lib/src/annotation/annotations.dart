@@ -26,7 +26,7 @@ class _NonNull {
 /// https://github.com/dart-lang/language/issues/41
 ///
 /// Use `@TooGeneric(type: X)` to define which type should be used
-@Deprecated("Use static extension methods")
+@Deprecated('Use static extension methods')
 const Object tooGeneric = TooGeneric();
 
 /// A method annotated with @tooGeneric is a indicator that the method is defined for a generic type `T` but only works for type `X` where `X extends T`.
@@ -35,7 +35,7 @@ const Object tooGeneric = TooGeneric();
 /// https://github.com/dart-lang/language/issues/41
 ///
 /// Use `@TooGeneric(type: X)` to define which type should be used
-@Deprecated("Use static extension methods")
+@Deprecated('Use static extension methods')
 class TooGeneric {
   const TooGeneric({this.extensionForType});
 

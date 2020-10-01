@@ -1,15 +1,15 @@
-import "package:kt_dart/collection.dart";
-import "package:test/test.dart";
+import 'package:kt_dart/collection.dart';
+import 'package:test/test.dart';
 
 void main() {
-  group("KtMutableSetExtensions", () {
-    group("mutableSet", () {
+  group('KtMutableSetExtensions', () {
+    group('mutableSet', () {
       testSet(<T>() => KtMutableSet.empty(), mutableSetOf, mutableSetFrom);
     });
-    group("hashSet", () {
+    group('hashSet', () {
       testSet(<T>() => KtHashSet.empty(), hashSetOf, hashSetFrom);
     });
-    group("linkedSet", () {
+    group('linkedSet', () {
       testSet(<T>() => KtLinkedSet.empty(), linkedSetOf, linkedSetFrom);
     });
   });
@@ -31,13 +31,13 @@ void testSet(
       mutableSetOf,
   KtMutableSet<T> Function<T>([Iterable<T> iterable]) mutableSetFrom,
 ) {
-  group("dart property", () {
-    test("dart property returns an empty list", () {
+  group('dart property', () {
+    test('dart property returns an empty list', () {
       final dartList = emptySet<int>().dart;
       expect(dartList.length, 0);
     });
 
-    test("dart property returns an modifiable list", () {
+    test('dart property returns an modifiable list', () {
       final original = mutableSetOf<int>();
       final dartList = original.dart;
       dartList.add(1);
