@@ -41,40 +41,40 @@ Both APIs, factory constructor and function based one, **are equally supported.*
 ```dart
   /// List
   // Create immutable lists
-  KList<int>.empty();
-  KList.of(1, 2, 3, 4, 5);
-  KList.from([1, 2, 3, 4, 5]);
+  KtList<int>.empty();
+  KtList.of(1, 2, 3, 4, 5);
+  KtList.from([1, 2, 3, 4, 5]);
   // Create mutable lists
-  KMutableList<int>.empty();
-  KMutableList.of(1, 2, 3, 4, 5);
-  KMutableList.from([1, 2, 3, 4, 5]);
+  KtMutableList<int>.empty();
+  KtMutableList.of(1, 2, 3, 4, 5);
+  KtMutableList.from([1, 2, 3, 4, 5]);
   
   /// Set
   // Create immutable sets
-  KSet<int>.empty();
-  KSet.of(1, 2, 3, 4, 5);
-  KSet.from([1, 2, 3, 4, 5]);
+  KtSet<int>.empty();
+  KtSet.of(1, 2, 3, 4, 5);
+  KtSet.from([1, 2, 3, 4, 5]);
   // Create a mutable set which keeps the order of the items
-  KMutableSet<int>.empty();
-  KMutableSet.of(1, 2, 3, 4, 5);
-  KMutableSet.from([1, 2, 3, 4, 5]);
+  KtMutableSet<int>.empty();
+  KtMutableSet.of(1, 2, 3, 4, 5);
+  KtMutableSet.from([1, 2, 3, 4, 5]);
   // Create mutable, unordered hash-table based set
-  KHashSet<int>.empty();
-  KHashSet.of(1, 2, 3, 4, 5);
-  KHashSet.from([1, 2, 3, 4, 5]);
+  KtHashSet<int>.empty();
+  KtHashSet.of(1, 2, 3, 4, 5);
+  KtHashSet.from([1, 2, 3, 4, 5]);
   // Create a mutable set which keeps the order of the items
-  KLinkedSet<int>.empty();
-  KLinkedSet.of(1, 2, 3, 4, 5);
-  KLinkedSet.from([1, 2, 3, 4, 5]);
+  KtLinkedSet<int>.empty();
+  KtLinkedSet.of(1, 2, 3, 4, 5);
+  KtLinkedSet.from([1, 2, 3, 4, 5]);
   
   /// Map
   // Create mutable maps
-  KMutableMap<int, String>.empty();
-  KMutableMap.from({1: "a", 2: "b"});
+  KtMutableMap<int, String>.empty();
+  KtMutableMap.from({1: "a", 2: "b"});
   // Create mutable maps without specified order when iterating over items
-  KHashMap<int, String>.empty();
-  KHashMap.from({1: "a", 2: "b"});
+  KtHashMap<int, String>.empty();
+  KtHashMap.from({1: "a", 2: "b"});
   // Create mutable maps which keep the order of the items
-  KLinkedMap<int, String>.empty();
-  KLinkedMap.from({1: "a", 2: "b"});
+  KtLinkedMap<int, String>.empty();
+  KtLinkedMap.from({1: "a", 2: "b"});
 ```

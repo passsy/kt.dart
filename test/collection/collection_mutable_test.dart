@@ -18,7 +18,7 @@ void main() {
           <T>(Iterable<T> iterable) => hashSetFrom(iterable),
           ordered: false);
     });
-    group("KHashSet", () {
+    group("KtHashSet", () {
       testCollection(<T>() => KtHashSet<T>.empty(),
           <T>(Iterable<T> iterable) => KtHashSet.from(iterable),
           ordered: false);
@@ -27,7 +27,7 @@ void main() {
       testCollection(<T>() => linkedSetOf<T>(),
           <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
     });
-    group("KLinkedSet", () {
+    group("KtLinkedSet", () {
       testCollection(<T>() => KtLinkedSet<T>.empty(),
           <T>(Iterable<T> iterable) => KtLinkedSet.from(iterable));
     });

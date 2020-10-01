@@ -40,7 +40,7 @@ void main() {
           <T>(Iterable<T> iterable) => hashSetFrom(iterable),
           ordered: false);
     });
-    group("KHashSet", () {
+    group("KtHashSet", () {
       testIterable(<T>() => KtHashSet<T>.empty(),
           <T>(Iterable<T> iterable) => KtHashSet<T>.from(iterable),
           ordered: false);
@@ -49,7 +49,7 @@ void main() {
       testIterable(<T>() => linkedSetOf<T>(),
           <T>(Iterable<T> iterable) => linkedSetFrom(iterable));
     });
-    group("KLinkedSet", () {
+    group("KtLinkedSet", () {
       testIterable(<T>() => KtLinkedSet<T>.empty(),
           <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
     });
