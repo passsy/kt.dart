@@ -19,6 +19,15 @@ void main() {
           catchException<NotImplementedException>(() => TODO("add something"));
       expect(e.toString(), "Exception: add something");
     });
+    test("alwaysThrows", () {
+      try {
+        TODO("The line below should be marked as dead code");
+        // ignore: dead_code
+        fail("did not throw");
+      } on NotImplementedException {
+        // expected
+      }
+    });
   });
 
   group("let", () {
