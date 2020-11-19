@@ -1,7 +1,7 @@
 class IndexOutOfBoundsException implements Exception {
   const IndexOutOfBoundsException([this.message]);
 
-  final String message;
+  final String? message;
 
   @override
   String toString() => message == null
@@ -12,7 +12,7 @@ class IndexOutOfBoundsException implements Exception {
 class NoSuchElementException implements Exception {
   const NoSuchElementException([this.message]);
 
-  final String message;
+  final String? message;
 
   @override
   String toString() => message == null

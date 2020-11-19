@@ -1,11 +1,10 @@
 // ignore_for_file: unnecessary_cast, (dart 2.6 need some help in extensions)
-import "package:kt_dart/annotation.dart";
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' show experimental;
 
 /// An exception is thrown to indicate that a method body remains to be implemented.
 @experimental
 class NotImplementedException implements Exception {
-  NotImplementedException([String message])
+  NotImplementedException([String? message])
       : message = message ?? "An operation is not implemented.";
 
   final String message;
@@ -19,9 +18,8 @@ class NotImplementedException implements Exception {
 @pragma('vm:prefer-inline')
 @pragma('dart2js:tryInline')
 @experimental
-@alwaysThrows
 // ignore: non_constant_identifier_names
-void TODO([String reason]) => throw NotImplementedException(reason);
+Never TODO([String? reason]) => throw NotImplementedException(reason);
 
 @experimental
 extension StandardKt<T> on T {
@@ -29,10 +27,6 @@ extension StandardKt<T> on T {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:tryInline')
   R let<R>(R Function(T) block) {
-    assert(() {
-      if (block == null) throw ArgumentError("block can't be null");
-      return true;
-    }());
     return block(this as T);
   }
 
@@ -40,12 +34,7 @@ extension StandardKt<T> on T {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:tryInline')
   @experimental
-  @nonNull
   T also(void Function(T) block) {
-    assert(() {
-      if (block == null) throw ArgumentError("block can't be null");
-      return true;
-    }());
     block(this as T);
     return this as T;
   }
@@ -54,12 +43,7 @@ extension StandardKt<T> on T {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:tryInline')
   @experimental
-  @nullable
-  T /*?*/ takeIf(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
+  T? takeIf(bool Function(T) predicate) {
     if (predicate(this as T)) return this as T;
     return null;
   }
@@ -68,12 +52,7 @@ extension StandardKt<T> on T {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:tryInline')
   @experimental
-  @nullable
-  T /*?*/ takeUnless(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
+  T? takeUnless(bool Function(T) predicate) {
     if (!predicate(this as T)) return this as T;
     return null;
   }
@@ -86,11 +65,6 @@ extension StandardKt<T> on T {
 @pragma('dart2js:tryInline')
 @experimental
 void repeat(int times, void Function(int) action) {
-  assert(() {
-    if (times == null) throw ArgumentError("times can't be null");
-    if (action == null) throw ArgumentError("action can't be null");
-    return true;
-  }());
   for (var i = 0; i < times; i++) {
     action(i);
   }

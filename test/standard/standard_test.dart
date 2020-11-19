@@ -37,13 +37,9 @@ void main() {
       expect(char, "a");
     });
     test("on null", () {
-      const int charDec = null;
+      const int? charDec = null;
       final char = charDec?.let((it) => String.fromCharCode(it));
       expect(char, isNull);
-    });
-    test("block can't be null", () {
-      final e = catchException<ArgumentError>(() => "a".let(null));
-      expect(e.message, allOf(contains("null"), contains("block")));
     });
   });
 
@@ -55,7 +51,7 @@ void main() {
       expect(list, ["a", "b", "side-effect"]);
     });
     test("on null", () {
-      const List<String> list = null;
+      const List<String>? list = null;
       int called = 0;
       final listRef = list?.also((it) {
         called++;
@@ -63,10 +59,6 @@ void main() {
       });
       expect(listRef, null);
       expect(called, 0);
-    });
-    test("block can't be null", () {
-      final e = catchException<ArgumentError>(() => "a".also(null));
-      expect(e.message, allOf(contains("null"), contains("block")));
     });
   });
 
@@ -79,10 +71,6 @@ void main() {
       final item = ["a", "b"].takeIf((it) => it.isNotEmpty);
       expect(item, ["a", "b"]);
     });
-    test("predicate can't be null", () {
-      final e = catchException<ArgumentError>(() => "a".takeIf(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 
   group("takeUnless", () {
@@ -93,10 +81,6 @@ void main() {
     test("don't take it", () {
       final item = ["a", "b"].takeUnless((it) => it.isEmpty);
       expect(item, ["a", "b"]);
-    });
-    test("predicate can't be null", () {
-      final e = catchException<ArgumentError>(() => "a".takeUnless(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -128,14 +112,6 @@ void main() {
         list.add(i);
       });
       expect(list, [0, 1, 2]);
-    });
-    test("action can't be null", () {
-      final e = catchException<ArgumentError>(() => repeat(5, null));
-      expect(e.message, allOf(contains("null"), contains("action")));
-    });
-    test("times can't be null", () {
-      final e = catchException<ArgumentError>(() => repeat(null, (_) {}));
-      expect(e.message, allOf(contains("null"), contains("times")));
     });
   });
 }

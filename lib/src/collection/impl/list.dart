@@ -10,7 +10,7 @@ class DartList<T> extends Object implements KtList<T> {
         super();
 
   final List<T> _list;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<T> get iter => _list;
@@ -26,19 +26,11 @@ class DartList<T> extends Object implements KtList<T> {
 
   @override
   bool containsAll(KtCollection<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     return elements.all(_list.contains);
   }
 
   @override
   T get(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     if (index < 0 || index >= size) {
       throw IndexOutOfBoundsException("index: $index, size: $size");
     }
@@ -62,10 +54,6 @@ class DartList<T> extends Object implements KtList<T> {
 
   @override
   KtListIterator<T> listIterator([int index = 0]) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     return InterOpKtListIterator(_list, index);
   }
 
@@ -75,8 +63,6 @@ class DartList<T> extends Object implements KtList<T> {
   @override
   KtList<T> subList(int fromIndex, int toIndex) {
     assert(() {
-      if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
-      if (toIndex == null) throw ArgumentError("toIndex can't be null");
       if (fromIndex > toIndex) {
         throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
       }

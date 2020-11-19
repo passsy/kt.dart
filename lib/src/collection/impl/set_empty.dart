@@ -15,13 +15,7 @@ class EmptySet<T> extends Object implements KtSet<T> {
   bool contains(T element) => false;
 
   @override
-  bool containsAll(KtCollection<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
-    return elements.isEmpty();
-  }
+  bool containsAll(KtCollection<T> elements) => elements.isEmpty();
 
   @override
   bool isEmpty() => true;

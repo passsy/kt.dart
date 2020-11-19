@@ -53,8 +53,8 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap, {bool mutable = true}) {
   test("contains nothing", () {
     expect(emptyMap<String, String>().containsKey("asdf"), isFalse);
     expect(emptyMap<String, String>().containsValue("asdf"), isFalse);
-    expect(emptyMap<int, int>().containsKey(null), isFalse);
-    expect(emptyMap<int, int>().containsValue(null), isFalse);
+    expect(emptyMap<int?, int>().containsKey(null), isFalse);
+    expect(emptyMap<int, int?>().containsValue(null), isFalse);
     expect(emptyMap<int, int>().containsKey(0), isFalse);
     expect(emptyMap<int, int>().containsValue(0), isFalse);
     expect(emptyMap<List, List>().containsKey([]), isFalse);

@@ -1,8 +1,6 @@
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMutableCollection", () {
     group("mutableList", () {
@@ -47,7 +45,7 @@ void testCollection(
       expect(list, equals(mutableCollectionOf(["a", "b"])));
     });
     test("add null works", () {
-      final list = mutableCollectionOf(["a"]);
+      final list = mutableCollectionOf<String?>(["a"]);
       list.add(null);
       expect(list.size, equals(2));
       expect(list, equals(mutableCollectionOf(["a", null])));
@@ -60,11 +58,6 @@ void testCollection(
       expect(list.size, equals(3));
       expect(list, equals(mutableCollectionOf(["a", "b", "c"])));
     });
-    test("addAll doens't allow null as defaultValue function", () {
-      final collection = emptyCollection();
-      final e = catchException<ArgumentError>(() => collection.addAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
   });
 
   group("removeAll", () {
@@ -73,11 +66,6 @@ void testCollection(
       list.removeAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["a", "d"]));
     });
-    test("elements can't be null", () {
-      final e =
-          catchException<ArgumentError>(() => mutableListOf().removeAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
   });
 
   group("retainAll", () {
@@ -85,12 +73,6 @@ void testCollection(
       final list = mutableCollectionOf(["a", "b", "c", "d", "a", "b"]);
       list.retainAll(listOf("b", "c"));
       expect(list, mutableCollectionOf(["b", "c", "b"]));
-    });
-
-    test("elements can't be null", () {
-      final e =
-          catchException<ArgumentError>(() => mutableListOf().retainAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
 

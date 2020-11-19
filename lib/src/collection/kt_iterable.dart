@@ -24,8 +24,7 @@ extension KtComparableIterableExtension<T extends Comparable<T>>
   Iterable<T> get dart => iter;
 
   /// Returns the largest element or `null` if there are no elements.
-  @nullable
-  T max() {
+  T? max() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T max = i.next();
@@ -39,8 +38,7 @@ extension KtComparableIterableExtension<T extends Comparable<T>>
   }
 
   /// Returns the smallest element or `null` if there are no elements.
-  @nullable
-  T min() {
+  T? min() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T min = i.next();
@@ -56,8 +54,7 @@ extension KtComparableIterableExtension<T extends Comparable<T>>
 
 extension KtNumIterableExtension<T extends num> on KtIterable<T> {
   /// Returns the largest element or `null` if there are no elements.
-  @nullable
-  T max() {
+  T? max() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T max = i.next();
@@ -73,8 +70,7 @@ extension KtNumIterableExtension<T extends num> on KtIterable<T> {
   }
 
   /// Returns the smallest element or `null` if there are no elements.
-  @nullable
-  T min() {
+  T? min() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T min = i.next();
@@ -131,11 +127,7 @@ extension KtDoubleIterableExtension on KtIterable<double> {
 
 extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns `true` if all elements match the given [predicate].
-  bool all([bool Function(T element) predicate]) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
+  bool all(bool Function(T element) predicate) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
     for (final element in iter) {
       if (!predicate(element)) {
@@ -148,7 +140,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns `true` if at least one element matches the given [predicate].
   ///
   /// Returns `true` if collection has at least one element when no [predicate] is provided
-  bool any([bool Function(T element) predicate]) {
+  bool any([bool Function(T element)? predicate]) {
     if (predicate == null) {
       if (this is KtCollection) return !(this as KtCollection).isEmpty();
       return iterator().hasNext();
@@ -209,12 +201,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
   M associateByTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, K Function(T) keySelector,
-      [V Function(T) valueTransform]) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (keySelector == null) throw ArgumentError("keySelector can't be null");
-      return true;
-    }());
+      [V Function(T)? valueTransform]) {
     for (final element in iter) {
       final key = keySelector(element);
       final V value =
@@ -230,10 +217,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any of two pairs would have the same key the last one gets added to the map.
   M associateTo<K, V, M extends KtMutableMap<K, V>>(
       M destination, KtPair<K, V> Function(T) transform) {
-    assert(() {
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     for (final element in iter) {
       final pair = transform(element);
       destination.put(pair.first, pair.second);
@@ -267,10 +250,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   M associateWithTo<V, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, V Function(T) valueSelector) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (valueSelector == null) {
-        throw ArgumentError("valueSelector can't be null");
-      }
       if (destination is! KtMutableMap<T, V> && mutableMapFrom<T, V>() is! M) {
         throw ArgumentError(
             "associateWithTo destination has wrong type parameters."
@@ -289,10 +268,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns an average value produced by [selector] function applied to each element in the collection.
   double averageBy(num Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     num sum = 0.0;
     var count = 0;
     for (final element in iter) {
@@ -315,10 +290,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
   KtList<KtList<T>> chunked(int size) {
-    assert(() {
-      if (size == null) throw ArgumentError("size can't be null");
-      return true;
-    }());
     return windowed(size, step: size, partialWindows: true);
   }
 
@@ -334,10 +305,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
   ///
   KtList<R> chunkedTransform<R>(int size, R Function(KtList<T>) transform) {
-    assert(() {
-      if (size == null) throw ArgumentError("size can't be null");
-      return true;
-    }());
     return windowedTransform(size, transform, step: size, partialWindows: true);
   }
 
@@ -348,7 +315,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the number of elements matching the given [predicate] or the number of elements when `predicate = null`.
-  int count([bool Function(T) predicate]) {
+  int count([bool Function(T)? predicate]) {
     if (predicate == null && this is KtCollection) {
       return (this as KtCollection).size;
     }
@@ -376,10 +343,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// The elements in the resulting list are in the same order as they were in the source collection.
   KtList<T> distinctBy<K>(K Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     final set = hashSetOf<K>();
     final list = mutableListOf<T>();
     for (final element in iter) {
@@ -393,10 +356,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing all elements except first [n] elements.
   KtList<T> drop(int n) {
-    assert(() {
-      if (n == null) throw ArgumentError("n can't be null");
-      return true;
-    }());
     final list = mutableListOf<T>();
     var count = 0;
     for (final item in iter) {
@@ -409,10 +368,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing all elements except first elements that satisfy the given [predicate].
   KtList<T> dropWhile(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     var yielding = false;
     final list = mutableListOf<T>();
     for (final item in iter) {
@@ -429,13 +384,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this collection.
-  @nonNull
   T elementAt(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
-
     return elementAtOrElse(index, (int index) {
       throw IndexOutOfBoundsException(
           "Collection doesn't contain element at index: $index.");
@@ -443,15 +392,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this collection.
-  @nonNull
   T elementAtOrElse(int index, T Function(int) defaultValue) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue function can't be null");
-      }
-      return true;
-    }());
     if (index < 0) {
       return defaultValue(index);
     }
@@ -467,12 +408,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
-  @nullable
-  T elementAtOrNull(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
+  T? elementAtOrNull(int index) {
     if (index < 0) {
       return null;
     }
@@ -516,8 +452,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   C filterIndexedTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(int index, T) predicate) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterIndexedTo destination has wrong type parameters."
@@ -572,7 +506,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   // TODO Change to `C extends KtMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError(
             "filterNotNullTo destination has wrong type parameters."
@@ -600,8 +533,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   C filterNotTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
             "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
@@ -628,8 +559,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   C filterTo<C extends KtMutableCollection<dynamic>>(
       C destination, bool Function(T) predicate) {
     assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      if (destination == null) throw ArgumentError("destination can't be null");
       if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
         throw ArgumentError("filterTo destination has wrong type parameters."
             "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
@@ -648,22 +577,12 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element matching the given [predicate], or `null` if no such element was found.
-  @nullable
-  T find(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
+  T? find(bool Function(T) predicate) {
     return firstOrNull(predicate);
   }
 
   /// Returns the last element matching the given [predicate], or `null` if no such element was found.
-  @nullable
-  T findLast(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
+  T? findLast(bool Function(T) predicate) {
     return lastOrNull(predicate);
   }
 
@@ -672,8 +591,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Use [predicate] to return the first element matching the given [predicate]
   ///
   /// @throws [NoSuchElementException] if the collection is empty.
-  @nonNull
-  T first([bool Function(T) predicate]) {
+  T first([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
@@ -690,8 +608,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element (matching [predicate] when provided), or `null` if the collection is empty.
-  @nullable
-  T firstOrNull([bool Function(T) predicate]) {
+  T? firstOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) {
         final list = this as KtList<T>;
@@ -725,11 +642,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Appends all elements yielded from results of [transform] function being invoked on each element of original collection, to the given [destination].
   C flatMapTo<R, C extends KtMutableCollection<R>>(
       C destination, KtIterable<R> Function(T) transform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     for (final element in iter) {
       final list = transform(element);
       destination.addAll(list);
@@ -739,10 +651,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
   R fold<R>(R initial, R Function(R acc, T) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     var accumulator = initial;
     for (final element in iter) {
       accumulator = operation(accumulator, element);
@@ -755,10 +663,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// @param [operation] function that takes the index of an element, current accumulator value
   /// and the element itself, and calculates the next accumulator value.
   R foldIndexed<R>(R initial, R Function(int index, R acc, T) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     var index = 0;
     var accumulator = initial;
     for (final element in iter) {
@@ -769,10 +673,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Performs the given [action] on each element.
   void forEach(void Function(T element) action) {
-    assert(() {
-      if (action == null) throw ArgumentError("action can't be null");
-      return true;
-    }());
     final i = iterator();
     while (i.hasNext()) {
       final element = i.next();
@@ -784,10 +684,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// @param [action] function that takes the index of an element and the element itself
   /// and performs the desired action on the element.
   void forEachIndexed(void Function(int index, T element) action) {
-    assert(() {
-      if (action == null) throw ArgumentError("action can't be null");
-      return true;
-    }());
     var index = 0;
     for (final item in iter) {
       action(index++, item);
@@ -825,8 +721,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   M groupByTo<K, M extends KtMutableMap<K, KtMutableList<dynamic>>>(
       M destination, K Function(T) keySelector) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (keySelector == null) throw ArgumentError("keySelector can't be null");
       if (destination is! KtMutableMap<K, KtMutableList<T>> &&
           mutableMapFrom<K, KtMutableList<T>>() is! M) {
         throw ArgumentError("groupByTo destination has wrong type parameters."
@@ -853,14 +747,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// @return The [destination] map.
   M groupByToTransform<K, V, M extends KtMutableMap<K, KtMutableList<V>>>(
       M destination, K Function(T) keySelector, V Function(T) valueTransform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (keySelector == null) throw ArgumentError("keySelector can't be null");
-      if (valueTransform == null) {
-        throw ArgumentError("valueTransform can't be null");
-      }
-      return true;
-    }());
     for (final element in iter) {
       final key = keySelector(element);
       final list = destination.getOrPut(key, () => mutableListOf<V>());
@@ -882,10 +768,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns index of the first element matching the given [predicate], or -1 if the collection does not contain such element.
   int indexOfFirst(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     var index = 0;
     for (final item in iter) {
       if (predicate(item)) {
@@ -898,10 +780,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns index of the last element matching the given [predicate], or -1 if the collection does not contain such element.
   int indexOfLast(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     var lastIndex = -1;
     var index = 0;
     for (final item in iter) {
@@ -932,7 +810,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       String postfix = "",
       int limit = -1,
       String truncated = "...",
-      String Function(T) transform}) {
+      String Function(T)? transform}) {
     final buffer = StringBuffer();
     buffer.write(prefix);
     var count = 0;
@@ -957,8 +835,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the last element matching the given [predicate].
   /// @throws [NoSuchElementException] if no such element is found.
-  @nonNull
-  T last([bool Function(T) predicate]) {
+  T last([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) return (this as KtList<T>).last();
       final i = iterator();
@@ -971,7 +848,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       return last;
     } else {
-      T last;
+      T? last;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -983,7 +860,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
         throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
-      return last;
+      return last!;
     }
   }
 
@@ -1002,8 +879,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the last element matching the given [predicate], or `null` if no such element was found.
-  @nullable
-  T lastOrNull([bool Function(T) predicate]) {
+  T? lastOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (this is KtList) {
         final list = this as KtList<T>;
@@ -1020,7 +896,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
         return last;
       }
     } else {
-      T last;
+      T? last;
       for (final element in iter) {
         if (predicate(element)) {
           last = element;
@@ -1068,11 +944,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// and returns the result of the transform applied to the element.
   C mapIndexedNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     var index = 0;
     for (final item in iter) {
       final element = transform(index++, item);
@@ -1089,11 +960,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// and returns the result of the transform applied to the element.
   C mapIndexedTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(int index, T) transform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     var index = 0;
     for (final item in iter) {
       destination.add(transform(index++, item));
@@ -1114,11 +980,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// and appends only the non-null results to the given [destination].
   C mapNotNullTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     for (final item in iter) {
       final result = transform(item);
       if (result != null) {
@@ -1132,11 +993,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// and appends the results to the given [destination].
   C mapTo<R, C extends KtMutableCollection<R>>(
       C destination, R Function(T) transform) {
-    assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     for (final item in iter) {
       destination.add(transform(item));
     }
@@ -1144,12 +1000,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element yielding the largest value of the given function or `null` if there are no elements.
-  @nullable
-  T maxBy<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
+  T? maxBy<R extends Comparable>(R Function(T) selector) {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T maxElement = i.next();
@@ -1166,12 +1017,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element having the largest value according to the provided [comparator] or `null` if there are no elements.
-  @nullable
-  T maxWith(Comparator<T> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
+  T? maxWith(Comparator<T> comparator) {
     final i = iterator();
     if (!i.hasNext()) return null;
     var max = i.next();
@@ -1186,10 +1032,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing all elements of the original collection except the elements contained in the given [elements] collection.
   KtList<T> minus(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     if (this is KtCollection && (this as KtCollection).isEmpty()) {
       return toList();
     }
@@ -1215,12 +1057,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element yielding the smallest value of the given function or `null` if there are no elements.
-  @nullable
-  T minBy<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
+  T? minBy<R extends Comparable>(R Function(T) selector) {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T minElement = i.next();
@@ -1237,12 +1074,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the first element having the smallest value according to the provided [comparator] or `null` if there are no elements.
-  @nullable
-  T minWith(Comparator<T> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
+  T? minWith(Comparator<T> comparator) {
     final i = iterator();
     if (!i.hasNext()) return null;
     var min = i.next();
@@ -1256,7 +1088,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns `true` if the collection has no elements or no elements match the given [predicate].
-  bool none([bool Function(T) predicate]) {
+  bool none([bool Function(T)? predicate]) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
     if (predicate == null) return !iterator().hasNext();
     for (final element in iter) {
@@ -1277,10 +1109,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   // ignore: comment_references
   /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
   void onEach(void Function(T) action) {
-    assert(() {
-      if (action == null) throw ArgumentError("action can't be null");
-      return true;
-    }());
     for (final element in iter) {
       action(element);
     }
@@ -1290,10 +1118,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// where *first* list contains elements for which [predicate] yielded `true`,
   /// while *second* list contains elements for which [predicate] yielded `false`.
   KtPair<KtList<T>, KtList<T>> partition(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     final first = mutableListOf<T>();
     final second = mutableListOf<T>();
     for (final element in iter) {
@@ -1308,10 +1132,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing all elements of the original collection and then all elements of the given [elements] collection.
   KtList<T> plus(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final result = mutableListOf<T>();
     result.addAll(asIterable());
     result.addAll(elements);
@@ -1331,10 +1151,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Accumulates value starting with the first element and applying [operation] from left to right to current accumulator value and each element.
   S reduce<S>(S Function(S acc, T) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     final i = iterator();
     if (!i.hasNext()) {
       throw UnsupportedError("Empty collection can't be reduced.");
@@ -1351,10 +1167,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// @param [operation] function that takes the index of an element, current accumulator value
   /// and the element itself and calculates the next accumulator value.
   S reduceIndexed<S>(S Function(int index, S acc, T) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     final i = iterator();
     if (!i.hasNext()) {
       throw UnsupportedError("Empty collection can't be reduced.");
@@ -1388,8 +1200,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the single element matching the given [predicate], or throws an exception if the list is empty or has more than one element.
-  @nonNull
-  T single([bool Function(T) predicate]) {
+  T single([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) {
@@ -1401,7 +1212,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       return single;
     } else {
-      T single;
+      T? single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1417,13 +1228,12 @@ extension KtIterableExtensions<T> on KtIterable<T> {
         throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
-      return single;
+      return single!;
     }
   }
 
   /// Returns the single element matching the given [predicate], or `null` if element was not found or more than one element was found.
-  @nullable
-  T singleOrNull([bool Function(T) predicate]) {
+  T? singleOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       final i = iterator();
       if (!i.hasNext()) return null;
@@ -1433,7 +1243,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
       return single;
     } else {
-      T single;
+      T? single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -1452,19 +1262,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
   KtList<T> sortedBy<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     return sortedWith(compareBy(selector));
   }
 
   /// Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
   KtList<T> sortedByDescending<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     return sortedWith(compareByDescending(selector));
   }
 
@@ -1473,10 +1275,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list of all elements sorted according to the specified [comparator].
   KtList<T> sortedWith(Comparator<T> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
     final mutableList = toMutableList();
     // delegate to darts list implementation for sorting which is highly optimized
     mutableList.asList().sort(comparator);
@@ -1487,10 +1285,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// The returned set preserves the element iteration order of the original collection.
   KtSet<T> subtract(KtIterable<T> other) {
-    assert(() {
-      if (other == null) throw ArgumentError("other can't be null");
-      return true;
-    }());
     final set = toMutableSet();
     set.removeAll(other);
     return set;
@@ -1498,10 +1292,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the sum of all values produced by [selector] function applied to each element in the collection.
   int sumBy(int Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     int sum = 0;
     for (final element in iter) {
       sum += selector(element);
@@ -1511,10 +1301,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns the sum of all values produced by [selector] function applied to each element in the collection.
   double sumByDouble(double Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     double sum = 0.0;
     for (final element in iter) {
       sum += selector(element);
@@ -1524,10 +1310,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing first [n] elements.
   KtList<T> take(int n) {
-    assert(() {
-      if (n == null) throw ArgumentError("n can't be null");
-      return true;
-    }());
     if (n < 0) {
       throw ArgumentError("Requested element count $n is less than zero.");
     }
@@ -1554,10 +1336,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing first elements satisfying the given [predicate].
   KtList<T> takeWhile(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     final list = mutableListOf<T>();
     for (final item in iter) {
       if (!predicate(item)) {
@@ -1576,7 +1354,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   // TODO Change to `M extends KtMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
   C toCollection<C extends KtMutableCollection<dynamic>>(C destination) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
       if (mutableListOf<T>() is! C) {
         throw ArgumentError(
             "toCollection destination has wrong type parameters."
@@ -1618,10 +1395,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Those elements of the [other] collection that are unique are iterated in the end
   /// in the order of the [other] collection.
   KtSet<T> union(KtIterable<T> other) {
-    assert(() {
-      if (other == null) throw ArgumentError("other can't be null");
-      return true;
-    }());
     final set = toMutableSet();
     set.addAll(other);
     return set;
@@ -1640,14 +1413,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// by default `false` which means partial windows won't be preserved
   KtList<KtList<T>> windowed(int size,
       {int step = 1, bool partialWindows = false}) {
-    assert(() {
-      if (size == null) throw ArgumentError("size can't be null");
-      if (step == null) throw ArgumentError("step can't be null");
-      if (partialWindows == null) {
-        throw ArgumentError("partialWindows can't be null");
-      }
-      return true;
-    }());
     final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<KtList<T>>();
@@ -1673,15 +1438,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// by default `false` which means partial windows won't be preserved
   KtList<R> windowedTransform<R>(int size, R Function(KtList<T>) transform,
       {int step = 1, bool partialWindows = false}) {
-    assert(() {
-      if (size == null) throw ArgumentError("size can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      if (step == null) throw ArgumentError("step can't be null");
-      if (partialWindows == null) {
-        throw ArgumentError("partialWindows can't be null");
-      }
-      return true;
-    }());
     final list = toList();
     final thisSize = list.size;
     final result = mutableListOf<R>();
@@ -1706,11 +1462,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned list has length of the shortest collection.
   KtList<V> zipTransform<R, V>(
       KtIterable<R> other, V Function(T a, R b) transform) {
-    assert(() {
-      if (other == null) throw ArgumentError("other can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     final first = iterator();
     final second = other.iterator();
     final list = mutableListOf<V>();
@@ -1731,10 +1482,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// The returned list is empty if this collection contains less than two elements.
   KtList<R> zipWithNextTransform<R>(R Function(T a, T b) transform) {
-    assert(() {
-      if (transform == null) throw ArgumentError("transform can't be null");
-      return true;
-    }());
     final i = iterator();
     if (!i.hasNext()) {
       return emptyList();

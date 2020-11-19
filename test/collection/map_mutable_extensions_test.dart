@@ -59,7 +59,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     });
 
     test("doesn't contain key", () {
-      final pokemon = mutableMapFrom({
+      final pokemon = mutableMapFrom<int?, String>({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -76,7 +76,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
     });
 
     test("doesn't contain value", () {
-      final pokemon = mutableMapFrom({
+      final pokemon = mutableMapFrom<int, String?>({
         1: "Bulbasaur",
         2: "Ivysaur",
       });
@@ -186,15 +186,6 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
       expect(pokemon.getOrPut(150, () => "Mewtwo"), "Mewtwo");
       expect(pokemon.get(150), "Mewtwo");
     });
-
-    test("getOrPut doens't allow null as defaultValue function", () {
-      final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
-      });
-      final e = catchException<ArgumentError>(() => pokemon.getOrPut(1, null));
-      expect(e.message, allOf(contains("null"), contains("defaultValue")));
-    });
   });
 
   group("iterator", () {
@@ -269,15 +260,6 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
       expect(pokemon[2], "Ivysaur");
       expect(pokemon[3], "Venusaur");
     });
-
-    test("can't use null for putAll", () {
-      final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
-      });
-      final e = catchException<ArgumentError>(() => pokemon.putAll(null));
-      expect(e.message, allOf(contains("null")));
-    });
   });
 
   group("putAllPairs", () {
@@ -307,15 +289,6 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
       ]));
       expect(pokemon.size, 2);
       expect(pokemon[2], "Dito");
-    });
-
-    test("putAllPairs doens't allow null as argument", () {
-      final pokemon = mutableMapFrom(const {
-        1: "Bulbasaur",
-        2: "Ivysaur",
-      });
-      final e = catchException<ArgumentError>(() => pokemon.putAllPairs(null));
-      expect(e.message, allOf(contains("null"), contains("pairs")));
     });
   });
 

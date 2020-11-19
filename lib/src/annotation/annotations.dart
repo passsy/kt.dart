@@ -3,8 +3,10 @@
 ///
 /// Apart from documentation purposes this annotation is intended to be used by static analysis tools
 /// to validate against probable runtime errors and element contract violations.
+@Deprecated("Dart not support non-nullable types")
 const Object nullable = _Nullable();
 
+@Deprecated("Dart not support non-nullable types")
 class _Nullable {
   const _Nullable();
 }
@@ -14,8 +16,10 @@ class _Nullable {
 ///
 /// Apart from documentation purposes this annotation is intended to be used by static analysis tools
 /// to validate against probable runtime errors and element contract violations.
+@Deprecated("Dart not support non-nullable types")
 const Object nonNull = _NonNull();
 
+@Deprecated("Dart not support non-nullable types")
 class _NonNull {
   const _NonNull();
 }
@@ -40,5 +44,5 @@ class TooGeneric {
   const TooGeneric({this.extensionForType});
 
   /// The type which would be a better fit
-  final String extensionForType;
+  final String? extensionForType;
 }

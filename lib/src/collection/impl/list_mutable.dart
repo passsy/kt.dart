@@ -30,19 +30,11 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   bool containsAll(KtCollection<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     return elements.all(_list.contains);
   }
 
   @override
   T get(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     if (index < 0 || index >= size) {
       throw IndexOutOfBoundsException(
           "List doesn't contain element at index: $index, size: $size");
@@ -67,7 +59,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   KtMutableListIterator<T> listIterator([int index = 0]) {
-    if (index == null) throw ArgumentError("index can't be null");
     return InterOpKtListIterator(_list, index);
   }
 
@@ -82,31 +73,18 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   bool addAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     _list.addAll(elements.iter);
     return true;
   }
 
   @override
   bool addAllAt(int index, KtCollection<T> elements) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     _list.insertAll(index, elements.iter);
     return true;
   }
 
   @override
   void addAt(int index, T element) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     _list.insert(index, element);
   }
 
@@ -118,10 +96,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   T removeAt(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     if (index < 0 || index >= size) {
       throw IndexOutOfBoundsException("index: $index, size: $size");
     }
@@ -130,10 +104,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   T set(int index, T element) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
     final old = _list[index];
     _list[index] = element;
     return old;
@@ -144,10 +114,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   bool removeAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     var changed = false;
     for (final value in elements.iter) {
       final removed = _list.remove(value);
@@ -158,10 +124,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
 
   @override
   bool retainAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     _list.removeWhere((it) => !elements.contains(it));
     return true;
   }
@@ -169,8 +131,6 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   @override
   KtMutableList<T> subList(int fromIndex, int toIndex) {
     assert(() {
-      if (fromIndex == null) throw ArgumentError("fromIndex can't be null");
-      if (toIndex == null) throw ArgumentError("toIndex can't be null");
       if (fromIndex > toIndex) {
         throw ArgumentError("fromIndex: $fromIndex > toIndex: $toIndex");
       }

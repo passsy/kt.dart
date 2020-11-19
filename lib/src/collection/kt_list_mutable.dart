@@ -9,11 +9,7 @@ import "package:kt_dart/src/util/arguments.dart";
 abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   factory KtMutableList.empty() => DartMutableList<T>();
 
-  factory KtMutableList.from([@nonNull Iterable<T> elements = const []]) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
+  factory KtMutableList.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return DartMutableList<T>();
     return DartMutableList(elements);
   }
@@ -31,16 +27,16 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
       T arg9]) = KtMutableList<T>._of;
 
   factory KtMutableList._of([
-    Object arg0 = defaultArgument,
-    Object arg1 = defaultArgument,
-    Object arg2 = defaultArgument,
-    Object arg3 = defaultArgument,
-    Object arg4 = defaultArgument,
-    Object arg5 = defaultArgument,
-    Object arg6 = defaultArgument,
-    Object arg7 = defaultArgument,
-    Object arg8 = defaultArgument,
-    Object arg9 = defaultArgument,
+    Object? arg0 = defaultArgument,
+    Object? arg1 = defaultArgument,
+    Object? arg2 = defaultArgument,
+    Object? arg3 = defaultArgument,
+    Object? arg4 = defaultArgument,
+    Object? arg5 = defaultArgument,
+    Object? arg6 = defaultArgument,
+    Object? arg7 = defaultArgument,
+    Object? arg8 = defaultArgument,
+    Object? arg9 = defaultArgument,
   ]) {
     return KtMutableList.from([
       if (arg0 != defaultArgument) arg0 as T,
@@ -106,7 +102,6 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   /// Replaces the element at the specified position in this list with the specified element.
   ///
   /// @return the element previously at the specified position.
-  @nullable
   T set(int index, T element);
 
   /// Replaces the element at the specified position in this list with the specified element.
@@ -118,8 +113,7 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   /// Removes an element at the specified [index] from the list.
   ///
   /// @return the element that has been removed.
-  @nullable
-  T removeAt(int index);
+  T? removeAt(int index);
 
   @override
   KtMutableListIterator<T> listIterator([int index = 0]);
@@ -162,10 +156,6 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
 
   /// Sorts elements in the list in-place according to natural sort order of the value returned by specified [selector] function.
   void sortBy<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     if (size > 1) {
       sortWith(compareBy(selector));
     }
@@ -173,10 +163,6 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
 
   /// Sorts elements in the list in-place descending according to natural sort order of the value returned by specified [selector] function.
   void sortByDescending<R extends Comparable>(R Function(T) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     if (size > 1) {
       sortWith(compareByDescending(selector));
     }
@@ -184,10 +170,6 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
 
   /// Sorts elements in the list in-place according to the specified [comparator]
   void sortWith(Comparator<T> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
     // delegate to darts list implementation for sorting which is highly optimized
     asList().sort(comparator);
   }
@@ -202,7 +184,7 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
   }
 
   /// Shuffles elements in the list.
-  void shuffle([Random random]) {
+  void shuffle([Random? random]) {
     // delegate to darts list implementation for shuffling
     asList().shuffle(random);
   }

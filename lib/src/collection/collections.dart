@@ -21,16 +21,16 @@ KtList<T> Function<T>(
 /// Implementation of [listOf] which creates a list of provided arguments
 /// where `T` might be `T` or `null`.
 KtList<T> _listOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtList.from([
     if (arg0 != defaultArgument) arg0 as T,
@@ -69,16 +69,16 @@ KtMutableList<T> Function<T>(
     T arg9]) mutableListOf = _mutableListOf;
 
 KtMutableList<T> _mutableListOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtMutableList.from([
     if (arg0 != defaultArgument) arg0 as T,
@@ -146,16 +146,16 @@ KtSet<T> Function<T>([
 ]) setOf = _setOf;
 
 KtSet<T> _setOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtSet.from([
     if (arg0 != defaultArgument) arg0 as T,
@@ -196,16 +196,16 @@ KtMutableSet<T> Function<T>([
 ]) mutableSetOf = _mutableSetOf;
 
 KtMutableSet<T> _mutableSetOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtMutableSet.from([
     if (arg0 != defaultArgument) arg0 as T,
@@ -244,16 +244,16 @@ KtLinkedSet<T> Function<T>([
 ]) linkedSetOf = _linkedSetOf;
 
 KtLinkedSet<T> _linkedSetOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtLinkedSet.from([
     if (arg0 != defaultArgument) arg0 as T,
@@ -292,16 +292,16 @@ KtHashSet<T> Function<T>([
 ]) hashSetOf = _hashSetOf;
 
 KtHashSet<T> _hashSetOf<T>([
-  Object arg0 = defaultArgument,
-  Object arg1 = defaultArgument,
-  Object arg2 = defaultArgument,
-  Object arg3 = defaultArgument,
-  Object arg4 = defaultArgument,
-  Object arg5 = defaultArgument,
-  Object arg6 = defaultArgument,
-  Object arg7 = defaultArgument,
-  Object arg8 = defaultArgument,
-  Object arg9 = defaultArgument,
+  Object? arg0 = defaultArgument,
+  Object? arg1 = defaultArgument,
+  Object? arg2 = defaultArgument,
+  Object? arg3 = defaultArgument,
+  Object? arg4 = defaultArgument,
+  Object? arg5 = defaultArgument,
+  Object? arg6 = defaultArgument,
+  Object? arg7 = defaultArgument,
+  Object? arg8 = defaultArgument,
+  Object? arg9 = defaultArgument,
 ]) {
   return KtHashSet.from([
     if (arg0 != defaultArgument) arg0 as T,

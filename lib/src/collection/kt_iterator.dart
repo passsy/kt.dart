@@ -7,7 +7,6 @@ abstract class KtIterator<T> {
   ///
   /// @return the next element in the iteration
   /// @throws [NoSuchElementException] if the iteration has no more elements
-  @nullable
   T next();
 
   /// Returns `true` if the iteration has more elements.
@@ -39,7 +38,6 @@ abstract class KtListIterator<T> implements KtIterator<T> {
   /// @return the previous element in the list
   /// @throws [NoSuchElementException] if the iteration has no previous
   ///         element
-  @nullable
   T previous();
 
   /// Returns the index of the element that would be returned by a

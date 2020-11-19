@@ -66,7 +66,7 @@ void testSet(
 
   group("orEmpty", () {
     test("null -> empty set", () {
-      const KtSet<int> set = null;
+      const KtSet<int>? set = null;
       expect(set.orEmpty(), isNotNull);
       expect(set.orEmpty(), isA<KtSet<int>>());
       expect(set.orEmpty().isEmpty(), isTrue);
@@ -93,11 +93,6 @@ void testSet(
       final result = emptySet<String>() - setOf("max");
       expect(result.toList(), emptyList());
     });
-    test("minus doesn't allow null as elements", () {
-      final iterable = emptySet<String>();
-      final e = catchException<ArgumentError>(() => iterable.minus(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
   });
 
   group("minusElement", () {
@@ -116,11 +111,6 @@ void testSet(
       final result = setOf(1, 2, 3) + setOf(4, 5, 6);
       expect(result, setOf(1, 2, 3, 4, 5, 6));
     });
-    test("plus doesn't allow null as elements", () {
-      final iterable = emptySet<String>();
-      final e = catchException<ArgumentError>(() => iterable.plus(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
   });
 
   group("plusElement", () {
@@ -129,7 +119,7 @@ void testSet(
       expect(result, setOf(1, 2, 3, 5));
     });
     test("element can be null", () {
-      final result = setOf(1, 2, 3).plusElement(null);
+      final result = setOf<int?>(1, 2, 3).plusElement(null);
       expect(result, setOf(1, 2, 3, null));
     });
   });

@@ -1,8 +1,6 @@
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMap", () {
     group("mapFrom", () {
@@ -73,7 +71,7 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
   });
 
   group("containsKey", () {
-    final map = mapFrom({1: "test"});
+    final map = mapFrom<int?, String>({1: "test"});
     test("contains", () {
       expect(map.containsKey(1), isTrue);
     });
@@ -91,7 +89,7 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
   });
 
   group("containsValue", () {
-    final map = mapFrom({1: "test"});
+    final map = mapFrom<int?, String?>({1: "test"});
     test("contains", () {
       expect(map.containsValue("test"), isTrue);
     });
@@ -160,10 +158,5 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
       expect(values, listOf("Bulbasaur", "Ivysaur"));
       expect(keys, listOf(1, 2));
     });
-  });
-
-  test("mapFrom requires non null map", () {
-    final e = catchException<ArgumentError>(() => mapFrom(null));
-    expect(e.message, contains("map can't be null"));
   });
 }

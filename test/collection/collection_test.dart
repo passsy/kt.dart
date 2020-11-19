@@ -3,8 +3,6 @@ import "dart:math" as math show Random;
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtCollection", () {
     group("list", () {
@@ -57,7 +55,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     {bool ordered = true}) {
   group("contains", () {
     test("no elements", () {
-      final list = emptyCollection<String>();
+      final list = emptyCollection<String?>();
       expect(list.contains("a"), isFalse);
       expect(list.contains(null), isFalse);
     });
@@ -69,7 +67,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
 
     test("does not contain", () {
-      final list = collectionOf(["a", "b", "c", "d", "e"]);
+      final list = collectionOf<String?>(["a", "b", "c", "d", "e"]);
       expect(list.contains("x"), isFalse);
       expect(list.contains(null), isFalse);
     });
@@ -93,19 +91,6 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
       expect(list.containsAll(listOf("x")), isFalse);
       expect(list.containsAll(listOf("c", "x", "d")), isFalse);
     });
-
-    test("containsAll doesn't allow null as argument", () {
-      final collection = collectionOf(["a", "b", "c", "d", "e"]);
-      final e =
-          catchException<ArgumentError>(() => collection.containsAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
-
-    test("containsAll (empty collection) doesn't allow null as argument", () {
-      final e = catchException<ArgumentError>(
-          () => emptyCollection().containsAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
   });
 
   group("isNotEmpty", () {
@@ -119,7 +104,7 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
 
   group("orEmpty", () {
     test("null -> empty collection", () {
-      const KtCollection<int> collection = null;
+      const KtCollection<int>? collection = null;
       expect(collection.orEmpty(), isNotNull);
       expect(collection.orEmpty(), isA<KtCollection<int>>());
       expect(collection.orEmpty().isEmpty(), isTrue);

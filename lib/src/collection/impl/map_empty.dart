@@ -10,7 +10,7 @@ class EmptyMap<K, V> extends Object implements KtMap<K, V> {
   Map<K, V> asMap() => Map.unmodifiable(const {});
 
   @override
-  V operator [](K key) => null;
+  V? operator [](K key) => null;
 
   @override
   bool containsKey(K key) => false;
@@ -22,10 +22,10 @@ class EmptyMap<K, V> extends Object implements KtMap<K, V> {
   KtSet<KtMapEntry<K, V>> get entries => emptySet();
 
   @override
-  V get(K key) => null;
+  V? get(K key) => null;
 
   @override
-  V getOrDefault(K key, V defaultValue) => defaultValue;
+  V? getOrDefault(K key, V defaultValue) => defaultValue;
 
   @override
   bool isEmpty() => true;
