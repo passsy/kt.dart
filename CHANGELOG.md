@@ -1,3 +1,7 @@
+# 0.9.0-nullsafety.0
+
+Migrate to Dart 2.12 with [null-safety(https://dart.dev/null-safety) support
+
 # 0.8.0
 
 New `package:kt_dart/standard.dart` library containing Kotlins loved standard extensions
