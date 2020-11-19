@@ -73,11 +73,14 @@ class DartSet<T> extends Object implements KtSet<T> {
 class _DartToKIterator<T> extends KtIterator<T> {
   _DartToKIterator(this.iterator)
       : lastReturned = null,
-        _hasNext = iterator.moveNext(),
-        nextValue = iterator.current;
+        _hasNext = iterator.moveNext() {
+    if (_hasNext) {
+      nextValue = iterator.current;
+    }
+  }
 
   final Iterator<T> iterator;
-  T nextValue;
+  T? nextValue;
   T? lastReturned;
   bool _hasNext;
 
@@ -89,8 +92,10 @@ class _DartToKIterator<T> extends KtIterator<T> {
     if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = iterator.moveNext();
-    nextValue = iterator.current;
+    if (_hasNext) {
+      nextValue = iterator.current;
+    }
     lastReturned = e;
-    return e;
+    return e as T;
   }
 }

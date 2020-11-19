@@ -108,7 +108,9 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
       : _iterator = set.iter.iterator,
         lastReturned = null {
     _hasNext = _iterator.moveNext();
-    nextValue = _iterator.current;
+    if (_hasNext) {
+      nextValue = _iterator.current;
+    }
   }
 
   final Iterator<T> _iterator;
@@ -122,11 +124,13 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   @override
   T next() {
     if (!_hasNext) throw const NoSuchElementException();
-    final T e = nextValue!;
+    final e = nextValue;
     _hasNext = _iterator.moveNext();
-    nextValue = _iterator.current;
+    if (_hasNext) {
+      nextValue = _iterator.current;
+    }
     lastReturned = e;
-    return e;
+    return e as T;
   }
 
   @override

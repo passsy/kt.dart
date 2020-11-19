@@ -630,7 +630,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("filterNotNullTo", () {
     test("filterNotNullTo same type", () {
       final iterable = iterableOf([4, 25, null, 10]);
-      final result = mutableListOf<int>();
+      final result = mutableListOf<int?>();
       final filtered = iterable.filterNotNullTo(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
@@ -641,7 +641,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
     test("filterNotNullTo super type", () {
       final iterable = iterableOf([4, 25, null, 10]);
-      final result = mutableListOf<num>();
+      final result = mutableListOf<num?>();
       final filtered = iterable.filterNotNullTo(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {

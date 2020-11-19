@@ -14,7 +14,6 @@ class NotImplementedException implements Exception {
 }
 
 /// Always throws [NotImplementedException] stating that operation is not implemented.
-// TODO: return `Never` when nnbd is released
 @pragma('vm:prefer-inline')
 @pragma('dart2js:tryInline')
 @experimental
