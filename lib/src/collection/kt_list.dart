@@ -11,11 +11,7 @@ abstract class KtList<T> implements KtCollection<T> {
   const factory KtList.empty() = EmptyList<T>;
 
   /// Returns a new read-only list based on [elements].
-  factory KtList.from([@nonNull Iterable<T> elements = const []]) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
+  factory KtList.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptyList<T>();
     return DartList(elements);
   }
@@ -38,16 +34,16 @@ abstract class KtList<T> implements KtCollection<T> {
   /// Implementation of KtList.of which creates a list of provided arguments
   /// where `T` might be `T` or `null`.
   factory KtList._of([
-    Object arg0 = defaultArgument,
-    Object arg1 = defaultArgument,
-    Object arg2 = defaultArgument,
-    Object arg3 = defaultArgument,
-    Object arg4 = defaultArgument,
-    Object arg5 = defaultArgument,
-    Object arg6 = defaultArgument,
-    Object arg7 = defaultArgument,
-    Object arg8 = defaultArgument,
-    Object arg9 = defaultArgument,
+    Object? arg0 = defaultArgument,
+    Object? arg1 = defaultArgument,
+    Object? arg2 = defaultArgument,
+    Object? arg3 = defaultArgument,
+    Object? arg4 = defaultArgument,
+    Object? arg5 = defaultArgument,
+    Object? arg6 = defaultArgument,
+    Object? arg7 = defaultArgument,
+    Object? arg8 = defaultArgument,
+    Object? arg9 = defaultArgument,
   ]) {
     return KtList.from([
       if (arg0 != defaultArgument) arg0 as T,
@@ -95,11 +91,9 @@ abstract class KtList<T> implements KtCollection<T> {
 
   // Positional Access Operations
   /// Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
-  @nullable
   T get(int index);
 
   /// Returns the element at the specified index in the list or throw [IndexOutOfBoundsException]
-  @nullable
   T operator [](int index);
 
   // Search Operations
@@ -132,10 +126,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns a list containing all elements except last [n] elements.
   KtList<T> dropLast(int n) {
-    assert(() {
-      if (n == null) throw ArgumentError("n can't be null");
-      return true;
-    }());
     var count = size - n;
     if (count < 0) {
       count = 0;
@@ -145,10 +135,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns a list containing all elements except last elements that satisfy the given [predicate].
   KtList<T> dropLastWhile(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     if (!isEmpty()) {
       final i = listIterator(size);
       while (i.hasPrevious()) {
@@ -161,33 +147,22 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns an element at the given [index] or throws an [IndexOutOfBoundsException] if the [index] is out of bounds of this list.
-  @nonNull
   T elementAt(int index) => get(index);
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-  @nonNull
   T elementAtOrElse(int index, T Function(int index) defaultValue) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue function can't be null");
-      }
-      return true;
-    }());
     return index >= 0 && index <= lastIndex ? get(index) : defaultValue(index);
   }
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this collection.
-  @nullable
-  T elementAtOrNull(int index) => getOrNull(index);
+  T? elementAtOrNull(int index) => getOrNull(index);
 
   /// Returns first element.
   ///
   /// Use [predicate] to return the first element matching the given [predicate]
   ///
   /// @throws [NoSuchElementException] if the collection is empty.
-  @nonNull
-  T first([bool Function(T) predicate]) {
+  T first([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(0);
@@ -202,10 +177,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Accumulates value starting with [initial] value and applying [operation] from right to left to each element and current accumulator value.
   R foldRight<R>(R initial, R Function(T, R acc) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     if (isEmpty()) return initial;
 
     var accumulator = initial;
@@ -221,10 +192,6 @@ extension KtListExtensions<T> on KtList<T> {
   /// @param [operation] function that takes the index of an element, the element itself
   /// and current accumulator value, and calculates the next accumulator value.
   R foldRightIndexed<R>(R initial, R Function(int index, T, R acc) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     if (isEmpty()) return initial;
 
     var accumulator = initial;
@@ -236,34 +203,20 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
-  @nonNull
   T getOrElse(int index, T Function(int) defaultValue) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue function can't be null");
-      }
-      return true;
-    }());
     return (index >= 0 && index <= lastIndex)
         ? get(index)
         : defaultValue(index);
   }
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
-  @nullable
-  T getOrNull(int index) {
-    assert(() {
-      if (index == null) throw ArgumentError("index can't be null");
-      return true;
-    }());
+  T? getOrNull(int index) {
     return index >= 0 && index <= lastIndex ? get(index) : null;
   }
 
   /// Returns the last element matching the given [predicate].
   /// @throws [NoSuchElementException] if no such element is found.
-  @nonNull
-  T last([bool Function(T) predicate]) {
+  T last([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (isEmpty()) throw const NoSuchElementException("List is empty.");
       return get(lastIndex);
@@ -288,10 +241,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Accumulates value starting with last element and applying [operation] from right to left to each element and current accumulator value.
   S reduceRight<S>(S Function(T, S acc) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     final i = listIterator(size);
     if (!i.hasPrevious()) {
       throw UnimplementedError("Empty list can't be reduced.");
@@ -308,10 +257,6 @@ extension KtListExtensions<T> on KtList<T> {
   /// @param [operation] function that takes the index of an element, the element itself
   /// and current accumulator value, and calculates the next accumulator value.
   S reduceRightIndexed<S>(S Function(int index, T, S acc) operation) {
-    assert(() {
-      if (operation == null) throw ArgumentError("operation can't be null");
-      return true;
-    }());
     final i = listIterator(size);
     if (!i.hasPrevious()) {
       throw UnimplementedError("Empty list can't be reduced.");
@@ -324,8 +269,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns the single element matching the given [predicate], or throws an exception if the list is empty or has more than one element.
-  @nonNull
-  T single([bool Function(T) predicate]) {
+  T single([bool Function(T)? predicate]) {
     if (predicate == null) {
       switch (size) {
         case 0:
@@ -336,7 +280,7 @@ extension KtListExtensions<T> on KtList<T> {
           throw ArgumentError("List has more than one element.");
       }
     } else {
-      T single;
+      T? single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -352,13 +296,12 @@ extension KtListExtensions<T> on KtList<T> {
         throw const NoSuchElementException(
             "Collection contains no element matching the predicate.");
       }
-      return single;
+      return single!;
     }
   }
 
   /// Returns the single element matching the given [predicate], or `null` if element was not found or more than one element was found.
-  @nullable
-  T singleOrNull([bool Function(T) predicate]) {
+  T? singleOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {
       if (size == 1) {
         return get(0);
@@ -366,7 +309,7 @@ extension KtListExtensions<T> on KtList<T> {
         return null;
       }
     } else {
-      T single;
+      T? single;
       var found = false;
       for (final element in iter) {
         if (predicate(element)) {
@@ -382,10 +325,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns a list containing elements at specified [indices].
   KtList<T> slice(KtIterable<int> indices) {
-    assert(() {
-      if (indices == null) throw ArgumentError("indices can't be null");
-      return true;
-    }());
     if (indices.count() == 0) {
       return emptyList<T>();
     }
@@ -398,10 +337,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns a list containing last [n] elements.
   KtList<T> takeLast(int n) {
-    assert(() {
-      if (n == null) throw ArgumentError("n can't be null");
-      return true;
-    }());
     if (n < 0) {
       throw ArgumentError("Requested element count $n is less than zero.");
     }
@@ -417,10 +352,6 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns a list containing last elements satisfying the given [predicate].
   KtList<T> takeLastWhile(bool Function(T) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     if (isEmpty()) return emptyList();
     final iterator = listIterator(size);
     while (iterator.hasPrevious()) {
@@ -439,7 +370,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 }
 
-extension NullableKtListExtensions<T> on KtList<T> /*?*/ {
+extension NullableKtListExtensions<T> on KtList<T>? {
   /// Returns this [KtList] if it's not `null` and the empty list otherwise.
   KtList<T> orEmpty() => this ?? KtList<T>.empty();
 }

@@ -13,11 +13,7 @@ import "package:kt_dart/src/util/errors.dart";
 abstract class KtMap<K, V> {
   const factory KtMap.empty() = EmptyMap<K, V>;
 
-  factory KtMap.from([@nonNull Map<K, V> map = const {}]) {
-    assert(() {
-      if (map == null) throw ArgumentError("map can't be null");
-      return true;
-    }());
+  factory KtMap.from([Map<K, V> map = const {}]) {
     if (map.isEmpty) return EmptyMap<K, V>();
     return DartMap(map);
   }
@@ -49,16 +45,13 @@ abstract class KtMap<K, V> {
   bool containsValue(V value);
 
   /// Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
-  @nullable
-  V get(K key);
+  V? get(K key);
 
   /// Returns the value corresponding to the given [key], or `null` if such a key is not present in the map.
-  @nullable
-  V operator [](K key);
+  V? operator [](K key);
 
   /// Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
-  @nullable
-  V getOrDefault(K key, V defaultValue);
+  V? getOrDefault(K key, V defaultValue);
 
   // Views
   /// Returns a read-only [KtSet] of all keys in this map.
@@ -77,7 +70,6 @@ abstract class KtMapEntry<K, V> {
   K get key;
 
   /// Returns the value of this key/value pair.
-  @nullable
   V get value;
 
   /// Converts entry to [KtPair] with key being first component and value being second.
@@ -94,10 +86,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.
   bool all(bool Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     if (isEmpty()) {
       return true;
     }
@@ -112,10 +100,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns true if there is at least one entry that matches the given [predicate].
   /// [predicate] must not be null.
   bool any(bool Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     if (isEmpty()) {
       return false;
     }
@@ -128,7 +112,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   }
 
   /// Returns the number of entries matching the given [predicate] or the number of entries when `predicate = null`.
-  int count([bool Function(KtMapEntry<K, V>) predicate]) {
+  int count([bool Function(KtMapEntry<K, V>)? predicate]) {
     if (predicate == null) {
       return size;
     }
@@ -155,10 +139,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// The returned map preserves the entry iteration order of the original map.
   KtMap<K, V> filterKeys(bool Function(K) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     final result = linkedMapFrom<K, V>();
     for (final entry in iter) {
       if (predicate(entry.key)) {
@@ -188,8 +168,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   M filterNotTo<M extends KtMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterNotTo destination has wrong type parameters."
             "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
@@ -218,8 +196,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   M filterTo<M extends KtMutableMap<dynamic, dynamic>>(
       M destination, bool Function(KtMapEntry<K, V> entry) predicate) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (predicate == null) throw ArgumentError("predicate can't be null");
       if (destination is! KtMutableMap<K, V> && mutableMapFrom<K, V>() is! M) {
         throw ArgumentError("filterTo destination has wrong type parameters."
             "\nExpected: KtMutableMap<$K, $V>, Actual: ${destination.runtimeType}"
@@ -241,10 +217,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// The returned map preserves the entry iteration order of the original map.
   KtMap<K, V> filterValues(bool Function(V) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     final result = linkedMapFrom<K, V>();
     for (final entry in iter) {
       if (predicate(entry.value)) {
@@ -258,28 +230,17 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// [action] must not be null.
   void forEach(Function(K key, V value) action) {
-    assert(() {
-      if (action == null) throw ArgumentError("action can't be null");
-      return true;
-    }());
     entries.forEach((entry) => action(entry.key, entry.value));
   }
 
   /// Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.
   V getOrElse(K key, V Function() defaultValue) {
-    assert(() {
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue can't be null");
-      }
-      return true;
-    }());
     return get(key) ?? defaultValue();
   }
 
   /// Returns the value for the given [key] or throws an exception if there is no such key in the map.
   ///
   /// @throws NoSuchElementException when the map doesn't contain a value for the specified key
-  @nonNull
   V getValue(K key) {
     final value = get(key);
     if (value == null) {
@@ -291,12 +252,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns this map if it's not empty
   /// or the result of calling [defaultValue] function if the map is empty.
   R ifEmpty<R extends KtMap<K, V>>(R Function() defaultValue) {
-    assert(() {
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue can't be null");
-      }
-      return true;
-    }());
     if (isEmpty()) return defaultValue();
     return this as R;
   }
@@ -339,8 +294,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   M mapKeysTo<R, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<R, V> && mutableMapFrom<R, V>() is! M) {
         throw ArgumentError("mapKeysTo destination has wrong type parameters."
             "\nExpected: KtMutableMap<$R, $V>, Actual: ${destination.runtimeType}"
@@ -362,8 +315,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   M mapTo<R, M extends KtMutableCollection<dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableCollection<R> &&
           mutableListFrom<R>() is! M) {
         throw ArgumentError("mapTo destination has wrong type parameters."
@@ -399,8 +350,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   M mapValuesTo<R, M extends KtMutableMap<dynamic, dynamic>>(
       M destination, R Function(KtMapEntry<K, V> entry) transform) {
     assert(() {
-      if (destination == null) throw ArgumentError("destination can't be null");
-      if (transform == null) throw ArgumentError("transform can't be null");
       if (destination is! KtMutableMap<K, R> && mutableMapFrom<K, R>() is! M) {
         throw ArgumentError("mapValuesTo destination has wrong type parameters."
             "\nExpected: KtMutableMap<$K, $R>, Actual: ${destination.runtimeType}"
@@ -417,13 +366,8 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   }
 
   /// Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> maxBy<R extends Comparable>(
+  KtMapEntry<K, V>? maxBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     final i = iterator();
     if (!iterator().hasNext()) return null;
     KtMapEntry<K, V> maxElement = i.next();
@@ -440,12 +384,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   }
 
   /// Returns the first entry having the largest value according to the provided [comparator] or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> maxWith(Comparator<KtMapEntry<K, V>> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
+  KtMapEntry<K, V>? maxWith(Comparator<KtMapEntry<K, V>> comparator) {
     final i = iterator();
     if (!i.hasNext()) return null;
     var max = i.next();
@@ -469,13 +408,8 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   KtMap<K, V> operator -(K key) => minus(key);
 
   /// Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> minBy<R extends Comparable>(
+  KtMapEntry<K, V>? minBy<R extends Comparable>(
       R Function(KtMapEntry<K, V>) selector) {
-    assert(() {
-      if (selector == null) throw ArgumentError("selector can't be null");
-      return true;
-    }());
     final i = iterator();
     if (!iterator().hasNext()) return null;
     KtMapEntry<K, V> minElement = i.next();
@@ -492,12 +426,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   }
 
   /// Returns the first entry having the smallest value according to the provided [comparator] or `null` if there are no entries.
-  @nullable
-  KtMapEntry<K, V> minWith(Comparator<KtMapEntry<K, V>> comparator) {
-    assert(() {
-      if (comparator == null) throw ArgumentError("comparator can't be null");
-      return true;
-    }());
+  KtMapEntry<K, V>? minWith(Comparator<KtMapEntry<K, V>> comparator) {
     final i = iterator();
     if (!i.hasNext()) return null;
     var min = i.next();
@@ -513,10 +442,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns `true` if there is no entries in the map that match the given [predicate].
   /// [predicate] must not be null.
   bool none(bool Function(K key, V value) predicate) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     if (isEmpty()) {
       return true;
     }
@@ -533,10 +458,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// The returned map preserves the entry iteration order of the original map.
   /// Those entries of another [map] that are missing in this map are iterated in the end in the order of that [map].
   KtMap<K, V> plus(KtMap<K, V> map) {
-    assert(() {
-      if (map == null) throw ArgumentError("map can't be null");
-      return true;
-    }());
     return toMutableMap()..putAll(map);
   }
 
@@ -563,7 +484,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   KtMutableMap<K, V> toMutableMap() => mutableMapFrom(asMap());
 }
 
-extension NullableKtMapExtensions<K, V> on KtMap<K, V> /*?*/ {
+extension NullableKtMapExtensions<K, V> on KtMap<K, V>? {
   /// Returns the [KtMap] if its not `null`, or the empty [KtMap] otherwise.
   KtMap<K, V> orEmpty() => this ?? KtMap<K, V>.empty();
 }

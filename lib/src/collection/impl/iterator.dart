@@ -2,13 +2,14 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/kt_iterator_mutable.dart";
 
 class InterOpKIterator<T> implements KtIterator<T> {
-  InterOpKIterator(this.iterator) {
-    _hasNext = iterator.moveNext();
-    _nextValue = iterator.current;
+  InterOpKIterator(this.iterator) : _hasNext = iterator.moveNext() {
+    if (_hasNext) {
+      _nextValue = iterator.current;
+    }
   }
 
   final Iterator<T> iterator;
-  T _nextValue;
+  T? _nextValue;
   bool _hasNext;
 
   @override
@@ -19,8 +20,10 @@ class InterOpKIterator<T> implements KtIterator<T> {
     if (!_hasNext) throw const NoSuchElementException();
     final e = _nextValue;
     _hasNext = iterator.moveNext();
-    _nextValue = iterator.current;
-    return e;
+    if (_hasNext) {
+      _nextValue = iterator.current;
+    }
+    return e as T;
   }
 }
 

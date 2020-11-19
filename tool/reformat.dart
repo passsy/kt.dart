@@ -25,7 +25,7 @@ Future<void> main(List<String> args) async {
 
   final reformatExit = await dartfmt.exitCode;
 
-  stdout.writeln("");
+  stdout.writeln();
   if (reformatExit == 0) {
     stdout.writeln("All files are correctly formatted");
   } else {

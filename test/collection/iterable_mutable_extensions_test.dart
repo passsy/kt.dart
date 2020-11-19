@@ -56,12 +56,6 @@ void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
       expect(e, const TypeMatcher<UnimplementedError>());
       //expect(iterable.toList(), listOf("paul", "john", "lisa"));
     });
-
-    test("removeAllWhere requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => emptyIterable().removeAllWhere(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 
   group("retainAllWhere", () {
@@ -72,12 +66,6 @@ void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
       // TODO remove error assertion once implemented
       expect(e, const TypeMatcher<UnimplementedError>());
       //expect(iterable.toList(), listOf("max"));
-    });
-
-    test("retainAllWhere requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => emptyIterable().retainAllWhere(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 }

@@ -29,10 +29,6 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 
   @override
   bool containsAll(KtCollection<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     return elements.all(_set.contains);
   }
 
@@ -68,10 +64,6 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 
   @override
   bool addAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final oldSize = size;
     _set.addAll(elements.iter);
     return size != oldSize;
@@ -85,10 +77,6 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 
   @override
   bool removeAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final oldSize = size;
     for (final value in elements.iter) {
       _set.remove(value);
@@ -98,10 +86,6 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 
   @override
   bool retainAll(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final oldSize = size;
     _set.removeWhere((it) => !elements.contains(it));
     return oldSize != size;
@@ -120,16 +104,19 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 }
 
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
-  _MutableSetIterator(KtMutableSet<T> set) : _iterator = set.iter.iterator {
-    lastReturned = null;
+  _MutableSetIterator(KtMutableSet<T> set)
+      : _iterator = set.iter.iterator,
+        lastReturned = null {
     _hasNext = _iterator.moveNext();
-    nextValue = _iterator.current;
+    if (_hasNext) {
+      nextValue = _iterator.current;
+    }
   }
 
   final Iterator<T> _iterator;
-  T nextValue;
-  T lastReturned;
-  bool _hasNext;
+  T? nextValue;
+  T? lastReturned;
+  bool _hasNext = false;
 
   @override
   bool hasNext() => _hasNext;
@@ -139,9 +126,11 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
     if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = _iterator.moveNext();
-    nextValue = _iterator.current;
+    if (_hasNext) {
+      nextValue = _iterator.current;
+    }
     lastReturned = e;
-    return e;
+    return e as T;
   }
 
   @override

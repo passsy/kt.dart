@@ -38,7 +38,7 @@ void main() {
     });
     test("only null is fine", () {
       // ignore: avoid_redundant_argument_values
-      final list = KtSet<String>.of(null);
+      final list = KtSet<String?>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);
       expect(list, KtSet.from([null]));
@@ -84,7 +84,7 @@ void testSet(
   });
 
   test("contains nothing", () {
-    final set = setOf("a", "b", "c");
+    final set = setOf<String?>("a", "b", "c");
     expect(set.contains("a"), isTrue);
     expect(set.contains("b"), isTrue);
     expect(set.contains("c"), isTrue);
@@ -218,9 +218,4 @@ void testSet(
       expect(e.message, contains("unmodifiable"));
     });
   }
-
-  test("setFrom requires non null iterable", () {
-    final e = catchException<ArgumentError>(() => setFrom(null));
-    expect(e.message, contains("elements can't be null"));
-  });
 }

@@ -9,7 +9,7 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
         super();
 
   final Map<K, V> _map;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<KtMapEntry<K, V>> get iter =>
@@ -29,10 +29,10 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
       setFrom(_map.entries.map((entry) => _Entry.from(entry)));
 
   @override
-  V get(K key) => _map[key];
+  V? get(K key) => _map[key];
 
   @override
-  V operator [](K key) => get(key);
+  V? operator [](K key) => get(key);
 
   @override
   V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
@@ -78,7 +78,7 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
   String _entryToString(KtMapEntry<K, V> entry) =>
       "${_toString(entry.key)}=${_toString(entry.value)}";
 
-  String _toString(Object o) =>
+  String _toString(Object? o) =>
       identical(o, this) ? "(this Map)" : o.toString();
 }
 

@@ -57,10 +57,6 @@ extension KtMutableIterableExtensions<T> on KtMutableIterable<T> {
 
   bool _filterInPlace(
       bool Function(T) predicate, bool predicateResultToRemove) {
-    assert(() {
-      if (predicate == null) throw ArgumentError("predicate can't be null");
-      return true;
-    }());
     var result = false;
     final i = iterator();
     while (i.hasNext()) {

@@ -8,11 +8,7 @@ import "package:kt_dart/src/collection/impl/map_mutable.dart";
 abstract class KtMutableMap<K, V> implements KtMap<K, V> {
   factory KtMutableMap.empty() => DartMutableMap<K, V>();
 
-  factory KtMutableMap.from([@nonNull Map<K, V> map = const {}]) {
-    assert(() {
-      if (map == null) throw ArgumentError("map can't be null");
-      return true;
-    }());
+  factory KtMutableMap.from([Map<K, V> map = const {}]) {
     return DartMutableMap(map);
   }
 
@@ -33,8 +29,7 @@ abstract class KtMutableMap<K, V> implements KtMap<K, V> {
   /// Associates the specified [value] with the specified [key] in the map.
   ///
   /// @return the previous value associated with the key, or `null` if the key was not present in the map.
-  @nullable
-  V put(K key, V value);
+  V? put(K key, V value);
 
   /// Associates the specified [value] with the specified [key] in the map.
   void operator []=(K key, V value);
@@ -42,8 +37,7 @@ abstract class KtMutableMap<K, V> implements KtMap<K, V> {
   /// Removes the specified key and its corresponding value from this map.
   ///
   /// @return the previous value associated with the key, or `null` if the key was not present in the map.
-  @nullable
-  V remove(K key);
+  V? remove(K key);
 
   /// Removes the entry for the specified key only if it is mapped to the specified value.
   ///
@@ -77,7 +71,6 @@ abstract class KtMutableMapEntry<K, V> extends KtMapEntry<K, V> {
   /// Changes the value associated with the key of this entry.
   ///
   /// @return the previous value corresponding to the key.
-  @nullable
   V setValue(V newValue);
 }
 
@@ -95,14 +88,7 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
   /// puts its result into the map under the given key and returns it.
   ///
   /// Note that the operation is not guaranteed to be atomic if the map is being modified concurrently.
-  @nonNull
   V getOrPut(K key, V Function() defaultValue) {
-    assert(() {
-      if (defaultValue == null) {
-        throw ArgumentError("defaultValue can't be null");
-      }
-      return true;
-    }());
     final value = get(key);
     if (value != null) return value;
     final answer = defaultValue();
@@ -115,10 +101,6 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
 
   /// Puts all the given [pairs] into this [KtMutableMap] with the first component in the pair being the key and the second the value.
   void putAllPairs(KtIterable<KtPair<K, V>> pairs) {
-    assert(() {
-      if (pairs == null) throw ArgumentError("pairs can't be null");
-      return true;
-    }());
     for (final value in pairs.iter) {
       put(value.first, value.second);
     }
@@ -127,6 +109,5 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
   /// If the specified key is not already associated with a value (or is mapped to `null`) associates it with the given value and returns `null`, else returns the current value.
   ///
   ///  return the previous value associated with the specified key, or `null` if there was no mapping for the key. (A `null` return can also indicate that the map previously associated `null` with the key, if the implementation supports `null` values.)
-  @nullable
-  V putIfAbsent(K key, V value) => get(key) ?? put(key, value);
+  V? putIfAbsent(K key, V value) => get(key) ?? put(key, value);
 }

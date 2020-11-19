@@ -8,7 +8,7 @@ class DartSet<T> extends Object implements KtSet<T> {
         super();
 
   final Set<T> _set;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<T> get iter => _set;
@@ -28,10 +28,6 @@ class DartSet<T> extends Object implements KtSet<T> {
 
   @override
   bool containsAll(KtCollection<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     return elements.all(_set.contains);
   }
 
@@ -75,15 +71,17 @@ class DartSet<T> extends Object implements KtSet<T> {
 }
 
 class _DartToKIterator<T> extends KtIterator<T> {
-  _DartToKIterator(this.iterator) {
-    lastReturned = null;
-    _hasNext = iterator.moveNext();
-    nextValue = iterator.current;
+  _DartToKIterator(this.iterator)
+      : lastReturned = null,
+        _hasNext = iterator.moveNext() {
+    if (_hasNext) {
+      nextValue = iterator.current;
+    }
   }
 
   final Iterator<T> iterator;
-  T nextValue;
-  T lastReturned;
+  T? nextValue;
+  T? lastReturned;
   bool _hasNext;
 
   @override
@@ -94,8 +92,10 @@ class _DartToKIterator<T> extends KtIterator<T> {
     if (!_hasNext) throw const NoSuchElementException();
     final e = nextValue;
     _hasNext = iterator.moveNext();
-    nextValue = iterator.current;
+    if (_hasNext) {
+      nextValue = iterator.current;
+    }
     lastReturned = e;
-    return e;
+    return e as T;
   }
 }

@@ -76,11 +76,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.none((key, value) => key == 1 && value == "Bulbasaur"), true);
       expect(map.none((key, value) => false), true);
     });
-
-    test("predicate must be non null", () {
-      final e = catchException<ArgumentError>(() => emptyMap().all(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 
   group("any", () {
@@ -99,11 +94,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.any((key, value) => key == 1 && value == "Bulbasaur"), false);
       expect(map.any((key, value) => true), false);
       expect(map.any((key, value) => false), false);
-    });
-
-    test("predicate must be non null", () {
-      final e = catchException<ArgumentError>(() => emptyMap().any(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -130,20 +120,12 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final filtered = pokemon.filter((entry) => entry.value.startsWith("I"));
       expect(filtered, mapFrom({2: "Ivysaur"}));
     });
-    test("filter requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(() => pokemon.filter(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 
   group("filterKeys", () {
     test("filterKeys", () {
       final filtered = pokemon.filterKeys((k) => k == 2);
       expect(filtered, mapFrom({2: "Ivysaur"}));
-    });
-    test("filterKeys requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(() => pokemon.filterKeys(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -152,10 +134,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final filtered = pokemon.filterValues((v) => v.startsWith("I"));
       expect(filtered, mapFrom({2: "Ivysaur"}));
     });
-    test("filterValues requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(() => pokemon.filterValues(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 
   group("filterNot", () {
@@ -163,10 +141,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final filtered =
           pokemon.filterNot((entry) => entry.value.startsWith("I"));
       expect(filtered, mapFrom({1: "Bulbasaur"}));
-    });
-    test("filterNot requires predicate to be non null", () {
-      final e = catchException<ArgumentError>(() => pokemon.filterNot(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 
@@ -194,18 +168,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           allOf(contains("filterTo"), contains("destination"),
               contains("<String, String>"), contains("<int, String>")));
     });
-    test("filterTo requires predicate to be non null", () {
-      const bool Function(KtMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapFrom<int, String>();
-      final e = catchException<ArgumentError>(
-          () => pokemon.filterTo(other, predicate));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
-    test("filterTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.filterTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
-    });
   });
 
   group("filterNotTo", () {
@@ -231,18 +193,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
           e.message,
           allOf(contains("filterNotTo"), contains("destination"),
               contains("<String, String>"), contains("<int, String>")));
-    });
-    test("filterNotTo requires predicate to be non null", () {
-      const bool Function(KtMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapFrom<int, String>();
-      final e = catchException<ArgumentError>(
-          () => pokemon.filterNotTo(other, predicate));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
-    test("filterNotTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.filterNotTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
     });
   });
 
@@ -270,12 +220,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     test("getOrElse", () {
       expect(pokemon.getOrElse(10, () => "None"), "None");
     });
-
-    test("getOrElse doesn't allow null as defaultValue function", () {
-      final e =
-          catchException<ArgumentError>(() => pokemon.getOrElse(10, null));
-      expect(e.message, allOf(contains("null"), contains("defaultValue")));
-    });
   });
 
   group("ifEmpty", () {
@@ -288,11 +232,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final result =
           emptyMap<int, String>().ifEmpty(() => mapFrom({0: "nobody"}));
       expect(result, mapFrom({0: "nobody"}));
-    });
-
-    test("ifEmpty doesn't allow null as defaultValue function", () {
-      final e = catchException<ArgumentError>(() => pokemon.ifEmpty(null));
-      expect(e.message, allOf(contains("null"), contains("defaultValue")));
     });
   });
 
@@ -378,18 +317,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
             contains("<int, String>"),
           ));
     });
-    test("mapKeysTo requires transform to be non null", () {
-      const bool Function(KtMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapFrom<int, String>();
-      final e = catchException<ArgumentError>(
-          () => pokemon.mapKeysTo(other, predicate));
-      expect(e.message, allOf(contains("null"), contains("transform")));
-    });
-    test("mapKeysTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.mapKeysTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
-    });
   });
 
   group("mapTo", () {
@@ -417,18 +344,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
             contains("<String>"),
             contains("<int, String>"),
           ));
-    });
-    test("mapTo requires transform to be non null", () {
-      const bool Function(KtMapEntry<int, String> entry) predicate = null;
-      final other = mutableListFrom<int>();
-      final e =
-          catchException<ArgumentError>(() => pokemon.mapTo(other, predicate));
-      expect(e.message, allOf(contains("null"), contains("transform")));
-    });
-    test("mapTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.mapTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
     });
   });
 
@@ -479,25 +394,13 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
             contains("<int, int>"),
           ));
     });
-    test("mapValuesTo requires transform to be non null", () {
-      const bool Function(KtMapEntry<int, String> entry) predicate = null;
-      final other = mutableMapFrom<int, String>();
-      final e = catchException<ArgumentError>(
-          () => pokemon.mapValuesTo(other, predicate));
-      expect(e.message, allOf(contains("null"), contains("transform")));
-    });
-    test("mapValuesTo requires destination to be non null", () {
-      final e = catchException<ArgumentError>(
-          () => pokemon.mapValuesTo(null, (it) => true));
-      expect(e.message, allOf(contains("null"), contains("destination")));
-    });
   });
 
   group("maxBy", () {
     test("gets max value", () {
       final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
-      expect(map.maxBy((it) => int.parse(it.key)).value, "Ivysaur");
-      expect(map.maxBy((it) => num.parse(it.key)).value, "Ivysaur");
+      expect(map.maxBy((it) => int.parse(it.key))!.value, "Ivysaur");
+      expect(map.maxBy((it) => num.parse(it.key))!.value, "Ivysaur");
     });
 
     test("empty iterable return null", () {
@@ -505,16 +408,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.maxBy((it) => it.key), null);
       // with generic type
       expect(map.maxBy<num>((it) => it.key), null);
-    });
-
-    test("maxBy requires a non null selector", () {
-      final e =
-          catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
-      expect(e.message, allOf(contains("null"), contains("selector")));
-      // with generic type
-      final e1 =
-          catchException<ArgumentError>(() => emptyMap().maxBy<num>(null));
-      expect(e1.message, allOf(contains("null"), contains("selector")));
     });
   });
 
@@ -526,7 +419,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("gets max value", () {
       final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
-      final max = map.maxWith(_numKeyComparison);
+      final max = map.maxWith(_numKeyComparison)!;
       expect(max.key, 2);
       expect(max.value, "Ivysaur");
     });
@@ -534,12 +427,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
     test("empty iterable return null", () {
       final map = emptyMap<int, String>();
       expect(map.maxWith(_numKeyComparison), null);
-    });
-
-    test("maxWith requires a non null comparator", () {
-      final e = catchException<ArgumentError>(
-          () => emptyMap<int, String>().maxWith(null));
-      expect(e.message, allOf(contains("null"), contains("comparator")));
     });
   });
 
@@ -589,8 +476,8 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   group("minBy", () {
     test("gets min value", () {
       final map = mapFrom({"2": "Ivysaur", "1": "Bulbasaur"});
-      expect(map.minBy((it) => int.parse(it.key)).value, "Bulbasaur");
-      expect(map.minBy((it) => num.parse(it.key)).value, "Bulbasaur");
+      expect(map.minBy((it) => int.parse(it.key))!.value, "Bulbasaur");
+      expect(map.minBy((it) => num.parse(it.key))!.value, "Bulbasaur");
     });
 
     test("empty iterable return null", () {
@@ -598,14 +485,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.minBy((it) => it.key), null);
       // with generic type
       expect(map.minBy<int>((it) => it.key), null);
-    });
-
-    test("minBy requires a non null selector", () {
-      final e = catchException<ArgumentError>(() => emptyMap().minBy(null));
-      expect(e.message, allOf(contains("null"), contains("selector")));
-      // with generic type
-      final e1 = catchException<ArgumentError>(() => emptyMap().minBy(null));
-      expect(e1.message, allOf(contains("null"), contains("selector")));
     });
   });
 
@@ -617,7 +496,7 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
 
     test("gets min value", () {
       final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
-      final min = map.minWith(_numKeyComparison);
+      final min = map.minWith(_numKeyComparison)!;
       expect(min.key, 1);
       expect(min.value, "Bulbasaur");
     });
@@ -626,17 +505,11 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       final map = emptyMap<int, String>();
       expect(map.minWith(_numKeyComparison), null);
     });
-
-    test("minWith requires a non null comparator", () {
-      final e = catchException<ArgumentError>(
-          () => emptyMap<int, String>().minWith(null));
-      expect(e.message, allOf(contains("null"), contains("comparator")));
-    });
   });
 
   group("orEmpty", () {
     test("null -> empty collection", () {
-      const KtMap<int, String> map = null;
+      const KtMap<int, String>? map = null;
       expect(map.orEmpty(), isNotNull);
       expect(map.orEmpty(), isA<KtMap<int, String>>());
       expect(map.orEmpty().isEmpty(), isTrue);
@@ -658,15 +531,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(result.size, 3);
       expect(result[3], "Venusaur");
       expect(map.size, 2);
-    });
-
-    test("plus doesn't allow null as argument", () {
-      final pokemon = mapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
-      });
-      final e = catchException<ArgumentError>(() => pokemon.plus(null));
-      expect(e.message, allOf(contains("null"), contains("map")));
     });
 
     test("+ (plus) operator", () {
@@ -790,11 +654,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
             listOf("1-Bulbasaur", "2-Ivysaur", "3-Stegosaur").toSet());
       }
     });
-
-    test("action must be non null", () {
-      final e = catchException<ArgumentError>(() => emptyMap().forEach(null));
-      expect(e.message, allOf(contains("null"), contains("action")));
-    });
   });
 
   group("none", () {
@@ -813,11 +672,6 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
       expect(map.none((key, value) => key == 1 && value == "Bulbasaur"), true);
       expect(map.none((key, value) => false), true);
     });
-
-    test("predicate must be non null", () {
-      final e = catchException<ArgumentError>(() => emptyMap().none(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
-    });
   });
 }
 
@@ -829,7 +683,7 @@ class ThirdPartyMap<K, V> implements KtMap<K, V> {
         super();
 
   final Map<K, V> _map;
-  int _hashCode;
+  int? _hashCode;
 
   @override
   Iterable<KtMapEntry<K, V>> get iter =>
@@ -849,13 +703,13 @@ class ThirdPartyMap<K, V> implements KtMap<K, V> {
       setFrom(_map.entries.map((entry) => _Entry.from(entry)));
 
   @override
-  V get(K key) => _map[key];
+  V? get(K key) => _map[key];
 
   @override
-  V operator [](K key) => get(key);
+  V? operator [](K key) => get(key);
 
   @override
-  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
+  V? getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
 
   @override
   bool isEmpty() => _map.isEmpty;

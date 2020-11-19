@@ -3,9 +3,11 @@ import "package:test/test.dart";
 
 void main() {
   test("nullable is _Nullable", () {
+    // ignore: deprecated_member_use_from_same_package
     expect(nullable.runtimeType.toString(), equals("_Nullable"));
   });
   test("nonNull is _NonNull", () {
+    // ignore: deprecated_member_use_from_same_package
     expect(nonNull.runtimeType.toString(), equals("_NonNull"));
   });
   test("tooGeneric is TooGeneric", () {

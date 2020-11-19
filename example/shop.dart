@@ -2,7 +2,7 @@
 import "package:kt_dart/kt.dart";
 
 void main() {
-  final rekasProducts = getOrderedProducts(jbCustomers[reka]);
+  final rekasProducts = getOrderedProducts(jbCustomers[reka]!);
   print("reka bought $rekasProducts");
 
   final allOrdersOfJbShop = getAllOrderedProducts(jbShop);
@@ -49,7 +49,7 @@ class Customer {
 }
 
 class Order {
-  Order(this.products, {this.isDelivered});
+  Order(this.products, {required this.isDelivered});
 
   final KtList<Product> products;
   final bool isDelivered;

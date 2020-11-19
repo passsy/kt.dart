@@ -12,11 +12,7 @@ abstract class KtSet<T> implements KtCollection<T> {
   const factory KtSet.empty() = EmptySet<T>;
 
   /// Returns a new read-only set based on [elements].
-  factory KtSet.from([@nonNull Iterable<T> elements = const []]) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
+  factory KtSet.from([Iterable<T> elements = const []]) {
     if (elements.isEmpty) return EmptySet<T>();
     return DartSet(elements);
   }
@@ -37,17 +33,18 @@ abstract class KtSet<T> implements KtCollection<T> {
     T arg9,
   ]) = KtSet<T>._of;
 
-  factory KtSet._of(
-      [Object arg0 = defaultArgument,
-      Object arg1 = defaultArgument,
-      Object arg2 = defaultArgument,
-      Object arg3 = defaultArgument,
-      Object arg4 = defaultArgument,
-      Object arg5 = defaultArgument,
-      Object arg6 = defaultArgument,
-      Object arg7 = defaultArgument,
-      Object arg8 = defaultArgument,
-      Object arg9 = defaultArgument]) {
+  factory KtSet._of([
+    Object? arg0 = defaultArgument,
+    Object? arg1 = defaultArgument,
+    Object? arg2 = defaultArgument,
+    Object? arg3 = defaultArgument,
+    Object? arg4 = defaultArgument,
+    Object? arg5 = defaultArgument,
+    Object? arg6 = defaultArgument,
+    Object? arg7 = defaultArgument,
+    Object? arg8 = defaultArgument,
+    Object? arg9 = defaultArgument,
+  ]) {
     return KtSet.from([
       if (arg0 != defaultArgument) arg0 as T,
       if (arg1 != defaultArgument) arg1 as T,
@@ -103,10 +100,6 @@ extension KtSetExtension<T> on KtSet<T> {
   /// Returns a set containing all elements of the original collection except
   /// the elements contained in the given [elements] collection.
   KtSet<T> minus(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final result = toMutableSet();
     result.removeAll(elements);
     return result;
@@ -135,10 +128,6 @@ extension KtSetExtension<T> on KtSet<T> {
   /// Returns a set containing all elements of the original collection and then
   /// all elements of the given [elements] collection.
   KtSet<T> plus(KtIterable<T> elements) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
     final result = KtMutableSet<T>.of();
     result.addAll(asIterable());
     result.addAll(elements);
@@ -159,7 +148,7 @@ extension KtSetExtension<T> on KtSet<T> {
   }
 }
 
-extension NullableKtSetExtensions<T> on KtSet<T> /*?*/ {
+extension NullableKtSetExtensions<T> on KtSet<T>? {
   /// Returns this [KtSet] if it's not `null` and the empty set otherwise.
   KtSet<T> orEmpty() => this ?? KtSet<T>.empty();
 }

@@ -5,11 +5,7 @@ import "package:kt_dart/src/util/arguments.dart";
 abstract class KtLinkedSet<T> implements KtMutableSet<T> {
   factory KtLinkedSet.empty() => KtLinkedSet.from();
 
-  factory KtLinkedSet.from([@nonNull Iterable<T> elements = const []]) {
-    assert(() {
-      if (elements == null) throw ArgumentError("elements can't be null");
-      return true;
-    }());
+  factory KtLinkedSet.from([Iterable<T> elements = const []]) {
     return DartLinkedSet<T>(elements);
   }
 
@@ -26,17 +22,18 @@ abstract class KtLinkedSet<T> implements KtMutableSet<T> {
     T arg9,
   ]) = KtLinkedSet<T>._of;
 
-  factory KtLinkedSet._of(
-      [Object arg0 = defaultArgument,
-      Object arg1 = defaultArgument,
-      Object arg2 = defaultArgument,
-      Object arg3 = defaultArgument,
-      Object arg4 = defaultArgument,
-      Object arg5 = defaultArgument,
-      Object arg6 = defaultArgument,
-      Object arg7 = defaultArgument,
-      Object arg8 = defaultArgument,
-      Object arg9 = defaultArgument]) {
+  factory KtLinkedSet._of([
+    Object? arg0 = defaultArgument,
+    Object? arg1 = defaultArgument,
+    Object? arg2 = defaultArgument,
+    Object? arg3 = defaultArgument,
+    Object? arg4 = defaultArgument,
+    Object? arg5 = defaultArgument,
+    Object? arg6 = defaultArgument,
+    Object? arg7 = defaultArgument,
+    Object? arg8 = defaultArgument,
+    Object? arg9 = defaultArgument,
+  ]) {
     return KtLinkedSet.from([
       if (arg0 != defaultArgument) arg0 as T,
       if (arg1 != defaultArgument) arg1 as T,

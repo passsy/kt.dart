@@ -31,7 +31,7 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
   /// Returns a random element from this collection.
   ///
   /// @throws NoSuchElementException if this collection is empty.
-  T random([math.Random random]) {
+  T random([math.Random? random]) {
     final r = random ?? math.Random();
     return elementAt(r.nextInt(size));
   }
@@ -40,7 +40,7 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 }
 
-extension NullableKtCollectionExtensions<T> on KtCollection<T> /*?*/ {
+extension NullableKtCollectionExtensions<T> on KtCollection<T>? {
   /// Returns this [KtCollection] if it's not `null` and the empty list otherwise.
   KtCollection<T> orEmpty() => this ?? KtList<T>.empty();
 }

@@ -50,7 +50,7 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
 
     test("contains nothing", () {
       expect(emptyList<String>().contains("asdf"), isFalse);
-      expect(emptyList<int>().contains(null), isFalse);
+      expect(emptyList<int?>().contains(null), isFalse);
       expect(emptyList<int>().contains(0), isFalse);
       expect(emptyList<List>().contains([]), isFalse);
     });
@@ -84,8 +84,6 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => empty.get(-1),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(
-          () => empty.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf always returns -1", () {
@@ -130,18 +128,6 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(empty0, equals(empty1));
     });
 
-    test("sublist doesn't allow null as fromIndex", () {
-      final e =
-          catchException<ArgumentError>(() => emptyList().subList(null, 10));
-      expect(e.message, allOf(contains("null"), contains("fromIndex")));
-    });
-
-    test("sublist doesn't allow null as toIndex", () {
-      final e =
-          catchException<ArgumentError>(() => emptyList().subList(0, null));
-      expect(e.message, allOf(contains("null"), contains("toIndex")));
-    });
-
     test("sublist works for index 0 to 0", () {
       final empty = emptyList<Object>();
       final subList = empty.subList(0, 0);
@@ -167,13 +153,6 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(list.length, 0);
     });
 
-    test("listIterator requires index", () {
-      final ArgumentError e =
-          catchException(() => emptyList().listIterator(null));
-      expect(e.message, contains("index"));
-      expect(e.message, contains("null"));
-    });
-
     test("[] get operator", () {
       final list = emptyList();
 
@@ -183,9 +162,6 @@ void testEmptyList(KtList<T> Function<T>() emptyList, {bool mutable = true}) {
       expect(e1.message, contains("doesn't contain element at index: -1"));
       final e2 = catchException<IndexOutOfBoundsException>(() => list[3]);
       expect(e2.message, contains("doesn't contain element at index: 3"));
-
-      final e3 = catchException<ArgumentError>(() => list[null]);
-      expect(e3.message, allOf(contains("null"), contains("index")));
     });
 
     test("toString prints empty list", () {

@@ -35,13 +35,13 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
       linkedSetFrom(_map.entries.map((entry) => _MutableEntry.from(entry)));
 
   @override
-  V get(K key) => _map[key];
+  V? get(K key) => _map[key];
 
   @override
-  V operator [](K key) => get(key);
+  V? operator [](K key) => get(key);
 
   @override
-  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
+  V? getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
 
   @override
   bool isEmpty() => _map.isEmpty;
@@ -59,8 +59,8 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   void clear() => _map.clear();
 
   @override
-  V put(K key, V value) {
-    final V prev = _map[key];
+  V? put(K key, V value) {
+    final V? prev = _map[key];
     _map[key] = value;
     return prev;
   }
@@ -70,17 +70,13 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
 
   @override
   void putAll(KtMap<K, V> from) {
-    assert(() {
-      if (from == null) throw ArgumentError("from can't be null");
-      return true;
-    }());
     for (final entry in from.entries.iter) {
       _map[entry.key] = entry.value;
     }
   }
 
   @override
-  V remove(K key) => _map.remove(key);
+  V? remove(K key) => _map.remove(key);
 
   @override
   bool removeMapping(K key, V value) {
@@ -120,7 +116,7 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   String _entryToString(KtMapEntry<K, V> entry) =>
       "${_toString(entry.key)}=${_toString(entry.value)}";
 
-  String _toString(Object o) =>
+  String _toString(Object? o) =>
       identical(o, this) ? "(this Map)" : o.toString();
 }
 

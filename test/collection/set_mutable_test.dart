@@ -37,7 +37,7 @@ void main() {
     });
     test("only null is fine", () {
       // ignore: avoid_redundant_argument_values
-      final list = KtMutableSet<String>.of(null);
+      final list = KtMutableSet<String?>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);
       expect(list, KtSet.from([null]));
@@ -153,12 +153,6 @@ void testMutableSet(
       final result = list.removeAll(listOf("paul", "max", "tony"));
       expect(list, setOf("john", "lisa"));
       expect(result, isTrue);
-    });
-
-    test("removeAll requires elements to be non null", () {
-      final e =
-          catchException<ArgumentError>(() => mutableSetOf().removeAll(null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
     });
   });
 }

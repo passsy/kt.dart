@@ -64,11 +64,6 @@ void testList(
       final list = listOf(1, 2);
       expect(list.dropLast(3), emptyList());
     });
-
-    test("drop number can't be null", () {
-      final e = catchException<ArgumentError>(() => listFrom().dropLast(null));
-      expect(e.message, allOf(contains("n "), contains("null")));
-    });
   });
 
   group("dropLastWhile", () {
@@ -90,12 +85,6 @@ void testList(
       final list = listOf(1, 2);
       expect(list.dropLastWhile((_) => true), emptyList());
     });
-
-    test("drop number can't be null", () {
-      final e =
-          catchException<ArgumentError>(() => listFrom().dropLastWhile(null));
-      expect(e.message, allOf(contains("predicate"), contains("null")));
-    });
   });
 
   group("elementAt", () {
@@ -115,12 +104,6 @@ void testList(
       final eUnder =
           catchException<IndexOutOfBoundsException>(() => list.elementAt(-1));
       expect(eUnder.message, allOf(contains("index"), contains("-1")));
-    });
-
-    test("null is not a valid index", () {
-      final list = listOf("a", "b", "c");
-      final e = catchException<ArgumentError>(() => list.elementAt(null));
-      expect(e.message, allOf(contains("index"), contains("null")));
     });
   });
 
@@ -142,20 +125,6 @@ void testList(
       expect(list.elementAtOrElse(-1, (i) => "$i"), equals("-1"));
       expect(list.elementAtOrElse(10, (i) => "$i"), equals("10"));
     });
-
-    test("null is not a valid index", () {
-      final list = listOf("a", "b", "c");
-      final e = catchException<ArgumentError>(
-          () => list.elementAtOrElse(null, (i) => "x"));
-      expect(e.message, allOf(contains("index"), contains("null")));
-    });
-
-    test("null is not a function", () {
-      final list = listOf("a", "b", "c");
-      final e =
-          catchException<ArgumentError>(() => list.elementAtOrElse(1, null));
-      expect(e.message, allOf(contains("defaultValue"), contains("null")));
-    });
   });
 
   group("elementAtOrNull", () {
@@ -171,12 +140,6 @@ void testList(
       expect(list.elementAtOrNull(-1), isNull);
       expect(list.elementAtOrNull(10), isNull);
     });
-
-    test("null is not a valid index", () {
-      final list = listOf("a", "b", "c");
-      final e = catchException<ArgumentError>(() => list.elementAtOrNull(null));
-      expect(e.message, allOf(contains("index"), contains("null")));
-    });
   });
 
   group("foldRight", () {
@@ -185,12 +148,6 @@ void testList(
       final result = iterable.foldRight(
           listFrom<int>(), (it, KtList<int> acc) => acc + listFrom(it));
       expect(result, listOf(5, 6, 3, 4, 1, 2));
-    });
-
-    test("operation must be non null", () {
-      final e = catchException<ArgumentError>(
-          () => emptyList().foldRight("foo", null));
-      expect(e.message, allOf(contains("null"), contains("operation")));
     });
   });
 
@@ -205,12 +162,6 @@ void testList(
         return acc + listFrom(it);
       });
       expect(result, listOf(5, 6, 3, 4, 1, 2));
-    });
-
-    test("operation must be non null", () {
-      final e = catchException<ArgumentError>(
-          () => emptyList().foldRightIndexed("foo", null));
-      expect(e.message, allOf(contains("null"), contains("operation")));
     });
   });
 
@@ -250,16 +201,6 @@ void testList(
       final item = list.getOrElse(5, (i) => "index: 5");
       expect(item, "index: 5");
     });
-    test("index can't be null", () {
-      final e = catchException<ArgumentError>(
-          () => listFrom().getOrElse(null, (_) => "asdf"));
-      expect(e.message, allOf(contains("null"), contains("index")));
-    });
-    test("defaultValue function can't be null", () {
-      final e =
-          catchException<ArgumentError>(() => listFrom().getOrElse(1, null));
-      expect(e.message, allOf(contains("null"), contains("defaultValue")));
-    });
   });
 
   group("getOrNull", () {
@@ -272,10 +213,6 @@ void testList(
       final list = listOf("a", "b", "c");
       final item = list.getOrNull(-1);
       expect(item, isNull);
-    });
-    test("index can't be null", () {
-      final e = catchException<ArgumentError>(() => listFrom().getOrNull(null));
-      expect(e.message, allOf(contains("null"), contains("index")));
     });
   });
 
@@ -293,7 +230,7 @@ void testList(
 
   group("orEmpty", () {
     test("null -> empty list", () {
-      const KtList<int> collection = null;
+      const KtList<int>? collection = null;
       expect(collection.orEmpty(), isNotNull);
       expect(collection.orEmpty(), isA<KtList<int>>());
       expect(collection.orEmpty().isEmpty(), isTrue);
@@ -376,10 +313,6 @@ void testList(
       final result = list.slice(emptyList<int>());
       expect(result, emptyList());
     });
-    test("indices can't be null", () {
-      final e = catchException<ArgumentError>(() => listFrom().slice(null));
-      expect(e.message, allOf(contains("null"), contains("indices")));
-    });
     test("check upper bounds", () {
       final e = catchException<IndexOutOfBoundsException>(
           () => listOf(1, 2, 3).slice(listOf(3)));
@@ -414,15 +347,9 @@ void testList(
       expect(list.takeLast(2).toList(), listOf(3, 4));
     });
 
-    test("takeLast doesn't allow null as n", () {
-      final list = emptyList<num>();
-      final e = catchException<ArgumentError>(() => list.takeLast(null));
-      expect(e.message, allOf(contains("null"), contains("n")));
-    });
-
     test("take last element which is null", () {
       final list = listFrom([1, null]);
-      expect(list.takeLast(1).toList(), listFrom<int>([null]));
+      expect(list.takeLast(1).toList(), listFrom<int?>([null]));
       expect(list.takeLast(2).toList(), listFrom([1, null]));
     });
   });
@@ -451,12 +378,6 @@ void testList(
     test("takeLastWhile larger 3", () {
       final list = listOf(1, 2, 3, 4);
       expect(list.takeLastWhile((it) => it > 3), listOf(4));
-    });
-
-    test("predicate can't be null", () {
-      final list = listOf("a", "b", "c");
-      final e = catchException<ArgumentError>(() => list.takeLastWhile(null));
-      expect(e.message, allOf(contains("null"), contains("predicate")));
     });
   });
 }

@@ -1,8 +1,6 @@
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMutableList", () {
     testList(<T>() => KtMutableList.empty(), mutableListOf, mutableListFrom);
@@ -27,7 +25,7 @@ void main() {
     });
     test("only null is fine", () {
       // ignore: avoid_redundant_argument_values
-      final list = KtMutableList<String>.of(null);
+      final list = KtMutableList<String?>.of(null);
       expect(list.size, 1);
       expect(list.dart, [null]);
       expect(list, KtList.from([null]));
@@ -58,7 +56,7 @@ void testList(
     });
 
     test("contains nothing", () {
-      final list = mutableListOf("a", "b", "c");
+      final list = mutableListOf<String?>("a", "b", "c");
       expect(list.contains("a"), isTrue);
       expect(list.contains("b"), isTrue);
       expect(list.contains("c"), isTrue);
@@ -95,7 +93,6 @@ void testList(
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list.get(-1),
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list.get(null), throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("[] returns elements", () {
@@ -108,11 +105,10 @@ void testList(
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
       expect(() => list[-1],
           throwsA(const TypeMatcher<IndexOutOfBoundsException>()));
-      expect(() => list[null], throwsA(const TypeMatcher<ArgumentError>()));
     });
 
     test("indexOf return element or -1", () {
-      final list = mutableListOf("a", "b", "c");
+      final list = mutableListOf<String?>("a", "b", "c");
 
       expect(list.indexOf(""), equals(-1));
       expect(list.indexOf("a"), equals(0));
@@ -144,12 +140,6 @@ void testList(
       expect(list, listOf(4, 2, 10, 4, 1));
     });
 
-    test("set doesn't allow null as index", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf().set(null, "test"));
-      expect(e.message, allOf(contains("null"), contains("index")));
-    });
-
     test("set operator", () {
       final list = mutableListOf(1, 2, 3, 4, 5);
       list[2] = 10;
@@ -164,18 +154,6 @@ void testList(
       final list = mutableListOf("a", "b", "c");
       final subList = list.subList(1, 3);
       expect(subList, equals(mutableListOf("b", "c")));
-    });
-
-    test("sublist doesn't allow null as fromIndex", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf().subList(null, 10));
-      expect(e.message, allOf(contains("null"), contains("fromIndex")));
-    });
-
-    test("sublist doesn't allow null as toIndex", () {
-      final e =
-          catchException<ArgumentError>(() => mutableListOf().subList(0, null));
-      expect(e.message, allOf(contains("null"), contains("toIndex")));
     });
 
     test("sublist throws for illegal ranges", () {
@@ -211,12 +189,6 @@ void testList(
       expect(list, listOf("World", "Hello"));
     });
 
-    test("addAt doens't allow null as index", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf().addAt(null, listOf("test")));
-      expect(e.message, allOf(contains("null"), contains("index")));
-    });
-
     test("addAll add items at the end of the list", () {
       final list = mutableListOf("a");
       list.addAll(listOf("b", "c"));
@@ -229,24 +201,6 @@ void testList(
       list.addAllAt(0, listOf("b", "c"));
       expect(list.size, equals(3));
       expect(list, equals(listOf("b", "c", "a")));
-    });
-
-    test("addAllAt doens't allow null as index", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf().addAllAt(null, listOf("test")));
-      expect(e.message, allOf(contains("null"), contains("index")));
-    });
-
-    test("addAllAt doens't allow null as elements", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf().addAllAt(0, null));
-      expect(e.message, allOf(contains("null"), contains("elements")));
-    });
-
-    test("listIterator requires int as index", () {
-      final e = catchException<ArgumentError>(
-          () => mutableListOf("a", "b", "c").listIterator(null));
-      expect(e.message, allOf(contains("null"), contains("index")));
     });
 
     test("equals although differnt types (subtypes)", () {
