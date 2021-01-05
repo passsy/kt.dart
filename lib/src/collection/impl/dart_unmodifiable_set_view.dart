@@ -24,6 +24,9 @@ class UnmodifiableSetView<E> extends Object
   Set<T> cast<T>() => _set.cast<T>();
 
   @override
+  bool contains(Object? element) => _set.contains(element);
+
+  @override
   bool containsAll(Iterable<Object?> other) => _set.containsAll(other);
 
   @override
