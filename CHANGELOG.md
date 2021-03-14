@@ -1,6 +1,11 @@
+# 0.9.0
+
+- stable dependencies
+- Improve `KtSet.contains` performance
+
 # 0.9.0-nullsafety.0
 
-Migrate to Dart 2.12 with [null-safety(https://dart.dev/null-safety) support
+- Migrate to Dart 2.12 with [null-safety(https://dart.dev/null-safety) support
 
 # 0.8.0
 
