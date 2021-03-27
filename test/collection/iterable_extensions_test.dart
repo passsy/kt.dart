@@ -1614,12 +1614,25 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("sumBy", () {
-    test("double", () {
+    test("int", () {
       expect(iterableOf([1, 2, 3]).sumBy((i) => i * 2), 12);
     });
 
-    test("factor 1.5", () {
+    test("double", () {
+      expect(iterableOf([1, 2, 3]).sumBy((i) => i * 1.5), 9.0);
+
+      // ignore: deprecated_member_use_from_same_package
       expect(iterableOf([1, 2, 3]).sumByDouble((i) => i * 1.5), 9.0);
+    });
+
+    test("double as num", () {
+      const num factor = 1.5;
+      expect(iterableOf([1, 2, 3]).sumBy((i) => i * factor), 9.0);
+    });
+
+    test("double as num", () {
+      const num factor = 2;
+      expect(iterableOf([1, 2, 3]).sumBy((i) => i * factor), 12);
     });
   });
 

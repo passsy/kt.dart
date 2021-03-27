@@ -1291,21 +1291,18 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns the sum of all values produced by [selector] function applied to each element in the collection.
-  int sumBy(int Function(T) selector) {
-    int sum = 0;
+  R sumBy<R extends num>(R Function(T) selector) {
+    var sum = R == double ? 0.0 : 0;
     for (final element in iter) {
       sum += selector(element);
     }
-    return sum;
+    return sum as R;
   }
 
   /// Returns the sum of all values produced by [selector] function applied to each element in the collection.
+  @Deprecated("Use sumBy")
   double sumByDouble(double Function(T) selector) {
-    double sum = 0.0;
-    for (final element in iter) {
-      sum += selector(element);
-    }
-    return sum;
+    return sumBy(selector);
   }
 
   /// Returns a list containing first [n] elements.
