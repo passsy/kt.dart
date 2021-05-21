@@ -696,7 +696,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
   KtMap<K, KtList<T>> groupBy<K>(K Function(T) keySelector) {
     final groups = groupByTo(linkedMapFrom<K, KtMutableList<T>>(), keySelector);
-    return groups;
+    return groups.mapValues((pair) => pair.value);
   }
 
   /// Groups values returned by the [valueTransform] function applied to each element of the original collection
@@ -706,9 +706,9 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
   KtMap<K, KtList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
-    final groups = groupByToTransform(
-        linkedMapFrom<K, KtMutableList<V>>(), keySelector, valueTransform);
-    return groups;
+    final KtLinkedMap<K, KtMutableList<V>> groups =
+        groupByToTransform(linkedMapFrom(), keySelector, valueTransform);
+    return groups.mapValues((it) => it.value);
   }
 
   /// Groups elements of the original collection by the key returned by the given [keySelector] function

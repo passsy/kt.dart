@@ -842,6 +842,21 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("groupBy", () {
+    test("basic generic return type 100% matches", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final grouped = iterable.groupBy((it) => it.length);
+      // Fixes https://github.com/passsy/kt.dart/issues/139
+      expect(grouped.runtimeType.toString(), contains("<int, KtList<String>"));
+    });
+
+    test("valuetransform generic return type 100% matches", () {
+      final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
+      final grouped = iterable.groupByTransform(
+          (it) => it.length, (it) => it.toUpperCase());
+      // Fixes https://github.com/passsy/kt.dart/issues/139
+      expect(grouped.runtimeType.toString(), contains("<int, KtList<String>"));
+    });
+
     if (ordered) {
       test("basic", () {
         final iterable = iterableOf(["paul", "peter", "john", "lisa"]);
