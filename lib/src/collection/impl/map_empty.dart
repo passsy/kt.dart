@@ -25,7 +25,7 @@ class EmptyMap<K, V> extends Object implements KtMap<K, V> {
   V? get(K key) => null;
 
   @override
-  V? getOrDefault(K key, V defaultValue) => defaultValue;
+  V getOrDefault(K key, V defaultValue) => defaultValue;
 
   @override
   bool isEmpty() => true;

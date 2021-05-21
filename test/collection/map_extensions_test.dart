@@ -709,7 +709,7 @@ class ThirdPartyMap<K, V> implements KtMap<K, V> {
   V? operator [](K key) => get(key);
 
   @override
-  V? getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
+  V getOrDefault(K key, V defaultValue) => _map[key] ?? defaultValue;
 
   @override
   bool isEmpty() => _map.isEmpty;
