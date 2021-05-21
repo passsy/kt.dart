@@ -1,7 +1,6 @@
 import "dart:math" as math;
 
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/comparisons.dart";
 import "package:kt_dart/src/util/errors.dart";
 
 /// Classes that inherit from this interface can be represented as a sequence of elements that can
