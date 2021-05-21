@@ -1,7 +1,6 @@
 import "dart:math" as math;
 
 import "package:kt_dart/collection.dart";
-import "package:kt_dart/src/collection/comparisons.dart";
 import "package:kt_dart/src/util/errors.dart";
 
 /// Classes that inherit from this interface can be represented as a sequence of elements that can
@@ -695,7 +694,13 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
   KtMap<K, KtList<T>> groupBy<K>(K Function(T) keySelector) {
-    final groups = groupByTo(linkedMapFrom<K, KtMutableList<T>>(), keySelector);
+    final groups = linkedMapFrom<K, KtList<T>>();
+    for (final element in iter) {
+      final key = keySelector(element);
+      final list = KtMutableMapExtensions(groups)
+          .getOrPut(key, () => mutableListOf<T>()) as KtMutableList<T>;
+      list.add(element);
+    }
     return groups;
   }
 
@@ -706,8 +711,13 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
   KtMap<K, KtList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
-    final groups = groupByToTransform(
-        linkedMapFrom<K, KtMutableList<V>>(), keySelector, valueTransform);
+    final groups = linkedMapFrom<K, KtList<V>>();
+    for (final element in iter) {
+      final key = keySelector(element);
+      final list = KtMutableMapExtensions(groups)
+          .getOrPut(key, () => mutableListOf<V>()) as KtMutableList<V>;
+      list.add(valueTransform(element));
+    }
     return groups;
   }
 

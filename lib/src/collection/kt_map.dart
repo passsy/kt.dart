@@ -51,7 +51,7 @@ abstract class KtMap<K, V> {
   V? operator [](K key);
 
   /// Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map.
-  V? getOrDefault(K key, V defaultValue);
+  V getOrDefault(K key, V defaultValue);
 
   // Views
   /// Returns a read-only [KtSet] of all keys in this map.
