@@ -1,3 +1,9 @@
+# 0.9.1
+
+- [#138](https://github.com/passsy/kt.dart/pull/138) Deprecate `KtIterable<T>.sumByDouble` in favor of `KtIterable<T>.sumBy` which now works for `int` and `double`
+- [#140](https://github.com/passsy/kt.dart/pull/140) `KtMap.getOrDefault` now returns `V` instead of `V?`
+- [#140](https://github.com/passsy/kt.dart/pull/140) Fix `KtMap.groupBy` returning `KtMap<K, KtMutableList<T>>` instead of `KtMap<K, KtList<T>>` causing generic type problems in further processing
+
 # 0.9.0
 
 - stable dependencies

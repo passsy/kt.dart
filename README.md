@@ -9,6 +9,15 @@
 
 This project is a port of Kotlin's [Kotlin Standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html) for Dart/Flutter projects. It's a useful addition to [`dart:core`](https://api.dartlang.org/stable/dart-core/dart-core-library.html) and includes collections (`KtList`, `KtMap`, `KtSet`) as well as other packages which can improve every Dart/Flutter app. 
 
+```yaml
+dependencies: 
+  kt_dart: ^0.9.0
+```
+
+```dart
+import 'package:kt_dart/kt.dart';
+```
+
 
 ## Motivation
 
