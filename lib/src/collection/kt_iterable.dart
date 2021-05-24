@@ -1516,6 +1516,7 @@ extension ChainableKtIterableExtensions<T> on KtIterable<T> {
     return this;
   }
 }
+
 class _MovingSubList<T> {
   _MovingSubList(this.list);
 
