@@ -383,6 +383,34 @@ extension NullableKtListExtensions<T> on KtList<T>? {
   KtList<T> orEmpty() => this ?? KtList<T>.empty();
 }
 
+// TODO remove in favor of ChainableKtIterableExtensions once https://github.com/dart-lang/sdk/issues/46117 is resolved
+extension ChainableKtListExtensions<T> on KtList<T> {
+  /// Performs the given [action] on each element. Use with cascade syntax to return self.
+  ///
+  /// final result = listOf("a", "b", "c")
+  ///     .onEach(print)
+  ///     .map((it) => it.toUpperCase())
+  ///     .getOrNull(0);
+  /// // result: A
+  ///
+  /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
+  KtList<T> onEach(void Function(T item) action) {
+    for (final element in iter) {
+      action(element);
+    }
+    return this;
+  }
+
+  /// Performs the given action on each element, providing sequential index with the element, and returns the collection itself afterwards.
+  KtList<T> onEachIndexed(void Function(int index, T item) action) {
+    var index = 0;
+    for (final item in iter) {
+      action(index++, item);
+    }
+    return this;
+  }
+}
+
 extension RequireNoNullsKtListExtension<T> on KtList<T?> {
   /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
   KtList<T> requireNoNulls() {

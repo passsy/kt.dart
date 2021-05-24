@@ -1118,21 +1118,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return true;
   }
 
-  /// Performs the given [action] on each element. Use with cascade syntax to return self.
-  ///
-  ///       (listOf("a", "b", "c")
-  ///          ..onEach(print))
-  ///          .map((it) => it.toUpperCase())
-  ///          .getOrNull(0); // prints: a
-  ///
-  // ignore: comment_references
-  /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
-  void onEach(void Function(T) action) {
-    for (final element in iter) {
-      action(element);
-    }
-  }
-
   /// Splits the original collection into pair of lists,
   /// where *first* list contains elements for which [predicate] yielded `true`,
   /// while *second* list contains elements for which [predicate] yielded `false`.
@@ -1512,6 +1497,35 @@ extension RequireNoNullsKtIterableExtension<T> on KtIterable<T?> {
       }
     }
     return cast<T>();
+  }
+}
+
+// TODO: Should be <T, C extends KtIterable<T>> on C but then T resolves to dynamic
+// https://github.com/dart-lang/sdk/issues/46117
+extension ChainableKtIterableExtensions<T> on KtIterable<T> {
+  /// Performs the given [action] on each element. Use with cascade syntax to return self.
+  ///
+  /// final result = listOf("a", "b", "c")
+  ///     .onEach(print)
+  ///     .map((it) => it.toUpperCase())
+  ///     .getOrNull(0);
+  /// // result: A
+  ///
+  /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
+  KtIterable<T> onEach(void Function(T item) action) {
+    for (final element in iter) {
+      action(element);
+    }
+    return this;
+  }
+
+  /// Performs the given action on each element, providing sequential index with the element, and returns the collection itself afterwards.
+  KtIterable<T> onEachIndexed(void Function(int index, T item) action) {
+    var index = 0;
+    for (final item in iter) {
+      action(index++, item);
+    }
+    return this;
   }
 }
 
