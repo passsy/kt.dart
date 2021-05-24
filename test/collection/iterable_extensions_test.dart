@@ -53,6 +53,76 @@ void main() {
       testIterable(<T>() => KtLinkedSet<T>.empty(),
           <T>(Iterable<T> iterable) => KtLinkedSet<T>.from(iterable));
     });
+    group("CastKtIterable", () {
+      testIterable(<T>() => DartIterable([]).cast(),
+          <T>(Iterable<T> iterable) => DartIterable(iterable).cast());
+    });
+    group("CastKtList", () {
+      testIterable(<T>() => KtList<T>.empty().cast(),
+          <T>(Iterable<T> iterable) => KtList<T>.from(iterable).cast());
+    });
+  });
+
+  group("cast", () {
+    test("cast single element", () {
+      final dynamicIterable = DartIterable(["string", 1, null]);
+      final KtList<String> stringOnly =
+          // ignore: unnecessary_cast
+          (dynamicIterable.filter((it) => it is String) as KtIterable<dynamic>)
+              .cast<String>()
+              .toList();
+      expect(stringOnly.size, 1);
+      expect(stringOnly, listOf("string"));
+    });
+
+    test("cast empty list", () {
+      final dynamicIterable = DartIterable<int>([]);
+      final KtList<String> stringOnly =
+          // ignore: unnecessary_cast
+          (dynamicIterable.filter((it) => it is String) as KtIterable<dynamic>)
+              .cast<String>()
+              .toList();
+      expect(stringOnly.size, 0);
+      expect(stringOnly, listOf());
+      expect(stringOnly.getOrElse(0, (_) => "fallback"), "fallback");
+    });
+
+    group("cast infinity", () {
+      Iterable<num> infinityNums() sync* {
+        int i = 0;
+        // ignore: literal_only_boolean_expressions
+        while (true) {
+          yield i++;
+        }
+      }
+
+      test("cast infinity iterable", () {
+        // only testing this for iterable not lists because they try to return all elements
+        final infinity = DartIterable(infinityNums());
+        final KtIterable<int> ints = infinity.cast();
+        expect(ints.take(101).drop(100).first(), 100);
+      });
+
+      test("cast infinity iterator", () {
+        final infinity = DartIterable(infinityNums());
+        final KtIterator<int> iterator = infinity.cast<int>().iterator();
+        expect(iterator.hasNext(), isTrue);
+        expect(iterator.next(), 0);
+        expect(iterator.hasNext(), isTrue);
+        expect(iterator.next(), 1);
+        expect(iterator.hasNext(), isTrue);
+        expect(iterator.next(), 2);
+        expect(iterator.hasNext(), isTrue);
+        expect(iterator.next(), 3);
+      });
+    });
+
+    test("cast iterator with 0 elements", () {
+      final noElements = DartIterable<String>([]).cast<int>();
+      final KtIterator<int> iterator = noElements.iterator();
+      expect(iterator.hasNext(), isFalse);
+      expect(() => iterator.next(), throwsA(isA<NoSuchElementException>()));
+    });
   });
 }
 
@@ -1516,6 +1586,16 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final e = catchException<ArgumentError>(
           () => iterableOf(["paul", null, "john", "lisa"]).requireNoNulls());
       expect(e.message, contains("null element found"));
+    });
+
+    test("chains", () {
+      iterableOf(["a", "b", "c"]).requireNoNulls().requireNoNulls().toList();
+    });
+
+    test("removes nullable types", () {
+      final KtIterable<int?> list = iterableOf<int?>([1, 2, 3]);
+      final KtIterable<int> nonNull = list.requireNoNulls();
+      expect(nonNull.toList().runtimeType.toString(), contains('<int>'));
     });
   });
 

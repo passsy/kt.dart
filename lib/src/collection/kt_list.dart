@@ -1,7 +1,9 @@
 import "package:kt_dart/collection.dart";
+import 'package:kt_dart/src/collection/impl/iterator.dart';
 import "package:kt_dart/src/collection/impl/list.dart";
 import "package:kt_dart/src/collection/impl/list_empty.dart";
 import "package:kt_dart/src/util/arguments.dart";
+import 'package:kt_dart/src/util/hash.dart';
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
@@ -118,6 +120,12 @@ abstract class KtList<T> implements KtCollection<T> {
 }
 
 extension KtListExtensions<T> on KtList<T> {
+  /// Provides a view of this [KtList] as an list of [R] instances.
+  ///
+  /// If this [KtList] only contains instances of [R], all operations will work correctly.
+  /// If any operation tries to access an element that is not an instance of [R], the access will throw a [TypeError] instead.
+  KtList<R> cast<R>() => _CastKtList<T, R>(this);
+
   /// Returns a read-only dart:core [List]
   ///
   /// This method can be used to interop between the dart:collection and the
@@ -373,4 +381,141 @@ extension KtListExtensions<T> on KtList<T> {
 extension NullableKtListExtensions<T> on KtList<T>? {
   /// Returns this [KtList] if it's not `null` and the empty list otherwise.
   KtList<T> orEmpty() => this ?? KtList<T>.empty();
+}
+
+extension RequireNoNullsKtListExtension<T> on KtList<T?> {
+  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
+  KtList<T> requireNoNulls() {
+    for (final element in iter) {
+      if (element == null) {
+        throw ArgumentError("null element found in $this.");
+      }
+    }
+    return cast<T>();
+  }
+}
+
+/// View on an [KtList] casting each item when accessed
+class _CastKtList<Source, T> implements KtList<T> {
+  _CastKtList(KtList<Source> list) : _list = list;
+
+  final KtList<Source> _list;
+  int? _hashCode;
+
+  @override
+  Iterable<T> get iter => _list.asList().cast();
+
+  @override
+  KtIterator<T> iterator() {
+    return _CastKtIterator(_list.asList().iterator);
+  }
+
+  @override
+  T operator [](int index) {
+    return _list[index] as T;
+  }
+
+  @override
+  List<T> asList() {
+    return _list.dart.cast();
+  }
+
+  @override
+  bool contains(T element) {
+    return _list.contains(element as Source);
+  }
+
+  @override
+  bool containsAll(KtCollection<T> elements) {
+    return _list.containsAll(elements.map((it) => it as Source));
+  }
+
+  @override
+  T get(int index) {
+    return _list.get(index) as T;
+  }
+
+  @override
+  int indexOf(T element) {
+    return _list.indexOf(element as Source);
+  }
+
+  @override
+  bool isEmpty() {
+    return _list.isEmpty();
+  }
+
+  @override
+  int lastIndexOf(T element) {
+    return _list.lastIndexOf(element as Source);
+  }
+
+  @Deprecated("use asList() or iter instead")
+  @override
+  List<T> get list => _list.list.cast();
+
+  @override
+  KtListIterator<T> listIterator([int index = 0]) {
+    return InterOpKtListIterator(_list.asList().cast(), index);
+  }
+
+  @override
+  int get size => _list.size;
+
+  @override
+  KtList<T> subList(int fromIndex, int toIndex) {
+    return _list.subList(fromIndex, toIndex).map((it) => it as T);
+  }
+
+  @override
+  int get hashCode => _hashCode ??= 1 + hashObjects(_list.asList());
+
+  @override
+  bool operator ==(dynamic other) {
+    if (identical(other, this)) return true;
+    if (other is! KtList) return false;
+    if (other.size != size) return false;
+    if (other.hashCode != hashCode) return false;
+    for (var i = 0; i != size; ++i) {
+      if (other[i] != this[i]) return false;
+    }
+    return true;
+  }
+
+  @override
+  String toString() {
+    return joinToString(
+      separator: ", ",
+      prefix: "[",
+      postfix: "]",
+      transform: (it) =>
+          identical(it, this) ? "(this Collection)" : it.toString(),
+    );
+  }
+}
+
+class _CastKtIterator<Source, T> implements KtIterator<T> {
+  _CastKtIterator(this.iterator) : _hasNext = iterator.moveNext() {
+    if (_hasNext) {
+      _nextValue = iterator.current as T;
+    }
+  }
+
+  final Iterator<Source> iterator;
+  T? _nextValue;
+  bool _hasNext;
+
+  @override
+  bool hasNext() => _hasNext;
+
+  @override
+  T next() {
+    if (!_hasNext) throw const NoSuchElementException();
+    final e = _nextValue;
+    _hasNext = iterator.moveNext();
+    if (_hasNext) {
+      _nextValue = iterator.current as T;
+    }
+    return e as T;
+  }
 }

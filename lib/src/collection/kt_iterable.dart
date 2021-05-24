@@ -283,6 +283,14 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return sum / count;
   }
 
+  /// Provides a view of this [KtIterable] as an iterable of [R] instances.
+  ///
+  /// If this [KtIterable] only contains instances of [R], all operations will work correctly.
+  /// If any operation tries to access an element that is not an instance of [R], the access will throw a [TypeError] instead.
+  ///
+  /// When the returned [KtIterable] creates a new object that depends on the type [R], e.g., from [toList], it will have exactly the type [R].
+  KtIterable<R> cast<R>() => _CastKtIterable<T, R>(this);
+
   /// Splits this collection into a list of lists each not exceeding the given [size].
   ///
   /// The last list in the resulting list may have less elements than the given [size].
@@ -355,6 +363,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Returns a list containing all elements except first [n] elements.
   KtList<T> drop(int n) {
+    // TODO add exception if n is negative
     final list = mutableListOf<T>();
     var count = 0;
     for (final item in iter) {
@@ -1189,16 +1198,6 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return accumulator;
   }
 
-  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
-  KtIterable<T> requireNoNulls() {
-    for (final element in iter) {
-      if (element == null) {
-        throw ArgumentError("null element found in $this.");
-      }
-    }
-    return this;
-  }
-
   /// Returns a list with elements in reversed order.
   KtList<T> reversed() {
     if (this is KtCollection && (this as KtCollection).size <= 1) {
@@ -1504,6 +1503,18 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 }
 
+extension RequireNoNullsKtIterableExtension<T> on KtIterable<T?> {
+  /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
+  KtIterable<T> requireNoNulls() {
+    for (final element in iter) {
+      if (element == null) {
+        throw ArgumentError("null element found in $this.");
+      }
+    }
+    return cast<T>();
+  }
+}
+
 class _MovingSubList<T> {
   _MovingSubList(this.list);
 
@@ -1551,5 +1562,46 @@ extension UnzipKtIterableExtensions<T, R> on KtIterable<KtPair<T, R>> {
       listR.add(pair.second);
     }
     return KtPair(listT, listR);
+  }
+}
+
+/// View on an [KtIterable] casting each item when accessed
+class _CastKtIterable<Source, T> extends KtIterable<T> {
+  _CastKtIterable(this.iterable);
+
+  KtIterable<Source> iterable;
+
+  @override
+  Iterable<T> get iter => iterable.dart.cast();
+
+  @override
+  KtIterator<T> iterator() {
+    return _CastKtIterator(iterable.dart.iterator);
+  }
+}
+
+class _CastKtIterator<Source, T> implements KtIterator<T> {
+  _CastKtIterator(this.iterator) : _hasNext = iterator.moveNext() {
+    if (_hasNext) {
+      _nextValue = iterator.current as T;
+    }
+  }
+
+  final Iterator<Source> iterator;
+  T? _nextValue;
+  bool _hasNext;
+
+  @override
+  bool hasNext() => _hasNext;
+
+  @override
+  T next() {
+    if (!_hasNext) throw const NoSuchElementException();
+    final e = _nextValue;
+    _hasNext = iterator.moveNext();
+    if (_hasNext) {
+      _nextValue = iterator.current as T;
+    }
+    return e as T;
   }
 }
