@@ -314,6 +314,15 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final Iterable<String> iterable = emptyIterable<String>().dart;
       expect(iterable.length, 0);
     });
+
+    test('dart work on all objects', () {
+      // there was once a bug where it only worked for Comparable<T>
+      iterableOf(<dynamic>[]).dart;
+      iterableOf(<Object>[]).dart;
+      iterableOf(<num>[]).dart;
+      iterableOf(<RegExp>[]).dart;
+      iterableOf(<Future>[]).dart;
+    });
   });
 
   group("drop", () {
@@ -1022,6 +1031,27 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final b = iterableOf(["julie", "richard", "john", "lisa"]);
       final result = a.intersect(b);
       expect(result, setOf("john", "lisa"));
+    });
+  });
+
+  group("iter", () {
+    test("iterate using a for loop", () {
+      final items = KtMutableList<String>.empty();
+      for (final String s in iterableOf(["a", "b", "c"]).iter) {
+        items.add(s);
+      }
+      expect(items.size, 3);
+      if (ordered) {
+        expect(items, listOf("a", "b", "c"));
+      }
+    });
+
+    test('iter work on all objects', () {
+      iterableOf(<dynamic>[]).iter;
+      iterableOf(<Object>[]).iter;
+      iterableOf(<num>[]).iter;
+      iterableOf(<RegExp>[]).iter;
+      iterableOf(<Future>[]).iter;
     });
   });
 
