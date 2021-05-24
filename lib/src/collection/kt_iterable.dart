@@ -1489,7 +1489,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 }
 
-// Should be <T, C extends KtIterable<T>> on C but then T resolves to dynamic
+// TODO: Should be <T, C extends KtIterable<T>> on C but then T resolves to dynamic
+// https://github.com/dart-lang/sdk/issues/46117
 extension ChainableKtIterableExtensions<T> on KtIterable<T> {
   /// Performs the given [action] on each element. Use with cascade syntax to return self.
   ///

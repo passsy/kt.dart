@@ -152,3 +152,31 @@ extension NullableKtSetExtensions<T> on KtSet<T>? {
   /// Returns this [KtSet] if it's not `null` and the empty set otherwise.
   KtSet<T> orEmpty() => this ?? KtSet<T>.empty();
 }
+
+// TODO remove in favor of ChainableKtIterableExtensions once https://github.com/dart-lang/sdk/issues/46117 is resolved
+extension ChainableKtSetExtensions<T> on KtSet<T> {
+  /// Performs the given [action] on each element. Use with cascade syntax to return self.
+  ///
+  /// final result = setOf("a", "b", "c")
+  ///     .onEach(print)
+  ///     .map((it) => it.toUpperCase())
+  ///     .getOrNull(0);
+  /// // result: A
+  ///
+  /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
+  KtSet<T> onEach(void Function(T item) action) {
+    for (final element in iter) {
+      action(element);
+    }
+    return this;
+  }
+
+  /// Performs the given action on each element, providing sequential index with the element, and returns the collection itself afterwards.
+  KtSet<T> onEachIndexed(void Function(int index, T item) action) {
+    var index = 0;
+    for (final item in iter) {
+      action(index++, item);
+    }
+    return this;
+  }
+}
