@@ -47,7 +47,7 @@ class DartList<T> extends Object implements KtList<T> {
   bool isEmpty() => _list.isEmpty;
 
   @override
-  KtIterator<T> iterator() => InterOpKIterator<T>(_list.iterator);
+  KtIterator<T> iterator() => InterOpKtIterator<T>(_list.iterator);
 
   @override
   int lastIndexOf(T element) => _list.lastIndexOf(element);

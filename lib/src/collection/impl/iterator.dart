@@ -1,7 +1,7 @@
 import "package:kt_dart/collection.dart";
 
-class InterOpKIterator<T> implements KtIterator<T> {
-  InterOpKIterator(this.iterator) : _hasNext = iterator.moveNext() {
+class InterOpKtIterator<T> implements KtIterator<T> {
+  InterOpKtIterator(this.iterator) : _hasNext = iterator.moveNext() {
     if (_hasNext) {
       _nextValue = iterator.current;
     }
