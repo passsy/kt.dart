@@ -1414,6 +1414,45 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       iterable.onEach((it) => it.add(0));
       expect(iterable.map((it) => it.last).toList(), listOf(0, 0, 0));
     });
+
+    test("chainable", () {
+      final list = KtMutableList.empty();
+      final result = listOf("a", "b", "c")
+          .onEach((it) => list.add(it))
+          .map((it) => it.toUpperCase())
+          .getOrNull(0); // prints: A
+      expect(result, "A");
+      expect(list, listOf("a", "b", "c"));
+    });
+  });
+
+  group("onEachIndexed", () {
+    test("pairs", () {
+      final indexes = KtMutableList<int>.empty();
+      final items = KtMutableList<int>.empty();
+      final iterable = iterableOf([1, 2, 3]);
+      iterable.onEachIndexed((index, item) {
+        indexes.add(index);
+        items.add(item);
+      });
+      expect(indexes, listOf(0, 1, 2));
+      if (ordered) {
+        expect(items, iterable.toList());
+      }
+    });
+
+    test("chainable", () {
+      final list = KtMutableList.empty();
+      final result = listOf("a", "b", "c")
+          .onEachIndexed((index, it) {
+            list.add(index);
+            list.add(it);
+          })
+          .map((it) => it.toUpperCase())
+          .getOrNull(0); // prints: A
+      expect(result, "A");
+      expect(list, listOf(0, "a", 1, "b", 2, "c"));
+    });
   });
 
   group("partition", () {
