@@ -229,7 +229,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Performs given [action] on each key/value pair from this map.
   ///
   /// [action] must not be null.
-  void forEach(Function(K key, V value) action) {
+  void forEach(void Function(K key, V value) action) {
     entries.forEach((entry) => action(entry.key, entry.value));
   }
 
