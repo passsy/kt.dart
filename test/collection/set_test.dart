@@ -93,6 +93,15 @@ void testSet(
     expect(set.contains(null), isFalse);
   });
 
+  test('containsAll', () {
+    final list = listOf<String?>("a", "b", "c");
+    expect(list.containsAll(listOf("a", "b")), isTrue);
+    expect(list.containsAll(listOf("a", "c")), isTrue);
+    expect(list.containsAll(listOf()), isTrue);
+    expect(list.containsAll(listOf("x")), isFalse);
+    expect(list.containsAll(listOf("a", "x")), isFalse);
+  });
+
   test("empty iterator has no next", () {
     final set = setOf();
     final iterator = set.iterator();
