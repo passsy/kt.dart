@@ -1,4 +1,5 @@
 import "package:kt_dart/collection.dart";
+import 'package:kt_dart/src/util/arguments.dart';
 import "package:test/test.dart";
 
 import "../test/assert_dart.dart";
@@ -13,6 +14,37 @@ void main() {
     group("mutableList", () {
       testList(mutableListOf, mutableListOf, mutableListFrom);
       testList(<T>() => KtMutableList.empty(), mutableListOf, mutableListFrom);
+    });
+    group("CastKtList", () {
+      testList(
+        <T>() => KtList<T>.empty().cast(),
+        <T>(
+                [dynamic arg0,
+                dynamic arg1,
+                dynamic arg2,
+                dynamic arg3,
+                dynamic arg4,
+                dynamic arg5,
+                dynamic arg6,
+                dynamic arg7,
+                dynamic arg8,
+                dynamic arg9]) =>
+            KtList<dynamic>.of(
+                    arg0 as T? ?? defaultArgument,
+                    arg1 as T? ?? defaultArgument,
+                    arg2 as T? ?? defaultArgument,
+                    arg3 as T? ?? defaultArgument,
+                    arg4 as T? ?? defaultArgument,
+                    arg5 as T? ?? defaultArgument,
+                    arg6 as T? ?? defaultArgument,
+                    arg7 as T? ?? defaultArgument,
+                    arg8 as T? ?? defaultArgument,
+                    arg9 as T? ?? defaultArgument)
+                .cast(),
+        <T>([Iterable<T> iterable = const []]) =>
+            KtList<T>.from(iterable).cast(),
+        mutable: false,
+      );
     });
   });
 
@@ -73,6 +105,15 @@ void testList(
       expect(list.contains(null), isFalse);
       expect(list.contains(""), isFalse);
       expect(list.contains(null), isFalse);
+    });
+
+    test('containsAll', () {
+      final list = listOf<String?>("a", "b", "c");
+      expect(list.containsAll(listOf("a", "b")), isTrue);
+      expect(list.containsAll(listOf("a", "c")), isTrue);
+      expect(list.containsAll(listOf()), isTrue);
+      expect(list.containsAll(listOf("x")), isFalse);
+      expect(list.containsAll(listOf("a", "x")), isFalse);
     });
 
     test("iterator with 1 element has 1 next", () {
