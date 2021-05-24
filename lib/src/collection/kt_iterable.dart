@@ -16,12 +16,6 @@ abstract class KtIterable<T> {
 
 extension KtComparableIterableExtension<T extends Comparable<T>>
     on KtIterable<T> {
-  /// Returns a dart:core [Iterable]
-  ///
-  /// This method can be used to interop between the dart:collection and the
-  /// kt.dart world.
-  Iterable<T> get dart => iter;
-
   /// Returns the largest element or `null` if there are no elements.
   T? max() {
     final i = iterator();
@@ -125,6 +119,12 @@ extension KtDoubleIterableExtension on KtIterable<double> {
 }
 
 extension KtIterableExtensions<T> on KtIterable<T> {
+  /// Returns a dart:core [Iterable]
+  ///
+  /// This method can be used to interop between the dart:collection and the
+  /// kt.dart world.
+  Iterable<T> get dart => iter;
+
   /// Returns `true` if all elements match the given [predicate].
   bool all(bool Function(T element) predicate) {
     if (this is KtCollection && (this as KtCollection).isEmpty()) return true;
