@@ -226,5 +226,16 @@ void testSet(
           catchException<UnsupportedError>(() => ktSet.asSet().add("asdf"));
       expect(e.message, contains("unmodifiable"));
     });
+
+    test("hashcode changes when mutable value change", () {
+      final set = setOf(mutableListOf('a', 'b'));
+      final hash1 = set.hashCode;
+
+      // mutate content in set, not the set itself
+      set.first().add('d');
+
+      final hash2 = set.hashCode;
+      expect(hash2, isNot(hash1));
+    });
   }
 }

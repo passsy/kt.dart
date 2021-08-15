@@ -8,7 +8,6 @@ class DartSet<T> extends Object implements KtSet<T> {
         super();
 
   final Set<T> _set;
-  int? _hashCode;
 
   @override
   Iterable<T> get iter => _set;
@@ -41,7 +40,7 @@ class DartSet<T> extends Object implements KtSet<T> {
   int get size => _set.length;
 
   @override
-  int get hashCode => _hashCode ??=
+  int get hashCode =>
       hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
 
   @override

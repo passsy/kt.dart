@@ -20,7 +20,7 @@ void main() {
     group("KtList.of", () {
       testEmptyList(<T>() => KtList<T>.of(), mutable: false);
     });
-    group("KtList.of", () {
+    group("KtList.from", () {
       testEmptyList(<T>() => KtList<T>.from(), mutable: false);
     });
     group("mutableListOf", () {

@@ -428,7 +428,6 @@ class _CastKtList<Source, T> implements KtList<T> {
   _CastKtList(KtList<Source> list) : _list = list;
 
   final KtList<Source> _list;
-  int? _hashCode;
 
   @override
   Iterable<T> get iter => _list.asList().cast();
@@ -496,7 +495,7 @@ class _CastKtList<Source, T> implements KtList<T> {
   }
 
   @override
-  int get hashCode => _hashCode ??= 1 + hashObjects(_list.asList());
+  int get hashCode => 1 + hashObjects(_list.asList());
 
   @override
   bool operator ==(dynamic other) {

@@ -191,6 +191,17 @@ void testList(
       expect(list0, isNot(equals(list2)));
       expect(list0.hashCode, isNot(equals(list2.hashCode)));
     });
+
+    test("hashcode changes when mutable value change", () {
+      final list = listOf(mutableListOf('a', 'b'), mutableListOf('c'));
+      final hash1 = list.hashCode;
+
+      // mutate content in list, not the list itself
+      list[1].add('d');
+
+      final hash2 = list.hashCode;
+      expect(hash2, isNot(hash1));
+    });
   });
 
   group("reduceRight", () {

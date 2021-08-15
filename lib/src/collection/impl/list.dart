@@ -10,7 +10,6 @@ class DartList<T> extends Object implements KtList<T> {
         super();
 
   final List<T> _list;
-  int? _hashCode;
 
   @override
   Iterable<T> get iter => _list;
@@ -76,7 +75,7 @@ class DartList<T> extends Object implements KtList<T> {
   }
 
   @override
-  int get hashCode => _hashCode ??= 1 + hashObjects(_list);
+  int get hashCode => 1 + hashObjects(_list);
 
   @override
   bool operator ==(dynamic other) {

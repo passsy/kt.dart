@@ -159,4 +159,15 @@ void testMap(KtMap<K, V> Function<K, V>(Map<K, V> map) mapFrom,
       expect(keys, listOf(1, 2));
     });
   });
+
+  test("hashcode changes when mutable value change", () {
+    final map = mapFrom({1: mutableListOf('a', 'b')});
+    final hash1 = map.hashCode;
+
+    // mutate content in map, not the map itself
+    map[1]!.add('d');
+
+    final hash2 = map.hashCode;
+    expect(hash2, isNot(hash1));
+  });
 }
