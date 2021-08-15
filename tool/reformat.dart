@@ -3,15 +3,8 @@ import "dart:io";
 
 Future<void> main(List<String> args) async {
   stdout.writeln("Reformatting project with dartfmt");
-  final Process dartfmt = await Process.start("dartfmt", [
-    "--set-exit-if-changed",
-    "-w",
-    "--fix",
-    "example",
-    "lib",
-    "test",
-    "tool",
-  ]);
+  final Process dartfmt = await Process.start(
+      "dart", ["format", "--set-exit-if-changed", "--fix", "."]);
 
   // ignore: unawaited_futures
   stderr.addStream(dartfmt.stderr);
