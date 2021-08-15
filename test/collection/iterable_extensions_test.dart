@@ -700,17 +700,18 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("filterNotNull", () {
     test("filterNotNull", () {
-      final iterable = iterableOf(["paul", null, "john", "lisa"]);
-      expect(iterable.filterNotNull().toSet(),
-          equals(setOf("paul", "john", "lisa")));
+      final KtIterable<String?> iterable =
+          iterableOf(["paul", null, "john", "lisa"]);
+      final KtSet<String> set = iterable.filterNotNull().toSet();
+      expect(set, equals(setOf("paul", "john", "lisa")));
     });
   });
 
   group("filterNotNullTo", () {
     test("filterNotNullTo same type", () {
-      final iterable = iterableOf([4, 25, null, 10]);
-      final result = mutableListOf<int?>();
-      final filtered = iterable.filterNotNullTo(result);
+      final KtIterable<int?> iterable = iterableOf([4, 25, null, 10]);
+      final result = mutableListOf<int>();
+      final KtMutableList<int> filtered = iterable.filterNotNullTo(result);
       expect(identical(result, filtered), isTrue);
       if (ordered) {
         expect(result, listOf(4, 25, 10));
@@ -1301,13 +1302,12 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   if (ordered) {
     group("mapIndexedNotNull", () {
       test("mapIndexedNotNull int to string", () {
-        final iterable = iterableOf(["a", null, "b", "c"]);
-        expect(
-            iterable.mapIndexedNotNull((index, it) {
-              if (it == null) return null;
-              return "$index$it";
-            }).toList(),
-            listOf("0a", "2b", "3c"));
+        final KtIterable<String?> iterable = iterableOf(["a", null, "b", "c"]);
+        final KtList<String> result = iterable.mapIndexedNotNull((index, it) {
+          if (it == null) return null;
+          return "$index$it";
+        }).toList();
+        expect(result, listOf("0a", "2b", "3c"));
       });
     });
   }
