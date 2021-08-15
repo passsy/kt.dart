@@ -1,8 +1,8 @@
 import "package:kt_dart/collection.dart";
 import 'package:kt_dart/src/collection/impl/iterator.dart';
 import "package:kt_dart/src/collection/impl/list.dart";
+import "package:kt_dart/src/collection/impl/list_const.dart";
 import "package:kt_dart/src/collection/impl/list_empty.dart";
-import "package:kt_dart/src/util/arguments.dart";
 import 'package:kt_dart/src/util/hash.dart';
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
@@ -21,7 +21,7 @@ abstract class KtList<T> implements KtCollection<T> {
   /// Returns a new read-only list of given elements.
   ///
   /// `null` is a valid argument
-  factory KtList.of(
+  const factory KtList.of(
       [T arg0,
       T arg1,
       T arg2,
@@ -31,35 +31,7 @@ abstract class KtList<T> implements KtCollection<T> {
       T arg6,
       T arg7,
       T arg8,
-      T arg9]) = KtList<T>._of;
-
-  /// Implementation of KtList.of which creates a list of provided arguments
-  /// where `T` might be `T` or `null`.
-  factory KtList._of([
-    Object? arg0 = defaultArgument,
-    Object? arg1 = defaultArgument,
-    Object? arg2 = defaultArgument,
-    Object? arg3 = defaultArgument,
-    Object? arg4 = defaultArgument,
-    Object? arg5 = defaultArgument,
-    Object? arg6 = defaultArgument,
-    Object? arg7 = defaultArgument,
-    Object? arg8 = defaultArgument,
-    Object? arg9 = defaultArgument,
-  ]) {
-    return KtList.from([
-      if (arg0 != defaultArgument) arg0 as T,
-      if (arg1 != defaultArgument) arg1 as T,
-      if (arg2 != defaultArgument) arg2 as T,
-      if (arg3 != defaultArgument) arg3 as T,
-      if (arg4 != defaultArgument) arg4 as T,
-      if (arg5 != defaultArgument) arg5 as T,
-      if (arg6 != defaultArgument) arg6 as T,
-      if (arg7 != defaultArgument) arg7 as T,
-      if (arg8 != defaultArgument) arg8 as T,
-      if (arg9 != defaultArgument) arg9 as T,
-    ]);
-  }
+      T arg9]) = ConstDartList<T>;
 
   /// Deprecated, use [asList] or [iter] for loops
   @Deprecated("use asList() or iter instead")

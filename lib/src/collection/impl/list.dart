@@ -31,7 +31,8 @@ class DartList<T> extends Object implements KtList<T> {
   @override
   T get(int index) {
     if (index < 0 || index >= size) {
-      throw IndexOutOfBoundsException("index: $index, size: $size");
+      throw IndexOutOfBoundsException(
+          "List doesn't contain element at index: $index, size: $size");
     }
     return _list[index];
   }
