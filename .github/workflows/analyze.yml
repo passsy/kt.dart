@@ -18,5 +18,4 @@ jobs:
     - uses: actions/checkout@master
     - run: pub get
     - run: pub run tool/reformat.dart
-    - run: dart format --set-exit-if-changed .
     - run: pub publish -n
