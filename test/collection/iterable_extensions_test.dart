@@ -1656,7 +1656,9 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("shuffled", () {
-    test("shuffled returns a new list with shuffled items in the list with provided Random object", () {
+    test(
+        "shuffled returns a new list with shuffled items in the list with provided Random object",
+        () {
       final list = iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       final firstList = list.shuffled(math.Random(1));
       final secondList = list.shuffled(math.Random(2));
