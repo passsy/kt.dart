@@ -1,5 +1,4 @@
 import "dart:math" as math;
-import 'dart:math';
 
 import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/util/errors.dart";
@@ -1112,7 +1111,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns a new list with the elements of this list randomly shuffled.
-  KtList<T> shuffled([Random? random]){
+  KtList<T> shuffled([math.Random? random]){
     return toMutableList()..shuffle(random);
   }
 
