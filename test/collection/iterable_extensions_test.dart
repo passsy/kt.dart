@@ -1657,10 +1657,9 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
   group("shuffled", () {
     test("shuffled returns a new list with shuffled items in the list with provided Random object", () {
-      final firstList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      firstList.shuffle(math.Random(1));
-      final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      secondList.shuffle(math.Random(2));
+      final list = iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      final firstList = list.shuffled(math.Random(1));
+      final secondList = list.shuffled(math.Random(2));
       expect(firstList, isNot(equals(secondList)));
     });
 
