@@ -1,4 +1,5 @@
 import "dart:math" as math;
+import 'dart:math';
 
 import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/util/errors.dart";
@@ -1108,6 +1109,11 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final list = toMutableList();
     list.reverse();
     return list;
+  }
+
+  /// Returns a new list with the elements of this list randomly shuffled.
+  KtList<T> shuffled([Random? random]){
+    return toMutableList()..shuffle(random);
   }
 
   /// Returns the single element matching the given [predicate], or throws an exception if the list is empty or has more than one element.
