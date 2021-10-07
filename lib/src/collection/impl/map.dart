@@ -65,7 +65,7 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
     return hashObjects(_map.keys
         .map((key) => hash2(key.hashCode, _map[key].hashCode))
         .toList(growable: false)
-          ..sort());
+      ..sort());
   }
 
   @override

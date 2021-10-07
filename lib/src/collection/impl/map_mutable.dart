@@ -105,7 +105,7 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   int get hashCode => hashObjects(_map.keys
       .map((key) => hash2(key.hashCode, _map[key].hashCode))
       .toList(growable: false)
-        ..sort());
+    ..sort());
 
   @override
   String toString() {
