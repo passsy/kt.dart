@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/iterable.dart";
@@ -1658,9 +1658,9 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   group("shuffled", () {
     test("shuffled returns a new list with shuffled items in the list with provided Random object", () {
       final firstList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      firstList.shuffle(Random(1));
+      firstList.shuffle(math.Random(1));
       final secondList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      secondList.shuffle(Random(2));
+      secondList.shuffle(math.Random(2));
       expect(firstList, isNot(equals(secondList)));
     });
 
