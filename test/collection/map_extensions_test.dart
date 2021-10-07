@@ -740,7 +740,7 @@ class ThirdPartyMap<K, V> implements KtMap<K, V> {
     return _hashCode ??= hashObjects(_map.keys
         .map((key) => hash2(key.hashCode, _map[key].hashCode))
         .toList(growable: false)
-      ..sort());
+          ..sort());
   }
 }
 

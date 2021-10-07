@@ -1111,7 +1111,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Returns a new list with the elements of this list randomly shuffled.
-  KtList<T> shuffled([math.Random? random]){
+  KtList<T> shuffled([math.Random? random]) {
     return toMutableList()..shuffle(random);
   }
 
