@@ -1661,8 +1661,10 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
         () {
       final list = iterableOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       final firstList = list.shuffled(math.Random(1));
+      expect(firstList, listOf(6, 4, 10, 9, 3, 2, 7, 8, 1, 5));
+
       final secondList = list.shuffled(math.Random(2));
-      expect(firstList, isNot(equals(secondList)));
+      expect(secondList, listOf(8, 6, 3, 10, 9, 1, 2, 5, 7, 4));
     });
 
     test("empty", () {
