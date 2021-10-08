@@ -1666,11 +1666,11 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
 
     test("empty", () {
-      expect(emptyIterable<int>().shuffled().toList(), emptyList<int>());
+      expect(emptyIterable<int>().shuffled(), emptyList<int>());
     });
 
     test("one", () {
-      expect(listOf(1).shuffled().toList(), listOf(1));
+      expect(listOf(1).shuffled(), listOf(1));
     });
   });
 
