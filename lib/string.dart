@@ -1,16 +1,29 @@
+import 'package:meta/meta.dart';
+
 extension StringExtension on String {
 
-  String replaceFirstChar(String Function() transform) {    
-    if (this == null || this == '') {
-      return this;
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:tryInline')
+  @experimental
+  String replaceFirstChar(String Function() transform) {   
+    if (isNotEmpty) {
+      return transform();
     }
-    return transform();
-  }
 
-  String capitalize() {
+    return this;
+  }
+  
+
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:tryInline')
+  @experimental
+  String uppercase() {
       return "${this[0].toUpperCase()}${substring(1)}";
   }
 
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:tryInline')
+  @experimental
   String lowercase() {
       return "${this[0].toLowerCase()}${substring(1)}";
   }
