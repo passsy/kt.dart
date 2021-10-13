@@ -1101,8 +1101,8 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   }
 
   /// Accumulates value starting with the first element and applying [operation] from left to right to current accumulator value and each element.
-  /// 
-  /// Returns null if the array is empty.
+  ///
+  /// Returns null if the list is empty.
   S? reduceOrNull<S>(S Function(S acc, T) operation) {
     final i = iterator();
     if (!i.hasNext()) {
