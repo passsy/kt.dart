@@ -1641,6 +1641,19 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("reduceOrNull", () {
+    test("reduceOrNull", () {
+      final result =
+          iterableOf([1, 2, 3, 4]).reduceOrNull((int acc, it) => it + acc);
+      expect(result, 10);
+    });
+
+    test("return null when empty", () {
+      expect(
+          emptyIterable<int>().reduceOrNull((int acc, it) => it + acc), null);
+    });
+  });
+
   group("requireNoNulls", () {
     test("throw when nulls are found", () {
       final e = catchException<ArgumentError>(
