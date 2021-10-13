@@ -1102,7 +1102,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
 
   /// Accumulates value starting with the first element and applying [operation] from left to right
   /// to current accumulator value and each element with its index in the original collection.
-  /// 
+  ///
   /// Returns null if the list is empty.
   S? reduceIndexedOrNull<S>(S Function(int index, S acc, T) operation) {
     final i = iterator();
