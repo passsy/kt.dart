@@ -75,6 +75,16 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   @override
   bool remove(T element);
 
+  /// Removes the first element from this mutable list.
+  ///
+  /// Returns that removed element, or throws [NoSuchElementException] if this list is empty.
+  T removeFirst();
+
+  /// Removes the last element from this mutable list.
+  ///
+  /// Returns that removed element, or throws [NoSuchElementException] if this list is empty.
+  T removeLast();
+
   // Bulk Modification Operations
   /// Adds all of the elements of the specified collection to the end of this list.
   ///
