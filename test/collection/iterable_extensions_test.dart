@@ -1625,7 +1625,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     test("reduceIndexedOrNull", () {
       var i = 1;
       final result =
-          iterableOf([1, 2, 3, 4]).reduceIndexed((index, int acc, it) {
+          iterableOf([1, 2, 3, 4]).reduceIndexedOrNull((index, int acc, it) {
         expect(index, i);
         i++;
         return it + acc;
@@ -1636,7 +1636,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     test("return null when empty", () {
       expect(
           () => emptyIterable<int>()
-              .reduceIndexed((index, int acc, it) => it + acc),
+              .reduceIndexedOrNull((index, int acc, it) => it + acc),
           null);
     });
   });
