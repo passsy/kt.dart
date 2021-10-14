@@ -235,4 +235,29 @@ void testList(
       expect(() => list.removeFirst(), throwsA(isA<NoSuchElementException>()));
     });
   });
+
+  group("removeLast", () {
+    test("remove last item when found", () {
+      final list = KtMutableList.of("1", "2", "3");
+      final result = list.removeLast();
+      expect(list, KtMutableList.of("1", "2"));
+      expect(result, "3");
+    });
+    test("remove last item when length is 1", () {
+      final list = KtMutableList.of("1");
+      final result = list.removeLast();
+      expect(list, KtMutableList.of());
+      expect(result, "1");
+    });
+    test("remove last item when null", () {
+      final list = KtMutableList.of(null, "2", null);
+      final result = list.removeLast();
+      expect(list, KtMutableList.of(null, "2"));
+      expect(result, null);
+    });
+    test("throw when list is empty", () {
+      final list = KtMutableList.of();
+      expect(() => list.removeLast(), throwsA(isA<NoSuchElementException>()));
+    });
+  });
 }
