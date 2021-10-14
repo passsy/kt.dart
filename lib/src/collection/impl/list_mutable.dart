@@ -123,6 +123,17 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   }
 
   @override
+  T? removeFirstOrNull() {
+    if (_list.isNotEmpty) {
+      final firstElement = _list.first;
+      _list.removeAt(0);
+      return firstElement;
+    } else {
+      return null;
+    }
+  }
+
+  @override
   T removeLast() {
     if (_list.isNotEmpty) {
       final lastElement = _list.last;

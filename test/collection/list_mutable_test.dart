@@ -260,4 +260,31 @@ void testList(
       expect(() => list.removeLast(), throwsA(isA<NoSuchElementException>()));
     });
   });
+
+  group("removeFirstOrNull", () {
+    test("remove first item when found", () {
+      final list = mutableListOf("1", "2", "3");
+      final result = list.removeFirstOrNull();
+      expect(list, mutableListOf("2", "3"));
+      expect(result, "1");
+    });
+    test("remove first item when length is 1", () {
+      final list = mutableListOf("1");
+      final result = list.removeFirstOrNull();
+      expect(list, mutableListOf());
+      expect(result, "1");
+    });
+    test("null when item in list is null", () {
+      final list = mutableListOf(null, null);
+      final result = list.removeFirstOrNull();
+      expect(list, mutableListOf(null));
+      expect(result, null);
+    });
+    test("null when list is empty", () {
+      final list = mutableListOf();
+      final result = list.removeFirstOrNull();
+      expect(list, mutableListOf());
+      expect(result, null);
+    });
+  });
 }
