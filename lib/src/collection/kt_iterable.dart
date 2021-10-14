@@ -952,6 +952,24 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return maxElement;
   }
 
+  /// Returns the largest value among all values produced by selector function applied to each element in the collection.
+  ///
+  /// Throws a [NoSuchElementException] if the list is empty.
+  R maxOf<R extends Comparable>(R Function(T) selector) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      throw const NoSuchElementException("Collection is empty.");
+    }
+    R maxValue = selector(i.next());
+    while (i.hasNext()) {
+      final v = selector(i.next());
+      if (maxValue.compareTo(v) < 0) {
+        maxValue = v;
+      }
+    }
+    return maxValue;
+  }
+
   /// Returns the first element having the largest value according to the provided [comparator] or `null` if there are no elements.
   T? maxWith(Comparator<T> comparator) {
     final i = iterator();
