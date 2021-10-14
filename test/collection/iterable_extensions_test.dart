@@ -1427,6 +1427,25 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("minOf", () {
+    test("gets min value", () {
+      const comparableItem = Duration(seconds: 1);
+      final iterable = iterableOf(const [
+        Duration(seconds: 3),
+        Duration(seconds: 2),
+        comparableItem,
+      ]);
+      expect(iterable.minOf((it) => it), comparableItem);
+    });
+
+    test("empty iterable throw ", () {
+      final iterable = emptyIterable<int>();
+      expect(() => iterable.minOf((it) => it), throwsException);
+      // with generic type
+      expect(() => iterable.minOf<num>((it) => it), throwsException);
+    });
+  });
+
   group("minWith", () {
     int _intComparison(int value, int other) => value.compareTo(other);
 
