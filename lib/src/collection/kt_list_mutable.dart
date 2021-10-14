@@ -75,6 +75,9 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   @override
   bool remove(T element);
 
+  @override
+  T removeFirst(KtIterable<T> elements);
+
   // Bulk Modification Operations
   /// Adds all of the elements of the specified collection to the end of this list.
   ///

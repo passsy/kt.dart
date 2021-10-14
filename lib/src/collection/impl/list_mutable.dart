@@ -113,6 +113,14 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   void operator []=(int index, T element) => set(index, element);
 
   @override
+  T removeFirst(KtIterable<T> elements) {
+    if (!elements.none()) {
+      _list.removeAt(0);
+    }
+    throw const NoSuchElementException('List is empty.');
+  }
+
+  @override
   bool removeAll(KtIterable<T> elements) {
     var changed = false;
     for (final value in elements.iter) {

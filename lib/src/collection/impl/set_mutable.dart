@@ -76,6 +76,14 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   bool remove(T element) => _set.remove(element);
 
   @override
+  T removeFirst(KtIterable<T> elements) {
+    if (!elements.none()) {
+      _set.remove(elements.first());
+    }
+    throw const NoSuchElementException('List is empty.');
+  }
+
+  @override
   bool removeAll(KtIterable<T> elements) {
     final oldSize = size;
     for (final value in elements.iter) {
