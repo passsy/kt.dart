@@ -113,8 +113,8 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   void operator []=(int index, T element) => set(index, element);
 
   @override
-  T removeFirst(KtIterable<T> elements) {
-    if (!elements.none()) {
+  T removeFirst() {
+    if (_list.isNotEmpty) {
       final firstElement = _list.first;
       _list.removeAt(0);
       return firstElement;
@@ -123,8 +123,8 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   }
 
   @override
-  T removeLast(KtIterable<T> elements) {
-    if (!elements.none()) {
+  T removeLast() {
+    if (_list.isNotEmpty) {
       final lastElement = _list.last;
       _list.removeLast();
       return lastElement;

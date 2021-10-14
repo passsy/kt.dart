@@ -25,12 +25,12 @@ abstract class KtMutableCollection<T>
   /// Removes the first element from this mutable list.
   ///
   /// @return  that removed element, or throws [NoSuchElementException] if this list is empty.
-  T removeFirst(KtIterable<T> elements);
+  T removeFirst();
 
   /// Removes the last element from this mutable list.
   ///
   /// @return  that removed element, or throws [NoSuchElementException] if this list is empty.
-  T removeLast(KtIterable<T> elements);
+  T removeLast();
 
   // Bulk Modification Operations
   /// Adds all of the elements in the specified collection to this collection.
