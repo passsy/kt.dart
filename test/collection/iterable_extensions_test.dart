@@ -1377,7 +1377,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.maxOf((it) => it), comparableItem);
     });
 
-    test("empty iterable throw ", () {
+    test("empty iterable throw", () {
       final iterable = emptyIterable<int>();
       expect(() => iterable.maxOf((it) => it), throwsException);
       // with generic type
@@ -1458,7 +1458,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.minOf((it) => it), comparableItem);
     });
 
-    test("empty iterable throw ", () {
+    test("empty iterable throw", () {
       final iterable = emptyIterable<int>();
       expect(() => iterable.minOf((it) => it), throwsException);
       // with generic type
