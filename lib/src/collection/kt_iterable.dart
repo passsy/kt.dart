@@ -1009,6 +1009,24 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return minElement;
   }
 
+  /// Returns the smallest value among all values produced by selector function applied to each element in the array.
+  ///
+  /// Throws a [NoSuchElementException] if the list is empty.
+  R minOf<R extends Comparable>(R Function(T) selector) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      throw const NoSuchElementException("Collection is empty.");
+    }
+    R minValue = selector(i.next());
+    while (i.hasNext()) {
+      final v = selector(i.next());
+      if (minValue.compareTo(v) > 0) {
+        minValue = v;
+      }
+    }
+    return minValue;
+  }
+
   /// Returns the first element having the smallest value according to the provided [comparator] or `null` if there are no elements.
   T? minWith(Comparator<T> comparator) {
     final i = iterator();
