@@ -210,4 +210,29 @@ void testList(
       expect(linkedSetOf<num>(1, 2, 3), linkedSetOf<int>(1, 2, 3));
     });
   });
+
+  group("removeFirst", () {
+    test("remove first item when found", () {
+      final list = KtMutableList.of("1", "2", "3");
+      final result = list.removeFirst();
+      expect(list, KtMutableList.of("2", "3"));
+      expect(result, "1");
+    });
+    test("remove first item when length is 1", () {
+      final list = KtMutableList.of("1");
+      final result = list.removeFirst();
+      expect(list, KtMutableList.of());
+      expect(result, "1");
+    });
+    test("remove first item when null", () {
+      final list = KtMutableList.of(null, null);
+      final result = list.removeFirst();
+      expect(list, KtMutableList.of(null));
+      expect(result, null);
+    });
+    test("throw when list is empty", () {
+      final list = KtMutableList.of();
+      expect(() => list.removeFirst(), throwsA(isA<NoSuchElementException>()));
+    });
+  });
 }
