@@ -1635,7 +1635,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("return null when empty", () {
       expect(
-          () => emptyIterable<int>()
+          emptyIterable<int>()
               .reduceIndexedOrNull((index, int acc, it) => it + acc),
           null);
     });
