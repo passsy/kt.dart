@@ -213,50 +213,50 @@ void testList(
 
   group("removeFirst", () {
     test("remove first item when found", () {
-      final list = KtMutableList.of("1", "2", "3");
+      final list = mutableListOf("1", "2", "3");
       final result = list.removeFirst();
-      expect(list, KtMutableList.of("2", "3"));
+      expect(list, mutableListOf("2", "3"));
       expect(result, "1");
     });
     test("remove first item when length is 1", () {
-      final list = KtMutableList.of("1");
+      final list = mutableListOf("1");
       final result = list.removeFirst();
-      expect(list, KtMutableList.of());
+      expect(list, mutableListOf());
       expect(result, "1");
     });
     test("remove first item when null", () {
-      final list = KtMutableList.of(null, null);
+      final list = mutableListOf(null, null);
       final result = list.removeFirst();
-      expect(list, KtMutableList.of(null));
+      expect(list, mutableListOf(null));
       expect(result, null);
     });
     test("throw when list is empty", () {
-      final list = KtMutableList.of();
+      final list = mutableListOf();
       expect(() => list.removeFirst(), throwsA(isA<NoSuchElementException>()));
     });
   });
 
   group("removeLast", () {
     test("remove last item when found", () {
-      final list = KtMutableList.of("1", "2", "3");
+      final list = mutableListOf("1", "2", "3");
       final result = list.removeLast();
-      expect(list, KtMutableList.of("1", "2"));
+      expect(list, mutableListOf("1", "2"));
       expect(result, "3");
     });
     test("remove last item when length is 1", () {
-      final list = KtMutableList.of("1");
+      final list = mutableListOf("1");
       final result = list.removeLast();
-      expect(list, KtMutableList.of());
+      expect(list, mutableListOf());
       expect(result, "1");
     });
     test("remove last item when null", () {
-      final list = KtMutableList.of(null, "2", null);
+      final list = mutableListOf(null, "2", null);
       final result = list.removeLast();
-      expect(list, KtMutableList.of(null, "2"));
+      expect(list, mutableListOf(null, "2"));
       expect(result, null);
     });
     test("throw when list is empty", () {
-      final list = KtMutableList.of();
+      final list = mutableListOf();
       expect(() => list.removeLast(), throwsA(isA<NoSuchElementException>()));
     });
   });
