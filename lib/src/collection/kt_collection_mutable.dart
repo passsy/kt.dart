@@ -22,16 +22,6 @@ abstract class KtMutableCollection<T>
   /// @return `true` if the element has been successfully removed; `false` if it was not present in the collection.
   bool remove(T element);
 
-  /// Removes the first element from this mutable list.
-  ///
-  /// @return  that removed element, or throws [NoSuchElementException] if this list is empty.
-  T removeFirst();
-
-  /// Removes the last element from this mutable list.
-  ///
-  /// @return  that removed element, or throws [NoSuchElementException] if this list is empty.
-  T removeLast();
-
   // Bulk Modification Operations
   /// Adds all of the elements in the specified collection to this collection.
   ///
