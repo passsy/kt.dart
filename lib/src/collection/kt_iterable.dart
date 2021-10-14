@@ -17,7 +17,11 @@ abstract class KtIterable<T> {
 extension KtComparableIterableExtension<T extends Comparable<T>>
     on KtIterable<T> {
   /// Returns the largest element or `null` if there are no elements.
-  T? max() {
+  @Deprecated("use maxOrNull")
+  T? max() => maxOrNull();
+
+  /// Returns the largest element or `null` if there are no elements.
+  T? maxOrNull() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T max = i.next();
@@ -31,7 +35,11 @@ extension KtComparableIterableExtension<T extends Comparable<T>>
   }
 
   /// Returns the smallest element or `null` if there are no elements.
-  T? min() {
+  @Deprecated("use minOrNull")
+  T? min() => minOrNull();
+
+  /// Returns the smallest element or `null` if there are no elements.
+  T? minOrNull() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T min = i.next();
@@ -47,7 +55,11 @@ extension KtComparableIterableExtension<T extends Comparable<T>>
 
 extension KtNumIterableExtension<T extends num> on KtIterable<T> {
   /// Returns the largest element or `null` if there are no elements.
-  T? max() {
+  @Deprecated("use maxOrNull")
+  T? max() => maxOrNull();
+
+  /// Returns the largest element or `null` if there are no elements.
+  T? maxOrNull() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T max = i.next();
@@ -63,7 +75,11 @@ extension KtNumIterableExtension<T extends num> on KtIterable<T> {
   }
 
   /// Returns the smallest element or `null` if there are no elements.
-  T? min() {
+  @Deprecated("use minOrNull")
+  T? min() => minOrNull();
+
+  /// Returns the smallest element or `null` if there are no elements.
+  T? minOrNull() {
     final i = iterator();
     if (!iterator().hasNext()) return null;
     T min = i.next();
