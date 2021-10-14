@@ -1442,7 +1442,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       final iterable = emptyIterable<int>();
       expect(() => iterable.minOf((it) => it), throwsException);
       // with generic type
-      expect(() => iterable.minOf<num>((it) => it), throwsException);
+      expect(() => iterable.minOf<num>((it) => it), throwsA(isA<NoSuchElementException>()));
     });
   });
 
