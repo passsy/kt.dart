@@ -1641,6 +1641,25 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
           throwsUnsupportedError);
     });
   });
+  group("reduceIndexedOrNull", () {
+    test("reduceIndexedOrNull", () {
+      var i = 1;
+      final result =
+          iterableOf([1, 2, 3, 4]).reduceIndexedOrNull((index, int acc, it) {
+        expect(index, i);
+        i++;
+        return it + acc;
+      });
+      expect(result, 10);
+    });
+
+    test("return null when empty", () {
+      expect(
+          emptyIterable<int>()
+              .reduceIndexedOrNull((index, int acc, it) => it + acc),
+          null);
+    });
+  });
 
   group("reduceOrNull", () {
     test("reduceOrNull", () {

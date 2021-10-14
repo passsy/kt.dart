@@ -1133,6 +1133,23 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return accumulator;
   }
 
+  /// Accumulates value starting with the first element and applying [operation] from left to right
+  /// to current accumulator value and each element with its index in the original collection.
+  ///
+  /// Returns null if the list is empty.
+  S? reduceIndexedOrNull<S>(S Function(int index, S acc, T) operation) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      return null;
+    }
+    var index = 1;
+    S accumulator = i.next() as S;
+    while (i.hasNext()) {
+      accumulator = operation(index++, accumulator, i.next());
+    }
+    return accumulator;
+  }
+
   /// Returns a list with elements in reversed order.
   KtList<T> reversed() {
     if (this is KtCollection && (this as KtCollection).size <= 1) {
