@@ -1366,6 +1366,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("maxOf", () {
+    test("gets max value", () {
+      const comparableItem = Duration(seconds: 3);
+      final iterable = iterableOf(const [
+        Duration(seconds: 1),
+        Duration(seconds: 2),
+        comparableItem,
+      ]);
+      expect(iterable.maxOf((it) => it), comparableItem);
+    });
+
+    test("empty iterable throw", () {
+      final iterable = emptyIterable<int>();
+      expect(() => iterable.maxOf((it) => it), throwsException);
+      // with generic type
+      expect(() => iterable.maxOf<num>((it) => it),
+          throwsA(isA<NoSuchElementException>()));
+    });
+  });
+
   group("maxWith", () {
     int _intComparison(int value, int other) => value.compareTo(other);
     int _doubleComparison(double value, double other) => value.compareTo(other);
@@ -1438,7 +1458,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.minOf((it) => it), comparableItem);
     });
 
-    test("empty iterable throw ", () {
+    test("empty iterable throw", () {
       final iterable = emptyIterable<int>();
       expect(() => iterable.minOf((it) => it), throwsException);
       // with generic type
