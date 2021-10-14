@@ -10,24 +10,8 @@ extension StringExtension on String {
   @experimental
   String replaceFirstChar(String Function(String) transform) {   
     if (isNotEmpty) {
-      return transform(this);
+      return transform(this[0]).toString() + substring(1);
     }
-
     return this;
-  }
-  
-
-  @pragma('vm:prefer-inline')
-  @pragma('dart2js:tryInline')
-  @experimental
-  String toUpperCase() {
-      return "${this[0].toUpperCase()}${substring(1)}";
-  }
-
-  @pragma('vm:prefer-inline')
-  @pragma('dart2js:tryInline')
-  @experimental
-  String toLowerCase() {
-      return "${this[0].toLowerCase()}${substring(1)}";
   }
 }
