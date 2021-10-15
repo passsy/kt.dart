@@ -19,6 +19,9 @@ dart \
     --enable-asserts \
     test/kt_dart_test.dart
 
+TEST_EXIT_CODE=$?
+echo "$TEST_EXIT_CODE"
+
 pub global run coverage:format_coverage \
     --lcov \
     --in=out/coverage/coverage.json \
@@ -32,3 +35,5 @@ if type genhtml >/dev/null 2>&1; then
 else
  echo "genhtml not installed, can't generate html coverage output"
 fi
+
+exit $TEST_EXIT_CODE

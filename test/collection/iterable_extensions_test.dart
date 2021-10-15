@@ -1366,6 +1366,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("maxOf", () {
+    test("gets max value", () {
+      const comparableItem = Duration(seconds: 3);
+      final iterable = iterableOf(const [
+        Duration(seconds: 1),
+        Duration(seconds: 2),
+        comparableItem,
+      ]);
+      expect(iterable.maxOf((it) => it), comparableItem);
+    });
+
+    test("empty iterable throw", () {
+      final iterable = emptyIterable<int>();
+      expect(() => iterable.maxOf((it) => it), throwsException);
+      // with generic type
+      expect(() => iterable.maxOf<num>((it) => it),
+          throwsA(isA<NoSuchElementException>()));
+    });
+  });
+
   group("maxWith", () {
     int _intComparison(int value, int other) => value.compareTo(other);
     int _doubleComparison(double value, double other) => value.compareTo(other);
@@ -1424,6 +1444,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(iterable.minBy((it) => it), null);
       // with generic type
       expect(iterable.minBy<num>((it) => it), null);
+    });
+  });
+
+  group("minOf", () {
+    test("gets min value", () {
+      const comparableItem = Duration(seconds: 1);
+      final iterable = iterableOf(const [
+        Duration(seconds: 3),
+        Duration(seconds: 2),
+        comparableItem,
+      ]);
+      expect(iterable.minOf((it) => it), comparableItem);
+    });
+
+    test("empty iterable throw", () {
+      final iterable = emptyIterable<int>();
+      expect(() => iterable.minOf((it) => it), throwsException);
+      // with generic type
+      expect(() => iterable.minOf<num>((it) => it),
+          throwsA(isA<NoSuchElementException>()));
     });
   });
 
@@ -1619,6 +1659,38 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
           () => emptyIterable<int>()
               .reduceIndexed((index, int acc, it) => it + acc),
           throwsUnsupportedError);
+    });
+  });
+  group("reduceIndexedOrNull", () {
+    test("reduceIndexedOrNull", () {
+      var i = 1;
+      final result =
+          iterableOf([1, 2, 3, 4]).reduceIndexedOrNull((index, int acc, it) {
+        expect(index, i);
+        i++;
+        return it + acc;
+      });
+      expect(result, 10);
+    });
+
+    test("return null when empty", () {
+      expect(
+          emptyIterable<int>()
+              .reduceIndexedOrNull((index, int acc, it) => it + acc),
+          null);
+    });
+  });
+
+  group("reduceOrNull", () {
+    test("reduceOrNull", () {
+      final result =
+          iterableOf([1, 2, 3, 4]).reduceOrNull((int acc, it) => it + acc);
+      expect(result, 10);
+    });
+
+    test("return null when empty", () {
+      expect(
+          emptyIterable<int>().reduceOrNull((int acc, it) => it + acc), null);
     });
   });
 

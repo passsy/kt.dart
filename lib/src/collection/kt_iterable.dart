@@ -952,6 +952,24 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return maxElement;
   }
 
+  /// Returns the largest value among all values produced by selector function applied to each element in the collection.
+  ///
+  /// Throws a [NoSuchElementException] if the list is empty.
+  R maxOf<R extends Comparable>(R Function(T) selector) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      throw const NoSuchElementException("Collection is empty.");
+    }
+    R maxValue = selector(i.next());
+    while (i.hasNext()) {
+      final v = selector(i.next());
+      if (maxValue.compareTo(v) < 0) {
+        maxValue = v;
+      }
+    }
+    return maxValue;
+  }
+
   /// Returns the first element having the largest value according to the provided [comparator] or `null` if there are no elements.
   T? maxWith(Comparator<T> comparator) {
     final i = iterator();
@@ -1007,6 +1025,24 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       }
     }
     return minElement;
+  }
+
+  /// Returns the smallest value among all values produced by selector function applied to each element in the array.
+  ///
+  /// Throws a [NoSuchElementException] if the list is empty.
+  R minOf<R extends Comparable>(R Function(T) selector) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      throw const NoSuchElementException("Collection is empty.");
+    }
+    R minValue = selector(i.next());
+    while (i.hasNext()) {
+      final v = selector(i.next());
+      if (minValue.compareTo(v) > 0) {
+        minValue = v;
+      }
+    }
+    return minValue;
   }
 
   /// Returns the first element having the smallest value according to the provided [comparator] or `null` if there are no elements.
@@ -1091,6 +1127,38 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     final i = iterator();
     if (!i.hasNext()) {
       throw UnsupportedError("Empty collection can't be reduced.");
+    }
+    var index = 1;
+    S accumulator = i.next() as S;
+    while (i.hasNext()) {
+      accumulator = operation(index++, accumulator, i.next());
+    }
+    return accumulator;
+  }
+
+  /// Accumulates value starting with the first element and applying [operation] from left to right to current accumulator value and each element.
+  ///
+  /// Returns null if the list is empty.
+  S? reduceOrNull<S>(S Function(S acc, T) operation) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      return null;
+    }
+    S accumulator = i.next() as S;
+    while (i.hasNext()) {
+      accumulator = operation(accumulator, i.next());
+    }
+    return accumulator;
+  }
+
+  /// Accumulates value starting with the first element and applying [operation] from left to right
+  /// to current accumulator value and each element with its index in the original collection.
+  ///
+  /// Returns null if the list is empty.
+  S? reduceIndexedOrNull<S>(S Function(int index, S acc, T) operation) {
+    final i = iterator();
+    if (!i.hasNext()) {
+      return null;
     }
     var index = 1;
     S accumulator = i.next() as S;
