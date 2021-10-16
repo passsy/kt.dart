@@ -1764,6 +1764,20 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("runningReduce", () {
+    if (ordered) {
+      test("runningReduce", () {
+        final result = iterableOf<String>(["a", "b", "c", "d"])
+            .runningReduce((String acc, it) => acc + it);
+        expect(result, listOf("a", "ab", "abc", "abcd"));
+      });
+    }
+
+    test("return empty list when list is empty", () {
+      expect(emptyIterable<int>().runningReduce((_, __) => "S"), emptyList());
+    });
+  });
+
   group("reversed", () {
     test("mutliple", () {
       final result = iterableOf([1, 2, 3, 4]).reversed();
