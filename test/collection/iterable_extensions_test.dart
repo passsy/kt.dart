@@ -1789,7 +1789,8 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     }
 
     test("return empty list when list is empty", () {
-      expect(emptyIterable<int>().runningReduce((_, __) => "S"), emptyList());
+      expect(emptyIterable<int>().runningReduceIndexed((_, __, ___) => "S"),
+          emptyList());
     });
   });
 
