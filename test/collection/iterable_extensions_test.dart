@@ -1778,6 +1778,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("runningReduceIndexed", () {
+    if (ordered) {
+      test("runningReduceIndexed", () {
+        final result = iterableOf<String>(["a", "b", "c", "d"])
+            .runningReduceIndexed(
+                (int index, String acc, it) => '$acc$it$index');
+        expect(result, listOf("a", "ab1", "ab1c2", "ab1c2d3"));
+      });
+    }
+
+    test("return empty list when list is empty", () {
+      expect(emptyIterable<int>().runningReduceIndexed((_, __, ___) => "S"),
+          emptyList());
+    });
+  });
+
   group("reversed", () {
     test("mutliple", () {
       final result = iterableOf([1, 2, 3, 4]).reversed();
