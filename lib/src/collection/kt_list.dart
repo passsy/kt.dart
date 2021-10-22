@@ -4,6 +4,7 @@ import "package:kt_dart/src/collection/impl/list.dart";
 import "package:kt_dart/src/collection/impl/list_empty.dart";
 import "package:kt_dart/src/util/arguments.dart";
 import 'package:kt_dart/src/util/hash.dart';
+import 'package:meta/meta.dart';
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
@@ -377,6 +378,21 @@ extension KtListExtensions<T> on KtList<T> {
     return toList();
   }
 }
+
+extension KtDoubleListExtension<T> on KtList<T> {
+  /// Returns the sum of all elements in the collection.
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:tryInline')
+  @experimental
+  double sumOf(double Function(T) selector) {
+    double sum = 0.0;
+    for (final element in iter) {
+      sum += selector(element);
+    }
+    return sum;
+  }
+}
+
 
 extension NullableKtListExtensions<T> on KtList<T>? {
   /// Returns this [KtList] if it's not `null` and the empty list otherwise.
