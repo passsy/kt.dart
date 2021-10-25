@@ -158,12 +158,19 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
 
       final outOfRangePick = collection.randomOrNull(NotRandom()..next = 3);
       expect(outOfRangePick, null);
+
+      final emptyCollection = collectionOf([]);
+      final pick1 = emptyCollection.randomOrNull(NotRandom()..next = 0);
+      expect(pick1, null);
     });
 
     test("randomOrNull works without passing a Random", () {
       final collection = collectionOf(["a", "b", "c"]);
       expect(collection.randomOrNull(),
           anyOf(equals("a"), equals("b"), equals("c"), equals(null)));
+
+      final emptyCollection = collectionOf([]);
+      expect(emptyCollection.randomOrNull(), equals(null));
     });
   });
   group("toString", () {

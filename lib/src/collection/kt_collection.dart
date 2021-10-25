@@ -40,6 +40,7 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
   ///
   /// returns null if this collection is empty.
   T? randomOrNull([math.Random? random]) {
+    if (!isNotEmpty()) return null;
     final r = random ?? math.Random();
     final index = r.nextInt(size);
     if (index >= size) return null;
