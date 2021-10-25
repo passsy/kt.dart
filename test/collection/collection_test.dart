@@ -140,6 +140,39 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
   });
 
+  group("randomOrNull", () {
+    test("random item or null with random parameter", () {
+      final collection = collectionOf(["a", "b", "c"]);
+
+      final firstPick = collection.randomOrNull(NotRandom()..next = 2);
+      final pos2 = collection.elementAt(2);
+      if (ordered) expect(pos2, "c");
+
+      expect(firstPick, pos2);
+
+      final pos0 = collection.elementAt(0);
+      if (ordered) expect(pos0, "a");
+
+      final secondPick = collection.randomOrNull(NotRandom()..next = 0);
+      expect(secondPick, pos0);
+
+      final outOfRangePick = collection.randomOrNull(NotRandom()..next = 3);
+      expect(outOfRangePick, null);
+
+      final emptyCollection = collectionOf([]);
+      final pick1 = emptyCollection.randomOrNull(NotRandom()..next = 0);
+      expect(pick1, null);
+    });
+
+    test("randomOrNull works without passing a Random", () {
+      final collection = collectionOf(["a", "b", "c"]);
+      expect(collection.randomOrNull(),
+          anyOf(equals("a"), equals("b"), equals("c"), equals(null)));
+
+      final emptyCollection = collectionOf([]);
+      expect(emptyCollection.randomOrNull(), equals(null));
+    });
+  });
   group("toString", () {
     if (ordered) {
       test("default string representation", () {

@@ -36,6 +36,17 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
     return elementAt(r.nextInt(size));
   }
 
+  /// Returns a random element from this collection.
+  ///
+  /// returns null if this collection is empty.
+  T? randomOrNull([math.Random? random]) {
+    if (!isNotEmpty()) return null;
+    final r = random ?? math.Random();
+    final index = r.nextInt(size);
+    if (index >= size) return null;
+    return elementAt(index);
+  }
+
   /// Returns a [KtMutableList] filled with all elements of this collection.
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 }
