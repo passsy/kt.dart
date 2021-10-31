@@ -834,6 +834,32 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("flatMapTo", () {
+    test("flatMapTo int to string", () {
+      final result = mutableListOf<int>();
+      final iterable = iterableOf([1, 2, 3]);
+      iterable.flatMapTo(result, (it) => iterableOf([it, it + 1, it + 2]));
+      expect(result, listOf(1, 2, 3, 2, 3, 4, 3, 4, 5));
+    });
+  });
+
+  group("flatMapIndexed", () {
+    test("flatMapIndexed int to string", () {
+      final iterable = iterableOf([1, 2, 3]);
+      expect(iterable.flatMapIndexed((ix, it) => iterableOf([ix, it])).toList(),
+          listOf(0, 1, 1, 2, 2, 3));
+    });
+  });
+
+  group("flatMapIndexedTo", () {
+    test("flatMapIndexedTo int to string", () {
+      final result = mutableListOf<int>();
+      final iterable = iterableOf([1, 2, 3]);
+      iterable.flatMapIndexedTo(result, (ix, it) => iterableOf([ix, it]));
+      expect(result, listOf(0, 1, 1, 2, 2, 3));
+    });
+  });
+
   group("flatten", () {
     test("empty", () {
       final KtIterable<KtIterable<int>> nested =
