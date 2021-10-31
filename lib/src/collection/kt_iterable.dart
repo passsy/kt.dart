@@ -629,6 +629,29 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
+  /// Returns a single list of all elements yielded from results of [transform]
+  /// function being invoked on each element and its index in the original
+  /// collection.
+  KtList<R> flatMapIndexed<R>(KtIterable<R> Function(int index, T) transform) {
+    final list = flatMapIndexedTo(mutableListOf<R>(), transform);
+    // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
+    // TODO ping dort-lang/sdk team to check that bug
+    return list;
+  }
+
+  /// Appends all elements yielded from results of [transform] function being
+  /// invoked on each element and its index in the original collection, to the
+  /// given [destination].
+  C flatMapIndexedTo<R, C extends KtMutableCollection<R>>(
+      C destination, KtIterable<R> Function(int index, T) transform) {
+    var index = 0;
+    for (final element in iter) {
+      final list = transform(index++, element);
+      destination.addAll(list);
+    }
+    return destination;
+  }
+
   /// Appends all elements yielded from results of [transform] function being invoked on each element of original collection, to the given [destination].
   C flatMapTo<R, C extends KtMutableCollection<R>>(
       C destination, KtIterable<R> Function(T) transform) {
