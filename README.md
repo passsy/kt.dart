@@ -11,7 +11,7 @@ This project is a port of Kotlin's [Kotlin Standard library](https://kotlinlang.
 
 ```yaml
 dependencies: 
-  kt_dart: ^0.9.0
+  kt_dart: ^0.10.0
 ```
 
 ```dart
