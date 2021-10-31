@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:math' as math;
 
 import "package:kt_dart/collection.dart";
@@ -1987,8 +1989,6 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
 
     test("double", () {
       expect(iterableOf([1, 2, 3]).sumBy((i) => i * 1.5), 9.0);
-
-      // ignore: deprecated_member_use_from_same_package
       expect(iterableOf([1, 2, 3]).sumByDouble((i) => i * 1.5), 9.0);
     });
 

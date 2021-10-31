@@ -8,6 +8,7 @@ const Object nullable = _Nullable();
 
 @Deprecated("Dart not support non-nullable types")
 class _Nullable {
+  @Deprecated("Dart not support non-nullable types")
   const _Nullable();
 }
 
@@ -21,6 +22,7 @@ const Object nonNull = _NonNull();
 
 @Deprecated("Dart not support non-nullable types")
 class _NonNull {
+  @Deprecated("Dart not support non-nullable types")
   const _NonNull();
 }
 
@@ -41,6 +43,7 @@ const Object tooGeneric = TooGeneric();
 /// Use `@TooGeneric(type: X)` to define which type should be used
 @Deprecated("Use static extension methods")
 class TooGeneric {
+  @Deprecated("Use static extension methods")
   const TooGeneric({this.extensionForType});
 
   /// The type which would be a better fit

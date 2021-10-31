@@ -9,7 +9,7 @@ extension StringReplaceFirstCharExtension on String {
   @experimental
   String replaceFirstChar(String Function(String) transform) {
     if (isNotEmpty) {
-      return transform(this[0]).toString() + substring(1);
+      return transform(this[0]) + substring(1);
     }
     return this;
   }

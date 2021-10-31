@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: dart pub get
-    - run: dart analyze
+    - run: dart analyze --fatal-infos
     - run: dart run tool/reformat.dart
     - run: dart pub publish -n
