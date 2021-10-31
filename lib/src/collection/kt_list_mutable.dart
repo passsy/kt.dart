@@ -80,11 +80,6 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   /// Returns that removed element, or throws [NoSuchElementException] if this list is empty.
   T removeFirst();
 
-  /// Removes the first element from this mutable list.
-  ///
-  /// Returns that removed element, or null if this list is empty.
-  T? removeFirstOrNull();
-
   /// Removes the last element from this mutable list.
   ///
   /// Returns that removed element, or throws [NoSuchElementException] if this list is empty.
@@ -154,6 +149,14 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
     for (var i = 0; i < size; i++) {
       set(i, value);
     }
+  }
+
+  /// Removes the first element from this mutable list.
+  ///
+  /// Returns that removed element, or `null` if this list is empty.
+  T? removeFirstOrNull() {
+    if (isEmpty()) return null;
+    return removeAt(0);
   }
 
   /// Reverses elements in the list in-place.
