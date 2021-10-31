@@ -120,10 +120,10 @@ abstract class KtMutableList<T> implements KtList<T>, KtMutableCollection<T> {
   /// Inserts an element into the list at the specified [index].
   void addAt(int index, T element);
 
-  /// Removes an element at the specified [index] from the list.
+  /// Removes and returns the element at the specified [index] from the list.
   ///
-  /// @return the element that has been removed.
-  T? removeAt(int index);
+  /// throws [IndexOutOfBoundsException] when [index] is out of bounds
+  T removeAt(int index);
 
   @override
   KtMutableListIterator<T> listIterator([int index = 0]);
