@@ -168,6 +168,15 @@ extension KtMutableListExtensions<T> on KtMutableList<T> {
     }
     return removeAt(lastIndex);
   }
+
+  /// Removes the last element from this mutable list.
+  ///
+  /// Returns that removed element, or throws [NoSuchElementException] if this list is empty.
+  T? removeLastOrNull() {
+    if (isEmpty()) return null;
+    return removeAt(lastIndex);
+  }
+
   /// Reverses elements in the list in-place.
   void reverse() {
     final mid = size >> 1;
