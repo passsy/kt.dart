@@ -1,1 +1,6 @@
 include: package:lint/analysis_options_package.yaml
+
+linter:
+  rules:
+    # There are way to many braces in this project to be useful
+    require_trailing_commas: false
