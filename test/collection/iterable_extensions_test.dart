@@ -1823,6 +1823,26 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("sumOf", () {
+    test("sumOf [0.0]", () {
+      final originalList = [0.toDouble()];
+      final klist = listFrom<double>(originalList);
+
+      final result = klist.sumOf((it) => it);
+
+      expect(result, 0.0);
+    });
+
+    test("sumOf [0.0, 1.0, 2.0]", () {
+      final originalList = [0.0, 1.0, 2.0];
+      final klist = listFrom<double>(originalList);
+
+      final result = klist.sumOf((it) => it);
+
+      expect(result, 3.0);
+    });
+  });
+
   group("take", () {
     test("take zero returns empty", () {
       final iterable = iterableOf([1, 2, 3, 4]);
