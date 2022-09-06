@@ -7,7 +7,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  meta: ^1.8.0
+  meta: ^1.5.0
 
 dev_dependencies:
   lint: ^1.10.0
