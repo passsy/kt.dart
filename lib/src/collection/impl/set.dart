@@ -51,10 +51,9 @@ class DartSet<T> extends Object implements KtSet<T> {
     if (other.hashCode != hashCode) return false;
     if (other is KtSet<T>) {
       return containsAll(other);
-    } else if (other is KtSet) {
+    } else {
       return other.containsAll(this);
     }
-    return false;
   }
 
   @override
