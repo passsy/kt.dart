@@ -96,7 +96,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
 
     test("count even", () {
       final map = mapFrom({1: "a", 2: "b", 3: "c"});
-      expect(map.count((it) => it.key % 2 == 0), 1);
+      expect(map.count((it) => it.key.isEven), 1);
     });
   });
 
