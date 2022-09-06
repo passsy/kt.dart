@@ -191,7 +191,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned map preserves the entry iteration order of the original collection.
   KtMap<K, T> associateBy<K>(K Function(T) keySelector) {
     return associateByTo<K, T, KtMutableMap<K, T>>(
-        linkedMapFrom<K, T>(), keySelector, null);
+        linkedMapFrom<K, T>(), keySelector);
   }
 
   /// Returns a [Map] containing the elements from the given collection indexed by the key
