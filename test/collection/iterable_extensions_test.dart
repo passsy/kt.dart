@@ -357,7 +357,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
 
     test("count even", () {
-      expect(iterableOf([1, 2, 3, 4, 5]).count((it) => it % 2 == 0), 2);
+      expect(iterableOf([1, 2, 3, 4, 5]).count((it) => it.isEven), 2);
     });
   });
 
