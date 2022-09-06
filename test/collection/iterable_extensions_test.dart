@@ -1441,22 +1441,22 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("maxWith", () {
-    int _intComparison(int value, int other) => value.compareTo(other);
-    int _doubleComparison(double value, double other) => value.compareTo(other);
+    int intComparison(int value, int other) => value.compareTo(other);
+    int doubleComparison(double value, double other) => value.compareTo(other);
 
     test("gets max value int", () {
       final iterable = iterableOf([2, 1, 3]);
-      expect(iterable.maxWith(_intComparison), 3);
+      expect(iterable.maxWith(intComparison), 3);
     });
 
     test("gets max value double", () {
       final iterable = iterableOf([2.0, 1.0, 3.2]);
-      expect(iterable.maxWith(_doubleComparison), 3.2);
+      expect(iterable.maxWith(doubleComparison), 3.2);
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.maxWith(_intComparison), null);
+      expect(iterable.maxWith(intComparison), null);
     });
   });
 
@@ -1548,16 +1548,16 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("minWith", () {
-    int _intComparison(int value, int other) => value.compareTo(other);
+    int intComparison(int value, int other) => value.compareTo(other);
 
     test("gets min value", () {
       final iterable = iterableOf([2, 1, 3]);
-      expect(iterable.minWith(_intComparison), 1);
+      expect(iterable.minWith(intComparison), 1);
     });
 
     test("empty iterable return null", () {
       final iterable = emptyIterable<int>();
-      expect(iterable.minWith(_intComparison), null);
+      expect(iterable.minWith(intComparison), null);
     });
   });
 

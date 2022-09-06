@@ -412,21 +412,21 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 
   group("maxWith", () {
-    int _numKeyComparison(
+    int numKeyComparison(
         KtMapEntry<num, dynamic> value, KtMapEntry<num, dynamic> other) {
       return value.key.compareTo(other.key);
     }
 
     test("gets max value", () {
       final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
-      final max = map.maxWith(_numKeyComparison)!;
+      final max = map.maxWith(numKeyComparison)!;
       expect(max.key, 2);
       expect(max.value, "Ivysaur");
     });
 
     test("empty iterable return null", () {
       final map = emptyMap<int, String>();
-      expect(map.maxWith(_numKeyComparison), null);
+      expect(map.maxWith(numKeyComparison), null);
     });
   });
 
@@ -489,21 +489,21 @@ void testMap(KtMap<K, V> Function<K, V>() emptyMap,
   });
 
   group("minWith", () {
-    int _numKeyComparison(
+    int numKeyComparison(
         KtMapEntry<num, dynamic> value, KtMapEntry<num, dynamic> other) {
       return value.key.compareTo(other.key);
     }
 
     test("gets min value", () {
       final map = mapFrom({2: "Ivysaur", 1: "Bulbasaur"});
-      final min = map.minWith(_numKeyComparison)!;
+      final min = map.minWith(numKeyComparison)!;
       expect(min.key, 1);
       expect(min.value, "Bulbasaur");
     });
 
     test("empty iterable return null", () {
       final map = emptyMap<int, String>();
-      expect(map.minWith(_numKeyComparison), null);
+      expect(map.minWith(numKeyComparison), null);
     });
   });
 
