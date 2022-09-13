@@ -31,6 +31,7 @@ import "collection/tuples_test.dart" as tuples_test;
 import "exception/exceptions_test.dart" as exceptions_test;
 import "issues/all_issues_test.dart" as all_issues_test;
 import "standard/standard_test.dart" as standard_test;
+import "string/string_test.dart" as string_test;
 import "util/annotation_test.dart" as annotation_test;
 import "util/hash_test.dart" as hash_test;
 
@@ -63,6 +64,7 @@ void main() {
   exceptions_test.main();
   all_issues_test.main();
   standard_test.main();
+  string_test.main();
   annotation_test.main();
   hash_test.main();
 }
