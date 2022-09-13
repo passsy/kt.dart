@@ -30,7 +30,6 @@ dart pub global run coverage:format_coverage \
     --lcov \
     --in=out/coverage/coverage.json \
     --out=out/coverage/lcov.info \
-    --packages=.packages \
     --report-on lib
 
 if type genhtml >/dev/null 2>&1; then
