@@ -195,6 +195,14 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
       expect(sum, 6.4);
       expect(sum.runtimeType, double);
     });
+
+    test("calculates the sum of the length of each element of a string list",
+        () {
+      final collection = collectionOf(['a', 'xyz', 'Hello World']);
+      final sum = collection.sumOf((it) => it.length);
+      expect(sum, 15);
+      expect(sum.runtimeType, int);
+    });
   });
 
   group("toString", () {
