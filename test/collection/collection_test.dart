@@ -173,6 +173,30 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
       expect(emptyCollection.randomOrNull(), equals(null));
     });
   });
+
+  group("sumOf", () {
+    test("calculates the sum of an integer list", () {
+      final collection = collectionOf([1, 2, 3]);
+      final sum = collection.sumOf((it) => it);
+      expect(sum, 6);
+      expect(sum.runtimeType, int);
+    });
+
+    test("calculates the sum of a double list", () {
+      final collection = collectionOf([1.1, 2.2, 3.3]);
+      final sum = collection.sumOf((it) => it);
+      expect(sum, 6.6);
+      expect(sum.runtimeType, double);
+    });
+
+    test("calculates the sum of a list created with ints and doubles", () {
+      final collection = collectionOf([0, 1.1, 2, 3.3]);
+      final sum = collection.sumOf((it) => it);
+      expect(sum, 6.4);
+      expect(sum.runtimeType, double);
+    });
+  });
+
   group("toString", () {
     if (ordered) {
       test("default string representation", () {

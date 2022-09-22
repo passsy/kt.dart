@@ -47,6 +47,15 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
     return elementAt(index);
   }
 
+  /// Returns the sum of all elements in this collection.
+  T sumOf(num Function(T) selector) {
+    num sum = 0;
+    for (final element in iter) {
+      sum += selector(element);
+    }
+    return sum as T;
+  }
+
   /// Returns a [KtMutableList] filled with all elements of this collection.
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 }
