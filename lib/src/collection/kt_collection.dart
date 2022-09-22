@@ -48,12 +48,12 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
   }
 
   /// Returns the sum of all elements in this collection.
-  T sumOf(num Function(T) selector) {
-    num sum = 0;
+  R sumOf<R extends num>(R Function(T) selector) {
+    var sum = R == double ? 0.0 : 0;
     for (final element in iter) {
       sum += selector(element);
     }
-    return sum as T;
+    return sum as R;
   }
 
   /// Returns a [KtMutableList] filled with all elements of this collection.
