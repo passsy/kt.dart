@@ -13,10 +13,10 @@ Some nullsafety improvements, type fixes and a lot of new Kotlin 1.4 extensions
 - [1df6e1a](https://github.com/passsy/kt.dart/commit/1df6e1a1fa500a4df7f79ec6a5bca75345ee053f) Fix: `.dart` and `.iter` on `Iterable<T>` now work for all types not only if `T implements Comparable`
 - [f43cbc5](https://github.com/passsy/kt.dart/commit/f43cbc56b494dfaf56e8f8d9710c3081b729d9cc) Fix: `*NotNull` methods now return non-nullable types
 - [b727893](https://github.com/passsy/kt.dart/commit/b727893834991985ecaaf8f6b4b2809b1e95bbc0) Fix: The hashcode of all collections doesn't get cached anymore. That caused problems when mutable items in a `KtList` changed. The `equals` and `hashCode` methods now always change together.
-- [#141](https://github.com/passsy/kt.dart/pull/142) Improve: `KtIterable.onEach` can now be chained
+- [#142](https://github.com/passsy/kt.dart/pull/142) Improve: `KtIterable.onEach` can now be chained
 
 - [#141](https://github.com/passsy/kt.dart/pull/141) New: `KtIterable.cast()` to manually cast values
-- [#141](https://github.com/passsy/kt.dart/pull/142) New: `KtIterable.onEachIndexed`
+- [#142](https://github.com/passsy/kt.dart/pull/142) New: `KtIterable.onEachIndexed`
 - [#163](https://github.com/passsy/kt.dart/pull/163) New: `KtIterable.shuffled()`
 - [#166](https://github.com/passsy/kt.dart/pull/166) New: `KtIterable.reduceOrNull()`
 - [#169](https://github.com/passsy/kt.dart/pull/169) New: `KtMutableList.removeFirst()` `KtMutableList.removeLast()`
