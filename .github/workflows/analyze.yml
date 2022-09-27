@@ -5,10 +5,10 @@ on: [push, pull_request]
 jobs:
   analyze:
     timeout-minutes: 5
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     container:
-      image: google/dart:2.14
+      image: dart:2.18
     
     steps:
     - uses: actions/checkout@master

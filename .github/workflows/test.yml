@@ -5,7 +5,7 @@ on: [ push, pull_request ]
 jobs:
   test:
     timeout-minutes: 5
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
@@ -19,7 +19,7 @@ jobs:
       - run: dart pub get
       - run: ./tool/run_coverage_locally.sh
       - uses: codecov/codecov-action@v1
-        if: matrix.version == '2.14'
+        if: matrix.version == '2.18'
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           flags: unittests
