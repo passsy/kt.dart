@@ -1,7 +1,7 @@
 import "package:test/test.dart";
 
 /// returns the caught exception thrown in [block]
-T catchException<T>(void Function() block) {
+T catchException<T>(dynamic Function() block) {
   try {
     block();
     fail("block did not throw");
