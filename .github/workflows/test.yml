@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     strategy:
+      fail-fast: false
       matrix:
         version: [ "2.12", "2.14", "2.16", "2.17", "2.18", "beta" ]
 
