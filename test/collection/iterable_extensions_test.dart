@@ -2258,7 +2258,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
       expect(result, listOf(3, 5, 7, 9));
     });
     test("empty does nothing", () {
-      final result = emptyIterable().zipWithNextTransform((a, b) => a + b);
+      final result = emptyIterable<int>().zipWithNextTransform((a, b) => a + b);
       expect(result, emptyList());
     });
   });
