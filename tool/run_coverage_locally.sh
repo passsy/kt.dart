@@ -1,11 +1,15 @@
 #!/bin/sh
+set -ex
 
-(pub global list | grep coverage) || {
+dart --version
+dart pub get
+dart pub global activate coverage
+(dart pub global list | grep coverage) || {
   # install coverage when not found
-  pub global activate coverage
+  dart pub global activate coverage
 }
 
-pub global run coverage:collect_coverage \
+dart pub global run coverage:collect_coverage \
     --port=8111 \
     --out=out/coverage/coverage.json \
     --wait-paused \
@@ -22,11 +26,10 @@ dart \
 TEST_EXIT_CODE=$?
 echo "$TEST_EXIT_CODE"
 
-pub global run coverage:format_coverage \
+dart pub global run coverage:format_coverage \
     --lcov \
     --in=out/coverage/coverage.json \
     --out=out/coverage/lcov.info \
-    --packages=.packages \
     --report-on lib
 
 if type genhtml >/dev/null 2>&1; then
