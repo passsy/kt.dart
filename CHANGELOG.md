@@ -1,9 +1,16 @@
-# 0.10.0
+# Changelog
+
+## 1.0.0
+
+- [#183](https://github.com/passsy/kt.dart/pull/183) New: `KtIterable.sumOf` thx @nohli
+- Update dependencies and guarantee compatibility with Dart 2.12-2.18
+
+## 0.10.0
 
 Some nullsafety improvements, type fixes and a lot of new Kotlin 1.4 extensions
 
 - [#141](https://github.com/passsy/kt.dart/pull/141) Fix: `requireNoNulls()` now converts `T?` to `T`
-- - [1df6e1a](https://github.com/passsy/kt.dart/commit/1df6e1a1fa500a4df7f79ec6a5bca75345ee053f) Fix: `.dart` and `.iter` on `Iterable<T>` now work for all types not only if `T implements Comparable`
+- [1df6e1a](https://github.com/passsy/kt.dart/commit/1df6e1a1fa500a4df7f79ec6a5bca75345ee053f) Fix: `.dart` and `.iter` on `Iterable<T>` now work for all types not only if `T implements Comparable`
 - [f43cbc5](https://github.com/passsy/kt.dart/commit/f43cbc56b494dfaf56e8f8d9710c3081b729d9cc) Fix: `*NotNull` methods now return non-nullable types
 - [b727893](https://github.com/passsy/kt.dart/commit/b727893834991985ecaaf8f6b4b2809b1e95bbc0) Fix: The hashcode of all collections doesn't get cached anymore. That caused problems when mutable items in a `KtList` changed. The `equals` and `hashCode` methods now always change together.
 - [#141](https://github.com/passsy/kt.dart/pull/142) Improve: `KtIterable.onEach` can now be chained
@@ -23,22 +30,22 @@ Some nullsafety improvements, type fixes and a lot of new Kotlin 1.4 extensions
 
 Thanks to the #hacktoberfest contributors @Anas35, @robiness, @MatthaiosSait, @Dev-dfm, @marciokuroki, @Rishabh-Negi
 
-# 0.9.1
+## 0.9.1
 
 - [#138](https://github.com/passsy/kt.dart/pull/138) Deprecate `KtIterable<T>.sumByDouble` in favor of `KtIterable<T>.sumBy` which now works for `int` and `double`
 - [#140](https://github.com/passsy/kt.dart/pull/140) `KtMap.getOrDefault` now returns `V` instead of `V?`
 - [#140](https://github.com/passsy/kt.dart/pull/140) Fix `KtMap.groupBy` returning `KtMap<K, KtMutableList<T>>` instead of `KtMap<K, KtList<T>>` causing generic type problems in further processing
 
-# 0.9.0
+## 0.9.0
 
 - stable dependencies
 - Improve `KtSet.contains` performance
 
-# 0.9.0-nullsafety.0
+## 0.9.0-nullsafety.0
 
 - Migrate to Dart 2.12 with [null-safety(https://dart.dev/null-safety) support
 
-# 0.8.0
+## 0.8.0
 
 New `package:kt_dart/standard.dart` library containing Kotlins loved standard extensions
 - [#120](https://github.com/passsy/kt.dart/pull/120) Standard extensions `let`, `also`, `takeIf` and `takeUnless`
