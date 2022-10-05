@@ -1,8 +1,6 @@
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMutableMap", () {
     group("mutableMapFrom", () {
@@ -71,25 +69,16 @@ void testMutableMap(
     });
 
     test("set value for mutable entry", () {
-      final pokemon = mutableMapFrom({
-        1: "Bulbasaur",
-        2: "Ivysaur",
+      final pokemon = mutableMapFrom({1: "Bulbasaur", 2: "Ivysaur"});
+
+      pokemon.entries.forEach((entry) {
+        final oldValue = entry.value;
+        final newValue = entry.value.toUpperCase();
+
+        expect(entry.setValue(newValue), oldValue);
       });
 
-      final e = catchException(() {
-        pokemon.entries.forEach((entry) {
-          entry.setValue(entry.value.toUpperCase());
-        });
-      });
-
-      // TODO exchange error check with assertion once https://github.com/passsy/dart_kollection/issues/55 has been fixed
-      expect(e, const TypeMatcher<UnimplementedError>());
-      // expect(
-      //    pokemon,
-      //     mapFrom({
-      //       1: "BULBASAUR",
-      //      2: "IVYSAUR",
-      //    }));
+      expect(pokemon, mapFrom({1: "BULBASAUR", 2: "IVYSAUR"}));
     });
   });
 }
