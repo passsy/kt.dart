@@ -19,7 +19,7 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
 
   @override
   Iterable<KtMapEntry<K, V>> get iter =>
-      _map.entries.map((entry) => _MutableEntry.from(entry));
+      _map.entries.map((entry) => _MutableEntry.from(entry, this));
 
   @override
   Map<K, V> asMap() => _map;
@@ -31,8 +31,8 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KtMutableSet<KtMutableMapEntry<K, V>> get entries =>
-      linkedSetFrom(_map.entries.map((entry) => _MutableEntry.from(entry)));
+  KtMutableSet<KtMutableMapEntry<K, V>> get entries => linkedSetFrom(
+      _map.entries.map((entry) => _MutableEntry.from(entry, this)));
 
   @override
   V? get(K key) => _map[key];
@@ -121,13 +121,20 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
 }
 
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
-  _MutableEntry(this._key, this._value);
+  _MutableEntry(this._key, this._value, this._parent);
 
-  factory _MutableEntry.from(MapEntry<K, V> entry) =>
-      _MutableEntry(entry.key, entry.value);
+  factory _MutableEntry.from(
+    MapEntry<K, V> entry,
+    DartMutableMap<K, V> parent,
+  ) =>
+      _MutableEntry(entry.key, entry.value, parent);
 
   K _key;
   V _value;
+
+  /// Object reference for the [DartMutableMap] which contains this
+  /// [_MutableEntry].
+  DartMutableMap<K, V> _parent;
 
   @override
   K get key => _key;
@@ -137,12 +144,9 @@ class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
 
   @override
   V setValue(V newValue) {
-    // setting _value here is wrong because is is a copy of the original value.
-    // setValue should modify the underlying list, not the copy
-    // see how kotlin solved this:
-    // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
-    throw UnimplementedError(
-        "setValue() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/55 for prioritization");
+    final oldValue = _value;
+    _parent._map.update(key, (value) => value = newValue);
+    return oldValue;
   }
 
   @override
