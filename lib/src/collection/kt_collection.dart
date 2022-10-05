@@ -56,6 +56,17 @@ extension KtCollectionExtensions<T> on KtCollection<T> {
     return sum as R;
   }
 
+  /// Returns a list containing the results of applying the given [operation]
+  /// function to each element in the original collection and the previous
+  /// accumulator value.
+  KtCollection<R> runningFold<R>(R initial, R Function(R, T) operation) {
+    var accumulator = initial;
+    return KtMutableList<R>.from(iter
+        .map((element) => accumulator = operation(accumulator, element))
+        .toList())
+      ..addAt(0, initial);
+  }
+
   /// Returns a [KtMutableList] filled with all elements of this collection.
   KtMutableList<T> toMutableList() => KtMutableList<T>.from(iter);
 }

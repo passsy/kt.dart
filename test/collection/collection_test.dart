@@ -205,6 +205,18 @@ void testCollection(KtCollection<T> Function<T>() emptyCollection,
     });
   });
 
+  group("runningFold", () {
+    test("running folds a string list", () {
+      final strings = listOf<String>("a", "b", "c", "d");
+      final runningFolded =
+          strings.runningFold<String>("s", (acc, string) => acc + string);
+      expect(
+        runningFolded,
+        KtMutableList.of("s", "sa", "sab", "sabc", "sabcd"),
+      );
+    });
+  });
+
   group("toString", () {
     if (ordered) {
       test("default string representation", () {
