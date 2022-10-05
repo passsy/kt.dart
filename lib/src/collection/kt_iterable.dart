@@ -597,6 +597,27 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     }
   }
 
+  /// Returns the first non-null value after applying the given [transform]
+  /// function, throwing a [NoSuchElementException] exception if there is no
+  /// such value.
+  R firstNotNullOf<R>(R? Function(T?) transform) {
+    final R? element = firstNotNullOfOrNull(transform);
+    if (element != null) {
+      return element;
+    } else {
+      throw const NoSuchElementException(
+        "No element of the collection was transformed to a non-null value.",
+      );
+    }
+  }
+
+  /// Returns the first non-null value after applying the given [transform]
+  /// function; `null` will be returned if there is no such value.
+  R? firstNotNullOfOrNull<R>(R? Function(T?) transform) {
+    final KtList<R> mappedList = mapNotNull(transform);
+    return mappedList.firstOrNull();
+  }
+
   /// Returns the first element (matching [predicate] when provided), or `null` if the collection is empty.
   T? firstOrNull([bool Function(T)? predicate]) {
     if (predicate == null) {

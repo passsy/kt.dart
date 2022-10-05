@@ -806,6 +806,56 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
   });
 
+  group("firstNotNullOf", () {
+    test("should return the first element, which is not null", () {
+      final list = listOf("a", "a", "c");
+      expect(list.firstNotNullOf((i) => i == "a" ? i : null), "a");
+    });
+
+    test("should return the third element, which is the first not null", () {
+      final list = listOf("a", "a", "c");
+      expect(list.firstNotNullOf((i) => i == "c" ? i : null), "c");
+    });
+
+    test("should throw if the list contains only null elements", () {
+      final list = listOf("a", "a", "a");
+      expect(
+        () => list.firstNotNullOf((i) => i == "c" ? i : null),
+        throwsA(const TypeMatcher<NoSuchElementException>()),
+      );
+    });
+
+    test("should throw if the list is empty", () {
+      final list = listOf();
+      expect(
+        () => list.firstNotNullOf((i) => i == "a" ? i : null),
+        throwsA(const TypeMatcher<NoSuchElementException>()),
+      );
+    });
+  });
+
+  group("firstNotNullOfOrNull", () {
+    test("should return the first element, which is not null", () {
+      final list = listOf("a", "a", "c");
+      expect(list.firstNotNullOfOrNull((i) => i == "a" ? i : null), "a");
+    });
+
+    test("should return the third element, which is the first not null", () {
+      final list = listOf("a", "a", "c");
+      expect(list.firstNotNullOfOrNull((i) => i == "c" ? i : null), "c");
+    });
+
+    test("should return null if the list contains only null elements", () {
+      final list = listOf("a", "a", "a");
+      expect(list.firstNotNullOfOrNull((i) => i == "c" ? i : null), null);
+    });
+
+    test("should return null if the list is empty", () {
+      final list = listOf();
+      expect(list.firstNotNullOfOrNull((i) => i == "a" ? i : null), null);
+    });
+  });
+
   group("firstOrNull", () {
     if (ordered) {
       test("get first element", () {
