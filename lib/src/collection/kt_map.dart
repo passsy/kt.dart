@@ -2,6 +2,7 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/map.dart";
 import "package:kt_dart/src/collection/impl/map_empty.dart";
 import "package:kt_dart/src/util/errors.dart";
+import 'package:meta/meta.dart';
 
 /// A collection that holds pairs of objects (keys and values) and supports efficiently retrieving
 /// the value corresponding to each key. Map keys are unique; the map holds only one value for each key.
@@ -264,6 +265,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
   /// Returns a list containing the results of applying the given [transform] function
   /// to each entry in the original map.
+  @useResult
   KtList<R> map<R>(R Function(KtMapEntry<K, V> entry) transform) {
     final mapped = mapTo(mutableListOf<R>(), transform);
     return mapped;

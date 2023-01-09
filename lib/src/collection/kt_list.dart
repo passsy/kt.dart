@@ -4,6 +4,7 @@ import "package:kt_dart/src/collection/impl/list.dart";
 import "package:kt_dart/src/collection/impl/list_empty.dart";
 import "package:kt_dart/src/util/arguments.dart";
 import 'package:kt_dart/src/util/hash.dart';
+import 'package:meta/meta.dart';
 
 /// A generic ordered collection of elements. Methods in this interface support only read-only access to the list;
 /// read/write access is supported through the [KtMutableList] interface.
@@ -133,6 +134,7 @@ extension KtListExtensions<T> on KtList<T> {
   List<T> get dart => asList();
 
   /// Returns a list containing all elements except last [n] elements.
+  @useResult
   KtList<T> dropLast(int n) {
     var count = size - n;
     if (count < 0) {
@@ -142,6 +144,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns a list containing all elements except last elements that satisfy the given [predicate].
+  @useResult
   KtList<T> dropLastWhile(bool Function(T) predicate) {
     if (!isEmpty()) {
       final i = listIterator(size);
@@ -332,6 +335,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns a list containing elements at specified [indices].
+  @useResult
   KtList<T> slice(KtIterable<int> indices) {
     if (indices.count() == 0) {
       return emptyList<T>();
@@ -344,6 +348,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns a list containing last [n] elements.
+  @useResult
   KtList<T> takeLast(int n) {
     if (n < 0) {
       throw ArgumentError("Requested element count $n is less than zero.");
@@ -359,6 +364,7 @@ extension KtListExtensions<T> on KtList<T> {
   }
 
   /// Returns a list containing last elements satisfying the given [predicate].
+  @useResult
   KtList<T> takeLastWhile(bool Function(T) predicate) {
     if (isEmpty()) return emptyList();
     final iterator = listIterator(size);
