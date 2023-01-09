@@ -2,6 +2,7 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/map.dart";
 import "package:kt_dart/src/collection/impl/map_empty.dart";
 import "package:kt_dart/src/util/errors.dart";
+import 'package:meta/meta.dart';
 
 /// A collection that holds pairs of objects (keys and values) and supports efficiently retrieving
 /// the value corresponding to each key. Map keys are unique; the map holds only one value for each key.
@@ -55,12 +56,15 @@ abstract class KtMap<K, V> {
 
   // Views
   /// Returns a read-only [KtSet] of all keys in this map.
+  @useResult
   KtSet<K> get keys;
 
   /// Returns a read-only [KtCollection] of all values in this map. Note that this collection may contain duplicate values.
+  @useResult
   KtCollection<V> get values;
 
   /// Returns a read-only [KtSet] of all key/value pairs in this map.
+  @useResult
   KtSet<KtMapEntry<K, V>> get entries;
 }
 
@@ -129,6 +133,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns a new map containing all key-value pairs matching the given [predicate].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -138,6 +143,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns a map containing all key-value pairs with keys matching the given [predicate].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> filterKeys(bool Function(K) predicate) {
     final result = linkedMapFrom<K, V>();
     for (final entry in iter) {
@@ -151,6 +157,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns a new map containing all key-value pairs not matching the given [predicate].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> filterNot(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterNotTo(linkedMapFrom<K, V>(), predicate);
     // TODO ping dort-lang/sdk team to check type bug
@@ -216,6 +223,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns a map containing all key-value pairs with values matching the given [predicate].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> filterValues(bool Function(V) predicate) {
     final result = linkedMapFrom<K, V>();
     for (final entry in iter) {
@@ -276,6 +284,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// the value associated with the former one.
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<R, V> mapKeys<R>(R Function(KtMapEntry<K, V>) transform) {
     final mapped = mapKeysTo(linkedMapFrom<R, V>(), transform);
     return mapped;
@@ -335,6 +344,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// function to each entry in this [Map].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, R> mapValues<R>(R Function(KtMapEntry<K, V>) transform) {
     final mapped = mapValuesTo(linkedMapFrom<K, R>(), transform);
     return mapped;
@@ -400,11 +410,13 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   /// Returns a map containing all entries of the original map except the entry with the given [key].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> minus(K key) => toMutableMap()..remove(key);
 
   /// Returns a map containing all entries of the original map except the entry with the given [key].
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> operator -(K key) => minus(key);
 
   /// Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
@@ -457,6 +469,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// The returned map preserves the entry iteration order of the original map.
   /// Those entries of another [map] that are missing in this map are iterated in the end in the order of that [map].
+  @useResult
   KtMap<K, V> plus(KtMap<K, V> map) {
     return toMutableMap()..putAll(map);
   }
@@ -465,14 +478,17 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   ///
   /// The returned map preserves the entry iteration order of the original map.
   /// Those entries of another [map] that are missing in this map are iterated in the end in the order of that [map].
+  @useResult
   KtMap<K, V> operator +(KtMap<K, V> map) => plus(map);
 
   /// Returns a [KtList] containing all key-value pairs.
+  @useResult
   KtList<KtPair<K, V>> toList() => listFrom(iter.map((it) => it.toPair()));
 
   /// Returns a new read-only map containing all key-value pairs from the original map.
   ///
   /// The returned map preserves the entry iteration order of the original map.
+  @useResult
   KtMap<K, V> toMap() {
     if (size == 0) return emptyMap();
     return toMutableMap();
@@ -486,5 +502,6 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
 
 extension NullableKtMapExtensions<K, V> on KtMap<K, V>? {
   /// Returns the [KtMap] if its not `null`, or the empty [KtMap] otherwise.
+  @useResult
   KtMap<K, V> orEmpty() => this ?? KtMap<K, V>.empty();
 }
