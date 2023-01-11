@@ -1400,7 +1400,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
         iterable.mapIndexedNotNullTo(set, (index, it) {
           if (it == null) return null;
           return "$index$it";
-        }).toList();
+        });
         expect(set, setOf("0a", "2b", "3c"));
       });
     });
@@ -1832,7 +1832,7 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
     });
 
     test("chains", () {
-      iterableOf(["a", "b", "c"]).requireNoNulls().requireNoNulls().toList();
+      iterableOf(["a", "b", "c"]).requireNoNulls().requireNoNulls();
     });
 
     test("removes nullable types", () {
