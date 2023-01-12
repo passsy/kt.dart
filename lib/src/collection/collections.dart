@@ -2,10 +2,12 @@ import "dart:collection";
 
 import "package:kt_dart/kt.dart";
 import 'package:kt_dart/src/util/arguments.dart';
+import 'package:meta/meta.dart';
 
 /// Returns a new read-only list of given elements.
 ///
 /// `null` is a valid argument
+@useResult
 KtList<T> Function<T>(
     [T arg0,
     T arg1,
@@ -20,6 +22,7 @@ KtList<T> Function<T>(
 
 /// Implementation of [listOf] which creates a list of provided arguments
 /// where `T` might be `T` or `null`.
+@useResult
 KtList<T> _listOf<T>([
   Object? arg0 = defaultArgument,
   Object? arg1 = defaultArgument,
@@ -47,10 +50,12 @@ KtList<T> _listOf<T>([
 }
 
 /// Returns a new read-only list based on [elements].
+@useResult
 KtList<T> listFrom<T>([Iterable<T> elements = const []]) =>
     KtList.from(elements);
 
 /// Returns an empty read-only list.
+@useResult
 KtList<T> emptyList<T>() => KtList<T>.empty();
 
 /// Returns a new mutable list of given elements.
@@ -100,9 +105,11 @@ KtMutableList<T> mutableListFrom<T>([Iterable<T> elements = const []]) =>
 
 /// Returns an immutable map, mapping only the specified key to the
 /// specified value.
+@useResult
 KtMap<K, V> mapFrom<K, V>([Map<K, V> map = const {}]) => KtMap.from(map);
 
 /// Returns an empty read-only map of specified type.
+@useResult
 KtMap<K, V> emptyMap<K, V>() => KtMap<K, V>.empty();
 
 /// Returns a new [KtMutableMap] with the specified contents, given as a list of pairs
@@ -132,6 +139,7 @@ KtLinkedMap<K, V> linkedMapFrom<K, V>([Map<K, V> map = const {}]) =>
 /// Elements of the set are iterated in the order they were specified.
 ///
 /// `null` is a valid argument
+@useResult
 KtSet<T> Function<T>([
   T arg0,
   T arg1,
@@ -173,9 +181,11 @@ KtSet<T> _setOf<T>([
 
 /// Returns a new read-only set based on [elements].
 /// Elements of the set are iterated in the order they were specified.
+@useResult
 KtSet<T> setFrom<T>([Iterable<T> elements = const []]) => KtSet.from(elements);
 
 /// Returns an empty read-only set.
+@useResult
 KtSet<T> emptySet<T>() => KtSet<T>.empty();
 
 /// Returns a new [KtMutableSet] based on [LinkedHashSet] with the given elements.

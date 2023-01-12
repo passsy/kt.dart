@@ -177,6 +177,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any of two pairs would have the same key the last one gets added to the map.
   ///
   /// The returned map preserves the entry iteration order of the original collection.
+  @useResult
   KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform) {
     final map = associateTo(linkedMapFrom<K, V>(), transform);
     // TODO ping dort-lang/sdk team to check type bug
@@ -190,6 +191,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
   ///
   /// The returned map preserves the entry iteration order of the original collection.
+  @useResult
   KtMap<K, T> associateBy<K>(K Function(T) keySelector) {
     return associateByTo<K, T, KtMutableMap<K, T>>(
         linkedMapFrom<K, T>(), keySelector);
@@ -201,6 +203,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any two elements would have the same key returned by [keySelector] the last one gets added to the map.
   ///
   /// The returned map preserves the entry iteration order of the original collection.
+  @useResult
   KtMap<K, V> associateByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final map =
@@ -246,7 +249,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// If any two elements are equal, the last one gets added to the map.
   ///
   /// The returned map preserves the entry iteration order of the original collection.
-
+  @useResult
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
     // TODO ping dort-lang/sdk team to check type bug
@@ -313,6 +316,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The last list in the resulting list may have less elements than the given [size].
   ///
   /// @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
+  @useResult
   KtList<KtList<T>> chunked(int size) {
     return windowed(size, step: size, partialWindows: true);
   }
@@ -328,6 +332,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   ///
   /// @param [size] the number of elements to take in each list, must be positive and can be greater than the number of elements in this collection.
   ///
+  @useResult
   KtList<R> chunkedTransform<R>(int size, R Function(KtList<T>) transform) {
     return windowedTransform(size, transform, step: size, partialWindows: true);
   }
@@ -737,6 +742,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// applied to each element and returns a map where each group key is associated with a list of corresponding elements.
   ///
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
+  @useResult
   KtMap<K, KtList<T>> groupBy<K>(K Function(T) keySelector) {
     final groups = linkedMapFrom<K, KtList<T>>();
     for (final element in iter) {
@@ -753,6 +759,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// and returns a map where each group key is associated with a list of corresponding values.
   ///
   /// The returned map preserves the entry iteration order of the keys produced from the original collection.
+  @useResult
   KtMap<K, KtList<V>> groupByTransform<K, V>(
       K Function(T) keySelector, V Function(T) valueTransform) {
     final groups = linkedMapFrom<K, KtList<V>>();
@@ -848,6 +855,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a set containing all elements that are contained by both this set and the specified collection.
   ///
   /// The returned set preserves the element iteration order of the original collection.
+  @useResult
   KtSet<T> intersect(KtIterable<T> other) {
     final set = toMutableSet();
     set.retainAll(other);
@@ -1386,6 +1394,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a set containing all elements that are contained by this collection and not contained by the specified collection.
   ///
   /// The returned set preserves the element iteration order of the original collection.
+  @useResult
   KtSet<T> subtract(KtIterable<T> other) {
     final set = toMutableSet();
     set.removeAll(other);
@@ -1475,6 +1484,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtMutableSet<T> toHashSet() => hashSetFrom(iter);
 
   /// Returns a [KtList] containing all elements.
+  @useResult
   KtList<T> toList() => listFrom(iter);
 
   /// Returns a [KtMutableList] filled with all elements of this collection.
@@ -1488,6 +1498,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// Returns a [KtSet] of all elements.
   ///
   /// The returned set preserves the element iteration order of the original collection.
+  @useResult
   KtSet<T> toSet() => linkedSetFrom(iter);
 
   /// Returns a set containing all distinct elements from both collections.
@@ -1495,6 +1506,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   /// The returned set preserves the element iteration order of the original collection.
   /// Those elements of the [other] collection that are unique are iterated in the end
   /// in the order of the [other] collection.
+  @useResult
   KtSet<T> union(KtIterable<T> other) {
     final set = toMutableSet();
     set.addAll(other);

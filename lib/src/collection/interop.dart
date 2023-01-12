@@ -3,14 +3,17 @@ import "package:kt_dart/src/collection/impl/iterable.dart";
 import "package:kt_dart/src/collection/impl/list_mutable.dart";
 import "package:kt_dart/src/collection/impl/map_mutable.dart";
 import "package:kt_dart/src/collection/impl/set_mutable.dart";
+import 'package:meta/meta.dart';
 
 extension IterableInterop<T> on Iterable<T> {
   KtIterable<T> get kt => DartIterable(this);
 
   /// Converts the [Iterable] to a truly immutable [KtList]
+  @useResult
   KtList<T> toImmutableList() => KtList.from(this);
 
   /// Converts the [Iterable] to a truly immutable [KtSet]
+  @useResult
   KtSet<T> toImmutableSet() => KtSet.from(this);
 }
 
@@ -35,6 +38,7 @@ extension SetInterop<T> on Set<T> {
   KtMutableSet<T> get kt => DartMutableSet.noCopy(this);
 
   /// Converts the [Set] to a truly immutable [KtSet]
+  @useResult
   KtSet<T> toImmutableSet() => KtSet.from(this);
 }
 
@@ -47,5 +51,6 @@ extension MapInterop<K, V> on Map<K, V> {
   KtMutableMap<K, V> get kt => DartMutableMap.noCopy(this);
 
   /// Converts the [Map] to a truly immutable [KtMap]
+  @useResult
   KtMap<K, V> toImmutableMap() => KtMap.from(this);
 }

@@ -117,6 +117,7 @@ abstract class KtList<T> implements KtCollection<T> {
   /// The returned list is backed by this list, so non-structural changes in the returned list are reflected in this list, and vice-versa.
   ///
   /// Structural changes in the base list make the behavior of the view undefined.
+  @useResult
   KtList<T> subList(int fromIndex, int toIndex);
 }
 
@@ -125,6 +126,7 @@ extension KtListExtensions<T> on KtList<T> {
   ///
   /// If this [KtList] only contains instances of [R], all operations will work correctly.
   /// If any operation tries to access an element that is not an instance of [R], the access will throw a [TypeError] instead.
+  @useResult
   KtList<R> cast<R>() => _CastKtList<T, R>(this);
 
   /// Returns a read-only dart:core [List]
@@ -386,6 +388,7 @@ extension KtListExtensions<T> on KtList<T> {
 
 extension NullableKtListExtensions<T> on KtList<T>? {
   /// Returns this [KtList] if it's not `null` and the empty list otherwise.
+  @useResult
   KtList<T> orEmpty() => this ?? KtList<T>.empty();
 }
 
@@ -400,6 +403,7 @@ extension ChainableKtListExtensions<T> on KtList<T> {
   /// // result: A
   ///
   /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
+  @useResult
   KtList<T> onEach(void Function(T item) action) {
     for (final element in iter) {
       action(element);
@@ -408,6 +412,7 @@ extension ChainableKtListExtensions<T> on KtList<T> {
   }
 
   /// Performs the given action on each element, providing sequential index with the element, and returns the collection itself afterwards.
+  @useResult
   KtList<T> onEachIndexed(void Function(int index, T item) action) {
     var index = 0;
     for (final item in iter) {
@@ -419,6 +424,7 @@ extension ChainableKtListExtensions<T> on KtList<T> {
 
 extension RequireNoNullsKtListExtension<T> on KtList<T?> {
   /// Returns an original collection containing all the non-`null` elements, throwing an [ArgumentError] if there are any `null` elements.
+  @useResult
   KtList<T> requireNoNulls() {
     for (final element in iter) {
       if (element == null) {

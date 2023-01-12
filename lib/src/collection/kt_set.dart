@@ -2,6 +2,7 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/set.dart";
 import "package:kt_dart/src/collection/impl/set_empty.dart";
 import "package:kt_dart/src/util/arguments.dart";
+import 'package:meta/meta.dart';
 
 /// A generic unordered collection of elements that does not support duplicate elements.
 /// Methods in this interface support only read-only access to the set;
@@ -99,6 +100,7 @@ extension KtSetExtension<T> on KtSet<T> {
 
   /// Returns a set containing all elements of the original collection except
   /// the elements contained in the given [elements] collection.
+  @useResult
   KtSet<T> minus(KtIterable<T> elements) {
     final result = toMutableSet();
     result.removeAll(elements);
@@ -107,10 +109,12 @@ extension KtSetExtension<T> on KtSet<T> {
 
   /// Returns a set containing all elements of the original collection except
   /// the elements contained in the given [elements] collection.
+  @useResult
   KtSet<T> operator -(KtIterable<T> elements) => minus(elements);
 
   /// Returns a set containing all elements of the original collection without
   /// the first occurrence of the given [element].
+  @useResult
   KtSet<T> minusElement(T element) {
     final result = KtMutableSet<T>.of();
     var removed = false;
@@ -127,6 +131,7 @@ extension KtSetExtension<T> on KtSet<T> {
 
   /// Returns a set containing all elements of the original collection and then
   /// all elements of the given [elements] collection.
+  @useResult
   KtSet<T> plus(KtIterable<T> elements) {
     final result = KtMutableSet<T>.of();
     result.addAll(asIterable());
@@ -136,10 +141,12 @@ extension KtSetExtension<T> on KtSet<T> {
 
   /// Returns a set containing all elements of the original collection and then
   /// all elements of the given [elements] collection.
+  @useResult
   KtSet<T> operator +(KtIterable<T> elements) => plus(elements);
 
   /// Returns a set containing all elements of the original collection and then
   /// the given [element].
+  @useResult
   KtSet<T> plusElement(T element) {
     final result = KtMutableSet<T>.of();
     result.addAll(asIterable());
@@ -150,6 +157,7 @@ extension KtSetExtension<T> on KtSet<T> {
 
 extension NullableKtSetExtensions<T> on KtSet<T>? {
   /// Returns this [KtSet] if it's not `null` and the empty set otherwise.
+  @useResult
   KtSet<T> orEmpty() => this ?? KtSet<T>.empty();
 }
 
@@ -164,6 +172,7 @@ extension ChainableKtSetExtensions<T> on KtSet<T> {
   /// // result: A
   ///
   /// Without the cascade syntax (..) [KtListExtensions.getOrNull] wouldn't be available.
+  @useResult
   KtSet<T> onEach(void Function(T item) action) {
     for (final element in iter) {
       action(element);
@@ -172,6 +181,7 @@ extension ChainableKtSetExtensions<T> on KtSet<T> {
   }
 
   /// Performs the given action on each element, providing sequential index with the element, and returns the collection itself afterwards.
+  @useResult
   KtSet<T> onEachIndexed(void Function(int index, T item) action) {
     var index = 0;
     for (final item in iter) {

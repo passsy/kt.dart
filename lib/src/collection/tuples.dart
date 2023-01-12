@@ -1,4 +1,5 @@
 import "package:kt_dart/collection.dart";
+import 'package:meta/meta.dart';
 
 /// Represents a generic pair of two values.
 ///
@@ -32,6 +33,7 @@ class KtPair<A, B> {
 
 extension PairDeconstruction<T> on KtPair<T, T> {
   /// Converts this pair into a list.
+  @useResult
   KtList<T> toList() => KtList.from([first, second]);
 }
 
@@ -71,5 +73,6 @@ class KtTriple<A, B, C> {
 
 extension TripleDeconstruction<T> on KtTriple<T, T, T> {
   /// Returns string representation of the [KtTriple] including its [first], [second] and [third] values.
+  @useResult
   KtList<T> toList() => KtList.from([first, second, third]);
 }
