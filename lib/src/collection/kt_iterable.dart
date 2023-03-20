@@ -528,6 +528,32 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return list;
   }
 
+  /// Appends all elements that are not `null` to the given [destination].
+  ///
+  /// [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
+  /// but will be checked at runtime.
+  /// [C] actually is expected to be `C extends KtMutableCollection<T>`
+  // TODO Change to `C extends KtMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
+  C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
+    assert(() {
+      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
+        throw ArgumentError(
+            "filterNotNullTo destination has wrong type parameters."
+            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
+            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
+            "map ($runtimeType) entries. Entries can't be copied to destination."
+            "\n\n$kBug35518GenericTypeError");
+      }
+      return true;
+    }());
+    for (final element in iter) {
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
   /// Appends all elements not matching the given [predicate] to the given [destination].
   ///
   /// [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
@@ -991,6 +1017,34 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     return mapped;
   }
 
+  /// Returns a list containing only the non-null results of applying the given [transform] function
+  /// to each element and its index in the original collection.
+  /// @param [transform] function that takes the index of an element and the element itself
+  /// and returns the result of the transform applied to the element.
+  @useResult
+  KtList<R> mapIndexedNotNull<R>(R? Function(int index, T) transform) {
+    final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
+    // TODO ping dort-lang/sdk team to check type bug
+    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
+    return mapped;
+  }
+
+  /// Applies the given [transform] function to each element and its index in the original collection
+  /// and appends only the non-null results to the given [destination].
+  /// @param [transform] function that takes the index of an element and the element itself
+  /// and returns the result of the transform applied to the element.
+  C mapIndexedNotNullTo<R, C extends KtMutableCollection<R>>(
+      C destination, R? Function(int index, T) transform) {
+    var index = 0;
+    for (final item in iter) {
+      final element = transform(index++, item);
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
   /// Applies the given [transform] function to each element and its index in the original collection
   /// and appends the results to the given [destination].
   /// @param [transform] function that takes the index of an element and the element itself
@@ -1000,6 +1054,33 @@ extension KtIterableExtensions<T> on KtIterable<T> {
     var index = 0;
     for (final item in iter) {
       destination.add(transform(index++, item));
+    }
+    return destination;
+  }
+
+  /// Returns a list containing the results of applying the given [transform] function
+  /// to each element in the original collection.
+  @useResult
+  KtList<R> mapNotNull<R>(R? Function(T) transform) {
+    final destination = mutableListOf<R>();
+    for (final item in iter) {
+      final result = transform(item);
+      if (result != null) {
+        destination.add(result);
+      }
+    }
+    return destination;
+  }
+
+  /// Applies the given [transform] function to each element in the original collection
+  /// and appends only the non-null results to the given [destination].
+  C mapNotNullTo<R, C extends KtMutableCollection<R>>(
+      C destination, R? Function(T) transform) {
+    for (final item in iter) {
+      final result = transform(item);
+      if (result != null) {
+        destination.add(result);
+      }
     }
     return destination;
   }
@@ -1634,83 +1715,6 @@ extension RequireNoNullsKtIterableExtension<T> on KtIterable<T?> {
     // TODO ping dort-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return list;
-  }
-
-  /// Appends all elements that are not `null` to the given [destination].
-  ///
-  /// [destination] is not type checked by the compiler due to https://github.com/dart-lang/sdk/issues/35518,
-  /// but will be checked at runtime.
-  /// [C] actually is expected to be `C extends KtMutableCollection<T>`
-  // TODO Change to `C extends KtMutableCollection<T>` once https://github.com/dart-lang/sdk/issues/35518 has been fixed
-  C filterNotNullTo<C extends KtMutableCollection<dynamic>>(C destination) {
-    assert(() {
-      if (destination is! KtMutableCollection<T> && mutableListOf<T>() is! C) {
-        throw ArgumentError(
-            "filterNotNullTo destination has wrong type parameters."
-            "\nExpected: KtMutableCollection<$T>, Actual: ${destination.runtimeType}"
-            "\ndestination (${destination.runtimeType}) entries aren't subtype of "
-            "map ($runtimeType) entries. Entries can't be copied to destination."
-            "\n\n$kBug35518GenericTypeError");
-      }
-      return true;
-    }());
-    for (final element in iter) {
-      if (element != null) {
-        destination.add(element);
-      }
-    }
-    return destination;
-  }
-
-  /// Returns a list containing only the non-null results of applying the given [transform] function
-  /// to each element and its index in the original collection.
-  /// @param [transform] function that takes the index of an element and the element itself
-  /// and returns the result of the transform applied to the element.
-  @useResult
-  KtList<R> mapIndexedNotNull<R>(R? Function(int index, T?) transform) {
-    final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
-    // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
-    return mapped;
-  }
-
-  /// Applies the given [transform] function to each element and its index in the original collection
-  /// and appends only the non-null results to the given [destination].
-  /// @param [transform] function that takes the index of an element and the element itself
-  /// and returns the result of the transform applied to the element.
-  C mapIndexedNotNullTo<R, C extends KtMutableCollection<R>>(
-      C destination, R? Function(int index, T?) transform) {
-    var index = 0;
-    for (final item in iter) {
-      final element = transform(index++, item);
-      if (element != null) {
-        destination.add(element);
-      }
-    }
-    return destination;
-  }
-
-  /// Returns a list containing the results of applying the given [transform] function
-  /// to each element in the original collection.
-  @useResult
-  KtList<R> mapNotNull<R>(R? Function(T?) transform) {
-    final mapped = mapNotNullTo(mutableListOf<R>(), transform);
-    // TODO ping dort-lang/sdk team to check type bug
-    // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
-    return mapped;
-  }
-
-  /// Applies the given [transform] function to each element in the original collection
-  /// and appends only the non-null results to the given [destination].
-  C mapNotNullTo<R, C extends KtMutableCollection<R>>(
-      C destination, R? Function(T?) transform) {
-    for (final item in iter) {
-      final result = transform(item);
-      if (result != null) {
-        destination.add(result);
-      }
-    }
-    return destination;
   }
 }
 
