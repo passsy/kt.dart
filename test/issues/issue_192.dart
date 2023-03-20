@@ -55,12 +55,14 @@ void main() {
     });
     test('filterNotNullTo', () {
       // KtList
-      listOf("not null").requireNoNulls();
+      final KtList<String> resultList = listOf("not null").requireNoNulls();
+      expect(resultList, listOf("not null"));
       expect(() => listOf("not null", null).requireNoNulls(),
           throwsA(isA<ArgumentError>()));
 
       // KtIterable
-      setOf("not null").requireNoNulls();
+      final KtIterable<String> resultSet = setOf("not null").requireNoNulls();
+      expect(resultSet.toSet(), setOf("not null"));
       expect(() => setOf("not null", null).requireNoNulls(),
           throwsA(isA<ArgumentError>()));
     });
