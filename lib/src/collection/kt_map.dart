@@ -136,7 +136,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   @useResult
   KtMap<K, V> filter(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterTo(linkedMapFrom<K, V>(), predicate);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     return filtered;
   }
 
@@ -160,7 +160,7 @@ extension KtMapExtensions<K, V> on KtMap<K, V> {
   @useResult
   KtMap<K, V> filterNot(bool Function(KtMapEntry<K, V> entry) predicate) {
     final filtered = filterNotTo(linkedMapFrom<K, V>(), predicate);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     return filtered;
   }
 

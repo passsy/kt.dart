@@ -180,7 +180,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtMap<K, V> associate<K, V>(KtPair<K, V> Function(T) transform) {
     final map = associateTo(linkedMapFrom<K, V>(), transform);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type 'DartLinkedHashMap<String, String>' is not a subtype of type 'Null'
     return map;
   }
@@ -208,7 +208,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
       K Function(T) keySelector, V Function(T) valueTransform) {
     final map =
         associateByTo(linkedMapFrom<K, V>(), keySelector, valueTransform);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type 'DartLinkedHashMap<int, String>' is not a subtype of type 'Null'
     return map;
   }
@@ -252,7 +252,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtMap<T, V> associateWith<V>(V Function(T) valueSelector) {
     final associated = associateWithTo(linkedMapFrom<T, V>(), valueSelector);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return associated;
   }
@@ -461,7 +461,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtList<T> filter(bool Function(T) predicate) {
     final filtered = filterTo(mutableListOf<T>(), predicate);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return filtered;
   }
@@ -472,7 +472,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtList<T> filterIndexed(bool Function(int index, T) predicate) {
     final filtered = filterIndexedTo(mutableListOf<T>(), predicate);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return filtered;
   }
@@ -523,7 +523,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtList<T> filterNot(bool Function(T) predicate) {
     final list = filterNotTo(mutableListOf<T>(), predicate);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return list;
   }
@@ -686,7 +686,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> flatMap<R>(KtIterable<R> Function(T) transform) {
     final list = flatMapTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
-    // TODO ping dort-lang/sdk team to check that bug
+    // TODO ping dart-lang/sdk team to check that bug
     return list;
   }
 
@@ -696,7 +696,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> flatMapIndexed<R>(KtIterable<R> Function(int index, T) transform) {
     final list = flatMapIndexedTo(mutableListOf<R>(), transform);
     // making a temp variable here, it helps dart to get types right ¯\_(ツ)_/¯
-    // TODO ping dort-lang/sdk team to check that bug
+    // TODO ping dart-lang/sdk team to check that bug
     return list;
   }
 
@@ -1000,7 +1000,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   KtList<R> map<R>(R Function(T) transform) {
     final KtMutableList<R> list = mutableListOf<R>();
     final mapped = mapTo(list, transform);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
@@ -1012,7 +1012,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtList<R> mapIndexed<R>(R Function(int index, T) transform) {
     final mapped = mapIndexedTo(mutableListOf<R>(), transform);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
@@ -1024,7 +1024,7 @@ extension KtIterableExtensions<T> on KtIterable<T> {
   @useResult
   KtList<R> mapIndexedNotNull<R>(R? Function(int index, T) transform) {
     final mapped = mapIndexedNotNullTo(mutableListOf<R>(), transform);
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return mapped;
   }
@@ -1712,7 +1712,7 @@ extension RequireNoNullsKtIterableExtension<T> on KtIterable<T?> {
   @useResult
   KtList<T> filterNotNull() {
     final list = filterNotNullTo(mutableListOf<T>());
-    // TODO ping dort-lang/sdk team to check type bug
+    // TODO ping dart-lang/sdk team to check type bug
     // When in single line: type "DartMutableList<String>' is not a subtype of type 'Null"
     return list;
   }
