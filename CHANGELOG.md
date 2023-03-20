@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0
+
+- [#190](https://github.com/passsy/kt.dart/pull/190) `KtMutableMapEntry.setValue()` is now implemented (thx @hugobrancowb)
+- [#188](https://github.com/passsy/kt.dart/pull/188) Added `KtIterable.firstNotNullOf()` `KtIterable.firstNotNullOfOrNull()` (thx @hugobrancowb)
+- [#196](https://github.com/passsy/kt.dart/pull/196) Methods, returning mutated copies are now marked with `@useReslt` (thx @nohli)
+- [#197](https://github.com/passsy/kt.dart/pull/197) `mapNotNull`, `mapNotNullTo`, `mapIndexedNotNull`, `mapIndexedNotNullTo`, `filterNotNullTo` work now correctly for non-nullable types
+
 ## 1.0.0
 
 - [#183](https://github.com/passsy/kt.dart/pull/183) New: `KtIterable.sumOf` thx @nohli
