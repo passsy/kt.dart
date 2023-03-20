@@ -807,6 +807,24 @@ void testIterable(KtIterable<T> Function<T>() emptyIterable,
   });
 
   group("firstNotNullOf", () {
+    if (ordered) {
+      test("on List<String?>", () {
+        final KtIterable<String?> iterable = iterableOf([null, "b", "c", null]);
+        expect(iterable.firstNotNullOf((it) {
+          // it is nullable, ?. is required
+          return (it?.isNotEmpty ?? false) ? it : null;
+        }), "b");
+      });
+
+      test("on List<String>", () {
+        final KtIterable<String> iterable = iterableOf(["a", "b", "c"]);
+        expect(iterable.firstNotNullOf((it) {
+          // it is non-nullable, no ?.
+          return it.isNotEmpty ? it : null;
+        }), "a");
+      });
+    }
+
     test("should return the first element, which is not null", () {
       final list = listOf("a", "a", "c");
       expect(list.firstNotNullOf((i) => i == "a" ? i : null), "a");
