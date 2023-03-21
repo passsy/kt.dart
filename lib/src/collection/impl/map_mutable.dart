@@ -160,7 +160,7 @@ class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
   _MapIterator(this.map) : entriesIterator = map.entries.iterator();
 
   final DartMutableMap<K, V> map;
-  final KtMutableIterator <KtMutableMapEntry<K, V>> entriesIterator;
+  final KtMutableIterator<KtMutableMapEntry<K, V>> entriesIterator;
   K? lastReturnedKey;
 
   @override
