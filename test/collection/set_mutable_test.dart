@@ -6,12 +6,10 @@ import "../test/assert_dart.dart";
 void main() {
   group("KtMutableSet", () {
     group("mutableSet", () {
-      testMutableSet(
-          <T>() => KtMutableSet.empty(), mutableSetOf, mutableSetFrom);
+      testMutableSet(<T>() => KtMutableSet.empty(), mutableSetOf, mutableSetFrom);
     });
     group("hashSet", () {
-      testMutableSet(<T>() => KtHashSet.empty(), hashSetOf, hashSetFrom,
-          ordered: false);
+      testMutableSet(<T>() => KtHashSet.empty(), hashSetOf, hashSetFrom, ordered: false);
     });
     group("linkedSet", () {
       testMutableSet(<T>() => KtLinkedSet.empty(), linkedSetOf, linkedSetFrom);
@@ -47,17 +45,7 @@ void main() {
 
 void testMutableSet(
     KtMutableSet<T> Function<T>() emptySet,
-    KtMutableSet<T> Function<T>(
-            [T arg0,
-            T arg1,
-            T arg2,
-            T arg3,
-            T arg4,
-            T arg5,
-            T arg6,
-            T arg7,
-            T arg8,
-            T arg9])
+    KtMutableSet<T> Function<T>([T arg0, T arg1, T arg2, T arg3, T arg4, T arg5, T arg6, T arg7, T arg8, T arg9])
         mutableSetOf,
     KtMutableSet<T> Function<T>(Iterable<T> iterable) mutableSetFrom,
     {bool ordered = true}) {
@@ -69,6 +57,34 @@ void testMutableSet(
   test("hashSetOf automatically removes duplicates", () {
     final set = hashSetOf("a", "b", "a", "c");
     expect(set.size, 3);
+  });
+
+  test("iterator().remove() removes last returned element", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    final lastReturnedValue = iterator.next();
+    iterator.remove();
+
+    expect(set.contains(lastReturnedValue), false);
+  });
+
+  test("iterator().remove() throws when there is no last returned value", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    final e = catchException(() => iterator.remove());
+    
+    expect(e, const TypeMatcher<StateError>());
+  });
+  
+  test("iterator().remove() throws when called multiple times in a row", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    iterator.next();
+    iterator.next();
+    iterator.remove();
+    final e = catchException(() => iterator.remove());
+    
+    expect(e, const TypeMatcher<StateError>());
   });
 
   if (ordered) {

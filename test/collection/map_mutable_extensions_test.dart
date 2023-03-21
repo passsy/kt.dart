@@ -1,41 +1,32 @@
 import "package:kt_dart/collection.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMutableMapExtensions", () {
     group("mutableMapFrom", () {
-      testMutableMap(<K, V>() => mutableMapFrom<K, V>(),
-          <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
+      testMutableMap(<K, V>() => mutableMapFrom<K, V>(), <K, V>(Map<K, V> map) => mutableMapFrom<K, V>(map));
     });
     group("KtMutableMap", () {
-      testMutableMap(<K, V>() => KtMutableMap<K, V>.empty(),
-          <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
+      testMutableMap(<K, V>() => KtMutableMap<K, V>.empty(), <K, V>(Map<K, V> map) => KtMutableMap<K, V>.from(map));
     });
     group("hashMapFrom", () {
-      testMutableMap(<K, V>() => hashMapFrom<K, V>(),
-          <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map),
-          ordered: false);
+      testMutableMap(<K, V>() => hashMapFrom<K, V>(), <K, V>(Map<K, V> map) => hashMapFrom<K, V>(map), ordered: false);
     });
     group("KtHashMap", () {
-      testMutableMap(<K, V>() => KtHashMap<K, V>.empty(),
-          <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
+      testMutableMap(<K, V>() => KtHashMap<K, V>.empty(), <K, V>(Map<K, V> map) => KtHashMap<K, V>.from(map),
           ordered: false);
     });
     group("linkedMapFrom", () {
-      testMutableMap(<K, V>() => linkedMapFrom<K, V>(),
-          <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
+      testMutableMap(<K, V>() => linkedMapFrom<K, V>(), <K, V>(Map<K, V> map) => linkedMapFrom<K, V>(map));
     });
     group("KtLinkedMap", () {
-      testMutableMap(<K, V>() => KtLinkedMap<K, V>.empty(),
-          <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
+      testMutableMap(<K, V>() => KtLinkedMap<K, V>.empty(), <K, V>(Map<K, V> map) => KtLinkedMap<K, V>.from(map));
     });
   });
 }
 
-void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
-    KtMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
+void testMutableMap(
+    KtMutableMap<K, V> Function<K, V>() emptyMap, KtMutableMap<K, V> Function<K, V>(Map<K, V> map) mutableMapFrom,
     {bool ordered = true}) {
   group("clear", () {
     test("clear items", () {
@@ -206,26 +197,6 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
       expect(next.value, "Ivysaur");
 
       expect(i.hasNext(), isFalse);
-    });
-
-    group("remove doesn't work", () {
-      test("iterator is iterates", () {
-        final pokemon = mutableMapFrom({
-          1: "Bulbasaur",
-          2: "Ivysaur",
-        });
-        final KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
-        expect(i.hasNext(), isTrue);
-        final next = i.next();
-        expect(next.key, 1);
-        expect(next.value, "Bulbasaur");
-
-        // TODO replace error assertion with value assertion when https://github.com/passsy/dart_kollection/issues/5 has been fixed
-        final e = catchException(() => i.remove());
-        expect(e, equals(const TypeMatcher<UnimplementedError>()));
-        // removed first item
-        //expect(pokemon, mapFrom({2: "Ivysaur"}));
-      });
     });
   });
 
