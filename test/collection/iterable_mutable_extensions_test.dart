@@ -2,8 +2,6 @@ import "package:kt_dart/collection.dart";
 import "package:kt_dart/src/collection/impl/iterable.dart";
 import "package:test/test.dart";
 
-import "../test/assert_dart.dart";
-
 void main() {
   group("KtMutableIterableExtensions", () {
     group("mutableIterable", () {
@@ -49,23 +47,19 @@ void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
 
   group("removeAllWhere", () {
     test("removeAllWhere", () {
-      final iterable = mutableIterableOf(["paul", "john", "max", "lisa"]);
-      final e = catchException(
-          () => iterable.removeAllWhere((it) => it.endsWith("x")));
-      // TODO remove error assertion once implemented
-      expect(e, const TypeMatcher<UnimplementedError>());
-      //expect(iterable.toList(), listOf("paul", "john", "lisa"));
+      final list = mutableListOf("paul", "john", "max", "lisa");
+      list.removeAllWhere((it) => it.endsWith("x"));
+      
+      expect(list, listOf("paul", "john", "lisa"));
     });
   });
 
   group("retainAllWhere", () {
     test("retainAllWhere", () {
-      final iterable = mutableIterableOf(["paul", "john", "max", "lisa"]);
-      final e = catchException(
-          () => iterable.retainAllWhere((it) => it.endsWith("x")));
-      // TODO remove error assertion once implemented
-      expect(e, const TypeMatcher<UnimplementedError>());
-      //expect(iterable.toList(), listOf("max"));
+      final list = mutableListOf("paul", "john", "max", "lisa");
+      list.retainAllWhere((it) => it.endsWith("x"));
+      
+      expect(list, listOf("max"));
     });
   });
 }

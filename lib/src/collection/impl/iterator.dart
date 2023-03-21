@@ -51,12 +51,10 @@ class InterOpKtListIterator<T>
 
   @override
   void remove() {
-    // removing from list is wrong because is is a copy of the original list.
-    // remove should modify the underlying list, not the copy
-    // see how kotlin solved this:
-    // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
-    throw UnimplementedError(
-        "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
+    _ensureHasLastReturnedElement();   
+    _list.removeAt(_lastRet);
+    _cursor = _lastRet;
+    _lastRet = -1;
   }
 
   @override
@@ -84,10 +82,14 @@ class InterOpKtListIterator<T>
 
   @override
   void set(T element) {
+    _ensureHasLastReturnedElement();
+    _list.replaceRange(_lastRet, _lastRet + 1, [element]);
+  }
+  
+  void _ensureHasLastReturnedElement() {
     if (_lastRet < 0) {
       throw const IndexOutOfBoundsException(
           "illegal cursor state -1. next() or previous() not called");
     }
-    _list.replaceRange(_lastRet, _lastRet + 1, [element]);
   }
 }

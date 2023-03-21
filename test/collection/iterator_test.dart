@@ -51,10 +51,37 @@ void main() {
       expect(e, const TypeMatcher<IndexOutOfBoundsException>());
     });
 
-    test("remove is not implemented", () {
-      final i = InterOpKtListIterator(["a", "b"], 0);
-      final e = catchException(() => i.remove());
-      expect(e, const TypeMatcher<UnimplementedError>());
+    test("remove() removes last returned element", () {
+      final list =  mutableListOf("a", "b", "c");
+      final iterator = list.iterator();
+      iterator.next();
+      iterator.remove();
+      expect(list, listOf("b", "c"));
+    });
+    
+    test("remove() can delete multiple elements", () {
+      final list =  mutableListOf("a", "b", "c");
+      final iterator = list.iterator();
+      iterator.next();
+      iterator.remove();
+      iterator.next();
+      iterator.next();
+      iterator.remove();
+      expect(list, listOf("b"));
+    });
+
+    test("remove() throws when there is no last returned element", () {
+      final iterator =  mutableListOf("a", "b", "c").iterator();
+      final exception = catchException(() => iterator.remove());
+      expect(exception, const TypeMatcher<IndexOutOfBoundsException>());
+    });
+
+    test("remove() throws when called multiple times in a row", () {
+      final iterator =  mutableListOf("a", "b", "c").iterator();
+      iterator.next();
+      iterator.remove();
+      final exception = catchException(() => iterator.remove());
+      expect(exception, const TypeMatcher<IndexOutOfBoundsException>());
     });
 
     test("add adds item to underlying list", () {
