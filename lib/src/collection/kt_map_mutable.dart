@@ -25,6 +25,8 @@ abstract class KtMutableMap<K, V> implements KtMap<K, V> {
   @override
   Map<K, V> asMap();
 
+  KtMutableIterator<KtMutableMapEntry<K, V>> iterator();
+
   // Modification Operations
   /// Associates the specified [value] with the specified [key] in the map.
   ///
@@ -95,9 +97,6 @@ extension KtMutableMapExtensions<K, V> on KtMutableMap<K, V> {
     put(key, answer);
     return answer;
   }
-
-  /// Returns an [Iterator] over the entries in the [Map].
-  KtMutableIterator<KtMutableMapEntry<K, V>> iterator() => entries.iterator();
 
   /// Puts all the given [pairs] into this [KtMutableMap] with the first component in the pair being the key and the second the value.
   void putAllPairs(KtIterable<KtPair<K, V>> pairs) {

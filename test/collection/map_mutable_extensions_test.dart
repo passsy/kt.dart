@@ -205,15 +205,36 @@ void testMutableMap(
       1: "Bulbasaur",
       2: "Ivysaur",
     });
-    final KtMutableIterator<KtMapEntry<int, String>> i = pokemon.iterator();
-    expect(i.hasNext(), isTrue);
-    final next = i.next();
+    final iterator = pokemon.iterator();
+    expect(iterator.hasNext(), isTrue);
+    final next = iterator.next();
     expect(next.key, 1);
     expect(next.value, "Bulbasaur");
 
-    i.remove();
+    iterator.remove();
     // removed first item
     expect(pokemon, mapFrom({2: "Ivysaur"}));
+  });
+
+  test("iterator throws when remove() is called before next()", () {
+    final map = mutableMapFrom({
+      1: "Bulbasaur",
+      2: "Ivysaur",
+    });
+
+    expect(() => map.iterator().remove(), throwsStateError);
+  });
+
+  test("iterator throws when remove() is called multiple times in a row", () {
+    final map = mutableMapFrom({
+      1: "Bulbasaur",
+      2: "Ivysaur",
+    });
+    final iterator = map.iterator();
+    iterator.next();
+    iterator.remove();
+
+    expect(() => iterator.remove(), throwsStateError);
   });
 
   group("put", () {
