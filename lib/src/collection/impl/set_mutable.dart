@@ -105,16 +105,16 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
   _MutableSetIterator(this.set)
       : _iterator = set.iter.iterator,
-        lastReturned = null {
+        _lastReturned = null {
     _hasNext = _iterator.moveNext();
     if (_hasNext) {
-      nextValue = _iterator.current;
+      _nextValue = _iterator.current;
     }
   }
 
   final Iterator<T> _iterator;
-  T? nextValue;
-  T? lastReturned;
+  T? _nextValue;
+  T? _lastReturned;
   bool _hasNext = false;
   final KtMutableSet<T> set;
 
@@ -124,22 +124,22 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   @override
   T next() {
     if (!_hasNext) throw const NoSuchElementException();
-    final e = nextValue;
+    final e = _nextValue;
     _hasNext = _iterator.moveNext();
     if (_hasNext) {
-      nextValue = _iterator.current;
+      _nextValue = _iterator.current;
     }
-    lastReturned = e;
+    _lastReturned = e;
     return e as T;
   }
 
   @override
   void remove() {
-    final lastReturned = this.lastReturned;
+    final lastReturned = this._lastReturned;
     if (lastReturned == null) {
       throw StateError('remove() must be called after next()');
     }
     set.remove(lastReturned);
-    this.lastReturned = null;
+    this._lastReturned = null;
   }
 }
