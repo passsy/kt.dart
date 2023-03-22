@@ -52,15 +52,15 @@ void main() {
     });
 
     test("remove() removes last returned element", () {
-      final list =  mutableListOf("a", "b", "c");
+      final list = mutableListOf("a", "b", "c");
       final iterator = list.iterator();
       iterator.next();
       iterator.remove();
       expect(list, listOf("b", "c"));
     });
-    
+
     test("remove() can delete multiple elements", () {
-      final list =  mutableListOf("a", "b", "c");
+      final list = mutableListOf("a", "b", "c");
       final iterator = list.iterator();
       iterator.next();
       iterator.remove();
@@ -71,13 +71,13 @@ void main() {
     });
 
     test("remove() throws when there is no last returned element", () {
-      final iterator =  mutableListOf("a", "b", "c").iterator();
+      final iterator = mutableListOf("a", "b", "c").iterator();
       final exception = catchException(() => iterator.remove());
       expect(exception, const TypeMatcher<IndexOutOfBoundsException>());
     });
 
     test("remove() throws when called multiple times in a row", () {
-      final iterator =  mutableListOf("a", "b", "c").iterator();
+      final iterator = mutableListOf("a", "b", "c").iterator();
       iterator.next();
       iterator.remove();
       final exception = catchException(() => iterator.remove());

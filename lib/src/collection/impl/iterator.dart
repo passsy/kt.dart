@@ -51,7 +51,7 @@ class InterOpKtListIterator<T>
 
   @override
   void remove() {
-    _ensureHasLastReturnedElement();   
+    _ensureHasLastReturnedElement();
     _list.removeAt(_lastRet);
     _cursor = _lastRet;
     _lastRet = -1;
@@ -85,7 +85,7 @@ class InterOpKtListIterator<T>
     _ensureHasLastReturnedElement();
     _list.replaceRange(_lastRet, _lastRet + 1, [element]);
   }
-  
+
   void _ensureHasLastReturnedElement() {
     if (_lastRet < 0) {
       throw const IndexOutOfBoundsException(

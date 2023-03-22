@@ -4,7 +4,7 @@ import "package:kt_dart/src/util/hash.dart";
 class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   DartMutableMap([Map<K, V> map = const {}])
       :
-  // copy list to prevent external modification
+        // copy list to prevent external modification
         _map = Map<K, V>.from(map),
         super();
 
@@ -31,9 +31,8 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KtMutableSet<KtMutableMapEntry<K, V>> get entries =>
-      linkedSetFrom(
-          _map.entries.map((entry) => _MutableEntry.from(entry, this)));
+  KtMutableSet<KtMutableMapEntry<K, V>> get entries => linkedSetFrom(
+      _map.entries.map((entry) => _MutableEntry.from(entry, this)));
 
   @override
   V? get(K key) => _map[key];
@@ -106,11 +105,10 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   KtMutableIterator<KtMutableMapEntry<K, V>> iterator() => _MapIterator(this);
 
   @override
-  int get hashCode =>
-      hashObjects(_map.keys
-          .map((key) => hash2(key.hashCode, _map[key].hashCode))
-          .toList(growable: false)
-        ..sort());
+  int get hashCode => hashObjects(_map.keys
+      .map((key) => hash2(key.hashCode, _map[key].hashCode))
+      .toList(growable: false)
+    ..sort());
 
   @override
   String toString() {
@@ -128,8 +126,10 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
 class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
   _MutableEntry(this._key, this._value, this._parent);
 
-  factory _MutableEntry.from(MapEntry<K, V> entry,
-      DartMutableMap<K, V> parent,) =>
+  factory _MutableEntry.from(
+    MapEntry<K, V> entry,
+    DartMutableMap<K, V> parent,
+  ) =>
       _MutableEntry(entry.key, entry.value, parent);
 
   K _key;
@@ -176,7 +176,8 @@ class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
   @override
   void remove() {
     final lastReturnedKey = this.lastReturnedKey;
-    if (lastReturnedKey == null) throw StateError("next() must be called before remove()");
+    if (lastReturnedKey == null)
+      throw StateError("next() must be called before remove()");
     map.remove(lastReturnedKey);
     this.lastReturnedKey = null;
   }

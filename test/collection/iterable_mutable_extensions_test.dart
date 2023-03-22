@@ -49,7 +49,7 @@ void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
     test("removeAllWhere", () {
       final list = mutableListOf("paul", "john", "max", "lisa");
       list.removeAllWhere((it) => it.endsWith("x"));
-      
+
       expect(list, listOf("paul", "john", "lisa"));
     });
   });
@@ -58,7 +58,7 @@ void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
     test("retainAllWhere", () {
       final list = mutableListOf("paul", "john", "max", "lisa");
       list.retainAllWhere((it) => it.endsWith("x"));
-      
+
       expect(list, listOf("max"));
     });
   });
