@@ -312,4 +312,19 @@ void testList(
       expect(firstList, isNot(equals(secondList)));
     });
   });
+
+  test("remove item from list via iterator", () {
+    final pokemon = mutableListOf(
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final iterator = pokemon.iterator();
+    expect(iterator.hasNext(), isTrue);
+    final next = iterator.next();
+    expect(next, "Bulbasaur");
+
+    iterator.remove();
+    // removed first item
+    expect(pokemon, listOf("Ivysaur"));
+  });
 }

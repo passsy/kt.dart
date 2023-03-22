@@ -45,4 +45,22 @@ void testSet(
       expect(dartList, {1});
     });
   });
+
+  test("remove item from ser via iterator", () {
+    final pokemon = mutableSetOf(
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final iterator = pokemon.iterator();
+    expect(iterator.hasNext(), isTrue);
+    final next = iterator.next();
+    iterator.remove();
+
+    // order is unknown, catch both cases
+    if (next == "Bulbasaur") {
+      expect(pokemon, setOf("Ivysaur"));
+    } else {
+      expect(pokemon, setOf("Bulbasaur"));
+    }
+  });
 }
