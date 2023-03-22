@@ -63,4 +63,22 @@ void testSet(
       expect(pokemon, setOf("Bulbasaur"));
     }
   });
+
+  test("remove() handles null value", () {
+    final pokemon = mutableSetOf(
+      null,
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final KtMutableIterator<String?> i = pokemon.iterator();
+    while (i.hasNext()) {
+      final next = i.next();
+      if (next == null) {
+        // remove null
+        i.remove();
+        break;
+      }
+    }
+    expect(pokemon, setOf("Bulbasaur", "Ivysaur"));
+  });
 }

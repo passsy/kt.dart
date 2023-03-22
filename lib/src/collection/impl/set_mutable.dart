@@ -106,17 +106,19 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   _MutableSetIterator(this.set)
       :
         // copy to set to avoid concurrent modification
-        _iterator = set.toSet().iter.iterator,
-        _lastReturned = null {
+        _iterator = set.toSet().iter.iterator {
     _hasNext = _iterator.moveNext();
     if (_hasNext) {
       _nextValue = _iterator.current;
     }
   }
 
+  // used to distinguish `null` from no value returned
+  static final Object _noValue = Object();
+
   final Iterator<T> _iterator;
   T? _nextValue;
-  T? _lastReturned;
+  Object? _lastReturned = _noValue;
   bool _hasNext = false;
   final KtMutableSet<T> set;
 
@@ -137,11 +139,11 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
 
   @override
   void remove() {
-    final lastReturned = this._lastReturned;
-    if (lastReturned == null) {
+    final lastReturned = _lastReturned;
+    if (lastReturned == _noValue) {
       throw StateError('remove() must be called after next()');
     }
-    set.remove(lastReturned);
-    this._lastReturned = null;
+    set.remove(lastReturned as T);
+    this._lastReturned = _noValue;
   }
 }
