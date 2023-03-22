@@ -327,4 +327,26 @@ void testList(
     // removed first item
     expect(pokemon, listOf("Ivysaur"));
   });
+
+  test("remove handles null value", () {
+    final pokemon = mutableListOf(
+      null,
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final KtMutableIterator<String?> i = pokemon.iterator();
+    expect(i.hasNext(), isTrue);
+    expect(i.next(), null);
+    i.remove(); // remove null
+
+    expect(i.hasNext(), isTrue);
+    expect(i.next(), "Bulbasaur");
+
+    expect(i.hasNext(), isTrue);
+    expect(i.next(), "Ivysaur");
+
+    expect(i.hasNext(), isFalse);
+
+    expect(pokemon, listOf("Bulbasaur", "Ivysaur"));
+  });
 }
