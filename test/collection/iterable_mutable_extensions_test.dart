@@ -43,23 +43,23 @@ void main() {
 void testIterable(KtMutableIterable<T> Function<T>() emptyIterable,
     KtMutableIterable<T> Function<T>(Iterable<T> iterable) mutableIterableOf,
     {bool ordered = true}) {
-  group("removal functions throw", () {});
-
   group("removeAllWhere", () {
     test("removeAllWhere", () {
-      final list = mutableListOf("paul", "john", "max", "lisa");
-      list.removeAllWhere((it) => it.endsWith("x"));
+      final mutableIterable =
+          mutableIterableOf(["paul", "john", "max", "lisa"]);
+      mutableIterable.removeAllWhere((it) => it.endsWith("x"));
 
-      expect(list, listOf("paul", "john", "lisa"));
+      expect(mutableIterable.toSet(), setOf("paul", "john", "lisa"));
     });
   });
 
   group("retainAllWhere", () {
     test("retainAllWhere", () {
-      final list = mutableListOf("paul", "john", "max", "lisa");
-      list.retainAllWhere((it) => it.endsWith("x"));
+      final mutableIterable =
+          mutableIterableOf(["paul", "john", "max", "lisa"]);
+      mutableIterable.retainAllWhere((it) => it.endsWith("x"));
 
-      expect(list, listOf("max"));
+      expect(mutableIterable.toSet(), setOf("max"));
     });
   });
 }
