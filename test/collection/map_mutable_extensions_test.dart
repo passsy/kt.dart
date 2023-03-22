@@ -187,7 +187,7 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
   });
 
   group("iterator", () {
-    test("iterator is iterates", () {
+    test("iterator iterates", () {
       final pokemon = mutableMapFrom({
         1: "Bulbasaur",
         2: "Ivysaur",
@@ -205,43 +205,61 @@ void testMutableMap(KtMutableMap<K, V> Function<K, V>() emptyMap,
 
       expect(i.hasNext(), isFalse);
     });
-  });
 
-  test("remove item from map via iterator", () {
-    final pokemon = mutableMapFrom({
-      1: "Bulbasaur",
-      2: "Ivysaur",
-    });
-    final iterator = pokemon.iterator();
-    expect(iterator.hasNext(), isTrue);
-    final next = iterator.next();
-    expect(next.key, 1);
-    expect(next.value, "Bulbasaur");
-
-    iterator.remove();
-    // removed first item
-    expect(pokemon, mapFrom({2: "Ivysaur"}));
-  });
-
-  test("iterator throws when remove() is called before next()", () {
-    final map = mutableMapFrom({
-      1: "Bulbasaur",
-      2: "Ivysaur",
+    test("remove() handles null keys", () {
+      final pokemon = mutableMapFrom({
+        null: "Missingno",
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final KtMutableIterator<KtMapEntry<int?, String>> i = pokemon.iterator();
+      while (i.hasNext()) {
+        final next = i.next();
+        if (next.key == null) {
+          // remove Missingno
+          i.remove();
+          break;
+        }
+      }
+      expect(pokemon, mapFrom({1: "Bulbasaur", 2: "Ivysaur"}));
     });
 
-    expect(() => map.iterator().remove(), throwsStateError);
-  });
+    test("remove item from map via iterator", () {
+      final pokemon = mutableMapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final iterator = pokemon.iterator();
+      expect(iterator.hasNext(), isTrue);
+      final next = iterator.next();
+      expect(next.key, 1);
+      expect(next.value, "Bulbasaur");
 
-  test("iterator throws when remove() is called multiple times in a row", () {
-    final map = mutableMapFrom({
-      1: "Bulbasaur",
-      2: "Ivysaur",
+      iterator.remove();
+      // removed first item
+      expect(pokemon, mapFrom({2: "Ivysaur"}));
     });
-    final iterator = map.iterator();
-    iterator.next();
-    iterator.remove();
 
-    expect(() => iterator.remove(), throwsStateError);
+    test("iterator throws when remove() is called before next()", () {
+      final map = mutableMapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+
+      expect(() => map.iterator().remove(), throwsStateError);
+    });
+
+    test("iterator throws when remove() is called multiple times in a row", () {
+      final map = mutableMapFrom({
+        1: "Bulbasaur",
+        2: "Ivysaur",
+      });
+      final iterator = map.iterator();
+      iterator.next();
+      iterator.remove();
+
+      expect(() => iterator.remove(), throwsStateError);
+    });
   });
 
   group("put", () {

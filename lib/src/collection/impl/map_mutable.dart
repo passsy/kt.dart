@@ -159,9 +159,12 @@ class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
 class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
   _MapIterator(this.map) : entriesIterator = map.entries.iterator();
 
+  // used to distinguish `null` (a valid key) from no key
+  static final Object _noKeyReturned = Object();
+
   final DartMutableMap<K, V> map;
   final KtMutableIterator<KtMutableMapEntry<K, V>> entriesIterator;
-  K? lastReturnedKey;
+  Object? lastReturnedKey = _noKeyReturned;
 
   @override
   bool hasNext() => entriesIterator.hasNext();
@@ -176,10 +179,10 @@ class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
   @override
   void remove() {
     final lastReturnedKey = this.lastReturnedKey;
-    if (lastReturnedKey == null) {
+    if (lastReturnedKey == _noKeyReturned) {
       throw StateError("next() must be called before remove()");
     }
-    map.remove(lastReturnedKey);
-    this.lastReturnedKey = null;
+    map.remove(lastReturnedKey as K);
+    this.lastReturnedKey = _noKeyReturned;
   }
 }
