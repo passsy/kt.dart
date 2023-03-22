@@ -183,6 +183,6 @@ class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
       throw StateError("next() must be called before remove()");
     }
     map.remove(lastReturnedKey as K);
-    this._lastReturnedKey = _noKey;
+    _lastReturnedKey = _noKey;
   }
 }
