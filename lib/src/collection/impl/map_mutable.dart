@@ -176,8 +176,9 @@ class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
   @override
   void remove() {
     final lastReturnedKey = this.lastReturnedKey;
-    if (lastReturnedKey == null)
+    if (lastReturnedKey == null) {
       throw StateError("next() must be called before remove()");
+    }
     map.remove(lastReturnedKey);
     this.lastReturnedKey = null;
   }

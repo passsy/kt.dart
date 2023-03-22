@@ -136,8 +136,9 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   @override
   void remove() {
     final lastReturned = this.lastReturned;
-    if (lastReturned == null)
+    if (lastReturned == null) {
       throw StateError('remove() must be called after next()');
+    }
     set.remove(lastReturned);
     this.lastReturned = null;
   }
