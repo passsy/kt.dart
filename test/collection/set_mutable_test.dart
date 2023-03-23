@@ -71,6 +71,34 @@ void testMutableSet(
     expect(set.size, 3);
   });
 
+  test("iterator().remove() removes last returned element", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    final lastReturnedValue = iterator.next();
+    iterator.remove();
+
+    expect(set.contains(lastReturnedValue), false);
+  });
+
+  test("iterator().remove() throws when there is no last returned value", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    final e = catchException(() => iterator.remove());
+
+    expect(e, const TypeMatcher<StateError>());
+  });
+
+  test("iterator().remove() throws when called multiple times in a row", () {
+    final set = mutableSetOf("a", "b", "c");
+    final iterator = set.iterator();
+    iterator.next();
+    iterator.next();
+    iterator.remove();
+    final e = catchException(() => iterator.remove());
+
+    expect(e, const TypeMatcher<StateError>());
+  });
+
   if (ordered) {
     test("mutableSetOf iterates in order as specified", () {
       final set = mutableSetOf("a", "b", "c");

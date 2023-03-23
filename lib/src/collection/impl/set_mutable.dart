@@ -103,19 +103,24 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
 }
 
 class _MutableSetIterator<T> extends KtMutableIterator<T> {
-  _MutableSetIterator(KtMutableSet<T> set)
-      : _iterator = set.iter.iterator,
-        lastReturned = null {
+  _MutableSetIterator(this.set)
+      :
+        // copy to set to avoid concurrent modification
+        _iterator = set.toSet().iter.iterator {
     _hasNext = _iterator.moveNext();
     if (_hasNext) {
-      nextValue = _iterator.current;
+      _nextValue = _iterator.current;
     }
   }
 
+  // used to distinguish `null` from no value returned
+  static final Object _noValue = Object();
+
   final Iterator<T> _iterator;
-  T? nextValue;
-  T? lastReturned;
+  T? _nextValue;
+  Object? _lastReturned = _noValue;
   bool _hasNext = false;
+  final KtMutableSet<T> set;
 
   @override
   bool hasNext() => _hasNext;
@@ -123,22 +128,22 @@ class _MutableSetIterator<T> extends KtMutableIterator<T> {
   @override
   T next() {
     if (!_hasNext) throw const NoSuchElementException();
-    final e = nextValue;
+    final e = _nextValue;
     _hasNext = _iterator.moveNext();
     if (_hasNext) {
-      nextValue = _iterator.current;
+      _nextValue = _iterator.current;
     }
-    lastReturned = e;
+    _lastReturned = e;
     return e as T;
   }
 
   @override
   void remove() {
-    // removing from list is wrong because is is a copy of the original list.
-    // remove should modify the underlying list, not the copy
-    // see how kotlin solved this:
-    // https://github.com/JetBrains/kotlin/blob/ba6da7c40a6cc502508faf6e04fa105b96bc7777/libraries/stdlib/js/src/kotlin/collections/InternalHashCodeMap.kt
-    throw UnimplementedError(
-        "remove() in not yet implemented. Please vote for https://github.com/passsy/dart_kollection/issues/5 for prioritization");
+    final lastReturned = _lastReturned;
+    if (lastReturned == _noValue) {
+      throw StateError('remove() must be called after next()');
+    }
+    set.remove(lastReturned as T);
+    _lastReturned = _noValue;
   }
 }

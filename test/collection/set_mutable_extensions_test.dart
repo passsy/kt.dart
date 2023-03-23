@@ -45,4 +45,40 @@ void testSet(
       expect(dartList, {1});
     });
   });
+
+  test("remove item from ser via iterator", () {
+    final pokemon = mutableSetOf(
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final iterator = pokemon.iterator();
+    expect(iterator.hasNext(), isTrue);
+    final next = iterator.next();
+    iterator.remove();
+
+    // order is unknown, catch both cases
+    if (next == "Bulbasaur") {
+      expect(pokemon, setOf("Ivysaur"));
+    } else {
+      expect(pokemon, setOf("Bulbasaur"));
+    }
+  });
+
+  test("remove() handles null value", () {
+    final pokemon = mutableSetOf(
+      null,
+      "Bulbasaur",
+      "Ivysaur",
+    );
+    final KtMutableIterator<String?> i = pokemon.iterator();
+    while (i.hasNext()) {
+      final next = i.next();
+      if (next == null) {
+        // remove null
+        i.remove();
+        break;
+      }
+    }
+    expect(pokemon, setOf("Bulbasaur", "Ivysaur"));
+  });
 }

@@ -102,6 +102,9 @@ class DartMutableMap<K, V> extends Object implements KtMutableMap<K, V> {
   }
 
   @override
+  KtMutableIterator<KtMutableMapEntry<K, V>> iterator() => _MapIterator(this);
+
+  @override
   int get hashCode => hashObjects(_map.keys
       .map((key) => hash2(key.hashCode, _map[key].hashCode))
       .toList(growable: false)
@@ -151,4 +154,35 @@ class _MutableEntry<K, V> implements KtMutableMapEntry<K, V> {
 
   @override
   KtPair<K, V> toPair() => KtPair(_key, _value);
+}
+
+class _MapIterator<K, V> implements KtMutableIterator<KtMutableMapEntry<K, V>> {
+  _MapIterator(this.map) : _entriesIterator = map.entries.iterator();
+
+  // used to distinguish `null` (a valid key) from no key
+  static final Object _noKey = Object();
+
+  final DartMutableMap<K, V> map;
+  final KtMutableIterator<KtMutableMapEntry<K, V>> _entriesIterator;
+  Object? _lastReturnedKey = _noKey;
+
+  @override
+  bool hasNext() => _entriesIterator.hasNext();
+
+  @override
+  KtMutableMapEntry<K, V> next() {
+    final nextEntry = _entriesIterator.next();
+    _lastReturnedKey = nextEntry.key;
+    return nextEntry;
+  }
+
+  @override
+  void remove() {
+    final lastReturnedKey = _lastReturnedKey;
+    if (lastReturnedKey == _noKey) {
+      throw StateError("next() must be called before remove()");
+    }
+    map.remove(lastReturnedKey as K);
+    _lastReturnedKey = _noKey;
+  }
 }
