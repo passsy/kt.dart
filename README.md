@@ -180,6 +180,12 @@ kNames.firstOrNull((name) => name.contains("x")) ?? "Nobody"; // Nobody
 ```
 </details>
 
+## dart:core extensions
+
+`kt_dart` does not ship extension methods on `dart:core` types such as `String` or `int`. It focuses on Kotlin-style collections, conversions to and from those types, and a few generic helpers on `T` in [`standard.dart`](https://github.com/passsy/kt.dart/blob/master/lib/standard.dart) (`let`, `also`, `takeIf`, …).
+
+For `String`, `int`, `Duration`, and similar, use [`dartx`](https://pub.dev/packages/dartx). It is fully compatible with `kt_dart` — there are no naming clashes. Methods such as [`toIntOrNull`](https://github.com/leisim/dartx#tointornull) and [`toDoubleOrNull`](https://github.com/leisim/dartx#todoubleornull) already live there.
+
 ## KtList
 
 `KtList` is a read-only list of elements. It is immutable because it doesn't offer mutation methods such as `remove` or `add`.
